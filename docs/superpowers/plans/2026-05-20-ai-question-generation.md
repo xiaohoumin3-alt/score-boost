@@ -700,7 +700,8 @@ shouldPreGenerate('kp1_1', { heat_score: 2 }, 1)
   "description": "AI题目预生成工作器",
   "main": "index.js",
   "dependencies": {
-    "wx-server-sdk": "~2.6.3"
+    "wx-server-sdk": "~2.6.3",
+    "axios": "^0.27.2"
   }
 }
 ```
@@ -1358,14 +1359,65 @@ module.exports = {
 
 修改 `question_bank.js` 中的 `generateQuestions` 函数，添加AI题池fallback：
 
+首先在文件顶部添加 `generateQuestionsFromStatic` 函数（将现有逻辑重命名）：
+
 ```javascript
-async function generateQuestions(plan, numQuestions) {
+// 原有的静态题库生成逻辑
+function generateQuestionsFromStatic(plan, numQuestions = 5) {
+  const questions = [];
+  const kpCount = {};
+
+  for (let i = 0; i < Math.min(numQuestions, plan.length); i++) {
+    const item = plan[i];
+    const kpId = item.kp.kp_id;
+    const difficulty = item.difficulty;
+
+    if (!kpCount[kpId]) kpCount[kpId] = 0;
+
+    const bank = QUESTION_BANK[kpId];
+    if (bank) {
+      const matching = bank.filter(q => q.difficulty === difficulty);
+      const source = matching.length > 0 ? matching : bank;
+      const q = source[kpCount[kpId] % source.length];
+
+      const optionsFormatted = q.options.map(opt => {
+        const match = opt.match(/^([A-D])\.\s*(.+)$/);
+        if (match) {
+          return { key: match[1], value: match[2] };
+        }
+        return { key: '', value: opt };
+      });
+
+      questions.push({
+        id: `q${kpCount[kpId] + 1}_${kpId}`,
+        type: 'choice',
+        content: q.content,
+        options: optionsFormatted,
+        correct_answer: q.correct_answer,
+        knowledge_point: item.kp.kp_name,
+        knowledge_point_id: kpId,
+        difficulty: difficulty,
+        chapter: item.kp.chapter_name,
+      });
+      kpCount[kpId]++;
+    }
+  }
+
+  return questions;
+}
+```
+
+然后替换 `generateQuestions` 函数：
+
+```javascript
+async function generateQuestions(plan, numQuestions = 5) {
   const db = cloud.database();
   const questions = [];
-  const needed = numQuestions;
 
   // 首先尝试从AI题池获取
   for (const item of plan) {
+    if (questions.length >= numQuestions) break;
+    
     const { kp, difficulty } = item;
     const poolQuestions = await fetchFromAiPool(db, kp.kp_id, difficulty, 1);
 
@@ -1379,13 +1431,26 @@ async function generateQuestions(plan, numQuestions) {
   }
 
   // 如果AI题池不足，使用静态题库补充
-  if (questions.length < needed) {
-    const staticQuestions = generateStaticQuestions(plan, needed - questions.length);
+  if (questions.length < numQuestions) {
+    const remainingPlan = plan.slice(questions.length);
+    const staticQuestions = generateQuestionsFromStatic(remainingPlan, numQuestions - questions.length);
     questions.push(...staticQuestions);
   }
 
-  return questions.slice(0, needed);
+  return questions;
 }
+```
+
+更新导出：
+
+```javascript
+module.exports = {
+  QUESTION_BANK,
+  generateQuestions,
+  generateQuestionsFromStatic,
+  getAllKpIds,
+  fetchFromAiPool
+};
 ```
 
 - [ ] **Step 3: 验证AI题池消费**
