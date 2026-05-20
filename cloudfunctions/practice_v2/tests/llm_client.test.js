@@ -79,6 +79,13 @@ describe('LlmClient', () => {
       expect(client._detectTriple('边长7和9')).toBeNull();
       expect(client._detectTriple('这是一道题')).toBeNull();
     });
+
+    test('非勾股数上下文的数字不应匹配', () => {
+      // 时间、小时等非长度单位的数字不应匹配勾股数
+      expect(client._detectTriple('工作时间5和12小时')).toBeNull();
+      expect(client._detectTriple('第3题和第4题')).toBeNull();
+      expect(client._detectTriple('价格5元和12元')).toBeNull();
+    });
   });
 
   describe('_detectPattern', () => {

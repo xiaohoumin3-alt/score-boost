@@ -47,6 +47,17 @@ describe('QuestionValidator', () => {
       const result = validator.validateOptionsBalance({ question: '测试' });
       expect(result.pass).toBe(false);
     });
+
+    test('应兼容字符串数组格式选项', () => {
+      const question = {
+        question: '测试题目',
+        options: ['选项一', '选项二', '选项三', '选项四']
+      };
+      const result = validator.validateOptionsBalance(question);
+      expect(result.pass).toBe(true);
+      expect(result.max).toBe(3);
+      expect(result.min).toBe(3);
+    });
   });
 
   describe('validateNoPatternization', () => {

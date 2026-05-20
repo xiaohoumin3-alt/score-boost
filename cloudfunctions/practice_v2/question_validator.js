@@ -5,6 +5,7 @@
 class QuestionValidator {
   /**
    * 验证选项长度均衡
+   * 兼容字符串数组和对象数组格式
    * @param {Object} q - 题目对象
    * @returns {Object} {pass: boolean, max, min, diff}
    */
@@ -12,7 +13,12 @@ class QuestionValidator {
     const options = q.options || [];
     if (options.length === 0) return { pass: false };
 
-    const lengths = options.map(o => o.value ? o.value.length : 0);
+    // 兼容字符串数组和对象数组格式
+    const lengths = options.map(o => {
+      if (typeof o === 'string') return o.length;
+      if (o && o.value) return o.value.length;
+      return 0;
+    });
     const max = Math.max(...lengths);
     const min = Math.min(...lengths);
 

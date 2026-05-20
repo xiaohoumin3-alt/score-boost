@@ -236,6 +236,12 @@ class LlmClient {
       [9, 12, 15], [10, 24, 26], [12, 16, 20], [12, 35, 37], [15, 20, 25]
     ];
 
+    // 长度单位/几何关键词 - 用于验证数字确实是长度而非其他量
+    const lengthUnits = ['米', '海里', 'cm', '厘米', 'mm', '毫米', '英寸', 'km', '千米'];
+    const geometryKeywords = ['边', '长', '宽', '高', '斜', '直角', '梯形', '三角形'];
+    const hasGeometryContext = geometryKeywords.some(kw => questionText.includes(kw));
+    const hasLengthUnit = lengthUnits.some(unit => questionText.includes(unit));
+
     // 完全匹配：所有三个数字都在题目中
     for (const triple of triples) {
       if (triple.every(n => numbers.includes(n))) {
@@ -243,11 +249,13 @@ class LlmClient {
       }
     }
 
-    // 部分匹配：勾股数中的任意两个数字在题目中
-    for (const triple of triples) {
-      const matchedCount = triple.filter(n => numbers.includes(n)).length;
-      if (matchedCount >= 2) {
-        return triple;
+    // 部分匹配：要求有几何上下文或长度单位，避免误报
+    if (hasGeometryContext || hasLengthUnit) {
+      for (const triple of triples) {
+        const matchedCount = triple.filter(n => numbers.includes(n)).length;
+        if (matchedCount >= 2) {
+          return triple;
+        }
       }
     }
 

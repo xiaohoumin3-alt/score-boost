@@ -68,7 +68,7 @@ describe('GenerationState', () => {
       state.recordQuestion({ question_pattern: '选择' });
 
       const patterns = state.getUsedPatterns();
-      expect(patterns).toEqual(['判断', '选择']);
+      expect(patterns).toEqual(['计算', '判断', '选择']);
       expect(patterns).not.toContain('求值');
     });
 
