@@ -683,6 +683,191 @@ shouldPreGenerate('kp1_1', { heat_score: 2 }, 1)
 
 ---
 
+### Task 6.5: 实现自动触发机制（关键：实现"润物细无声"）
+
+**目标:** 当热度上升触发预生成条件时，自动调用pregenWorker，无需人工干预
+
+**文件:**
+- Modify: `cloudfunctions/recordKpRequest/index.js`
+
+- [ ] **Step 1: 添加自动触发逻辑**
+
+在 `recordKpRequest/index.js` 中，更新热度后添加自动触发：
+
+```javascript
+const {
+  calculateHeatScore,
+  updateDailyLog
+} = require('../shared/heat-calculator');
+const { shouldPreGenerate, createPreGenTask } = require('../shared/pregen-trigger');
+
+/**
+ * 记录知识点练习请求（带自动触发）
+ *
+ * @param {string} kp_id - 知识点ID
+ * @returns {Object} { success: true, heat_score: number, auto_triggered: boolean }
+ */
+exports.main = async (event, context) => {
+  const { kp_id } = event.data || event;
+
+  if (!kp_id) {
+    return { success: false, error: 'kp_id is required' };
+  }
+
+  const db = cloud.database();
+  const today = new Date().toISOString().split('T')[0];
+  const now = new Date().toISOString();
+
+  try {
+    const collection = db.collection('kp_request_log');
+    const docId = String(kp_id);
+
+    // 检查记录是否存在
+    const existing = await collection.doc(docId).get();
+
+    let newHeatScore, newRequestCount;
+
+    if (existing.data && existing.data.length > 0) {
+      // 更新现有记录
+      const log = existing.data[0];
+      const newDailyLog = updateDailyLog(log.daily_log, today);
+      newRequestCount = (log.request_count || 0) + 1;
+      newHeatScore = calculateHeatScore({
+        request_count: newRequestCount,
+        last_request_at: now
+      });
+
+      await collection.doc(docId).update({
+        data: {
+          request_count: newRequestCount,
+          last_request_at: now,
+          heat_score: newHeatScore,
+          daily_log: newDailyLog,
+          updated_at: now
+        }
+      });
+
+    } else {
+      // 创建新记录
+      newRequestCount = 1;
+      newHeatScore = calculateHeatScore({ request_count: 1, last_request_at: now });
+
+      await collection.add({
+        data: {
+          _id: docId,
+          request_count: newRequestCount,
+          last_request_at: now,
+          heat_score: newHeatScore,
+          daily_log: [{ date: today, count: 1 }],
+          updated_at: now
+        }
+      });
+    }
+
+    // ===== 新增: 自动触发预生成检查 =====
+    let autoTriggered = false;
+    let triggerReason = null;
+
+    try {
+      // 获取当前题池数量
+      const poolResult = await db.collection('ai_question_pool')
+        .where({ kp_id: kp_id, verified: true })
+        .count();
+
+      const availableCount = poolResult.total || 0;
+
+      // 判断是否需要触发
+      const triggerResult = await shouldPreGenerate(
+        kp_id,
+        { heat_score: newHeatScore, request_count: newRequestCount },
+        availableCount
+      );
+
+      if (triggerResult.shouldTrigger) {
+        // 创建预生成任务
+        const taskResult = await createPreGenTask(db, kp_id, triggerResult);
+
+        if (taskResult.created) {
+          autoTriggered = true;
+          triggerReason = triggerResult.reason;
+
+          console.log(`[AutoTrigger] kp_id=${kp_id}, reason=${triggerReason}, heat_score=${newHeatScore}`);
+
+          // 异步调用 pregenWorker（不等待结果）
+          cloud.callFunction({
+            name: 'pregenWorker',
+            data: { async_mode: true }
+          }).catch(e => console.error('[AutoTrigger] Worker call failed:', e));
+        }
+      }
+    } catch (triggerError) {
+      // 触发检查失败不影响主流程
+      console.error('[AutoTrigger] Check failed:', triggerError.message);
+    }
+    // ===== 自动触发结束 =====
+
+    return {
+      success: true,
+      heat_score: newHeatScore,
+      request_count: newRequestCount,
+      auto_triggered: autoTriggered,
+      trigger_reason: triggerReason
+    };
+
+  } catch (error) {
+    console.error('[recordKpRequest] Error:', error);
+    return {
+      success: false,
+      error: error.message || error.errMsg || 'Unknown error'
+    };
+  }
+};
+```
+
+- [ ] **Step 2: 验证自动触发**
+
+测试流程：
+```javascript
+// 1. 清空测试知识点的题池
+await db.collection('ai_question_pool').where({ kp_id: 'kp1_1' }).remove();
+
+// 2. 多次调用练习请求，使热度上升
+for (let i = 0; i < 20; i++) {
+  const result = await wx.cloud.callFunction({
+    name: 'recordKpRequest',
+    data: { kp_id: 'kp1_1' }
+  });
+  console.log(`Request ${i+1}:`, result.result);
+
+  // 检查是否触发自动预生成
+  if (result.result.auto_triggered) {
+    console.log('✅ Auto-triggered!', result.result.trigger_reason);
+    break;
+  }
+}
+
+// 3. 等待几秒后检查 pregen_queue
+await new Promise(r => setTimeout(r, 5000));
+const queue = await db.collection('pregen_queue').where({ kp_id: 'kp1_1' }).get();
+console.log('Queue tasks:', queue.data);
+// 预期: 至少有一条 status=pending 的任务
+
+// 4. 检查 ai_question_pool 是否新增题目
+await new Promise(r => setTimeout(r, 30000)); // 等待Worker完成
+const pool = await db.collection('ai_question_pool').where({ kp_id: 'kp1_1', verified: true }).get();
+console.log('Pool count:', pool.data.length);
+// 预期: 题目数量 > 0
+```
+
+- [ ] **Step 3: 提交**
+
+```bash
+git add cloudfunctions/recordKpRequest/index.js
+git commit -m "feat: add auto-trigger mechanism for pregeneration"
+```
+
+---
+
 ## Phase 5: LLM题目生成器
 
 ### Task 7: 创建 LLM 生成器模块
@@ -1632,10 +1817,18 @@ module.exports = {
 - [ ] 用户练习后，`kp_request_log` 正确记录
 - [ ] 热度计算公式正确，分数在 0-10 范围内
 - [ ] 题池不足时，`pregen_queue` 正确创建任务
+- [ ] **`recordKpRequest` 自动触发预生成（"润物细无声"核心）**
+- [ ] **热度上升后自动创建预生成任务，无需人工干预**
 - [ ] `pregenWorker` 成功生成并验证题目
 - [ ] 验证通过的题目写入 `ai_question_pool`
 - [ ] `practice_v2` 优先消费AI题池题目
 - [ ] `used_count` 正确递增
+
+### "润物细无声"验收（核心目标）
+
+- [ ] **自动触发**: 用户练习达到阈值后，自动触发预生成
+- [ ] **静默运行**: 用户无感知，题目"悄悄"增加
+- [ ] **闭环验证**: 练习 → 热度↑ → 自动触发 → 题池↑ → 更好服务
 
 ### 性能验收
 
