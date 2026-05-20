@@ -261,7 +261,7 @@ class LlmClient {
    */
   _detectPattern(questionText) {
     if (questionText.includes('求') || questionText.includes('是多少')) return '求值';
-    if (questionText.includes('计算')) return '计算';
+    if (questionText.includes('计算') || questionText.includes('算出')) return '计算';
     if (questionText.includes('判断') || questionText.includes('是否')) return '判断';
     if (questionText.includes('哪个正确') || questionText.includes('哪项')) return '选择';
     return '其他';
