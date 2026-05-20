@@ -1,0 +1,82 @@
+# 勾股定理知识点配置
+# 学科: 数学
+# 知识点: kp2_3 (勾股定理)
+
+subject: math
+knowledge_point: kp2_3
+name: 勾股定理
+difficulty: easy
+
+# 场景库 - 防止重复使用
+scenarios:
+  - id: ladder
+    name: 梯子靠墙
+    templates:
+      - 梯子长{a}米，底端离墙{b}米，顶端离地面多高？
+      - 一个梯子斜靠在墙上，梯子长{a}米，梯脚离墙{b}米，梯顶离地面{c}米
+
+  - id: shadow
+    name: 影子测高
+    templates:
+      - 一棵树高{a}米，影子长{b}米，树顶到影子端点多远？
+      - 建筑物高{a}米，阳光照射下影子长{b}米
+
+  - id: sailing
+    name: 航海航行
+    templates:
+      - 船向东航行{a}海里，再向北航行{b}海里，离出发点多远？
+      - 一艘船先向东行{a}海里，再向北行{b}海里
+
+  - id: screen
+    name: 屏幕尺寸
+    templates:
+      - 电视屏幕对角线{a}英寸，长{b}英寸，宽多少？
+      - 平板电脑对角线长{a}cm，长边{b}cm
+
+  - id: construction
+    name: 建筑支撑
+    templates:
+      - 旗杆高{a}米，拉索固定在离杆底{b}米处，拉索多长？
+      - 电线杆高{a}米，拉线固定在距离杆底{b}米的位置
+
+# 数值库 - 勾股数组合
+pythagorean_triples:
+  - [3, 4, 5]
+  - [5, 12, 13]
+  - [6, 8, 10]
+  - [7, 24, 25]
+  - [8, 15, 17]
+  - [9, 12, 15]
+  - [10, 24, 26]
+  - [12, 16, 20]
+  - [12, 35, 37]
+  - [15, 20, 25]
+  - [15, 36, 39]
+  - [16, 30, 34]
+  - [18, 24, 30]
+  - [20, 21, 29]
+  - [21, 28, 35]
+  - [24, 32, 40]
+
+# 问法模式
+question_patterns:
+  - type: 求值
+    templates:
+      - 求{target}长度
+      - "{target}是多少"
+      - 计算{target}
+
+  - type: 计算
+    templates:
+      - 计算{target}
+      - 算出{target}
+
+  - type: 判断
+    templates:
+      - 判断是否直角三角形
+      - 是否构成直角三角形
+
+  - type: 选择
+    templates:
+      - 以下哪个是正确的
+      - 哪项说法正确
