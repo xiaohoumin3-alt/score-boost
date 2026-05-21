@@ -181,7 +181,7 @@ Page({
       wx.showToast({ title: '错误: ' + currentQuestion.correct_answer, icon: 'none', duration: 1500 });
     }
 
-    // 如果处于历史浏览模式，不自动跳转
+    // 如果处于历史浏览模式，不自动跳转（也不清除标志）
     if (this.data.isBrowsingHistory) {
       return;
     }
@@ -189,7 +189,8 @@ Page({
     // 跳转下一题
     const nextIndex = currentIndex + 1;
     if (nextIndex >= questions.length) {
-      // 最后一题，等待反馈后留在当前页面，由用户点击提交
+      // 最后一题：清除浏览模式标志，等待反馈后留在当前页面
+      this.setData({ isBrowsingHistory: false });
       return;
     }
 

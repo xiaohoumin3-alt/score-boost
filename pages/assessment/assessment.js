@@ -126,7 +126,7 @@ Page({
 
     this.setData({ selectedOption: option, answers: answers });
 
-    // 如果处于历史浏览模式，不自动跳转
+    // 如果处于历史浏览模式，不自动跳转（也不清除标志）
     if (this.data.isBrowsingHistory) {
       return;
     }
@@ -143,6 +143,9 @@ Page({
           isBrowsingHistory: false
         });
       }, 300);
+    } else {
+      // 最后一题：清除浏览模式标志
+      this.setData({ isBrowsingHistory: false });
     }
   },
 
