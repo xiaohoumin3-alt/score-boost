@@ -257,12 +257,13 @@ Page({
 
     // 等待所有提交完成
     Promise.all(submitPromises).then(() => {
-      const correctCount = this.data.answers.filter(a => a.is_correct).length;
+      // 修复：answers 是对象不是数组，必须使用 answersArray
+      const correctCount = answersArray.filter(a => a.is_correct).length;
       const total = this.data.questions.length;
 
       // 计算知识点统计（参考 assessment 的 submitAnswer 逻辑）
       const kpStats = {};
-      for (const answer of this.data.answers) {
+      for (const answer of answersArray) {
         const question = this.data.questions.find(q => q.id === answer.question_id);
         if (!question) continue;
 

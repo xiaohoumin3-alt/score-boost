@@ -172,7 +172,7 @@ Page({
   },
 
   async submitAll() {
-    this.setData({ loading: true });
+    this.setData({ submitted: true });
     try {
       // 一次性提交所有答案（与原版后端一致）
       var allAnswers = Object.values(this.data.answers).map(function(a) {
