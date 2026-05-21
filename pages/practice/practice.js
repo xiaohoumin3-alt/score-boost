@@ -237,8 +237,8 @@ Page({
         currentQuestion: nextQuestion,
         selectedOption: savedAnswer ? savedAnswer.answer : null,
         questionStartTime: Date.now(),
-        progress: Math.round(((nextIndex + 1) / questions.length) * 100),
-        isBrowsingHistory: true
+        progress: Math.round(((nextIndex + 1) / questions.length) * 100)
+        // goNextQuestion 不设置浏览模式，让用户可以退出浏览
       });
     }
   },

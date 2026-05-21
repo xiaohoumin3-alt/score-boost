@@ -128,7 +128,7 @@ Page({
 
     // 如果处于历史浏览模式，修改答案后清除浏览模式（但仍不自动跳转）
     if (this.data.isBrowsingHistory) {
-      this.setData({ isBrowsingHistory: false });
+      this.setData({ isBrowsingHistory: false, answers: answers, selectedOption: option });
       return;
     }
 
@@ -178,8 +178,8 @@ Page({
         currentIndex: nextIndex,
         currentQuestion: nextQuestion,
         selectedOption: savedAnswer ? savedAnswer.answer : null,
-        questionStartTime: Date.now(),
-        isBrowsingHistory: true
+        questionStartTime: Date.now()
+        // goNextQuestion 不设置浏览模式，让用户可以退出浏览
       });
     }
   },
