@@ -455,7 +455,7 @@ submitAll() {
     // ... 后续代码保持不变
 ```
 
-- [ ] **Step 7: 删除 confirmAnswer 方法**
+- [ ] **Step 6: 删除 confirmAnswer 方法**
 
 删除原 confirmAnswer 方法（第160-198行），因为选择后自动跳转，不再需要确认按钮。
 
@@ -587,12 +587,14 @@ submitAll() {
 ## 验证命令
 
 ```bash
-# 检查文件语法
 cd /Users/seanxx/score-boost-mini
-
-# 检查 assessment.js 语法
-node --check cloudfunctions/practice_v2/index.js 2>&1 || echo "Note: This is not the right file to check"
 
 # 检查是否有遗漏的 confirmAnswer 调用
 grep -rn "confirmAnswer" pages/assessment/ pages/practice/ || echo "All confirmAnswer removed"
+
+# 验证导航按钮已添加
+grep -n "nav-buttons" pages/assessment/assessment.wxml pages/practice/practice.wxml
+
+# 验证 answers 数据结构已改为对象
+grep -n "answers: {}" pages/assessment/assessment.js pages/practice/practice.js
 ```
