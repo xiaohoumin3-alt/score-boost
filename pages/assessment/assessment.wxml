@@ -1,0 +1,62 @@
+<view class="page">
+  <!-- Loading -->
+  <view class="loading" wx:if="{{loading && !submitted}}">
+    <text class="loading-text">加载题目中...</text>
+  </view>
+
+  <!-- Question -->
+  <view class="question-wrap" wx:if="{{!loading && currentQuestion}}">
+    <!-- Header -->
+    <view class="header">
+      <view class="mode-badge">
+        <text class="mode-icon">🎯</text>
+        <text class="mode-text">诊断测评</text>
+      </view>
+      <text class="question-num">第 {{currentIndex + 1}} / {{totalQuestions}} 题</text>
+    </view>
+
+    <!-- Progress Bar -->
+    <view class="progress-card">
+      <view class="progress-bar">
+        <view class="bar-fill" style="width: {{(currentIndex / totalQuestions) * 100}}%;"></view>
+      </view>
+    </view>
+
+    <!-- Question Content -->
+    <view class="question-content">
+      <text class="question-text">{{currentQuestion.content}}</text>
+    </view>
+
+    <!-- Options -->
+    <view class="options">
+      <block wx:for="{{currentQuestion.parsedOptions}}" wx:key="key">
+        <view
+          class="option {{selectedOption === item.key ? 'selected' : ''}} {{answers[currentQuestion.id] ? 'answered' : ''}}"
+          bindtap="selectOption"
+          data-option="{{item.key}}"
+        >
+          <text class="option-key">{{item.key}}</text>
+          <text class="option-text">{{item.value}}</text>
+        </view>
+      </block>
+    </view>
+
+    <!-- Navigation Buttons -->
+    <view class="nav-buttons">
+      <button
+        class="nav-btn nav-prev {{currentIndex === 0 ? 'disabled' : ''}}"
+        bindtap="goPrevQuestion"
+        disabled="{{currentIndex === 0}}"
+      >上一题</button>
+      <button
+        class="nav-btn nav-next {{currentIndex === totalQuestions - 1 ? 'submit' : ''}}"
+        bindtap="{{currentIndex === totalQuestions - 1 ? 'submitAll' : 'goNextQuestion'}}"
+      >{{currentIndex === totalQuestions - 1 ? '提交' : '下一题'}}</button>
+    </view>
+  </view>
+
+  <!-- Submitting -->
+  <view class="loading" wx:if="{{submitted}}">
+    <text class="loading-text">提交中...</text>
+  </view>
+</view>
