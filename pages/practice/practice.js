@@ -181,8 +181,9 @@ Page({
       wx.showToast({ title: '错误: ' + currentQuestion.correct_answer, icon: 'none', duration: 1500 });
     }
 
-    // 如果处于历史浏览模式，不自动跳转（也不清除标志）
+    // 如果处于历史浏览模式，修改答案后清除浏览模式（但仍不自动跳转）
     if (this.data.isBrowsingHistory) {
+      this.setData({ isBrowsingHistory: false });
       return;
     }
 
