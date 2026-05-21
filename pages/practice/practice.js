@@ -1,4 +1,3 @@
-console.log('=== [CLOUD] practice.js LOADED ===');
 const app = getApp();
 const api = require('../../utils/cloudApi.js');
 
@@ -22,6 +21,12 @@ Page({
   },
 
   onLoad(query) {
+    // 检查登录状态
+    if (!app.checkLogin()) {
+      app.requireLogin();
+      return;
+    }
+
     // 优先从 URL 参数获取
     let kpName = query.kpName || null;
     let kpId = query.kpId || null;
@@ -32,14 +37,12 @@ Page({
     if (app.targetWeakPoints) {
       weakPoints = app.targetWeakPoints;
       app.targetWeakPoints = null;
-      console.log('[practice] using targetWeakPoints:', weakPoints);
     }
 
     // 读取 assessment_id
     if (app.targetAssessmentId) {
       assessmentId = app.targetAssessmentId;
       app.targetAssessmentId = null;
-      console.log('[practice] using targetAssessmentId:', assessmentId);
     }
 
     // 兼容旧逻辑：如果没有 weakPoints，尝试读取 targetKpId
@@ -48,7 +51,6 @@ Page({
       kpName = app.targetKpName || '专项练习';
       app.targetKpId = null;
       app.targetKpName = null;
-      console.log('[practice] using targetKpId:', kpId, kpName);
     }
 
     if (!kpName) {
@@ -69,8 +71,6 @@ Page({
       if (app.targetAssessmentId) {
         app.targetAssessmentId = null;
       }
-      console.log('[practice] onShow: using targetWeakPoints:', weakPoints);
-      console.log('[practice] onShow: using targetAssessmentId:', assessmentId);
 
       this.setData({
         weakPoints: weakPoints,
@@ -92,7 +92,6 @@ Page({
         5,
         this.data.weakPoints
       );
-      console.log('[practice] init result:', res);
 
       const questions = res.questions || [];
       if (questions.length === 0) {
@@ -138,17 +137,9 @@ Page({
         kpName: this.data.kpName,
         progress: 0
       });
-      console.log('[practice] first question:', questions[0]);
-      console.log('[practice] options format:', JSON.stringify(questions[0].options, null, 2));
-      console.log('[practice] options type:', typeof questions[0].options);
-      console.log('[practice] options is array:', Array.isArray(questions[0].options));
-      console.log('[practice] options length:', questions[0].options?.length);
-      console.log('[practice] options[0]:', questions[0].options?.[0]);
-      console.log('[practice] correct_answer:', questions[0].correct_answer);
       wx.hideLoading();
     } catch (e) {
       wx.hideLoading();
-      console.error('[practice] init error:', e);
       wx.showToast({ title: '网络错误', icon: 'none' });
       setTimeout(() => wx.navigateBack(), 1500);
     }
@@ -259,9 +250,7 @@ Page({
             difficulty: question.difficulty || 'easy',
             is_correct: answer.is_correct,
             assessment_id: this.data.assessmentId,
-          }).catch(e => {
-            console.error('[practice] submitPracticeResult error:', e);
-          })
+          }).catch(() => {})
         );
       }
     }
