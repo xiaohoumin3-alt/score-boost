@@ -22,7 +22,8 @@ Page({
     isRetest: false,
     previousAssessmentId: null,
     previousScore: 0,
-    targetDifficulty: 'medium'
+    targetDifficulty: 'medium',
+    isBrowsingHistory: false
   },
 
   onLoad(options) {
@@ -125,6 +126,11 @@ Page({
 
     this.setData({ selectedOption: option, answers: answers });
 
+    // 如果处于历史浏览模式，不自动跳转
+    if (this.data.isBrowsingHistory) {
+      return;
+    }
+
     // 自动跳转下一题
     var nextIndex = currentIndex + 1;
     if (nextIndex < this.data.totalQuestions) {
@@ -133,7 +139,8 @@ Page({
           currentIndex: nextIndex,
           currentQuestion: this.data.questions[nextIndex],
           selectedOption: null,
-          questionStartTime: Date.now()
+          questionStartTime: Date.now(),
+          isBrowsingHistory: false
         });
       }, 300);
     }
@@ -150,7 +157,8 @@ Page({
         currentIndex: prevIndex,
         currentQuestion: prevQuestion,
         selectedOption: savedAnswer ? savedAnswer.answer : null,
-        questionStartTime: Date.now()
+        questionStartTime: Date.now(),
+        isBrowsingHistory: true
       });
     }
   },
@@ -166,7 +174,8 @@ Page({
         currentIndex: nextIndex,
         currentQuestion: nextQuestion,
         selectedOption: savedAnswer ? savedAnswer.answer : null,
-        questionStartTime: Date.now()
+        questionStartTime: Date.now(),
+        isBrowsingHistory: true
       });
     }
   },

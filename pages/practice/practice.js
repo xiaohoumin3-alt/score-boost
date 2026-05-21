@@ -18,6 +18,7 @@ Page({
     progress: 0,
     weakPoints: [],
     assessmentId: null,
+    isBrowsingHistory: false
   },
 
   onLoad(query) {
@@ -180,6 +181,11 @@ Page({
       wx.showToast({ title: '错误: ' + currentQuestion.correct_answer, icon: 'none', duration: 1500 });
     }
 
+    // 如果处于历史浏览模式，不自动跳转
+    if (this.data.isBrowsingHistory) {
+      return;
+    }
+
     // 跳转下一题
     const nextIndex = currentIndex + 1;
     if (nextIndex >= questions.length) {
@@ -193,7 +199,8 @@ Page({
         currentQuestion: questions[nextIndex],
         selectedOption: null,
         questionStartTime: Date.now(),
-        progress: Math.round(((nextIndex + 1) / questions.length) * 100)
+        progress: Math.round(((nextIndex + 1) / questions.length) * 100),
+        isBrowsingHistory: false
       });
     }, isCorrect ? 800 : 1500);
   },
@@ -210,7 +217,8 @@ Page({
         currentQuestion: prevQuestion,
         selectedOption: savedAnswer ? savedAnswer.answer : null,
         questionStartTime: Date.now(),
-        progress: Math.round((prevIndex / questions.length) * 100)
+        progress: Math.round((prevIndex / questions.length) * 100),
+        isBrowsingHistory: true
       });
     }
   },
@@ -227,7 +235,8 @@ Page({
         currentQuestion: nextQuestion,
         selectedOption: savedAnswer ? savedAnswer.answer : null,
         questionStartTime: Date.now(),
-        progress: Math.round(((nextIndex + 1) / questions.length) * 100)
+        progress: Math.round(((nextIndex + 1) / questions.length) * 100),
+        isBrowsingHistory: true
       });
     }
   },
