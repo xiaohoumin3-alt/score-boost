@@ -31,7 +31,7 @@
     <view class="options">
       <block wx:for="{{currentQuestion.parsedOptions}}" wx:key="key">
         <view
-          class="option {{selectedOption === item.key ? 'selected' : ''}} {{answers[currentQuestion.id] ? 'answered' : ''}}"
+          class="option {{selectedOption === item.key ? 'selected' : ''}}"
           bindtap="selectOption"
           data-option="{{item.key}}"
         >

@@ -1,0 +1,55 @@
+{
+  "subject": "地理",
+  "grade": "7",
+  "semester": "下",
+  "version": "人教版",
+  "chapters": [
+    {
+      "id": "geo_ch1",
+      "name": "中国的疆域与行政区划",
+      "knowledge_points": [
+        {
+          "id": "geo_kp1_1",
+          "name": "中国的地理位置",
+          "difficulty_weight": { "easy": 0.5, "medium": 0.3, "hard": 0.2 }
+        },
+        {
+          "id": "geo_kp1_2",
+          "name": "中国的疆域",
+          "difficulty_weight": { "easy": 0.5, "medium": 0.3, "hard": 0.2 }
+        },
+        {
+          "id": "geo_kp1_3",
+          "name": "中国的行政区划",
+          "difficulty_weight": { "easy": 0.5, "medium": 0.3, "hard": 0.2 }
+        },
+        {
+          "id": "geo_kp1_4",
+          "name": "中国的人口与民族",
+          "difficulty_weight": { "easy": 0.5, "medium": 0.3, "hard": 0.2 }
+        }
+      ]
+    },
+    {
+      "id": "geo_ch2",
+      "name": "中国的自然环境",
+      "knowledge_points": [
+        {
+          "id": "geo_kp2_1",
+          "name": "中国的地形",
+          "difficulty_weight": { "easy": 0.5, "medium": 0.3, "hard": 0.2 }
+        },
+        {
+          "id": "geo_kp2_2",
+          "name": "中国的气候",
+          "difficulty_weight": { "easy": 0.5, "medium": 0.3, "hard": 0.2 }
+        },
+        {
+          "id": "geo_kp2_3",
+          "name": "中国的河流与湖泊",
+          "difficulty_weight": { "easy": 0.5, "medium": 0.3, "hard": 0.2 }
+        }
+      ]
+    }
+  ]
+}

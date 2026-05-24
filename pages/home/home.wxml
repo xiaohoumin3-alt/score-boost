@@ -1,0 +1,86 @@
+<view class="page">
+  <!-- Header -->
+  <view class="header">
+    <text class="title">提分神器</text>
+    <view class="subtitle-row">
+      <text class="subtitle">{{subject}}</text>
+      <text class="divider">|</text>
+      <text class="subtitle">{{grade}}</text>
+    </view>
+  </view>
+
+  <view class="loading" wx:if="{{loading}}">
+    <text class="loading-text">加载中...</text>
+  </view>
+
+  <block wx:else>
+    <!-- Score Display -->
+    <view class="score-display">
+      <view class="score-ring">
+        <view class="ring-outer">
+          <view class="ring-progress" style="transform: rotate({{currentScore * 3.6 - 90}}deg);"></view>
+          <view class="ring-inner">
+            <text class="score-value">{{currentScore}}</text>
+            <text class="score-label">当前</text>
+          </view>
+        </view>
+      </view>
+      <view class="score-arrow" wx:if="{{currentScore < targetScore}}">
+        <image class="arrow-icon" src="/components/icons/arrow_up.png" mode="widthFix"></image>
+      </view>
+      <view class="score-target" wx:if="{{currentScore < targetScore}}">
+        <text class="target-value">{{targetScore}}分</text>
+        <text class="target-label">目标</text>
+        <text class="gap-badge" wx:if="{{totalGap > 0}}">差 {{totalGap}} 分</text>
+      </view>
+      <view class="score-status achieved" wx:if="{{currentScore >= targetScore}}">
+        <text class="status-text">已达成目标</text>
+        <text class="status-detail">超越 {{currentScore - targetScore}} 分</text>
+      </view>
+    </view>
+
+    <!-- Main Action Card -->
+    <view class="action-card" bindtap="handleAction">
+      <view class="action-icon">
+        <text wx:if="{{nextAction.type === 'start_assessment'}}">🎯</text>
+        <text wx:elif="{{nextAction.type === 'practice'}}">📚</text>
+        <text wx:else>🏆</text>
+      </view>
+      <view class="action-content">
+        <text class="action-label">{{nextAction.label}}</text>
+        <text class="action-desc">{{nextAction.desc}}</text>
+      </view>
+      <view class="action-arrow">⇢</view>
+    </view>
+
+    <!-- Quick Actions -->
+    <view class="quick-actions">
+      <view class="quick-btn" bindtap="viewPath">
+        <text class="quick-icon">🛤️</text>
+        <text class="quick-text">查看路径</text>
+      </view>
+      <view class="quick-btn" bindtap="startAssessment">
+        <text class="quick-icon">🔄</text>
+        <text class="quick-text">重新测评</text>
+      </view>
+    </view>
+
+    <!-- Feedback Entry -->
+    <view class="feedback-entry" bindtap="goToFeedback">
+      <text class="feedback-icon">💬</text>
+      <text class="feedback-text">意见反馈</text>
+      <text class="feedback-arrow">›</text>
+    </view>
+
+    <!-- Recent History -->
+    <view class="history-section" wx:if="{{recentAssessments.length > 0}}">
+      <text class="section-title">最近记录</text>
+      <view class="history-list">
+        <view wx:for="{{recentAssessments}}" wx:key="assessment_id" class="history-item">
+          <text class="history-score">{{item.score_percent || 0}}</text>
+          <text class="history-date">{{item.created_at}}</text>
+        </view>
+      </view>
+    </view>
+  </block>
+</view>

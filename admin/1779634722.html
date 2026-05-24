@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>登录</title>
+  <script src="https://static.cloudbase.net/cloudbase-js-sdk/latest/cloudbase.full.js"></script>
+</head>
+<body>
+  <div style="max-width:400px;margin:50px auto;padding:20px;background:#f0f0f0;border-radius:8px;">
+    <h2>管理后台登录</h2>
+    <div id="msg" style="color:red;padding:10px 0;"></div>
+    <input id="u" type="text" placeholder="账号" value="admin" style="width:100%;padding:10px;margin:10px 0;box-sizing:border-box;">
+    <input id="p" type="password" placeholder="密码" value="admin" style="width:100%;padding:10px;margin:10px 0;box-sizing:border-box;">
+    <button onclick="go()" style="width:100%;padding:10px;background:#007bff;color:white;border:none;border-radius:4px;cursor:pointer;">登录</button>
+    <p style="font-size:12px;color:#666;margin-top:20px;">时间戳版本: 1779634722</p>
+  </div>
+  <script>
+    const app = cloudbase.init({env:'cloud1-7gg9y9tjb2b867b6'});
+    async function go(){
+      const btn=document.querySelector('button');
+      const msg=document.getElementById('msg');
+      btn.disabled=true;
+      btn.textContent='登录中...';
+      try{
+        await app.auth().anonymousAuthProvider().signIn();
+        const r=await app.callFunction({name:'adminProxy',data:{action:'adminLogin',data:{username:document.getElementById('u').value,password:document.getElementById('p').value}}});
+        if(r.result&&r.result.success){
+          localStorage.setItem('adminToken',r.result.data.token);
+          localStorage.setItem('adminTokenExpires',r.result.data.expiresAt);
+          window.location.href='feedback.html';
+        }else{
+          msg.textContent=r.result?.error||'登录失败';
+        }
+      }catch(e){
+        msg.textContent='错误:'+e.message;
+      }finally{
+        btn.disabled=false;
+        btn.textContent='登录';
+      }
+    }
+  </script>
+</body>
+</html>

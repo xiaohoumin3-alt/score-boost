@@ -1,0 +1,136 @@
+{
+  "subject": "数学",
+  "grade": "8",
+  "semester": "下",
+  "version": "2024人教版",
+  "chapters": [
+    {
+      "id": "ch1",
+      "name": "二次根式",
+      "knowledge_points": [
+        {
+          "id": "kp1_1",
+          "name": "二次根式的概念",
+          "sub_topics": ["定义", "有意义条件", "最简二次根式"],
+          "typical_questions": ["判断是否为二次根式", "求取值范围"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
+        },
+        {
+          "id": "kp1_2",
+          "name": "二次根式的性质",
+          "sub_topics": ["(√a)²=a", "√(a²)=|a|", "积的算术平方根", "商的算术平方根"],
+          "typical_questions": ["化简计算", "求值"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        },
+        {
+          "id": "kp1_3",
+          "name": "二次根式的运算",
+          "sub_topics": ["加减法", "乘除法", "混合运算", "分母有理化"],
+          "typical_questions": ["计算化简", "分母有理化"],
+          "difficulty_weight": {"easy": 0.3, "medium": 0.5, "hard": 0.2}
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "name": "勾股定理",
+      "knowledge_points": [
+        {
+          "id": "kp2_1",
+          "name": "勾股定理",
+          "sub_topics": ["定理内容", "证明方法", "基本计算"],
+          "typical_questions": ["已知两边求第三边", "验证直角三角形"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        },
+        {
+          "id": "kp2_2",
+          "name": "勾股定理的逆定理",
+          "sub_topics": ["逆定理内容", "判断直角三角形"],
+          "typical_questions": ["判断三角形形状", "实际应用"],
+          "difficulty_weight": {"easy": 0.3, "medium": 0.5, "hard": 0.2}
+        },
+        {
+          "id": "kp2_3",
+          "name": "勾股定理的应用",
+          "sub_topics": ["距离问题", "折叠问题", "最短路径"],
+          "typical_questions": ["实际距离计算", "几何证明"],
+          "difficulty_weight": {"easy": 0.2, "medium": 0.4, "hard": 0.4}
+        }
+      ]
+    },
+    {
+      "id": "ch3",
+      "name": "平行四边形",
+      "knowledge_points": [
+        {
+          "id": "kp3_1",
+          "name": "平行四边形的性质",
+          "sub_topics": ["对边平行且相等", "对角相等", "对角线互相平分"],
+          "typical_questions": ["求角度", "求边长", "证明"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        },
+        {
+          "id": "kp3_2",
+          "name": "平行四边形的判定",
+          "sub_topics": ["5种判定方法"],
+          "typical_questions": ["证明平行四边形", "添加条件"],
+          "difficulty_weight": {"easy": 0.3, "medium": 0.5, "hard": 0.2}
+        },
+        {
+          "id": "kp3_3",
+          "name": "特殊的平行四边形",
+          "sub_topics": ["矩形", "菱形", "正方形"],
+          "typical_questions": ["性质应用", "判定证明", "综合计算"],
+          "difficulty_weight": {"easy": 0.2, "medium": 0.4, "hard": 0.4}
+        }
+      ]
+    },
+    {
+      "id": "ch4",
+      "name": "一次函数",
+      "knowledge_points": [
+        {
+          "id": "kp4_1",
+          "name": "函数的概念",
+          "sub_topics": ["变量关系", "函数定义", "三种表示方法"],
+          "typical_questions": ["判断函数关系", "求函数值", "画图"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
+        },
+        {
+          "id": "kp4_2",
+          "name": "一次函数的图像",
+          "sub_topics": ["图像特征", "k和b的几何意义", "图像变换"],
+          "typical_questions": ["判断图像位置", "求解析式", "图像平移"],
+          "difficulty_weight": {"easy": 0.3, "medium": 0.5, "hard": 0.2}
+        },
+        {
+          "id": "kp4_3",
+          "name": "一次函数的应用",
+          "sub_topics": ["实际问题建模", "两直线交点", "与方程关系"],
+          "typical_questions": ["应用题", "求交点坐标", "方案决策"],
+          "difficulty_weight": {"easy": 0.2, "medium": 0.4, "hard": 0.4}
+        }
+      ]
+    },
+    {
+      "id": "ch5",
+      "name": "数据的分析",
+      "knowledge_points": [
+        {
+          "id": "kp5_1",
+          "name": "数据的集中趋势",
+          "sub_topics": ["平均数", "中位数", "众数"],
+          "typical_questions": ["求统计量", "选择合适的统计量", "数据分析"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
+        },
+        {
+          "id": "kp5_2",
+          "name": "数据的波动程度",
+          "sub_topics": ["方差", "标准差"],
+          "typical_questions": ["求方差", "比较稳定性", "综合分析"],
+          "difficulty_weight": {"easy": 0.3, "medium": 0.5, "hard": 0.2}
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,110 @@
+<view class="container">
+  <view class="header">
+    <text class="title">隐私政策</text>
+    <text class="date">更新日期：2026年5月20日</text>
+  </view>
+
+  <scroll-view class="content" scroll-y>
+    <view class="section">
+      <text class="section-title">一、信息收集</text>
+      <text class="section-content">
+1. 我们收集的信息包括：
+   - 微信授权的基本信息（昵称、头像）
+   - 用户主动提供的信息（年级、学科等学习相关信息）
+   - 学习行为数据（练习记录、答题情况、学习进度等）
+   - 设备信息（设备型号、操作系统版本）
+
+2. 我们不会收集与学习无关的个人敏感信息。
+
+3. 信息收集遵循最小必要原则，仅收集提供服务所必需的信息。
+      </text>
+    </view>
+
+    <view class="section">
+      <text class="section-title">二、信息使用</text>
+      <text class="section-content">
+1. 我们使用收集的信息用于：
+   - 提供个性化的学习服务和推荐
+   - 分析学习效果，优化学习路径
+   - 改进产品功能和用户体验
+   - 进行必要的技术维护和支持
+
+2. 我们不会将用户信息用于任何未经用户同意的商业目的。
+
+3. 我们不会与任何第三方共享可识别用户身份的个人信息。
+      </text>
+    </view>
+
+    <view class="section">
+      <text class="section-title">三、信息存储</text>
+      <text class="section-content">
+1. 用户信息存储在腾讯云服务器上，符合相关法律法规的安全要求。
+
+2. 我们会采取合理的安全措施保护用户信息，防止信息泄露、损毁或丢失。
+
+3. 用户有权要求删除其个人信息，可通过联系我们提出申请。
+
+4. 信息存储期限：我们会在为您提供服务所必需的期限内保留您的信息。
+      </text>
+    </view>
+
+    <view class="section">
+      <text class="section-title">四、信息共享</text>
+      <text class="section-content">
+1. 我们不会将用户个人信息出售、出租或以其他方式提供给任何第三方。
+
+2. 除以下情况外，我们不会与任何第三方共享用户信息：
+   - 获得用户的明确同意
+   - 根据法律法规的要求或政府主管部门的要求
+   - 为保护我们的合法权益而必须披露
+
+3. 如需与第三方共享信息，我们会在共享前获得您的明确授权。
+      </text>
+    </view>
+
+    <view class="section">
+      <text class="section-title">五、用户权利</text>
+      <text class="section-content">
+1. 用户有权：
+   - 了解我们收集了哪些您的信息
+   - 要求更正不准确的信息
+   - 要求删除您的个人信息
+   - 撤回您之前给予的同意
+   - 导出您的个人信息数据
+
+2. 行使上述权利请联系：[contact@email.com]
+      </text>
+    </view>
+
+    <view class="section">
+      <text class="section-title">六、未成年人保护</text>
+      <text class="section-content">
+1. 我们非常重视对未成年人信息的保护。
+
+2. 未成年人在使用本服务前，应征得监护人的同意。
+
+3. 如果您是未满14周岁的未成年人，请您的监护人仔细阅读本政策。
+      </text>
+    </view>
+
+    <view class="section">
+      <text class="section-title">七、政策更新</text>
+      <text class="section-content">
+1. 我们可能会不时更新本隐私政策。
+
+2. 任何重大变更，我们都会通过本程序内的显著位置通知您。
+
+3. 继续使用本程序即表示您接受更新后的政策。
+      </text>
+    </view>
+
+    <view class="section">
+      <text class="section-title">八、联系我们</text>
+      <text class="section-content">
+如您对本隐私政策有任何疑问或建议，请联系我们：[contact@email.com]
+
+我们将尽快回复您的咨询。
+      </text>
+    </view>
+  </scroll-view>
+</view>

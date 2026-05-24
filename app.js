@@ -9,6 +9,11 @@ App({
   },
 
   onLaunch() {
+    // 初始化云开发
+    wx.cloud.init({
+      env: 'cloud1-7gg9y9tjb2b867b6',
+      traceUser: true
+    });
     this.loadSession();
   },
 

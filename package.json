@@ -1,0 +1,17 @@
+{
+  "name": "score-boost-mini",
+  "version": "1.0.0",
+  "description": "AI题目自动生成系统",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  },
+  "dependencies": {
+    "@cloudbase/js-sdk": "^3.3.10",
+    "@cloudbase/node-sdk": "^3.18.1"
+  }
+}

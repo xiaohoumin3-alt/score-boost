@@ -1,0 +1,30 @@
+<view class="container">
+  <view class="logo-section">
+    <image class="logo" src="/docs/app-icon.svg" mode="aspectFit"/>
+    <text class="app-name">日日守护</text>
+    <text class="app-desc">AI精准定位，只练不会的</text>
+  </view>
+
+  <view class="login-section">
+    <text class="login-title">微信一键登录</text>
+    <text class="login-desc">登录后可同步学习数据，跨设备继续学习</text>
+
+    <view class="agreement-wrapper">
+      <checkbox-group bindchange="onAgreementChange">
+        <label class="agreement-label">
+          <checkbox value="agreed" color="#00D9A5" />
+          <view class="agreement-text">
+            <text>我已阅读并同意</text>
+            <text class="link" bindtap="onViewUserAgreement">《用户协议》</text>
+            <text>和</text>
+            <text class="link" bindtap="onViewPrivacyPolicy">《隐私政策》</text>
+          </view>
+        </label>
+      </checkbox-group>
+    </view>
+
+    <button class="login-btn {{agreed ? '' : 'disabled'}}" type="primary" bindtap="onLogin" loading="{{loading}}" disabled="{{!agreed}}">
+      {{loading ? '登录中...' : '确认登录'}}
+    </button>
+  </view>
+</view>

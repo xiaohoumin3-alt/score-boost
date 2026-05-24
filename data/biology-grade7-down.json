@@ -1,0 +1,86 @@
+{
+  "subject": "生物",
+  "grade": "7",
+  "semester": "下",
+  "version": "人教版",
+  "chapters": [
+    {
+      "id": "bio_ch1",
+      "name": "动物的主要类群",
+      "knowledge_points": [
+        {
+          "id": "bio_kp1_1",
+          "name": "腔肠动物",
+          "sub_topics": ["腔肠动物的主要特征", "代表动物"],
+          "difficulty_weight": { "easy": 0.5, "medium": 0.3, "hard": 0.2 }
+        },
+        {
+          "id": "bio_kp1_2",
+          "name": "扁形动物",
+          "sub_topics": ["扁形动物的主要特征", "血吸虫"],
+          "difficulty_weight": { "easy": 0.5, "medium": 0.3, "hard": 0.2 }
+        },
+        {
+          "id": "bio_kp1_3",
+          "name": "线形动物",
+          "sub_topics": ["线形动物的主要特征", "蛔虫"],
+          "difficulty_weight": { "easy": 0.5, "medium": 0.3, "hard": 0.2 }
+        },
+        {
+          "id": "bio_kp1_4",
+          "name": "环节动物",
+          "sub_topics": ["环节动物的主要特征", "蚯蚓"],
+          "difficulty_weight": { "easy": 0.5, "medium": 0.3, "hard": 0.2 }
+        },
+        {
+          "id": "bio_kp2_1",
+          "name": "鱼类",
+          "sub_topics": ["鱼类的主要特征", "鲫鱼"],
+          "difficulty_weight": { "easy": 0.5, "medium": 0.3, "hard": 0.2 }
+        },
+        {
+          "id": "bio_kp2_2",
+          "name": "两栖类",
+          "sub_topics": ["两栖动物的主要特征", "青蛙"],
+          "difficulty_weight": { "easy": 0.5, "medium": 0.3, "hard": 0.2 }
+        },
+        {
+          "id": "bio_kp2_3",
+          "name": "爬行类",
+          "sub_topics": ["爬行动物的主要特征", "乌龟、鳄鱼"],
+          "difficulty_weight": { "easy": 0.5, "medium": 0.3, "hard": 0.2 }
+        },
+        {
+          "id": "bio_kp2_4",
+          "name": "鸟类",
+          "sub_topics": ["鸟类的主要特征", "家鸽"],
+          "difficulty_weight": { "easy": 0.5, "medium": 0.3, "hard": 0.2 }
+        },
+        {
+          "id": "bio_kp2_5",
+          "name": "哺乳类",
+          "sub_topics": ["哺乳动物的主要特征", "家兔"],
+          "difficulty_weight": { "easy": 0.5, "medium": 0.3, "hard": 0.2 }
+        }
+      ]
+    },
+    {
+      "id": "bio_ch2",
+      "name": "动物的运动和行为",
+      "knowledge_points": [
+        {
+          "id": "bio_kp3_1",
+          "name": "动物的运动",
+          "sub_topics": ["运动系统的组成", "关节和肌肉"],
+          "difficulty_weight": { "easy": 0.5, "medium": 0.3, "hard": 0.2 }
+        },
+        {
+          "id": "bio_kp3_2",
+          "name": "动物的行为",
+          "sub_topics": ["先天性行为", "学习行为"],
+          "difficulty_weight": { "easy": 0.5, "medium": 0.3, "hard": 0.2 }
+        }
+      ]
+    }
+  ]
+}

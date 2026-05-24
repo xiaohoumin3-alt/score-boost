@@ -122,6 +122,10 @@ exports.main = async (event, context) => {
     const subject = params.subject || 'math';
     const studentId = params.student_id;
 
+    console.log('[Practice] params:', JSON.stringify({
+      kpId, weakPoints: weakPoints.length, numQuestions, grade, subject, studentId
+    }));
+
     const sessionId = generateUUID();
 
     // 初始化LLM客户端
@@ -154,23 +158,42 @@ exports.main = async (event, context) => {
 
     // 决定练习的知识点了
     let plan = [];
+
+    // 根据目标难度生成难度分布
+    function getDifficultyDistribution(targetDifficulty) {
+      // 目标难度占60%，其他各占20%
+      const distributions = {
+        easy: ['easy', 'easy', 'easy', 'medium', 'medium'],
+        medium: ['medium', 'medium', 'medium', 'easy', 'hard'],
+        hard: ['hard', 'hard', 'hard', 'easy', 'medium']
+      };
+      return distributions[targetDifficulty] || distributions.easy;
+    }
+
     if (weakPoints && weakPoints.length > 0) {
       for (const wp of weakPoints) {
         const wpKpId = wp.kp_id || wp.id;
-        const savedDifficulty = kpCurrentDifficulty[wpKpId];
+        const savedDifficulty = kpCurrentDifficulty[wpKpId] || 'easy';
+        // 混合难度而非单一难度
+        const difficultyMix = getDifficultyDistribution(savedDifficulty);
         for (let i = 0; i < numQuestions; i++) {
           plan.push({
             kp: { kp_id: wpKpId, kp_name: wp.kp_name || wp.name, chapter_name: wp.chapter || '' },
-            difficulty: savedDifficulty || 'easy',
+            difficulty: difficultyMix[i] || 'easy',
           });
         }
       }
     } else if (kpId) {
       const kpName = params.kp_name || params.kpName || '';
       const chapter = params.chapter || '';
-      const savedDifficulty = kpCurrentDifficulty[kpId];
+      const savedDifficulty = kpCurrentDifficulty[kpId] || 'easy';
+      // 混合难度而非单一难度
+      const difficultyMix = getDifficultyDistribution(savedDifficulty);
       for (let i = 0; i < numQuestions; i++) {
-        plan.push({ kp: { kp_id: kpId, kp_name: kpName, chapter_name: chapter }, difficulty: savedDifficulty || 'easy' });
+        plan.push({
+          kp: { kp_id: kpId, kp_name: kpName, chapter_name: chapter },
+          difficulty: difficultyMix[i] || 'easy'
+        });
       }
     } else {
       const tree = loadKnowledgeTree(subject, grade, '下');

@@ -9,7 +9,9 @@ Page({
     totalGap: 0,
     currentStep: null,
     nextAction: null,
-    recentAssessments: []
+    recentAssessments: [],
+    subject: '',
+    grade: ''
   },
 
   onLoad() {
@@ -21,9 +23,16 @@ Page({
   },
 
   async loadHome() {
-    this.setData({ loading: true });
+    this.setData({
+      loading: true,
+      subject: app.globalData.subject || '数学',
+      grade: app.globalData.grade || '八年级'
+    });
     try {
-      const res = await api.getAssessmentList();
+      // 传入当前选择的科目和年级用于过滤
+      const currentSubject = app.globalData.subject || '数学';
+      const currentGrade = app.globalData.grade || '八年级';
+      const res = await api.getAssessmentList(currentSubject, currentGrade);
       const list = res.assessments || [];
 
       // 计算当前水平
@@ -111,5 +120,9 @@ Page({
 
   startAssessment() {
     wx.navigateTo({ url: '/pages/onboarding/onboarding' });
+  },
+
+  goToFeedback() {
+    wx.navigateTo({ url: '/pages/feedback/feedback' });
   }
 });

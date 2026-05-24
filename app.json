@@ -1,0 +1,38 @@
+{
+  "lazyCodeLoading": "requiredComponents",
+  "pages": [
+    "pages/home/home",
+    "pages/onboarding/onboarding",
+    "pages/login/login",
+    "pages/user-agreement/user-agreement",
+    "pages/privacy-policy/privacy-policy",
+    "pages/assessment/assessment",
+    "pages/practice/practice",
+    "pages/result/result",
+    "pages/path/path",
+    "pages/feedback/feedback",
+    "pages/feedback-list/feedback-list",
+    "pages/feedback-detail/feedback-detail",
+    "pages/test-admin/test-admin"
+  ],
+  "window": {
+    "navigationBarTitleText": "日日守护",
+    "navigationBarBackgroundColor": "#0f0f23",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#0f0f23",
+    "backgroundTextStyle": "dark"
+  },
+  "tabBar": {
+    "color": "#666",
+    "selectedColor": "#00D9A5",
+    "backgroundColor": "#0f0f23",
+    "borderStyle": "black",
+    "list": [
+      { "pagePath": "pages/home/home", "text": "首页", "iconPath": "components/icons/home.png" },
+      { "pagePath": "pages/path/path", "text": "路径", "iconPath": "components/icons/path.png" },
+      { "pagePath": "pages/practice/practice", "text": "练习", "iconPath": "components/icons/practice.png" }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

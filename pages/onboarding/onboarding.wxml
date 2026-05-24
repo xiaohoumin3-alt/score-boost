@@ -1,0 +1,48 @@
+<view class="page">
+  <view class="header">
+    <text class="title">欢迎使用提分神器</text>
+    <text class="subtitle">先告诉我你的基本情况</text>
+  </view>
+
+  <view class="form">
+    <view class="form-item">
+      <text class="label">考试模式</text>
+      <view class="mode-selector">
+        <view class="mode-option {{examMode === 'grade' ? 'active' : ''}}" bindtap="selectExamMode" data-mode="grade">
+          <text class="mode-name">年级测评</text>
+          <text class="mode-desc">按年级检测知识点</text>
+        </view>
+        <view class="mode-option {{examMode === 'huikao' ? 'active' : ''}}" bindtap="selectExamMode" data-mode="huikao">
+          <text class="mode-name">会考模拟</text>
+          <text class="mode-desc">七、八年级全部内容</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="form-item" wx:if="{{examMode === 'grade'}}">
+      <text class="label">年级</text>
+      <picker mode="selector" range="{{grades}}" value="{{gradeIndex}}" bindchange="selectGrade">
+        <view class="picker">
+          <text class="{{gradeIndex >= 0 ? 'value' : 'placeholder'}}">
+            {{gradeIndex >= 0 ? grades[gradeIndex] : '请选择年级'}}
+          </text>
+          <text class="arrow">→</text>
+        </view>
+      </picker>
+    </view>
+
+    <view class="form-item">
+      <text class="label">科目</text>
+      <picker mode="selector" range="{{examMode === 'huikao' ? huikaoSubjects : subjects}}" value="{{subjectIndex}}" bindchange="selectSubject">
+        <view class="picker">
+          <text class="{{subjectIndex >= 0 ? 'value' : 'placeholder'}}">
+            {{subjectIndex >= 0 ? (examMode === 'huikao' ? huikaoSubjects[subjectIndex] : subjects[subjectIndex]) : '请选择科目'}}
+          </text>
+          <text class="arrow">→</text>
+        </view>
+      </picker>
+    </view>
+  </view>
+
+  <button class="confirm-btn" bindtap="confirm">{{examMode === 'huikao' ? '开始会考模拟' : '开始使用'}}</button>
+</view>

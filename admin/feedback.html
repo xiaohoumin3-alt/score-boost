@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>反馈管理 - 提分神器</title>
+  <script src="https://static.cloudbase.net/cloudbase-js-sdk/latest/cloudbase.full.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0f0f23;
+      min-height: 100vh;
+      color: #fff;
+    }
+
+    .header {
+      background: #1a1a35;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #2a2a45;
+    }
+
+    .header-title {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 16px;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      border-radius: 8px;
+      border: none;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid #444;
+      color: #888;
+    }
+
+    .btn-outline:hover {
+      border-color: #666;
+      color: #aaa;
+    }
+
+    .filters {
+      padding: 24px 40px;
+      background: #1a1a35;
+      border-bottom: 1px solid #2a2a45;
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .filter-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .filter-label {
+      font-size: 14px;
+      color: #888;
+    }
+
+    .filter-select {
+      padding: 8px 16px;
+      background: #0f0f23;
+      border: 1px solid #2a2a45;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .search-input {
+      padding: 8px 16px;
+      background: #0f0f23;
+      border: 1px solid #2a2a45;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 14px;
+      width: 200px;
+    }
+
+    .search-input::placeholder {
+      color: #444;
+    }
+
+    .content {
+      padding: 24px 40px;
+    }
+
+    .feedback-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .feedback-item {
+      background: #1a1a35;
+      border-radius: 16px;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .feedback-item:hover {
+      background: #252545;
+    }
+
+    .feedback-info {
+      flex: 1;
+    }
+
+    .feedback-meta {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .tag {
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+    }
+
+    .tag-bug {
+      background: rgba(255, 107, 107, 0.15);
+      color: #FF6B6B;
+    }
+
+    .tag-suggestion {
+      background: rgba(0, 217, 165, 0.15);
+      color: #00D9A5;
+    }
+
+    .tag-other {
+      background: rgba(102, 126, 234, 0.15);
+      color: #667EEA;
+    }
+
+    .tag-pending {
+      background: rgba(255, 193, 7, 0.15);
+      color: #FFC107;
+    }
+
+    .tag-replied {
+      background: rgba(0, 217, 165, 0.15);
+      color: #00D9A5;
+    }
+
+    .feedback-content {
+      font-size: 14px;
+      color: #ccc;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      overflow: hidden;
+    }
+
+    .feedback-time {
+      font-size: 12px;
+      color: #444;
+      margin-top: 8px;
+    }
+
+    .feedback-action {
+      color: #00D9A5;
+      font-size: 14px;
+    }
+
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+      margin-top: 32px;
+    }
+
+    .page-info {
+      font-size: 14px;
+      color: #888;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 80px 20px;
+    }
+
+    .empty-icon {
+      font-size: 64px;
+      margin-bottom: 16px;
+    }
+
+    .empty-text {
+      font-size: 16px;
+      color: #666;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 40px;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="header-title">反馈管理</div>
+    <div class="header-actions">
+      <button class="btn btn-outline" id="refreshBtn">刷新</button>
+      <button class="btn btn-outline" id="logoutBtn">退出登录</button>
+    </div>
+  </div>
+
+  <div class="filters">
+    <div class="filter-group">
+      <span class="filter-label">状态:</span>
+      <select class="filter-select" id="statusFilter">
+        <option value="all">全部</option>
+        <option value="pending">待处理</option>
+        <option value="replied">已回复</option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <span class="filter-label">分类:</span>
+      <select class="filter-select" id="categoryFilter">
+        <option value="all">全部</option>
+        <option value="bug">Bug</option>
+        <option value="suggestion">建议</option>
+        <option value="other">其他</option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <input type="text" class="search-input" id="searchInput" placeholder="搜索内容...">
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="loading" id="loading">加载中...</div>
+    <div class="feedback-list" id="feedbackList"></div>
+    <div class="pagination" id="pagination"></div>
+  </div>
+
+  <script>
+    // 初始化云开发SDK
+    const app = cloudbase.init({
+      env: 'cloud1-7gg9y9tjb2b867b6'
+    });
+
+    // 检查登录状态
+    function checkAuth() {
+      const token = localStorage.getItem('adminToken');
+      const expiresAt = localStorage.getItem('adminTokenExpires');
+      if (!token || !expiresAt || new Date(expiresAt) <= new Date()) {
+        window.location.href = 'login.html';
+        return false;
+      }
+      return token;
+    }
+
+    const token = checkAuth();
+    if (!token) {
+      throw new Error('未授权');
+    }
+
+    let currentPage = 1;
+    const pageSize = 20;
+    let currentStatus = 'all';
+    let currentCategory = 'all';
+    let currentKeyword = '';
+
+    // 格式化日期
+    function formatDate(isoString) {
+      if (!isoString) return '';
+      const date = new Date(isoString);
+      return date.toLocaleString('zh-CN');
+    }
+
+    // 格式化相对时间
+    function formatRelativeTime(isoString) {
+      if (!isoString) return '';
+      const date = new Date(isoString);
+      const now = new Date();
+      const diff = now - date;
+
+      if (diff < 60000) return '刚刚';
+      if (diff < 3600000) return Math.floor(diff / 60000) + '分钟前';
+      if (diff < 86400000) return Math.floor(diff / 3600000) + '小时前';
+      if (diff < 604800000) return Math.floor(diff / 86400000) + '天前';
+
+      return formatDate(isoString);
+    }
+
+    // 使用云开发SDK直接调用云函数（不需要HTTP服务）
+    async function callCloudFunction(action, data) {
+      try {
+        // 使用匿名登录
+        const auth = app.auth({
+          persistence: 'local'
+        });
+        await auth.anonymousAuthProvider().signIn();
+
+        // 调用云函数
+        const result = await app.callFunction({
+          name: 'adminProxy',
+          data: { action, data }
+        });
+        return { result: result.result };
+      } catch (e) {
+        console.error('云函数调用失败:', e);
+        throw e;
+      }
+    }
+
+    // 加载反馈列表
+    async function loadFeedbackList() {
+      const loading = document.getElementById('loading');
+      const list = document.getElementById('feedbackList');
+      const pagination = document.getElementById('pagination');
+
+      loading.style.display = 'block';
+      list.innerHTML = '';
+      pagination.innerHTML = '';
+
+      try {
+        const res = await callCloudFunction('getFeedbackList', {
+          token,
+          status: currentStatus,
+          category: currentCategory,
+          keyword: currentKeyword,
+          page: currentPage,
+          pageSize
+        });
+
+        loading.style.display = 'none';
+
+        if (res.result && res.result.success) {
+          const { list: feedbackList, total, totalPages } = res.result.data;
+
+          if (feedbackList.length === 0) {
+            list.innerHTML = `
+              <div class="empty-state">
+                <div class="empty-icon">📝</div>
+                <div class="empty-text">暂无反馈记录</div>
+              </div>
+            `;
+            return;
+          }
+
+          feedbackList.forEach(item => {
+            const div = document.createElement('div');
+            div.className = 'feedback-item';
+            console.log('[列表] item._id:', item._id);
+            console.log('[列表] item keys:', Object.keys(item));
+            div.innerHTML = `
+              <div class="feedback-info">
+                <div class="feedback-meta">
+                  <span class="tag tag-${item.category}">${getCategoryName(item.category)}</span>
+                  <span class="tag tag-${item.status}">${getStatusName(item.status)}</span>
+                  ${item.hasReply ? '<span class="tag tag-replied">新回复</span>' : ''}
+                </div>
+                <div class="feedback-content">${escapeHtml(item.content)}</div>
+                <div class="feedback-time">${formatRelativeTime(item.createdAt)}</div>
+              </div>
+              <div class="feedback-action">查看详情 ›</div>
+            `;
+            div.onclick = () => {
+              window.location.href = `feedback-detail-v2.html?id=${item._id}`;
+            };
+            list.appendChild(div);
+          });
+
+          // 分页
+          if (totalPages > 1) {
+            pagination.innerHTML = `
+              <button class="btn btn-outline" ${currentPage === 1 ? 'disabled' : ''} onclick="changePage(${currentPage - 1})">上一页</button>
+              <span class="page-info">第 ${currentPage} / ${totalPages} 页 (共 ${total} 条)</span>
+              <button class="btn btn-outline" ${currentPage === totalPages ? 'disabled' : ''} onclick="changePage(${currentPage + 1})">下一页</button>
+            `;
+          }
+        } else {
+          list.innerHTML = `<div class="empty-state"><div class="empty-text">加载失败: ${res.result?.error || '未知错误'}</div></div>`;
+        }
+      } catch (e) {
+        console.error('Load error:', e);
+        loading.style.display = 'none';
+        list.innerHTML = `<div class="empty-state"><div class="empty-text">网络错误</div></div>`;
+      }
+    }
+
+    function getCategoryName(category) {
+      const map = { bug: 'Bug', suggestion: '建议', other: '其他' };
+      return map[category] || category;
+    }
+
+    function getStatusName(status) {
+      const map = { pending: '待处理', replied: '已回复' };
+      return map[status] || status;
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    function changePage(page) {
+      if (page < 1) return;
+      currentPage = page;
+      loadFeedbackList();
+    }
+
+    // 事件监听
+    document.getElementById('statusFilter').addEventListener('change', (e) => {
+      currentStatus = e.target.value;
+      currentPage = 1;
+      loadFeedbackList();
+    });
+
+    document.getElementById('categoryFilter').addEventListener('change', (e) => {
+      currentCategory = e.target.value;
+      currentPage = 1;
+      loadFeedbackList();
+    });
+
+    let searchTimer;
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+      clearTimeout(searchTimer);
+      searchTimer = setTimeout(() => {
+        currentKeyword = e.target.value.trim();
+        currentPage = 1;
+        loadFeedbackList();
+      }, 500);
+    });
+
+    document.getElementById('refreshBtn').addEventListener('click', () => {
+      loadFeedbackList();
+    });
+
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+      localStorage.removeItem('adminToken');
+      localStorage.removeItem('adminTokenExpires');
+      window.location.href = 'login.html';
+    });
+
+    // 初始化并加载数据
+    loadFeedbackList();
+  </script>
+</body>
+</html>

@@ -29,11 +29,7 @@
     <!-- Options -->
     <view class="options">
       <block wx:for="{{currentQuestion.parsedOptions}}" wx:key="key">
-        <view
-          class="option {{selectedOption === item.key ? 'selected' : ''}} {{questionResults[currentQuestion.id] ? (questionResults[currentQuestion.id].isCorrect ? 'correct' : 'incorrect') : ''}}"
-          bindtap="selectOption"
-          data-option="{{item.key}}"
-        >
+        <view class="option {{selectedOption === item.key ? 'selected' : ''}} {{questionResults[currentQuestion.id] ? (selectedOption === item.key ? (questionResults[currentQuestion.id].isCorrect ? 'correct' : 'incorrect') : (item.key === questionResults[currentQuestion.id].correctAnswer ? 'correct' : '')) : ''}}" bindtap="selectOption" data-option="{{item.key}}">
           <text class="option-key">{{item.key}}</text>
           <text class="option-text">{{item.value}}</text>
         </view>

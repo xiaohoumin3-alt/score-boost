@@ -1,0 +1,53 @@
+<view class="page">
+  <!-- Header -->
+  <view class="header">
+    <text class="title">我的反馈</text>
+    <text class="subtitle">查看反馈记录和回复</text>
+  </view>
+
+  <!-- Loading -->
+  <view class="loading" wx:if="{{loading}}">
+    <text class="loading-text">加载中...</text>
+  </view>
+
+  <!-- Empty State -->
+  <view class="empty" wx:elif="{{list.length === 0}}">
+    <text class="empty-icon">📝</text>
+    <text class="empty-text">暂无反馈记录</text>
+    <view class="empty-btn" bindtap="goToSubmit">
+      <text>提交反馈</text>
+    </view>
+  </view>
+
+  <!-- Feedback List -->
+  <view class="list" wx:else>
+    <view
+      class="feedback-item"
+      wx:for="{{list}}"
+      wx:key="feedbackId"
+      bindtap="goToDetail"
+      data-id="{{item.feedbackId}}">
+      <view class="item-header">
+        <view class="category-tag category-{{item.category}}">
+          <text wx:if="{{item.category === 'bug'}}">🐛 Bug</text>
+          <text wx:elif="{{item.category === 'suggestion'}}">💡 建议</text>
+          <text wx:else>💬 其他</text>
+        </view>
+        <view class="status-tag status-{{item.status}}">
+          <text wx:if="{{item.status === 'pending'}}">待处理</text>
+          <text wx:else>已回复</text>
+        </view>
+      </view>
+      <view class="item-content">
+        <text class="content-text">{{item.content}}</text>
+      </view>
+      <view class="item-footer">
+        <text class="time-text">{{item.createdAt}}</text>
+        <view class="reply-badge" wx:if="{{item.hasReply}}">
+          <text class="dot"></text>
+          <text>有新回复</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

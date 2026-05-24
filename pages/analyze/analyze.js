@@ -9,6 +9,7 @@ Page({
     assessments: [],
     trendData: [],
     linePoints: [],
+    subject: '',
     stats: {
       total: 0,
       average: 0,
@@ -26,9 +27,14 @@ Page({
   },
 
   async loadProgress() {
-    this.setData({ loading: true });
+    this.setData({
+      loading: true,
+      subject: app.globalData.subject || '数学'
+    });
     try {
-      const res = await api.getAssessmentList();
+      const currentSubject = app.globalData.subject || '数学';
+      const currentGrade = app.globalData.grade || '八年级';
+      const res = await api.getAssessmentList(currentSubject, currentGrade);
       const list = res.assessments || [];
 
       if (list.length === 0) {

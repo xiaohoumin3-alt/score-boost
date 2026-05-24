@@ -1,0 +1,226 @@
+{
+  "subject": "生物",
+  "grade": "8",
+  "semester": "上",
+  "version": "2024人教版",
+  "chapters": [
+    {
+      "id": "ch1",
+      "name": "动物的主要类群一、无脊椎动物——体内没有由脊椎骨组成的脊柱",
+      "knowledge_points": [
+        {
+          "id": "bio_kp1_1",
+          "name": "脊椎动物",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "name": "动物的运动和行为",
+      "knowledge_points": [
+        {
+          "id": "bio_kp2_1",
+          "name": "动物的运动",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "bio_kp2_2",
+          "name": "先天性行为和学习行为",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "bio_kp2_3",
+          "name": "社会行为",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        }
+      ]
+    },
+    {
+      "id": "ch3",
+      "name": "动物在生物圈中的作用1．",
+      "knowledge_points": [
+        {
+          "id": "bio_kp3_1",
+          "name": "动物在生物圈中的作用1．",
+          "sub_topics": [
+            "全章概览",
+            "重点知识"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.5,
+            "medium": 0.3,
+            "hard": 0.2
+          }
+        }
+      ]
+    },
+    {
+      "id": "ch4",
+      "name": "细菌和真菌",
+      "knowledge_points": [
+        {
+          "id": "bio_kp4_1",
+          "name": "细菌和真菌",
+          "sub_topics": [
+            "全章概览",
+            "重点知识"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.5,
+            "medium": 0.3,
+            "hard": 0.2
+          }
+        }
+      ]
+    },
+    {
+      "id": "ch5",
+      "name": "第1章",
+      "knowledge_points": [
+        {
+          "id": "bio_kp5_1",
+          "name": "第1章",
+          "sub_topics": [
+            "全章概览",
+            "重点知识"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.5,
+            "medium": 0.3,
+            "hard": 0.2
+          }
+        }
+      ]
+    },
+    {
+      "id": "ch6",
+      "name": "根据生物的特征进行分类第一节",
+      "knowledge_points": [
+        {
+          "id": "bio_kp6_1",
+          "name": "根据生物的特征进行分类第一节",
+          "sub_topics": [
+            "全章概览",
+            "重点知识"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.5,
+            "medium": 0.3,
+            "hard": 0.2
+          }
+        }
+      ]
+    },
+    {
+      "id": "ch7",
+      "name": "认识生物的多样性1、生物多样性的内涵：",
+      "knowledge_points": [
+        {
+          "id": "bio_kp7_1",
+          "name": "认识生物的多样性1、生物多样性的内涵：",
+          "sub_topics": [
+            "全章概览",
+            "重点知识"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.5,
+            "medium": 0.3,
+            "hard": 0.2
+          }
+        }
+      ]
+    },
+    {
+      "id": "ch8",
+      "name": "保护生物的多样性1.",
+      "knowledge_points": [
+        {
+          "id": "bio_kp8_1",
+          "name": "保护生物的多样性1.",
+          "sub_topics": [
+            "全章概览",
+            "重点知识"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.5,
+            "medium": 0.3,
+            "hard": 0.2
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,141 @@
+.page {
+  min-height: 100vh;
+  background: #0f0f23;
+  padding-bottom: 40rpx;
+}
+
+.header {
+  padding: 60rpx 40rpx 40rpx;
+}
+
+.title {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #fff;
+  display: block;
+}
+
+.subtitle {
+  font-size: 26rpx;
+  color: #666;
+  display: block;
+  margin-top: 10rpx;
+}
+
+.form {
+  padding: 0 40rpx;
+}
+
+.form-group {
+  margin-bottom: 40rpx;
+}
+
+.label {
+  font-size: 28rpx;
+  color: #888;
+  display: block;
+  margin-bottom: 20rpx;
+}
+
+.required {
+  color: #FF6B6B;
+}
+
+.optional {
+  font-size: 24rpx;
+  color: #444;
+}
+
+/* 分类选择 */
+.category-list {
+  display: flex;
+  gap: 20rpx;
+}
+
+.category-item {
+  flex: 1;
+  padding: 24rpx 16rpx;
+  background: #1a1a35;
+  border-radius: 16rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8rpx;
+  border: 2rpx solid transparent;
+  transition: all 0.3s;
+}
+
+.category-item.active {
+  background: rgba(0, 217, 165, 0.1);
+  border-color: #00D9A5;
+}
+
+.category-icon {
+  font-size: 40rpx;
+}
+
+.category-name {
+  font-size: 24rpx;
+  color: #888;
+}
+
+.category-item.active .category-name {
+  color: #00D9A5;
+}
+
+/* 内容输入 */
+.textarea {
+  width: 100%;
+  min-height: 200rpx;
+  padding: 24rpx;
+  background: #1a1a35;
+  border-radius: 16rpx;
+  color: #fff;
+  font-size: 28rpx;
+  line-height: 1.6;
+  box-sizing: border-box;
+}
+
+.textarea-placeholder {
+  color: #444;
+}
+
+.char-count {
+  font-size: 24rpx;
+  color: #444;
+  text-align: right;
+  display: block;
+  margin-top: 12rpx;
+}
+
+/* 联系方式输入 */
+.input {
+  width: 100%;
+  padding: 24rpx;
+  background: #1a1a35;
+  border-radius: 16rpx;
+  color: #fff;
+  font-size: 28rpx;
+  box-sizing: border-box;
+}
+
+.input-placeholder {
+  color: #444;
+}
+
+/* 提交按钮 */
+.submit-btn {
+  width: 100%;
+  padding: 32rpx;
+  background: linear-gradient(135deg, #00D9A5 0%, #00B894 100%);
+  border-radius: 16rpx;
+  text-align: center;
+  font-size: 32rpx;
+  color: #0f0f23;
+  font-weight: bold;
+  margin-top: 40rpx;
+}
+
+.submit-btn.disabled {
+  opacity: 0.6;
+}

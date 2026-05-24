@@ -1,0 +1,21 @@
+<!--pages/test-admin/test-admin.wxml-->
+<view class="container">
+  <view class="title">管理后台登录测试</view>
+
+  <view class="form">
+    <view class="form-item">
+      <text class="label">账号：</text>
+      <input class="input" value="admin" disabled/>
+    </view>
+    <view class="form-item">
+      <text class="label">密码：</text>
+      <input class="input" value="admin" disabled/>
+    </view>
+    <button class="btn" bindtap="testLogin">测试登录</button>
+  </view>
+
+  <view class="result">
+    <view class="result-title">测试结果：</view>
+    <text class="result-text">{{result}}</text>
+  </view>
+</view>

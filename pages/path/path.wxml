@@ -1,0 +1,95 @@
+<view class="page">
+  <!-- Header -->
+  <view class="header">
+    <text class="title">提分路径</text>
+  </view>
+
+  <view class="loading" wx:if="{{loading}}">
+    <text class="loading-text">加载中...</text>
+  </view>
+
+  <!-- Score Status -->
+  <view class="score-section" wx:if="{{!loading}}">
+    <view class="score-display">
+      <view class="score-ring">
+        <view class="ring-outer">
+          <view class="ring-progress" style="transform: rotate({{currentScore * 3.6 - 90}}deg);"></view>
+          <view class="ring-inner">
+            <text class="score-value">{{currentScore}}</text>
+            <text class="score-label">当前</text>
+          </view>
+        </view>
+      </view>
+      <view class="score-arrow" wx:if="{{currentScore < targetScore}}">
+        <text class="arrow-icon">→</text>
+      </view>
+      <view class="score-target" wx:if="{{currentScore < targetScore}}">
+        <text class="target-value">{{targetScore}}分</text>
+        <text class="target-label">目标</text>
+        <text class="gap-badge" wx:if="{{totalGap > 0}}">差 {{totalGap}} 分</text>
+      </view>
+      <view class="score-status achieved" wx:if="{{currentScore >= targetScore}}">
+        <text class="status-text">已达成目标</text>
+        <text class="status-detail">超越 {{currentScore - targetScore}} 分</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- Path Steps -->
+  <view class="path-section" wx:if="{{!loading}}">
+    <text class="section-title">最短提分路径</text>
+    <view class="path-list">
+      <block wx:for="{{path}}" wx:key="id">
+        <view class="path-step step-{{item.status}}">
+          <view class="step-icon">
+            <text wx:if="{{item.status === 'completed'}}">✓</text>
+            <text wx:elif="{{item.status === 'current'}}">{{index + 1}}</text>
+            <text wx:else>🔒</text>
+          </view>
+          <view class="step-content">
+            <view class="step-header">
+              <text class="step-name">{{item.name}}</text>
+              <text class="step-score" wx:if="{{item.status !== 'locked'}}">+{{item.score}}分</text>
+            </view>
+            <view class="step-bar">
+              <view class="bar-fill bar-{{item.status}}" style="width: {{item.status === 'completed' ? '100%' : (item.status === 'current' ? '60%' : '0%')}}"></view>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <!-- Current Action -->
+  <view class="action-section" wx:if="{{!loading && currentStep}}">
+      <view class="current-card">
+        <view class="card-header">
+          <text class="card-label">当前任务</text>
+          <text class="card-badge">进行中</text>
+        </view>
+        <text class="card-title">{{currentStep.name}}</text>
+        <text class="card-desc">完成此知识点预计提升 {{currentStep.score}} 分</text>
+        <view class="card-action" bindtap="startStep">
+          <text>开始练习 →</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- Progress Summary -->
+    <view class="progress-section" wx:if="{{!loading}}">
+      <view class="progress-item">
+        <text class="progress-value">{{completedSteps}}</text>
+        <text class="progress-label">已完成</text>
+      </view>
+      <view class="progress-divider"></view>
+      <view class="progress-item">
+        <text class="progress-value">{{path.length - completedSteps}}</text>
+        <text class="progress-label">待完成</text>
+      </view>
+      <view class="progress-divider"></view>
+      <view class="progress-item">
+        <text class="progress-value">{{totalGap}}</text>
+        <text class="progress-label">分差距</text>
+      </view>
+    </view>
+</view>

@@ -25,6 +25,8 @@ class LlmClient {
     }
 
     const prompt = this._buildPrompt(params);
+    console.log('[LLM] Starting request to MiniMax API...');
+    console.log('[LLM] API Key present:', !!this.apiKey, 'Length:', this.apiKey?.length);
 
     return new Promise((resolve, reject) => {
       const postData = JSON.stringify({
@@ -34,7 +36,7 @@ class LlmClient {
         temperature: 0.9,
         top_p: 0.95,
         messages: [
-          { role: 'system', content: '你是一个专业的数学题目生成助手。请严格按照用户要求的JSON格式返回题目。' },
+          { role: 'system', content: config.systemPrompt },
           { role: 'user', content: prompt }
         ]
       });
@@ -43,7 +45,7 @@ class LlmClient {
         hostname: 'api.minimax.chat',
         path: '/v1/text/chatcompletion_v2',
         method: 'POST',
-        timeout: 45000,
+        timeout: 30000,
         headers: {
           'Authorization': `Bearer ${this.apiKey}`,
           'Content-Type': 'application/json',
@@ -51,27 +53,44 @@ class LlmClient {
         }
       };
 
+      console.log('[LLM] Sending HTTP request...');
+      const startTime = Date.now();
+
       const req = http.request(options, (res) => {
+        console.log('[LLM] Response received, status:', res.statusCode);
         let data = '';
         res.on('data', (chunk) => { data += chunk; });
         res.on('end', () => {
+          const elapsed = Date.now() - startTime;
+          console.log('[LLM] Response complete, elapsed:', elapsed, 'ms, data length:', data.length);
           try {
             const result = JSON.parse(data);
+            console.log('[LLM] Parsed result, keys:', Object.keys(result));
             if (result.error) throw new Error(result.error.message || JSON.stringify(result.error));
             if (result.base_resp?.status_code !== 0) throw new Error(result.base_resp?.status_msg);
             const content = result.choices?.[0]?.message?.content;
+            console.log('[LLM] Content length:', content?.length);
             if (!content) throw new Error('Empty response from LLM');
             resolve({ content, usage: result.usage });
           } catch (e) {
+            console.log('[LLM] Error parsing response:', e.message);
             reject(e);
           }
         });
       });
 
-      req.on('error', reject);
-      req.on('timeout', () => { req.destroy(); reject(new Error('Request timeout')); });
+      req.on('error', (e) => {
+        console.log('[LLM] Request error:', e.message);
+        reject(e);
+      });
+      req.on('timeout', () => {
+        console.log('[LLM] Request timeout after 30s');
+        req.destroy();
+        reject(new Error('Request timeout'));
+      });
       req.write(postData);
       req.end();
+      console.log('[LLM] Request sent, waiting for response...');
     });
   }
 
@@ -90,63 +109,48 @@ class LlmClient {
     const difficultyText = { easy: '简单', medium: '中等', hard: '困难' }[difficulty] || '中等';
     const questionTypeText = { choice: '选择题', written: '简答题', coding: '编程题' }[question_type] || '选择题';
 
+    // 科目映射和指导
+    const subjectConfig = {
+      math: {
+        systemPrompt: '你是一个专业的数学题目生成助手。请严格按照用户要求的JSON格式返回题目。',
+        guidance: '题目应符合初中数学水平，涉及二次根式、勾股定理、一次函数等知识点',
+        fallback: { scenarios: ['梯子靠墙', '航海航行', '建筑施工', '测量距离', '运动路径', '矩形对角线'], triples: [[3, 4, 5], [5, 12, 13], [6, 8, 10]] }
+      },
+      biology: {
+        systemPrompt: '你是一个专业的初中生物题目生成助手。请严格按照用户要求的JSON格式返回题目。',
+        guidance: '题目应符合初中生物水平，涉及动物的主要类群、动物的运动和行为、动物在生物圈中的作用等知识点',
+        fallback: { topics: ['腔肠动物', '扁形动物', '线形动物', '环节动物', '软体动物', '节肢动物', '鱼类', '两栖类', '爬行类', '鸟类', '哺乳类'] }
+      },
+      geography: {
+        systemPrompt: '你是一个专业的初中地理题目生成助手。请严格按照用户要求的JSON格式返回题目。',
+        guidance: '题目应符合初中地理水平，涉及中国的疆域与行政区划、中国的人口与民族、中国的地形和气候等知识点',
+        fallback: { topics: ['中国的地理位置', '中国的疆域', '中国的行政区划', '中国的人口与民族', '中国的地形', '中国的气候', '中国的河流与湖泊'] }
+      }
+    };
+
+    const config = subjectConfig[subject] || subjectConfig.math;
     let prompt = `请为以下知识点生成一道${difficultyText}难度的${questionTypeText}：知识点：${kp_name}`;
+
+    prompt += `\n\n【科目指导】${config.guidance}`;
 
     if (knowledge_context) prompt += `\n知识上下文：\n${knowledge_context}`;
     if (related_concepts.length > 0) prompt += `\n相关概念：${related_concepts.join('、')}`;
     if (typical_mistakes.length > 0) prompt += `\n典型错误：${typical_mistakes.join('；')}`;
 
-    // 配置驱动的多样化约束
-    const config = this.loader.loadConfig(subject, knowledge_point);
-
-    if (config) {
-      const usedScenarios = this.state.getUsedScenarios();
-      const usedTriples = this.state.getUsedTriples();
-      const usedPatterns = this.state.getUsedPatterns();
-
-      const availableScenarios = this.loader.getAvailableScenarios(config, usedScenarios);
-      const availableTriples = this.loader.getAvailableTriples(config, usedTriples);
-
-      const scenario = availableScenarios.length > 0
-        ? this.loader.getRandomFromList(availableScenarios)
-        : this.loader.getRandomScenario(config);
-
-      const triple = availableTriples.length > 0
-        ? this.loader.getRandomFromList(availableTriples)
-        : this.loader.getRandomTriple(config);
-
-      const pattern = this.loader.getRandomQuestionPattern(config);
-
-      prompt += `\n\n【场景要求】`;
-      prompt += `\n场景类型：${scenario.name}`;
-      prompt += `\n推荐模板：${scenario.templates[0]}`;
-
-      prompt += `\n\n【数值要求】`;
-      prompt += `\n使用勾股数：${triple.join('-')}`;
-      prompt += `\n注意：不要直接写"3-4-5直角三角形"，要融入场景`;
-
-      prompt += `\n\n【问法建议】`;
-      prompt += `\n问法类型：${pattern.type}`;
-      prompt += `\n参考表达：${pattern.templates[0]}`;
-
-      if (usedScenarios.length > 0) {
-        prompt += `\n\n【已使用，请避开】`;
-        prompt += `\n场景：${usedScenarios.join('、')}`;
-        prompt += `\n数值：${usedTriples.map(t => t.join('-')).join('、')}`;
-        prompt += `\n问法：${usedPatterns.join('、')}`;
-      }
-    } else {
-      // 降级方案：使用硬编码场景
-      const scenarios = ['梯子靠墙', '航海航行', '建筑施工', '测量距离', '运动路径', '矩形对角线', '最短路径'];
-      const triples = [[3, 4, 5], [5, 12, 13], [6, 8, 10], [8, 15, 17], [7, 24, 25]];
-
+    // 根据科目添加场景/话题约束
+    if (subject === 'math' && config.fallback) {
+      const { scenarios, triples } = config.fallback;
       prompt += `\n\n【场景要求】从以下场景选择：${scenarios.join('、')}`;
       prompt += `\n【数值要求】使用勾股数：${triples.map(t => t.join('-')).join('、')}`;
+    } else if (subject === 'biology' && config.fallback) {
+      prompt += `\n\n【话题要求】请选择相关动物类群：${config.fallback.topics.join('、')}`;
+    } else if (subject === 'geography' && config.fallback) {
+      prompt += `\n\n【话题要求】请选择相关地理知识：${config.fallback.topics.join('、')}`;
     }
 
     prompt += `\n\n【质量要求】`;
     prompt += `\n1. 选项长度均衡，不要让正确答案明显长于干扰项`;
-    prompt += `\n2. 避免模板化表达（如"一个3-4-5的直角三角形"）`;
+    prompt += `\n2. 避免模板化表达`;
     prompt += `\n3. 问法多样化，避免连续使用相同的问句模式`;
 
     if (question_type === 'choice') {
@@ -166,38 +170,41 @@ class LlmClient {
   async generateQuestion(params) {
     const { subject = 'math', knowledge_point = 'kp2_3' } = params;
 
-    let attempts = 0;
-    const maxAttempts = 3;
+    // 减少重试次数，避免超时
+    const maxAttempts = 1;
 
-    while (attempts < maxAttempts) {
-      const response = await this.generate(params);
-      const question = parseLlmResponse(response.content);
+    for (let attempt = 0; attempt < maxAttempts; attempt++) {
+      try {
+        const response = await this.generate(params);
+        const question = parseLlmResponse(response.content);
 
-      if (!question || !validateQuestion(question, params.question_type)) {
-        attempts++;
-        continue;
+        if (!question || !validateQuestion(question, params.question_type)) {
+          throw new Error('Invalid question structure');
+        }
+
+        // 质量验证
+        const validationResult = this.validator.validate(question, {});
+
+        if (!validationResult.pass) {
+          console.log(`Question validation failed:`, validationResult.errors);
+          throw new Error('Question validation failed');
+        }
+
+        // 记录状态
+        question.scenario_used = this._detectScenario(question.question);
+        question.triple_used = this._detectTriple(question.question);
+        question.question_pattern = this._detectPattern(question.question);
+
+        this.state.recordQuestion(question);
+
+        return question;
+      } catch (e) {
+        console.error(`AI generation attempt ${attempt + 1} failed:`, e.message);
+        if (attempt === maxAttempts - 1) throw e;
       }
-
-      // 质量验证
-      const validationResult = this.validator.validate(question, {});
-
-      if (!validationResult.pass) {
-        console.log(`Question validation failed, retrying (${attempts + 1}/${maxAttempts})`, validationResult.errors);
-        attempts++;
-        continue;
-      }
-
-      // 记录状态
-      question.scenario_used = this._detectScenario(question.question);
-      question.triple_used = this._detectTriple(question.question);
-      question.question_pattern = this._detectPattern(question.question);
-
-      this.state.recordQuestion(question);
-
-      return question;
     }
 
-    throw new Error(`Failed to generate valid question after ${maxAttempts} attempts`);
+    throw new Error('Failed to generate valid question');
   }
 
   /**

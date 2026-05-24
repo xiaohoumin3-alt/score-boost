@@ -1,0 +1,146 @@
+{
+  "subject": "生物",
+  "grade": "8",
+  "semester": "下",
+  "version": "2024人教版",
+  "chapters": [
+    {
+      "id": "ch1",
+      "name": "生物的生殖和发育第一节",
+      "knowledge_points": [
+        {
+          "id": "bio_kp1_1",
+          "name": "生物的生殖和发育第一节",
+          "sub_topics": [
+            "全章概览",
+            "重点知识"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.5,
+            "medium": 0.3,
+            "hard": 0.2
+          }
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "name": "生物的遗传和变异第一节",
+      "knowledge_points": [
+        {
+          "id": "bio_kp2_1",
+          "name": "生物的遗传和变异第一节",
+          "sub_topics": [
+            "全章概览",
+            "重点知识"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.5,
+            "medium": 0.3,
+            "hard": 0.2
+          }
+        }
+      ]
+    },
+    {
+      "id": "ch3",
+      "name": "生物的进化第一节",
+      "knowledge_points": [
+        {
+          "id": "bio_kp3_1",
+          "name": "生物的进化第一节",
+          "sub_topics": [
+            "全章概览",
+            "重点知识"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.5,
+            "medium": 0.3,
+            "hard": 0.2
+          }
+        }
+      ]
+    },
+    {
+      "id": "ch4",
+      "name": "传染病和免疫常见传染病：流行性感冒、非典、水痘、结膜炎、",
+      "knowledge_points": [
+        {
+          "id": "bio_kp4_1",
+          "name": "二道防线是人类在进化过程中逐渐建立起来的天然防御功能；",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        }
+      ]
+    },
+    {
+      "id": "ch5",
+      "name": "用药和急救处方药和非处方药：",
+      "knowledge_points": [
+        {
+          "id": "bio_kp5_1",
+          "name": "用药和急救处方药和非处方药：",
+          "sub_topics": [
+            "全章概览",
+            "重点知识"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.5,
+            "medium": 0.3,
+            "hard": 0.2
+          }
+        }
+      ]
+    },
+    {
+      "id": "ch6",
+      "name": "了解自己",
+      "knowledge_points": [
+        {
+          "id": "bio_kp6_1",
+          "name": "了解自己",
+          "sub_topics": [
+            "全章概览",
+            "重点知识"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.5,
+            "medium": 0.3,
+            "hard": 0.2
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -45,25 +45,61 @@ Page({
       }
     }
 
+    // 保存会考模式标志
+    if (options.mode === 'huikao') {
+      this.data.examMode = 'huikao';
+    }
+
     this.initAssessment();
   },
 
   async initAssessment() {
-    if (!app.globalData.grade || !app.globalData.subject) {
+    // 会考模式只需要科目，年级测评模式需要年级和科目
+    const examMode = app.globalData.examMode || this.data.examMode || 'grade';
+    const isHuikao = examMode === 'huikao';
+
+    if (!app.globalData.subject) {
+      wx.redirectTo({ url: '/pages/onboarding/onboarding' });
+      return;
+    }
+    if (!isHuikao && !app.globalData.grade) {
       wx.redirectTo({ url: '/pages/onboarding/onboarding' });
       return;
     }
 
-    wx.showLoading({ title: '正在生成测评...' });
+    console.log('[assessment] initAssessment - globalData:', {
+      grade: app.globalData.grade,
+      subject: app.globalData.subject,
+      examMode: examMode
+    });
+    console.log('[assessment] initAssessment - storage:', JSON.stringify(wx.getStorageSync('userSession')));
+
+    wx.showLoading({ title: isHuikao ? '正在生成会考题目...' : '正在生成测评...' });
     try {
-      // 复测模式：不传任何参数，由云函数自行验证资格
-      const mode = this.data.isRetest ? 'retest' : 'quick';
+      // 确定模式：复测、会考、或普通测评
+      let mode;
+      if (this.data.isRetest) {
+        mode = 'retest';
+      } else if (isHuikao) {
+        mode = 'huikao';
+      } else {
+        mode = 'quick';
+      }
+
+      console.log('[assessment] 调用 startAssessment, 参数:', {
+        grade: app.globalData.grade,
+        subject: app.globalData.subject,
+        mode,
+        isHuikao
+      });
+
       const res = await api.startAssessment(
-        app.globalData.grade,
+        isHuikao ? null : app.globalData.grade,  // 会考模式不需要年级
         app.globalData.subject,
         mode,
-        null  // 不传任何复测参数
+        null
       );
+      console.log('[assessment] startAssessment 返回:', res);
       wx.hideLoading();
 
       // 后端返回 assessment_id（不是 session_id）

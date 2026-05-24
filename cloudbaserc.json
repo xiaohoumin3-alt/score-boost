@@ -1,0 +1,20 @@
+{
+  "envId": "cloud1-7gg9y9tjb2b867b6",
+  "region": "ap-shanghai",
+  "functions": [
+    {
+      "name": "generateAiQuestion",
+      "runtime": "Nodejs18.15",
+      "handler": "index.main",
+      "timeout": 60,
+      "memorySize": 256
+    },
+    {
+      "name": "startAssessment",
+      "runtime": "Nodejs16.13",
+      "handler": "index.main",
+      "timeout": 60,
+      "memorySize": 256
+    }
+  ]
+}

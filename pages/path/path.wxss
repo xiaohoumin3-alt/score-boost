@@ -1,0 +1,370 @@
+.page {
+  min-height: 100vh;
+  background: #0f0f23;
+  padding-bottom: 180rpx;
+}
+
+.debug-section {
+  padding: 20rpx;
+  background: #ff0;
+  color: #000;
+  margin: 20rpx;
+}
+
+.header {
+  padding: 120rpx 40rpx 40rpx;
+}
+
+.title {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #fff;
+}
+
+/* Score Section */
+.score-section {
+  padding: 40rpx;
+  background: #1a1a35;
+  border-radius: 20rpx;
+  margin: 20rpx;
+}
+
+/* Score Display */
+.score-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20rpx;
+}
+
+.score-ring {
+  width: 200rpx;
+  height: 200rpx;
+  position: relative;
+}
+
+.ring-outer {
+  width: 200rpx;
+  height: 200rpx;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, #00D9A5 {{currentScore * 3.6}}deg, #222 {{currentScore * 3.6}}deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ring-inner {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 50%;
+  background: #0f0f23;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.score-value {
+  font-size: 56rpx;
+  font-weight: bold;
+  color: #00D9A5;
+}
+
+.score-label {
+  font-size: 22rpx;
+  color: #666;
+}
+
+.score-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.arrow-icon {
+  font-size: 40rpx;
+  color: #00D9A5;
+}
+
+.score-target {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.target-value {
+  font-size: 44rpx;
+  font-weight: bold;
+  color: #fff;
+}
+
+.target-label {
+  font-size: 24rpx;
+  color: #666;
+}
+
+.gap-badge {
+  font-size: 22rpx;
+  color: #FF6B6B;
+  background: rgba(255, 107, 107, 0.1);
+  padding: 8rpx 16rpx;
+  border-radius: 20rpx;
+  margin-top: 8rpx;
+  display: inline-block;
+}
+
+.score-status {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.score-status.achieved .status-text {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #00D9A5;
+}
+
+.score-status.achieved .status-detail {
+  font-size: 24rpx;
+  color: #666;
+}
+
+/* Path Section */
+.path-section {
+  padding: 40rpx;
+}
+
+.section-title {
+  font-size: 30rpx;
+  color: #888;
+  display: block;
+  margin-bottom: 30rpx;
+}
+
+.path-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.path-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 24rpx;
+  position: relative;
+  padding: 24rpx;
+  background: #1a1a35;
+  border-radius: 16rpx;
+  margin-bottom: 20rpx;
+  border-left: 4rpx solid transparent;
+}
+
+.path-step.step-completed {
+  border-left-color: #00D9A5;
+  opacity: 0.7;
+}
+
+.path-step.step-current {
+  border-left-color: #00D9A5;
+  background: linear-gradient(90deg, rgba(0, 217, 165, 0.15) 0%, #1a1a35 100%);
+}
+
+.path-step.step-locked {
+  opacity: 0.4;
+  border-left-color: #444;
+}
+
+.connector {
+  position: absolute;
+  left: 60rpx;
+  top: -20rpx;
+  width: 4rpx;
+  height: 20rpx;
+  background: #333;
+}
+
+.step-icon {
+  width: 56rpx;
+  height: 56rpx;
+  border-radius: 50%;
+  background: #222;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+  flex-shrink: 0;
+}
+
+.step-current .step-icon {
+  background: #00D9A5;
+  color: #0f0f23;
+  font-weight: bold;
+}
+
+.step-completed .step-icon {
+  background: #00D9A5;
+  color: #0f0f23;
+}
+
+.step-locked .step-icon {
+  background: #333;
+  color: #666;
+}
+
+.step-content {
+  flex: 1;
+}
+
+.step-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12rpx;
+}
+
+.step-name {
+  font-size: 30rpx;
+  color: #fff;
+  font-weight: 500;
+}
+
+.step-score {
+  font-size: 26rpx;
+  color: #00D9A5;
+  font-weight: bold;
+}
+
+.step-locked .step-score {
+  color: #666;
+}
+
+.step-bar {
+  height: 8rpx;
+  background: #222;
+  border-radius: 4rpx;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  border-radius: 4rpx;
+  transition: width 0.3s;
+}
+
+.bar-completed {
+  background: #00D9A5;
+}
+
+.bar-current {
+  background: linear-gradient(90deg, #00D9A5 0%, #00B894 100%);
+}
+
+.bar-locked {
+  background: transparent;
+}
+
+/* Action Section */
+.action-section {
+  padding: 0 40rpx 40rpx;
+}
+
+.current-card {
+  background: linear-gradient(135deg, #1a3a2e 0%, #1a1a35 100%);
+  border-radius: 20rpx;
+  padding: 30rpx;
+  border: 2rpx solid #00D9A5;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.card-label {
+  font-size: 24rpx;
+  color: #00D9A5;
+}
+
+.card-badge {
+  font-size: 20rpx;
+  background: #00D9A5;
+  color: #0f0f23;
+  padding: 4rpx 16rpx;
+  border-radius: 20rpx;
+  font-weight: bold;
+}
+
+.card-title {
+  font-size: 36rpx;
+  color: #fff;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 8rpx;
+}
+
+.card-desc {
+  font-size: 24rpx;
+  color: #888;
+  display: block;
+  margin-bottom: 24rpx;
+}
+
+.card-action {
+  background: #00D9A5;
+  color: #0f0f23;
+  font-size: 30rpx;
+  font-weight: bold;
+  text-align: center;
+  padding: 20rpx;
+  border-radius: 12rpx;
+}
+
+/* Progress Section */
+.progress-section {
+  display: flex;
+  justify-content: space-around;
+  padding: 40rpx;
+  background: #1a1a35;
+  margin: 0 40rpx;
+  border-radius: 16rpx;
+}
+
+.progress-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8rpx;
+}
+
+.progress-value {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #00D9A5;
+}
+
+.progress-label {
+  font-size: 22rpx;
+  color: #666;
+}
+
+.progress-divider {
+  width: 2rpx;
+  height: 60rpx;
+  background: #333;
+}
+
+/* Loading */
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+}
+
+.loading-text {
+  font-size: 28rpx;
+  color: #666;
+}

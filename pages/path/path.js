@@ -4,13 +4,15 @@ const api = require('../../utils/cloudApi.js');
 Page({
   data: {
     loading: false,
-    currentScore: 80,
+    currentScore: 0,
     targetScore: 85,
-    totalGap: 5,
+    totalGap: 85,
     path: [],
     currentStep: null,
     completedSteps: 0,
     weakPoints: [],
+    subject: '',
+    grade: '',
   },
 
   onLoad() {
@@ -18,32 +20,42 @@ Page({
   },
 
   async loadPath() {
-    const defaultScore = 80;
     const targetScore = 85;
 
+    // 默认值：没有历史记录时显示 0
     this.setData({
       loading: false,
-      currentScore: defaultScore,
+      currentScore: 0,
       targetScore: targetScore,
-      totalGap: Math.max(0, targetScore - defaultScore),
-      completedSteps: 0
+      totalGap: targetScore,
+      completedSteps: 0,
+      subject: app.globalData.subject || '数学',
+      grade: app.globalData.grade || '八年级',
     });
 
     try {
-      // 获取最新诊断结果
-      const diagnosis = await api.getLatestDiagnosis();
+      // 获取当前科目和年级的最新诊断结果
+      const currentSubject = app.globalData.subject || '数学';
+      const currentGrade = app.globalData.grade || '八年级';
+      console.log('[path] loadPath:', currentSubject, currentGrade);
 
-      let currentScore = defaultScore;
-      if (diagnosis.score_percent > 0) {
+      const diagnosis = await api.getLatestDiagnosis(currentSubject, currentGrade);
+      console.log('[path] diagnosis result:', JSON.stringify(diagnosis));
+
+      let currentScore = 0;
+      let totalGap = targetScore;
+
+      if (diagnosis && diagnosis.score_percent > 0) {
         currentScore = diagnosis.score_percent;
+        totalGap = Math.max(0, targetScore - currentScore);
       }
 
       // 分析薄弱点
-      const weakPoints = api.analyzeWeakPoints(diagnosis.kp_stats || []);
+      const weakPoints = api.analyzeWeakPoints(diagnosis?.kp_stats || []);
+      console.log('[path] weakPoints:', JSON.stringify(weakPoints));
 
       // 保存 assessment_id 到全局数据
-      const app = getApp();
-      app.targetAssessmentId = diagnosis.assessment_id;
+      app.targetAssessmentId = diagnosis?.assessment_id;
 
       // 用真实薄弱点生成路径
       const steps = weakPoints.map((wp, index) => ({
@@ -54,7 +66,6 @@ Page({
         icon: this.getIconForKp(wp.kp_id),
       }));
 
-      const totalGap = Math.max(0, targetScore - currentScore);
       const currentStep = steps[0] || null;
       const completedSteps = 0;
 
@@ -67,7 +78,8 @@ Page({
         weakPoints: weakPoints,
       });
     } catch (e) {
-      // use default values on error
+      console.error('[path] loadPath error:', e);
+      // 错误时保持 currentScore = 0
     }
   },
 
