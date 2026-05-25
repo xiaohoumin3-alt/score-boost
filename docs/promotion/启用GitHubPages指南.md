@@ -54,7 +54,7 @@ Folder: / (root)
 ✅ 自适应难度，每天15分钟
 
 详细介绍：https://xiaohoumin3-alt.github.io/score-boost/
-前100名免费体验7天，微信搜「日日守护」
+开始AI精准复习，微信搜「日日守护」
 ```
 
 **家长群**：
@@ -66,7 +66,7 @@ Folder: / (root)
 「日日守护」AI小程序详细介绍：
 https://xiaohoumin3-alt.github.io/score-boost/
 
-前100名免费体验7天，微信搜「日日守护」
+开始AI精准复习，微信搜「日日守护」
 ```
 
 ---
