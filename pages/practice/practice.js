@@ -1,5 +1,5 @@
-const app = getApp();
-const api = require('../../utils/cloudApi.js');
+var app = getApp();
+var api = require('../../utils/cloudApi.js');
 
 Page({
   data: {
@@ -28,10 +28,10 @@ Page({
     }
 
     // 优先从 URL 参数获取
-    let kpName = query.kpName || null;
-    let kpId = query.kpId || null;
-    let assessmentId = query.assessmentId || null;
-    let weakPoints = null;
+    var kpName = query.kpName || null;
+    var kpId = query.kpId || null;
+    var assessmentId = query.assessmentId || null;
+    var weakPoints = null;
 
     // 从 path 页面 switchTab 过来时，读取 weakPoints 和 assessmentId
     if (app.targetWeakPoints) {
@@ -54,10 +54,10 @@ Page({
     }
 
     if (!kpName) {
-      kpName = weakPoints ? weakPoints[0]?.kp_name : '专项练习';
+      kpName = weakPoints && weakPoints[0] ? weakPoints[0].kp_name : '专项练习';
     }
 
-    this.setData({ kpName, kpId, weakPoints, assessmentId }, () => {
+    this.setData({ kpName, kpId, weakPoints, assessmentId }, function() {
       this.initPractice();
     });
   },
@@ -65,19 +65,19 @@ Page({
   onShow() {
     // 当从 path 页面 switchTab 过来时，可能需要重新初始化
     if (app.targetWeakPoints && !this.data.sessionId) {
-      const weakPoints = app.targetWeakPoints;
+      var weakPoints = app.targetWeakPoints;
       app.targetWeakPoints = null;
-      const assessmentId = app.targetAssessmentId || null;
+      var assessmentId = app.targetAssessmentId || null;
       if (app.targetAssessmentId) {
         app.targetAssessmentId = null;
       }
 
       this.setData({
         weakPoints: weakPoints,
-        kpName: weakPoints[0]?.kp_name || '专项练习',
-        kpId: weakPoints[0]?.kp_id || null,
+        kpName: weakPoints[0] ? weakPoints[0].kp_name : '专项练习',
+        kpId: weakPoints[0] ? weakPoints[0].kp_id : null,
         assessmentId: assessmentId,
-      }, () => {
+      }, function() {
         this.initPractice();
       });
     }
@@ -199,9 +199,13 @@ Page({
   },
 
   selectOption(e) {
-    const option = e.currentTarget.dataset.option;
-    const { currentQuestion, currentIndex, questions, answers, questionResults } = this.data;
-    const isCorrect = option === currentQuestion.correct_answer;
+    var option = e.currentTarget.dataset.option;
+    var currentQuestion = this.data.currentQuestion;
+    var currentIndex = this.data.currentIndex;
+    var questions = this.data.questions;
+    var answers = this.data.answers;
+    var questionResults = this.data.questionResults;
+    var isCorrect = option === currentQuestion.correct_answer;
 
     // 记录答案
     answers[currentQuestion.id] = {
@@ -225,9 +229,9 @@ Page({
       wx.showToast({ title: '错误: ' + currentQuestion.correct_answer, icon: 'none', duration: 1500 });
 
       // 显示典型错误
-      const mistakes = currentQuestion.typical_mistakes || [];
+      var mistakes = currentQuestion.typical_mistakes || [];
       if (mistakes.length > 0) {
-        setTimeout(() => {
+        setTimeout(function() {
           wx.showModal({
             title: '💡 常见错误',
             content: mistakes.slice(0, 2).join('\n'),
@@ -245,14 +249,14 @@ Page({
     }
 
     // 跳转下一题
-    const nextIndex = currentIndex + 1;
+    var nextIndex = currentIndex + 1;
     if (nextIndex >= questions.length) {
       // 最后一题：清除浏览模式标志，等待反馈后留在当前页面
       this.setData({ isBrowsingHistory: false });
       return;
     }
 
-    setTimeout(() => {
+    setTimeout(function() {
       this.setData({
         currentIndex: nextIndex,
         currentQuestion: questions[nextIndex],
@@ -261,11 +265,11 @@ Page({
         progress: Math.round(((nextIndex + 1) / questions.length) * 100),
         isBrowsingHistory: false
       });
-    }, isCorrect ? 800 : 1500);
+    }.bind(this), isCorrect ? 800 : 1500);
   },
 
   previewImage(e) {
-    const url = e.currentTarget.dataset.url;
+    var url = e.currentTarget.dataset.url;
     if (url) {
       wx.previewImage({
         current: url,
@@ -275,11 +279,14 @@ Page({
   },
 
   goPrevQuestion() {
-    const { currentIndex, questions, answers, questionResults } = this.data;
+    var currentIndex = this.data.currentIndex;
+    var questions = this.data.questions;
+    var answers = this.data.answers;
+    var questionResults = this.data.questionResults;
     if (currentIndex > 0) {
-      const prevIndex = currentIndex - 1;
-      const prevQuestion = questions[prevIndex];
-      const savedAnswer = answers[prevQuestion.id];
+      var prevIndex = currentIndex - 1;
+      var prevQuestion = questions[prevIndex];
+      var savedAnswer = answers[prevQuestion.id];
 
       this.setData({
         currentIndex: prevIndex,
@@ -293,11 +300,14 @@ Page({
   },
 
   goNextQuestion() {
-    const { currentIndex, questions, answers, questionResults } = this.data;
-    const nextIndex = currentIndex + 1;
+    var currentIndex = this.data.currentIndex;
+    var questions = this.data.questions;
+    var answers = this.data.answers;
+    var questionResults = this.data.questionResults;
+    var nextIndex = currentIndex + 1;
     if (nextIndex < questions.length) {
-      const nextQuestion = questions[nextIndex];
-      const savedAnswer = answers[nextQuestion.id];
+      var nextQuestion = questions[nextIndex];
+      var savedAnswer = answers[nextQuestion.id];
 
       this.setData({
         currentIndex: nextIndex,
@@ -314,11 +324,24 @@ Page({
     this.setData({ loading: true });
 
     // 批量提交答案到 kp_progress
-    const submitPromises = [];
-    const answersArray = Object.values(this.data.answers);
+    var submitPromises = [];
+    var answersArray = [];
+    for (var key in this.data.answers) {
+      if (this.data.answers.hasOwnProperty(key)) {
+        answersArray.push(this.data.answers[key]);
+      }
+    }
 
-    for (const answer of answersArray) {
-      const question = this.data.questions.find(q => q.id === answer.question_id);
+    for (var i = 0; i < answersArray.length; i++) {
+      var answer = answersArray[i];
+      var questions = this.data.questions;
+      var question = null;
+      for (var j = 0; j < questions.length; j++) {
+        if (questions[j].id === answer.question_id) {
+          question = questions[j];
+          break;
+        }
+      }
       if (question) {
         submitPromises.push(
           api.submitPracticeResult({
@@ -326,25 +349,38 @@ Page({
             difficulty: question.difficulty || 'easy',
             is_correct: answer.is_correct,
             assessment_id: this.data.assessmentId,
-          }).catch(() => {})
+          }).catch(function() {})
         );
       }
     }
 
     // 等待所有提交完成，收集复习时间
-    Promise.all(submitPromises).then((results) => {
+    var self = this;
+    Promise.all(submitPromises).then(function(results) {
       // 修复：answers 是对象不是数组，必须使用 answersArray
-      const correctCount = answersArray.filter(a => a.is_correct).length;
-      const total = this.data.questions.length;
+      var correctCount = 0;
+      for (var i = 0; i < answersArray.length; i++) {
+        if (answersArray[i].is_correct) {
+          correctCount++;
+        }
+      }
+      var total = self.data.questions.length;
 
       // 计算知识点统计（参考 assessment 的 submitAnswer 逻辑）
-      const kpStats = {};
-      for (const answer of answersArray) {
-        const question = this.data.questions.find(q => q.id === answer.question_id);
+      var kpStats = {};
+      for (var i = 0; i < answersArray.length; i++) {
+        var answer = answersArray[i];
+        var question = null;
+        for (var j = 0; j < self.data.questions.length; j++) {
+          if (self.data.questions[j].id === answer.question_id) {
+            question = self.data.questions[j];
+            break;
+          }
+        }
         if (!question) continue;
 
-        const kpId = question.knowledge_point_id || 'unknown';
-        const kpName = question.knowledge_point || '未知知识点';
+        var kpId = question.knowledge_point_id || 'unknown';
+        var kpName = question.knowledge_point || '未知知识点';
 
         if (!kpStats[kpId]) {
           kpStats[kpId] = { kp_id: kpId, kp_name: kpName, correct: 0, total: 0 };
@@ -356,31 +392,41 @@ Page({
       }
 
       // 获取最早的复习时间（取所有知识点中最近的复习时间）
-      const nextReviewDates = results
-        .filter(r => r.result?.data?.data?.next_review_at)
-        .map(r => new Date(r.result.data.data.next_review_at).getTime());
+      var nextReviewDates = [];
+      for (var i = 0; i < results.length; i++) {
+        var r = results[i];
+        if (r.result && r.result.data && r.result.data.data && r.result.data.data.next_review_at) {
+          nextReviewDates.push(new Date(r.result.data.data.next_review_at).getTime());
+        }
+      }
 
-      const nextReviewAt = nextReviewDates.length > 0
-        ? Math.min(...nextReviewDates)
-        : null;
+      var nextReviewAt = null;
+      if (nextReviewDates.length > 0) {
+        nextReviewAt = Math.min.apply(Math, nextReviewDates);
+      }
 
       // 将 kpStats 转为数组并编码为 URL 参数
-      const kpStatsArray = Object.values(kpStats);
-      const kpStatsParam = encodeURIComponent(JSON.stringify(kpStatsArray));
+      var kpStatsArray = [];
+      for (var key in kpStats) {
+        if (kpStats.hasOwnProperty(key)) {
+          kpStatsArray.push(kpStats[key]);
+        }
+      }
+      var kpStatsParam = encodeURIComponent(JSON.stringify(kpStatsArray));
 
-      const params = [
-        `mode=practice`,
-        `correct=${correctCount}`,
-        `total=${total}`,
-        `kpStats=${kpStatsParam}`
+      var params = [
+        'mode=practice',
+        'correct=' + correctCount,
+        'total=' + total,
+        'kpStats=' + kpStatsParam
       ];
 
       if (nextReviewAt) {
-        params.push(`nextReviewAt=${nextReviewAt}`);
+        params.push('nextReviewAt=' + nextReviewAt);
       }
 
       wx.redirectTo({
-        url: `/pages/result/result?${params.join('&')}`
+        url: '/pages/result/result?' + params.join('&')
       });
     });
   }
