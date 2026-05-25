@@ -85,11 +85,11 @@
     <!-- 成就展示 -->
     <view class="achievement-row" wx:if="{{achievements.length > 0}}">
       <text class="section-title">🏆 近期成就</text>
-      <scroll-view class="achievement-scroll" scroll-x="true">
+      <scroll-view class="achievement-scroll" scroll-x="true" show-scrollbar="{{false}}">
         <view class="achievement-list">
           <block wx:for="{{achievements}}" wx:key="id">
-            <view class="achievement-badge">
-              <text class="badge-icon">{{item.icon}}</text>
+            <view class="achievement-badge {{item.unlocked ? 'unlocked' : ''}}">
+              <text class="badge-icon">{{item.unlocked ? item.icon : '🔒'}}</text>
               <text class="badge-name">{{item.name}}</text>
             </view>
           </block>

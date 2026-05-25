@@ -101,16 +101,31 @@ Page({
         });
 
         const achievements = [];
-        if (maxStreak >= 3) achievements.push({ id: 'streak_3', name: '连续3题', icon: '🔥' });
-        if (maxStreak >= 7) achievements.push({ id: 'streak_7', name: '连续7题', icon: '💎' });
-        if (maxStreak >= 30) achievements.push({ id: 'streak_30', name: '连续30题', icon: '👑' });
+        // 所有已解锁的成就（通过条件判断的都是已解锁的）
+        if (maxStreak >= 3) achievements.push({ id: 'streak_3', name: '连续3题', icon: '🔥', unlocked: true });
+        if (maxStreak >= 7) achievements.push({ id: 'streak_7', name: '连续7题', icon: '💎', unlocked: true });
+        if (maxStreak >= 30) achievements.push({ id: 'streak_30', name: '连续30题', icon: '👑', unlocked: true });
 
         const hasMastery = kpList.some(kp => kp.current_difficulty === 'easy');
-        if (hasMastery) achievements.push({ id: 'first_mastery', name: '首次掌握', icon: '🎯' });
+        if (hasMastery) achievements.push({ id: 'first_mastery', name: '首次掌握', icon: '🎯', unlocked: true });
 
         const localAchievements = wx.getStorageSync('achievements') || {};
         if (localAchievements['perfect_practice']) {
-          achievements.push({ id: 'perfect_practice', name: '满分练习', icon: '⭐' });
+          achievements.push({ id: 'perfect_practice', name: '满分练习', icon: '⭐', unlocked: true });
+        }
+
+        // 如果成就不足3个，显示下一个待解锁成就作为预览
+        const allAchievements = [
+          { id: 'streak_3', name: '连续3题', icon: '🔥', threshold: 3 },
+          { id: 'streak_7', name: '连续7题', icon: '💎', threshold: 7 },
+          { id: 'streak_30', name: '连续30题', icon: '👑', threshold: 30 }
+        ];
+
+        for (const ach of allAchievements) {
+          if (achievements.length >= 3) break;
+          if (!achievements.find(a => a.id === ach.id)) {
+            achievements.push({ ...ach, unlocked: false });
+          }
         }
 
         this.setData({

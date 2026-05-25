@@ -284,3 +284,178 @@
   color: #444;
   font-weight: bold;
 }
+
+/* 成就展示 */
+.achievement-row {
+  padding: 0 40rpx 40rpx;
+}
+
+.achievement-scroll {
+  white-space: nowrap;
+}
+
+.achievement-list {
+  display: inline-flex;
+  gap: 16rpx;
+}
+
+.achievement-badge {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8rpx;
+  padding: 20rpx 24rpx;
+  background: linear-gradient(135deg, #2a2a4a 0%, #1a1a35 100%);
+  border-radius: 20rpx;
+  border: 2rpx solid #333;
+  min-width: 120rpx;
+  position: relative;
+  overflow: hidden;
+}
+
+.achievement-badge::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4rpx;
+  background: linear-gradient(90deg, #FFD700, #FFA500, #FF6B6B, #8B5CF6);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.achievement-badge.unlocked::before {
+  opacity: 1;
+}
+
+.badge-icon {
+  font-size: 48rpx;
+  filter: drop-shadow(0 4rpx 8rpx rgba(0, 0, 0, 0.3));
+}
+
+.badge-name {
+  font-size: 22rpx;
+  color: #888;
+  white-space: nowrap;
+}
+
+.achievement-badge.unlocked .badge-name {
+  color: #FFD700;
+  font-weight: bold;
+}
+
+/* 复习卡片 */
+.review-card {
+  margin: 0 40rpx 40rpx;
+  padding: 28rpx;
+  background: linear-gradient(135deg, #2a1a3e 0%, #1a2a3e 100%);
+  border-radius: 20rpx;
+  border: 2rpx solid #8B5CF6;
+}
+
+.review-header {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  margin-bottom: 20rpx;
+}
+
+.review-icon {
+  font-size: 32rpx;
+}
+
+.review-title {
+  font-size: 28rpx;
+  color: #fff;
+  font-weight: bold;
+  flex: 1;
+}
+
+.review-count {
+  font-size: 22rpx;
+  color: #8B5CF6;
+  background: rgba(139, 92, 246, 0.1);
+  padding: 6rpx 12rpx;
+  border-radius: 12rpx;
+}
+
+.review-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.review-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16rpx 20rpx;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12rpx;
+}
+
+.review-kp {
+  font-size: 26rpx;
+  color: #ccc;
+}
+
+.review-action {
+  font-size: 24rpx;
+  color: #8B5CF6;
+}
+
+/* 连续正确卡片 */
+.streak-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12rpx;
+  margin: 0 40rpx 40rpx;
+  padding: 20rpx;
+  background: linear-gradient(135deg, #3a2a1a 0%, #2a1a2a 100%);
+  border-radius: 20rpx;
+  border: 2rpx solid #FF6B6B;
+}
+
+.streak-icon {
+  font-size: 36rpx;
+}
+
+.streak-num {
+  font-size: 40rpx;
+  font-weight: bold;
+  color: #FF6B6B;
+}
+
+.streak-label {
+  font-size: 24rpx;
+  color: #888;
+}
+
+/* 进度入口 */
+.progress-entry {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  margin: 0 40rpx 20rpx;
+  padding: 24rpx;
+  background: #1a1a35;
+  border-radius: 16rpx;
+}
+
+.entry-icon {
+  font-size: 36rpx;
+}
+
+.entry-text {
+  flex: 1;
+  font-size: 28rpx;
+  color: #ccc;
+}
+
+.entry-arrow {
+  font-size: 40rpx;
+  color: #444;
+  font-weight: bold;
+}
