@@ -13,7 +13,10 @@ Page({
     targetDifficulty: '',
     showRetestCheck: false,
     retestReason: '',
-    perfectShown: false
+    perfectShown: false,
+    nextReviewAt: null,
+    nextReviewText: '',
+    showReviewTip: false
   },
 
   onLoad(query) {
@@ -36,6 +39,9 @@ Page({
       }
 
       this.setData({ score: correct, total, accuracy, mode: 'practice', isPerfect, kpStats });
+
+      // M6: 获取复习时间
+      this.loadNextReviewTime();
     } else {
       const assessmentId = query.assessmentId || '';
       const score = parseInt(query.score) || 0;
@@ -60,6 +66,45 @@ Page({
     if (this.data.isPerfect) {
       this.checkAndUnlockPerfectAchievement();
       this.triggerConfetti();
+    }
+  },
+
+  async loadNextReviewTime() {
+    try {
+      const res = await api.getKpProgress();
+      if (res && res.length > 0) {
+        // 找到最近的复习时间
+        const upcomingReviews = res
+          .filter(kp => kp.next_review_at)
+          .map(kp => ({ kp, time: new Date(kp.next_review_at).getTime() }))
+          .filter(item => item.time > Date.now())
+          .sort((a, b) => a.time - b.time);
+
+        if (upcomingReviews.length > 0) {
+          const nextTime = upcomingReviews[0].time;
+          const now = Date.now();
+          const diffMs = nextTime - now;
+          const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+          const diffHours = Math.floor((diffMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+
+          let reviewText = '';
+          if (diffDays > 0) {
+            reviewText = `${diffDays}天后复习`;
+          } else if (diffHours > 0) {
+            reviewText = `${diffHours}小时后复习`;
+          } else {
+            reviewText = '即将复习';
+          }
+
+          this.setData({
+            nextReviewAt: upcomingReviews[0].time,
+            nextReviewText: reviewText,
+            showReviewTip: true
+          });
+        }
+      }
+    } catch (e) {
+      // 静默失败，不影响主流程
     }
   },
 

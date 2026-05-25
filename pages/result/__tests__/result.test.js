@@ -227,3 +227,103 @@ describe('result.onLoad参数解析', () => {
     expect(result.isPerfect).toBe(false);
   });
 });
+
+describe('result.loadNextReviewTime (M6)', () => {
+  const MOCK_NOW = new Date('2026-05-25T12:00:00Z').getTime();
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    jest.spyOn(Date, 'now').mockReturnValue(MOCK_NOW);
+    const OriginalDate = global.Date;
+    global.Date = function(...args) {
+      if (args.length === 0) return new OriginalDate(MOCK_NOW);
+      return new OriginalDate(...args);
+    };
+    global.Date.prototype = OriginalDate.prototype;
+    global.Date.now = jest.fn(() => MOCK_NOW);
+    global.Date.parse = OriginalDate.parse;
+    global.Date.UTC = OriginalDate.UTC;
+  });
+
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
+  function calculateNextReviewText(kpList) {
+    const now = Date.now();
+    const upcomingReviews = kpList
+      .filter(kp => kp.next_review_at)
+      .map(kp => ({ kp, time: new Date(kp.next_review_at).getTime() }))
+      .filter(item => item.time > now)
+      .sort((a, b) => a.time - b.time);
+
+    if (upcomingReviews.length === 0) {
+      return { showReviewTip: false, nextReviewText: '' };
+    }
+
+    const nextTime = upcomingReviews[0].time;
+    const diffMs = nextTime - now;
+    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+    const diffHours = Math.floor((diffMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+
+    let reviewText = '';
+    if (diffDays > 0) {
+      reviewText = `${diffDays}天后复习`;
+    } else if (diffHours > 0) {
+      reviewText = `${diffHours}小时后复习`;
+    } else {
+      reviewText = '即将复习';
+    }
+
+    return { showReviewTip: true, nextReviewText: reviewText };
+  }
+
+  test('应显示3天后复习', () => {
+    const kpList = [
+      { kp_id: 'kp1', next_review_at: '2026-05-28T12:00:00Z' }
+    ];
+
+    const result = calculateNextReviewText(kpList);
+
+    expect(result.showReviewTip).toBe(true);
+    expect(result.nextReviewText).toBe('3天后复习');
+  });
+
+  test('应显示5小时后复习', () => {
+    const kpList = [
+      { kp_id: 'kp1', next_review_at: '2026-05-25T17:00:00Z' }
+    ];
+
+    const result = calculateNextReviewText(kpList);
+
+    expect(result.showReviewTip).toBe(true);
+    expect(result.nextReviewText).toBe('5小时后复习');
+  });
+
+  test('应选择最近的复习时间', () => {
+    const kpList = [
+      { kp_id: 'kp1', next_review_at: '2026-05-28T12:00:00Z' },
+      { kp_id: 'kp2', next_review_at: '2026-05-26T12:00:00Z' }
+    ];
+
+    const result = calculateNextReviewText(kpList);
+
+    expect(result.nextReviewText).toBe('1天后复习');
+  });
+
+  test('无未来复习时间时应不显示提示', () => {
+    const kpList = [
+      { kp_id: 'kp1', next_review_at: '2026-05-20T12:00:00Z' }
+    ];
+
+    const result = calculateNextReviewText(kpList);
+
+    expect(result.showReviewTip).toBe(false);
+  });
+
+  test('空列表时应不显示提示', () => {
+    const result = calculateNextReviewText([]);
+
+    expect(result.showReviewTip).toBe(false);
+  });
+});

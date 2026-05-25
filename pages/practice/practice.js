@@ -278,8 +278,8 @@ Page({
       }
     }
 
-    // 等待所有提交完成
-    Promise.all(submitPromises).then(() => {
+    // 等待所有提交完成，收集复习时间
+    Promise.all(submitPromises).then((results) => {
       // 修复：answers 是对象不是数组，必须使用 answersArray
       const correctCount = answersArray.filter(a => a.is_correct).length;
       const total = this.data.questions.length;
@@ -302,12 +302,32 @@ Page({
         }
       }
 
+      // 获取最早的复习时间（取所有知识点中最近的复习时间）
+      const nextReviewDates = results
+        .filter(r => r.result?.data?.data?.next_review_at)
+        .map(r => new Date(r.result.data.data.next_review_at).getTime());
+
+      const nextReviewAt = nextReviewDates.length > 0
+        ? Math.min(...nextReviewDates)
+        : null;
+
       // 将 kpStats 转为数组并编码为 URL 参数
       const kpStatsArray = Object.values(kpStats);
       const kpStatsParam = encodeURIComponent(JSON.stringify(kpStatsArray));
 
+      const params = [
+        `mode=practice`,
+        `correct=${correctCount}`,
+        `total=${total}`,
+        `kpStats=${kpStatsParam}`
+      ];
+
+      if (nextReviewAt) {
+        params.push(`nextReviewAt=${nextReviewAt}`);
+      }
+
       wx.redirectTo({
-        url: `/pages/result/result?mode=practice&correct=${correctCount}&total=${total}&kpStats=${kpStatsParam}`
+        url: `/pages/result/result?${params.join('&')}`
       });
     });
   }

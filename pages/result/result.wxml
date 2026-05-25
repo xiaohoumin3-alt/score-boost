@@ -36,6 +36,15 @@
       </view>
     </view>
   </view>
+
+  <!-- M6: 复习时间提示 (练习模式专用) -->
+  <view class="review-tip" wx:if="{{mode === 'practice' && showReviewTip}}">
+    <text class="review-icon">📅</text>
+    <view class="review-content">
+      <text class="review-label">下次复习</text>
+      <text class="review-time">{{nextReviewText}}</text>
+    </view>
+  </view>
   <!-- Retest Status Card (when check completed and not perfect) -->
   <view class="action-card retest-card" wx:if="{{showRetestCheck && mode === 'assessment' && !isPerfect}}">
     <text class="action-icon">{{retestEligible ? '🔄' : '📋'}}</text>

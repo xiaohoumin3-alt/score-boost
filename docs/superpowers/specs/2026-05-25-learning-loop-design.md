@@ -704,11 +704,11 @@ perfectShown: false
 ```javascript
 // 在 onLoad 函数中
 onLoad(options) {
-  const correctCount = parseInt(options.correctCount) || 0;
-  const totalCount = parseInt(options.totalCount) || 1;
+  const correct = parseInt(options.correct) || 0;
+  const total = parseInt(options.total) || 1;
 
   // 检查是否满分（100% 正确率且至少 5 题）
-  const isPerfect = correctCount === totalCount && totalCount >= 5;
+  const isPerfect = correct === total && total >= 5;
 
   if (isPerfect) {
     // 读取本地存储的成就记录
