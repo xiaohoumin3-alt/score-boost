@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日日守护 - AI生地会考复习助手</title>
+    <meta name="description" content="AI驱动的生地会考复习小程序，30天精准提升20分+">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            margin-bottom: 20px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .logo {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+        h1 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .tagline {
+            color: #666;
+            font-size: 16px;
+        }
+        .countdown {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            text-align: center;
+            padding: 15px;
+            border-radius: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+        .features {
+            margin: 30px 0;
+        }
+        .feature {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 12px;
+        }
+        .feature-icon {
+            font-size: 30px;
+            margin-right: 15px;
+        }
+        .feature-text h3 {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        .feature-text p {
+            font-size: 14px;
+            color: #666;
+        }
+        .result-box {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .result-box h3 {
+            margin-bottom: 15px;
+        }
+        .result-stats {
+            display: flex;
+            justify-content: space-around;
+        }
+        .stat {
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .stat-label {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+        .cta-button {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            border-radius: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            text-decoration: none;
+            margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            transition: transform 0.3s;
+        }
+        .cta-button:hover {
+            transform: translateY(-2px);
+        }
+        .offer {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .offer-text {
+            color: #856404;
+            font-weight: bold;
+        }
+        .qr-placeholder {
+            text-align: center;
+            margin: 20px 0;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            border: 2px dashed #ddd;
+        }
+        .steps {
+            margin: 20px 0;
+        }
+        .step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .step-num {
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        .footer {
+            text-align: center;
+            color: white;
+            font-size: 14px;
+            margin-top: 30px;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="header">
+                <div class="logo">📚</div>
+                <h1>日日守护</h1>
+                <p class="tagline">AI驱动的生地会考复习助手</p>
+            </div>
+
+            <div class="countdown">
+                ⏰ 距离生地会考还有约30天！
+            </div>
+
+            <div class="offer">
+                <p class="offer-text">🔥 限时福利：前100名免费体验7天</p>
+            </div>
+
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">🤖</div>
+                    <div class="feature-text">
+                        <h3>AI个性化出题</h3>
+                        <p>根据薄弱点实时生成，每个学生题目不同</p>
+                    </div>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📊</div>
+                    <div class="feature-text">
+                        <h3>自适应难度</h3>
+                        <p>自动调整，不会太难也不会太简单</p>
+                    </div>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">💡</div>
+                    <div class="feature-text">
+                        <h3>智能提示系统</h3>
+                        <p>分级提示，不直接给答案，培养思考</p>
+                    </div>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🧠</div>
+                    <div class="feature-text">
+                        <h3>Memory记忆系统</h3>
+                        <p>记住学习情况，自动生成复习计划</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="result-box">
+                <h3>📈 真实提分效果</h3>
+                <div class="result-stats">
+                    <div class="stat">
+                        <div class="stat-value">+27分</div>
+                        <div class="stat-label">基础薄弱</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">+23分</div>
+                        <div class="stat-label">中等水平</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">+13分</div>
+                        <div class="stat-label">优秀学生</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="steps">
+                <h3 style="margin-bottom: 15px;">🚀 三步开始</h3>
+                <div class="step">
+                    <div class="step-num">1</div>
+                    <div>微信搜索「日日守护」</div>
+                </div>
+                <div class="step">
+                    <div class="step-num">2</div>
+                    <div>点击开始练习，AI诊断薄弱点</div>
+                </div>
+                <div class="step">
+                    <div class="step-num">3</div>
+                    <div>每天15分钟，精准提升</div>
+                </div>
+            </div>
+
+            <div class="qr-placeholder">
+                <div style="font-size: 48px; margin-bottom: 10px;">📱</div>
+                <p><strong>微信搜索：日日守护</strong></p>
+                <p style="font-size: 14px; color: #666;">或扫描小程序码进入</p>
+            </div>
+
+            <a href="#" class="cta-button">立即开始免费体验</a>
+        </div>
+
+        <div class="footer">
+            <p>生地会考只有一次，让AI成为你的专属家教</p>
+            <p style="margin-top: 10px;">© 2026 日日守护 | 微信小程序</p>
+        </div>
+    </div>
+
+    <script>
+        // 简单的倒计时
+        const examDate = new Date('2026-06-25');
+        function updateCountdown() {
+            const now = new Date();
+            const diff = examDate - now;
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            document.querySelector('.countdown').textContent =
+                `⏰ 距离生地会考还有约${days}天！`;
+        }
+        updateCountdown();
+    </script>
+</body>
+</html>

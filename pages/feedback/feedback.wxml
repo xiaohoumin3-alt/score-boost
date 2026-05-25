@@ -1,0 +1,69 @@
+<view class="page">
+  <!-- Header -->
+  <view class="header">
+    <text class="title">意见反馈</text>
+    <text class="subtitle">帮助我们做得更好</text>
+  </view>
+
+  <!-- Form -->
+  <view class="form">
+    <!-- 分类选择 -->
+    <view class="form-group">
+      <text class="label">反馈类型</text>
+      <view class="category-list">
+        <view
+          class="category-item {{category === 'bug' ? 'active' : ''}}"
+          bindtap="selectCategory"
+          data-category="bug">
+          <text class="category-icon">🐛</text>
+          <text class="category-name">Bug 问题</text>
+        </view>
+        <view
+          class="category-item {{category === 'suggestion' ? 'active' : ''}}"
+          bindtap="selectCategory"
+          data-category="suggestion">
+          <text class="category-icon">💡</text>
+          <text class="category-name">功能建议</text>
+        </view>
+        <view
+          class="category-item {{category === 'other' ? 'active' : ''}}"
+          bindtap="selectCategory"
+          data-category="other">
+          <text class="category-icon">💬</text>
+          <text class="category-name">其他</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 内容输入 -->
+    <view class="form-group">
+      <text class="label">反馈内容 <text class="required">*</text></text>
+      <textarea
+        class="textarea"
+        placeholder="请描述您遇到的问题或建议..."
+        placeholder-class="textarea-placeholder"
+        maxlength="500"
+        auto-height
+        value="{{content}}"
+        bindinput="onContentInput" />
+      <text class="char-count">{{content.length}}/500</text>
+    </view>
+
+    <!-- 联系方式 -->
+    <view class="form-group">
+      <text class="label">联系方式 <text class="optional">(选填)</text></text>
+      <input
+        class="input"
+        placeholder="手机号或微信号"
+        placeholder-class="input-placeholder"
+        value="{{contact}}"
+        bindinput="onContactInput" />
+    </view>
+
+    <!-- 提交按钮 -->
+    <view class="submit-btn {{submitting ? 'disabled' : ''}}" bindtap="submitFeedback">
+      <text wx:if="{{submitting}}">提交中...</text>
+      <text wx:else>提交反馈</text>
+    </view>
+  </view>
+</view>

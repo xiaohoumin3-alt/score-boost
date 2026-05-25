@@ -1,0 +1,546 @@
+.page {
+  min-height: 100vh;
+  background: #0f0f23;
+  padding-bottom: 180rpx;
+}
+
+.header {
+  padding: 120rpx 40rpx 30rpx;
+}
+
+.title {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #fff;
+}
+
+.subtitle-row {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  margin-top: 10rpx;
+}
+
+.subtitle {
+  font-size: 26rpx;
+  color: #666;
+}
+
+.divider {
+  color: #444;
+}
+
+/* Score Display */
+.score-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20rpx;
+  padding: 40rpx;
+}
+
+.score-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: -10rpx;
+  margin-right: 20rpx;
+}
+
+.score-ring {
+  width: 200rpx;
+  height: 200rpx;
+  position: relative;
+}
+
+.ring-outer {
+  width: 200rpx;
+  height: 200rpx;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, #00D9A5 {{currentScore * 3.6}}deg, #222 {{currentScore * 3.6}}deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ring-inner {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 50%;
+  background: #0f0f23;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.score-value {
+  font-size: 56rpx;
+  font-weight: bold;
+  color: #00D9A5;
+}
+
+.score-label {
+  font-size: 22rpx;
+  color: #666;
+}
+
+.score-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.arrow-icon {
+  width: 60rpx;
+  height: 60rpx;
+}
+
+.score-target {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.target-value {
+  font-size: 44rpx;
+  font-weight: bold;
+  color: #fff;
+}
+
+.target-label {
+  font-size: 24rpx;
+  color: #666;
+}
+
+.gap-badge {
+  font-size: 22rpx;
+  color: #FF6B6B;
+  background: rgba(255, 107, 107, 0.1);
+  padding: 8rpx 16rpx;
+  border-radius: 20rpx;
+  margin-top: 8rpx;
+  display: inline-block;
+}
+
+.score-status {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.score-status.achieved .status-text {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #00D9A5;
+}
+
+.score-status.achieved .status-detail {
+  font-size: 24rpx;
+  color: #666;
+}
+
+/* Action Card */
+.action-card {
+  margin: 0 40rpx 40rpx;
+  padding: 36rpx;
+  background: linear-gradient(135deg, #1a3a2e 0%, #1a2a3e 100%);
+  border-radius: 24rpx;
+  display: flex;
+  align-items: center;
+  gap: 30rpx;
+  border: 2rpx solid #00D9A5;
+}
+
+.action-icon {
+  font-size: 56rpx;
+}
+
+.action-content {
+  flex: 1;
+}
+
+.action-label {
+  font-size: 36rpx;
+  color: #fff;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 8rpx;
+}
+
+.action-desc {
+  font-size: 26rpx;
+  color: #888;
+  display: block;
+}
+
+.action-arrow {
+  font-size: 40rpx;
+  color: #00D9A5;
+  font-weight: bold;
+}
+
+/* Quick Actions */
+.quick-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 40rpx 40rpx;
+}
+
+.quick-btn {
+  flex: 1;
+  padding: 24rpx;
+  background: #1a1a35;
+  border-radius: 16rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8rpx;
+}
+
+.quick-icon {
+  font-size: 40rpx;
+}
+
+.quick-text {
+  font-size: 24rpx;
+  color: #888;
+}
+
+/* History Section */
+.history-section {
+  padding: 0 40rpx;
+}
+
+.section-title {
+  font-size: 28rpx;
+  color: #888;
+  display: block;
+  margin-bottom: 20rpx;
+}
+
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+
+.history-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx;
+  background: #1a1a35;
+  border-radius: 12rpx;
+}
+
+.history-score {
+  font-size: 32rpx;
+  color: #00D9A5;
+  font-weight: bold;
+}
+
+.history-date {
+  font-size: 24rpx;
+  color: #666;
+}
+
+/* Loading */
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+}
+
+.loading-text {
+  font-size: 28rpx;
+  color: #666;
+}
+
+/* Feedback Entry */
+.feedback-entry {
+  margin: 0 40rpx 40rpx;
+  padding: 28rpx 32rpx;
+  background: #1a1a35;
+  border-radius: 16rpx;
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+}
+
+.feedback-icon {
+  font-size: 36rpx;
+}
+
+.feedback-text {
+  flex: 1;
+  font-size: 28rpx;
+  color: #888;
+}
+
+.feedback-arrow {
+  font-size: 40rpx;
+  color: #444;
+  font-weight: bold;
+}
+
+/* 成就展示 */
+.achievement-row {
+  padding: 0 40rpx 40rpx;
+}
+
+.achievement-scroll {
+  white-space: nowrap;
+}
+
+.achievement-list {
+  display: inline-flex;
+  gap: 16rpx;
+}
+
+.achievement-badge {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8rpx;
+  padding: 20rpx 24rpx;
+  background: linear-gradient(135deg, #2a2a4a 0%, #1a1a35 100%);
+  border-radius: 20rpx;
+  border: 2rpx solid #333;
+  min-width: 120rpx;
+  position: relative;
+  overflow: hidden;
+}
+
+.achievement-badge::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4rpx;
+  background: linear-gradient(90deg, #FFD700, #FFA500, #FF6B6B, #8B5CF6);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.achievement-badge.unlocked::before {
+  opacity: 1;
+}
+
+.badge-icon {
+  font-size: 48rpx;
+  filter: drop-shadow(0 4rpx 8rpx rgba(0, 0, 0, 0.3));
+}
+
+.badge-name {
+  font-size: 22rpx;
+  color: #888;
+  white-space: nowrap;
+}
+
+.achievement-badge.unlocked .badge-name {
+  color: #FFD700;
+  font-weight: bold;
+}
+
+/* 复习卡片 */
+.review-card {
+  margin: 0 40rpx 40rpx;
+  padding: 28rpx;
+  background: linear-gradient(135deg, #2a1a3e 0%, #1a2a3e 100%);
+  border-radius: 20rpx;
+  border: 2rpx solid #8B5CF6;
+}
+
+.review-header {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  margin-bottom: 20rpx;
+}
+
+.review-icon {
+  font-size: 32rpx;
+}
+
+.review-title {
+  font-size: 28rpx;
+  color: #fff;
+  font-weight: bold;
+  flex: 1;
+}
+
+.review-count {
+  font-size: 22rpx;
+  color: #8B5CF6;
+  background: rgba(139, 92, 246, 0.1);
+  padding: 6rpx 12rpx;
+  border-radius: 12rpx;
+}
+
+.review-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.review-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16rpx 20rpx;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12rpx;
+}
+
+.review-kp {
+  font-size: 26rpx;
+  color: #ccc;
+}
+
+.review-action {
+  font-size: 24rpx;
+  color: #8B5CF6;
+}
+
+/* 连续正确卡片 */
+.streak-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12rpx;
+  margin: 0 40rpx 40rpx;
+  padding: 20rpx;
+  background: linear-gradient(135deg, #3a2a1a 0%, #2a1a2a 100%);
+  border-radius: 20rpx;
+  border: 2rpx solid #FF6B6B;
+}
+
+.streak-icon {
+  font-size: 36rpx;
+}
+
+.streak-num {
+  font-size: 40rpx;
+  font-weight: bold;
+  color: #FF6B6B;
+}
+
+.streak-label {
+  font-size: 24rpx;
+  color: #888;
+}
+
+/* 进度入口 */
+.progress-entry {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  margin: 0 40rpx 20rpx;
+  padding: 24rpx;
+  background: #1a1a35;
+  border-radius: 16rpx;
+}
+
+.entry-icon {
+  font-size: 36rpx;
+}
+
+.entry-text {
+  flex: 1;
+  font-size: 28rpx;
+  color: #ccc;
+}
+
+.entry-arrow {
+  font-size: 40rpx;
+  color: #444;
+  font-weight: bold;
+}
+
+/* AI今日任务卡片（AI原生Phase 2） */
+.task-card {
+  margin: 0 40rpx 30rpx;
+  padding: 32rpx;
+  background: linear-gradient(135deg, #1a3a2e 0%, #2a3a2e 100%);
+  border-radius: 24rpx;
+  border: 2rpx solid #00D9A5;
+  box-shadow: 0 8rpx 24rpx rgba(0, 217, 165, 0.15);
+}
+
+.task-header {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  margin-bottom: 20rpx;
+}
+
+.task-icon {
+  font-size: 36rpx;
+}
+
+.task-title {
+  font-size: 32rpx;
+  color: #fff;
+  font-weight: bold;
+}
+
+.task-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+  margin-bottom: 20rpx;
+}
+
+.task-name {
+  font-size: 36rpx;
+  color: #00D9A5;
+  font-weight: bold;
+}
+
+.task-reason {
+  font-size: 24rpx;
+  color: #888;
+  line-height: 1.5;
+}
+
+.task-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.task-time {
+  font-size: 24rpx;
+  color: #666;
+}
+
+.task-action {
+  font-size: 26rpx;
+  color: #00D9A5;
+  font-weight: bold;
+}
+
+/* 次要入口 */
+.other-entry {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 40rpx 30rpx;
+  padding: 20rpx 24rpx;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 16rpx;
+  border: 2rpx dashed #444;
+}
+
+.other-text {
+  font-size: 26rpx;
+  color: #888;
+}
+
+.other-arrow {
+  font-size: 32rpx;
+  color: #666;
+}

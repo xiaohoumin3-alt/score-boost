@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>分享链接生成器 - 日日守护</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f5f7fa;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+        h1 { color: #333; margin-bottom: 20px; }
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
+        }
+        .section h2 {
+            font-size: 18px;
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+        .channel-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .channel-btn {
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+        .channel-btn:hover, .channel-btn.active {
+            border-color: #667eea;
+            background: #f0f3ff;
+        }
+        .channel-btn .icon { font-size: 24px; }
+        .channel-btn .name { margin-top: 8px; font-size: 14px; }
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 14px;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 120px;
+        }
+        .copy-btn {
+            padding: 12px 24px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .copy-btn:hover { background: #5568d3; }
+        .link-display {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .link-display input {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .stat-card {
+            padding: 15px;
+            background: white;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #667eea;
+        }
+        .stat-label {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+        .tag {
+            display: inline-block;
+            padding: 4px 10px;
+            background: #667eea;
+            color: white;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔗 分享链接生成器</h1>
+
+        <div class="section">
+            <h2>1. 选择推广渠道</h2>
+            <div class="channel-grid">
+                <div class="channel-btn active" data-channel="wechat">
+                    <div class="icon">💬</div>
+                    <div class="name">微信朋友圈</div>
+                </div>
+                <div class="channel-btn" data-channel="group">
+                    <div class="icon">👥</div>
+                    <div class="name">家长群</div>
+                </div>
+                <div class="channel-btn" data-channel="xiaohongshu">
+                    <div class="icon">📕</div>
+                    <div class="name">小红书</div>
+                </div>
+                <div class="channel-btn" data-channel="short">
+                    <div class="icon">⚡</div>
+                    <div class="name">短版文案</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>2. 复制文案</h2>
+            <div class="link-display">
+                <input type="text" id="shareLink" value="https://github.com/xiaohoumin3-alt/score-boost" readonly>
+                <button class="copy-btn" onclick="copyLink()">复制链接</button>
+            </div>
+            <textarea id="content" readonly></textarea>
+            <button class="copy-btn" onclick="copyContent()">📋 复制全部内容</button>
+        </div>
+
+        <div class="section">
+            <h2>3. 追踪参数（可选）</h2>
+            <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                <input type="text" id="utmSource" placeholder="来源（如：wechat, xiaohongshu）" style="flex: 1; padding: 10px; border: 2px solid #e0e0e0; border-radius: 8px;">
+                <button class="copy-btn" onclick="generateTrackingLink()">生成追踪链接</button>
+            </div>
+            <p style="font-size: 12px; color: #666;">* 添加追踪参数可以知道流量来自哪个渠道</p>
+        </div>
+
+        <div class="section">
+            <h2>📊 推广数据</h2>
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-value">0</div>
+                    <div class="stat-label">今日分享</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">0</div>
+                    <div class="stat-label">累计点击</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">0</div>
+                    <div class="stat-label">转化注册</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const contents = {
+            wechat: `🔥 生地会考最后30天！孩子还在盲目刷题？
+
+推荐「日日守护」AI复习小程序：
+✅ AI自动找薄弱点
+✅ 生成专属题目（不是题库抽题！）
+✅ 自适应难度，每天15分钟
+
+我家孩子用了30天，从65分→88分！
+前100名免费体验7天，微信搜「日日守护」
+
+👉 了解更多：https://github.com/xiaohoumin3-alt/score-boost
+
+#生地会考 #初中学习 #AI复习`,
+
+            group: `各位家长好！
+
+分享一个生地会考复习工具，我家孩子用了30天，生物地理从65分提升到88分！
+
+「日日守护」小程序：
+- AI自动识别孩子薄弱点
+- 生成专属练习题目
+- 每天15-20分钟就够了
+- 不需要下载App，微信直接用
+
+关键是：它不是题库抽题，而是AI根据孩子的答题情况实时生成新题，每个孩子的题目都不一样！
+
+前100名可以免费体验7天，建议大家让孩子试试。
+
+微信搜「日日守护」
+了解详情：https://github.com/xiaohoumin3-alt/score-boost`,
+
+            xiaohongshu: `标题：生地会考30天逆袭！从65分到88分的秘密📈
+
+最后30天！发现一个AI复习神器，必须分享！
+
+🤖 日日守护小程序，和传统刷题完全不同：
+
+核心功能：
+1️⃣ AI个性化出题
+   不是题库抽题，是根据我的薄弱点实时生成！
+   每次题目都不一样
+
+2️⃣ 自适应难度
+   连续对3题→降难度（建立信心）
+   连续错2题→升难度（找准盲区）
+
+3️⃣ 智能提示
+   不是直接给答案！
+   粗心/计算/概念错误，不同级别提示
+
+4️⃣ Memory系统
+   记住哪些掌握了，哪些还薄弱
+   自动生成复习计划
+
+📊 我的使用效果：
+起始：模拟考65分
+30天后：模拟考88分
+提升：+23分！
+
+📅 每天使用建议：
+早上10分钟：完成AI每日任务
+晚上15分钟：错题回顾+针对性练习
+
+🔥 限时福利：
+前100名免费体验7天
+微信搜索"日日守护"
+
+#生地会考 #初中学习 #AI学习 #学习神器 #提分秘籍 #会考冲刺 #初二 #学习效率`,
+
+            short: `⚠️ 生地会考最后30天！
+
+「日日守护」AI复习：
+• 10分钟AI诊断薄弱点
+• 20分钟精准练习
+• 每天攻克2-3个知识点
+
+30天平均提升20分！
+微信搜「日日守护」，前100名免费7天
+
+https://github.com/xiaohoumin3-alt/score-boost`
+        };
+
+        // 渠道选择
+        document.querySelectorAll('.channel-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.channel-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                const channel = this.dataset.channel;
+                document.getElementById('content').value = contents[channel];
+            });
+        });
+
+        // 默认显示微信朋友圈内容
+        document.getElementById('content').value = contents.wechat;
+
+        // 复制链接
+        function copyLink() {
+            const link = document.getElementById('shareLink');
+            link.select();
+            document.execCommand('copy');
+            alert('✅ 链接已复制');
+        }
+
+        // 复制内容
+        function copyContent() {
+            const content = document.getElementById('content');
+            content.select();
+            document.execCommand('copy');
+            alert('✅ 文案已复制，可以直接粘贴发布了！');
+            // 记录分享
+            trackShare();
+        }
+
+        // 生成追踪链接
+        function generateTrackingLink() {
+            const source = document.getElementById('utmSource').value || 'unknown';
+            const baseUrl = 'https://github.com/xiaohoumin3-alt/score-boost';
+            const trackingLink = `${baseUrl}?utm_source=${source}&utm_medium=social&utm_campaign=exam2026`;
+            document.getElementById('shareLink').value = trackingLink;
+            alert('✅ 追踪链接已生成，点击"复制链接"使用');
+        }
+
+        // 追踪分享（本地存储）
+        function trackShare() {
+            let todayShares = localStorage.getItem('todayShares') || 0;
+            todayShares = parseInt(todayShares) + 1;
+            localStorage.setItem('todayShares', todayShares);
+            updateStats();
+        }
+
+        // 更新统计数据
+        function updateStats() {
+            const todayShares = localStorage.getItem('todayShares') || 0;
+            document.querySelector('.stat-card:nth-child(1) .stat-value').textContent = todayShares;
+        }
+
+        // 初始化
+        updateStats();
+    </script>
+</body>
+</html>

@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>反馈详情 - 提分神器</title>
+  <script src="https://static.cloudbase.net/cloudbase-js-sdk/latest/cloudbase.full.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0f0f23;
+      min-height: 100vh;
+      color: #fff;
+    }
+
+    .header {
+      background: #1a1a35;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #2a2a45;
+    }
+
+    .header-title {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 16px;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      border-radius: 8px;
+      border: none;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid #444;
+      color: #888;
+    }
+
+    .btn-outline:hover {
+      border-color: #666;
+      color: #aaa;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #00D9A5 0%, #00B894 100%);
+      color: #0f0f23;
+      font-weight: bold;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 217, 165, 0.3);
+    }
+
+    .content {
+      padding: 24px 40px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .info-card {
+      background: #1a1a35;
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+
+    .info-row {
+      display: flex;
+      margin-bottom: 16px;
+    }
+
+    .info-label {
+      width: 100px;
+      color: #888;
+      font-size: 14px;
+    }
+
+    .info-value {
+      flex: 1;
+      color: #ccc;
+      font-size: 14px;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+    }
+
+    .tag-bug {
+      background: rgba(255, 107, 107, 0.15);
+      color: #FF6B6B;
+    }
+
+    .tag-suggestion {
+      background: rgba(0, 217, 165, 0.15);
+      color: #00D9A5;
+    }
+
+    .tag-other {
+      background: rgba(102, 126, 234, 0.15);
+      color: #667EEA;
+    }
+
+    .tag-pending {
+      background: rgba(255, 193, 7, 0.15);
+      color: #FFC107;
+    }
+
+    .tag-replied {
+      background: rgba(0, 217, 165, 0.15);
+      color: #00D9A5;
+    }
+
+    .section-title {
+      font-size: 16px;
+      color: #888;
+      margin-bottom: 16px;
+    }
+
+    .feedback-content {
+      background: #0f0f23;
+      padding: 20px;
+      border-radius: 12px;
+      color: #ccc;
+      line-height: 1.8;
+      font-size: 14px;
+      white-space: pre-wrap;
+    }
+
+    .replies-section {
+      margin-top: 32px;
+    }
+
+    .reply-item {
+      background: #0f0f23;
+      padding: 16px;
+      border-radius: 12px;
+      margin-bottom: 12px;
+    }
+
+    .reply-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .reply-author {
+      font-size: 14px;
+      color: #00D9A5;
+    }
+
+    .reply-time {
+      font-size: 12px;
+      color: #444;
+    }
+
+    .reply-content {
+      color: #ccc;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .reply-form {
+      margin-top: 24px;
+    }
+
+    .reply-textarea {
+      width: 100%;
+      min-height: 120px;
+      padding: 16px;
+      background: #0f0f23;
+      border: 2px solid #2a2a45;
+      border-radius: 12px;
+      color: #fff;
+      font-size: 14px;
+      font-family: inherit;
+      resize: vertical;
+    }
+
+    .reply-textarea:focus {
+      outline: none;
+      border-color: #00D9A5;
+    }
+
+    .reply-actions {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 16px;
+    }
+
+    .empty-replies {
+      text-align: center;
+      padding: 40px;
+      color: #666;
+      font-size: 14px;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 40px;
+      color: #888;
+    }
+
+    .error {
+      text-align: center;
+      padding: 40px;
+      color: #FF6B6B;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="header-title">反馈详情</div>
+    <div class="header-actions">
+      <button class="btn btn-outline" id="backBtn">返回列表</button>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="loading" id="loading">加载中...</div>
+    <div id="detail"></div>
+  </div>
+
+  <script>
+    // 初始化云开发SDK
+    const app = cloudbase.init({
+      env: 'cloud1-7gg9y9tjb2b867b6'
+    });
+
+    // 检查登录状态
+    function checkAuth() {
+      const token = localStorage.getItem('adminToken');
+      const expiresAt = localStorage.getItem('adminTokenExpires');
+      if (!token || !expiresAt || new Date(expiresAt) <= new Date()) {
+        window.location.href = 'login.html';
+        return false;
+      }
+      return token;
+    }
+
+    const token = checkAuth();
+    if (!token) {
+      throw new Error('未授权');
+    }
+
+    // 获取反馈ID
+    const urlParams = new URLSearchParams(window.location.search);
+    const feedbackId = urlParams.get('id');
+
+    if (!feedbackId) {
+      document.getElementById('loading').innerHTML = '<div class="error">缺少反馈ID</div>';
+      throw new Error('缺少反馈ID');
+    }
+
+    // 格式化日期
+    function formatDate(isoString) {
+      if (!isoString) return '';
+      const date = new Date(isoString);
+      return date.toLocaleString('zh-CN');
+    }
+
+    // 使用云开发SDK直接调用云函数（不需要HTTP服务）
+    async function callCloudFunction(action, data) {
+      try {
+        // 使用匿名登录
+        const auth = app.auth({
+          persistence: 'local'
+        });
+        await auth.anonymousAuthProvider().signIn();
+
+        // 调用云函数
+        const result = await app.callFunction({
+          name: 'adminProxy',
+          data: { action, data }
+        });
+        return { result: result.result };
+      } catch (e) {
+        console.error('云函数调用失败:', e);
+        throw e;
+      }
+    }
+
+    // 加载反馈详情
+    async function loadFeedbackDetail() {
+      const loading = document.getElementById('loading');
+      const detail = document.getElementById('detail');
+
+      try {
+        console.log('[详情] 查询feedbackId:', feedbackId);
+
+        // 获取列表并筛选
+        const res = await callCloudFunction('getFeedbackList', {
+          token,
+          page: 1,
+          pageSize: 1000
+        });
+
+        console.log('[详情] API返回:', res.result);
+
+        loading.style.display = 'none';
+
+        if (res.result && res.result.success) {
+          console.log('[详情] 返回的列表:', res.result.data.list);
+          console.log('[详情] 列表中的ID:', res.result.data.list.map(item => item._id));
+          console.log('[详情] 第一项的keys:', Object.keys(res.result.data.list[0] || {}));
+
+          const feedback = res.result.data.list.find(item => item._id === feedbackId);
+
+          console.log('[详情] 找到的反馈:', feedback);
+
+          if (!feedback) {
+            detail.innerHTML = `<div class="error">反馈不存在 (查询ID: ${feedbackId})</div>`;
+            return;
+          }
+
+          renderDetail(feedback);
+        } else {
+          detail.innerHTML = `<div class="error">加载失败: ${res.result?.error || '未知错误'}</div>`;
+        }
+      } catch (e) {
+        console.error('Load error:', e);
+        loading.style.display = 'none';
+        detail.innerHTML = '<div class="error">网络错误</div>';
+      }
+    }
+
+    function renderDetail(feedback) {
+      const detail = document.getElementById('detail');
+
+      // 构建回复HTML
+      const repliesHtml = (feedback.replies && feedback.replies.length > 0)
+        ? feedback.replies.map(reply => `
+            <div class="reply-item">
+              <div class="reply-header">
+                <span class="reply-author">${reply.isAdmin ? '管理员' : '用户'}</span>
+                <span class="reply-time">${formatDate(reply.createdAt)}</span>
+              </div>
+              <div class="reply-content">${escapeHtml(reply.content)}</div>
+            </div>
+          `).join('')
+        : '<div class="empty-replies">暂无回复</div>';
+
+      detail.innerHTML = `
+        <div class="info-card">
+          <div class="info-row">
+            <span class="info-label">反馈ID:</span>
+            <span class="info-value">${feedback._id}</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">用户ID:</span>
+            <span class="info-value">${(feedback.openid || '').substring(0, 10)}...</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">分类:</span>
+            <span class="info-value"><span class="tag tag-${feedback.category}">${getCategoryName(feedback.category)}</span></span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">状态:</span>
+            <span class="info-value"><span class="tag tag-${feedback.status}">${getStatusName(feedback.status)}</span></span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">联系方式:</span>
+            <span class="info-value">${feedback.contact || '未填写'}</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">提交时间:</span>
+            <span class="info-value">${formatDate(feedback.createdAt)}</span>
+          </div>
+        </div>
+
+        <div class="section-title">反馈内容</div>
+        <div class="feedback-content">${escapeHtml(feedback.content)}</div>
+
+        <div class="replies-section">
+          <div class="section-title">回复记录</div>
+          <div id="repliesList">${repliesHtml}</div>
+
+          <div class="reply-form">
+            <textarea class="reply-textarea" id="replyContent" placeholder="输入回复内容..."></textarea>
+            <div class="reply-actions">
+              <button class="btn btn-primary" id="submitReply">提交回复</button>
+            </div>
+          </div>
+        </div>
+      `;
+
+      // 绑定提交回复事件
+      document.getElementById('submitReply').addEventListener('click', submitReply);
+
+      // 返回按钮
+      document.getElementById('backBtn').addEventListener('click', () => {
+        window.location.href = 'feedback-v2.html';
+      });
+    }
+
+    async function submitReply() {
+      const content = document.getElementById('replyContent').value.trim();
+      const btn = document.getElementById('submitReply');
+
+      if (!content) {
+        alert('请输入回复内容');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = '提交中...';
+
+      try {
+        // 直接调用replyFeedback云函数（不走adminProxy）
+        const result = await app.callFunction({
+          name: 'replyFeedback',
+          data: {
+            token,
+            feedbackId,
+            content
+          }
+        });
+
+        const res = { result: result.result };
+
+        if (res.result && res.result.success) {
+          document.getElementById('replyContent').value = '';
+          alert('回复成功');
+          loadFeedbackDetail(); // 重新加载详情
+        } else {
+          alert('回复失败: ' + (res.result?.error || '未知错误'));
+        }
+      } catch (e) {
+        console.error('Reply error:', e);
+        alert('网络错误');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = '提交回复';
+      }
+    }
+
+    function getCategoryName(category) {
+      const map = { bug: 'Bug 问题', suggestion: '功能建议', other: '其他' };
+      return map[category] || category;
+    }
+
+    function getStatusName(status) {
+      const map = { pending: '待处理', replied: '已回复' };
+      return map[status] || status;
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    // 初始加载
+    loadFeedbackDetail();
+  </script>
+</body>
+</html>

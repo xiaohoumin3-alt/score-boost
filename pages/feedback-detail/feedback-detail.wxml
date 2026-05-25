@@ -1,0 +1,68 @@
+<view class="page">
+  <!-- Header -->
+  <view class="header">
+    <text class="title">反馈详情</text>
+  </view>
+
+  <!-- Loading -->
+  <view class="loading" wx:if="{{loading}}">
+    <text class="loading-text">加载中...</text>
+  </view>
+
+  <!-- Feedback Detail -->
+  <view class="detail" wx:elif="{{feedback}}">
+    <!-- Category & Status -->
+    <view class="meta-section">
+      <view class="category-tag category-{{feedback.category}}">
+        <text wx:if="{{feedback.category === 'bug'}}">🐛 Bug 问题</text>
+        <text wx:elif="{{feedback.category === 'suggestion'}}">💡 功能建议</text>
+        <text wx:else>💬 其他</text>
+      </view>
+      <view class="status-tag status-{{feedback.status}}">
+        <text wx:if="{{feedback.status === 'pending'}}">待处理</text>
+        <text wx:else>已回复</text>
+      </view>
+    </view>
+
+    <!-- Feedback Content -->
+    <view class="section">
+      <text class="section-title">反馈内容</text>
+      <view class="content-box user-content">
+        <text class="content-text">{{feedback.content}}</text>
+        <text class="content-time">{{feedback.createdAt}}</text>
+      </view>
+    </view>
+
+    <!-- Contact -->
+    <view class="section" wx:if="{{feedback.contact}}">
+      <text class="section-title">联系方式</text>
+      <text class="contact-text">{{feedback.contact}}</text>
+    </view>
+
+    <!-- Replies -->
+    <view class="section">
+      <text class="section-title">回复记录</text>
+      <view class="replies-list" wx:if="{{feedback.replies && feedback.replies.length > 0}}">
+        <view class="reply-item" wx:for="{{feedback.replies}}" wx:key="index" wx:for-item="reply">
+          <view class="reply-content {{reply.isAdmin ? 'admin-reply' : 'user-reply'}}">
+            <text class="reply-label">{{reply.isAdmin ? '管理员' : '您'}}</text>
+            <text class="reply-text">{{reply.content}}</text>
+            <text class="reply-time">{{reply.createdAt}}</text>
+          </view>
+        </view>
+      </view>
+      <view class="no-reply" wx:else>
+        <text class="no-reply-text">暂无回复</text>
+        <text class="no-reply-hint">我们会尽快处理您的反馈</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- Error -->
+  <view class="error" wx:elif="{{error}}">
+    <text class="error-text">{{error}}</text>
+    <view class="error-btn" bindtap="goBack">
+      <text>返回</text>
+    </view>
+  </view>
+</view>

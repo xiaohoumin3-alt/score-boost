@@ -1,0 +1,28 @@
+{
+  "$schema": "https://static.cloudbase.net/cli/cloudbaserc.schema.json",
+  "envId": "cloud1-7gg9y9tjb2b867b6",
+  "version": "2.0",
+  "$app": {
+    "version": "2.0"
+  },
+  "framework": {
+    "name": "admin-api",
+    "plugins": {
+      "client": {
+        "use": "@cloudbase/framework-plugin-website",
+        "inputs": {
+          "buildCommand": "echo 'No build needed'",
+          "outputPath": "."
+        }
+      },
+      "server": {
+        "use": "@cloudbase/framework-plugin-node",
+        "inputs": {
+          "entry": "index.js",
+          "name": "admin-api",
+          "path": "."
+        }
+      }
+    }
+  }
+}

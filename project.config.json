@@ -1,0 +1,19 @@
+{
+  "envId": "cloud1-7gg9y9tjb2b867b6",
+  "cloudfunctionRoot": "cloudfunctions",
+  "region": "ap-shanghai",
+  "compileType": "miniprogram",
+  "setting": {
+    "enhance": true,
+    "es6": true,
+    "postcss": true,
+    "preload": true,
+    "minified": true,
+    "uglify": true
+  },
+  "condition": {
+    "miniprogram": {
+      "list": []
+    }
+  }
+}

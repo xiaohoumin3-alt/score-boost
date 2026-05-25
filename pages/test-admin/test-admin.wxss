@@ -1,0 +1,59 @@
+/* pages/test-admin/test-admin.wxss */
+.container {
+  padding: 40rpx;
+}
+
+.title {
+  font-size: 40rpx;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 60rpx;
+}
+
+.form {
+  margin-bottom: 60rpx;
+}
+
+.form-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30rpx;
+}
+
+.label {
+  width: 120rpx;
+  font-size: 28rpx;
+}
+
+.input {
+  flex: 1;
+  height: 70rpx;
+  border: 2rpx solid #ddd;
+  border-radius: 8rpx;
+  padding: 0 20rpx;
+  font-size: 28rpx;
+}
+
+.btn {
+  margin-top: 40rpx;
+  background: #07C160;
+  color: #fff;
+}
+
+.result {
+  background: #f5f5f5;
+  border-radius: 16rpx;
+  padding: 30rpx;
+}
+
+.result-title {
+  font-size: 28rpx;
+  font-weight: bold;
+  margin-bottom: 20rpx;
+}
+
+.result-text {
+  font-size: 24rpx;
+  line-height: 1.6;
+  word-break: break-all;
+}

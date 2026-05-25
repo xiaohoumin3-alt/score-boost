@@ -1,0 +1,80 @@
+<view class="container">
+  <view class="header">
+    <text class="title">用户协议</text>
+    <text class="date">更新日期：2026年5月20日</text>
+  </view>
+
+  <scroll-view class="content" scroll-y>
+    <view class="section">
+      <text class="section-title">一、服务条款的确认和接受</text>
+      <text class="section-content">
+欢迎使用"日日守护"小程序（以下简称"本程序"）。本程序由[公司名称]运营。在您使用本程序之前，请您仔细阅读本协议的全部内容。如果您不同意本协议的任何内容，请不要注册或使用本程序。您通过任何方式使用本程序，即表示您已阅读、理解并同意接受本协议的约束。
+      </text>
+    </view>
+
+    <view class="section">
+      <text class="section-title">二、服务内容</text>
+      <text class="section-content">
+1. 本程序旨在为用户提供智能学习辅助服务，包括但不限于：知识图谱构建、个性化学习路径推荐、练习题目生成、学习效果分析等功能。
+
+2. 本程序保留随时变更、中断或终止部分或全部服务的权利，并不对此承担任何责任。
+
+3. 本程序不保证服务完全满足用户的所有需求，用户应根据自身情况合理使用。
+      </text>
+    </view>
+
+    <view class="section">
+      <text class="section-title">三、用户注册与账号管理</text>
+      <text class="section-content">
+1. 用户在使用本程序前需要注册微信账号。用户承诺以真实身份注册，并保证所提供的个人信息真实、完整。
+
+2. 用户有责任妥善保管其账号信息，因用户保管不善造成的损失由用户自行承担。
+
+3. 用户承诺不会通过本程序从事任何违反法律法规、侵犯他人权益的行为。
+      </text>
+    </view>
+
+    <view class="section">
+      <text class="section-title">四、知识产权</text>
+      <text class="section-content">
+1. 本程序的所有内容，包括但不限于文字、图片、音频、视频、软件、程序、架构、技术等，其知识产权均归本程序运营方所有。
+
+2. 未经本程序运营方书面授权，用户不得对上述内容进行复制、修改、传播、反向工程等行为。
+
+3. 用户在使用本程序过程中产生的任何内容，用户享有合法的著作权或已获得相应授权。
+      </text>
+    </view>
+
+    <view class="section">
+      <text class="section-title">五、免责声明</text>
+      <text class="section-content">
+1. 本程序对服务的准确性和完整性不作任何明示或暗示的保证。
+
+2. 因不可抗力、信息安全事件、电信运营商故障等技术原因导致的服务中断，本程序不承担责任。
+
+3. 用户因违反本协议造成的任何后果，由用户自行承担责任。
+      </text>
+    </view>
+
+    <view class="section">
+      <text class="section-title">六、协议修改</text>
+      <text class="section-content">
+本程序有权随时修改本协议的任何条款，修改后的协议一经公布即生效。用户继续使用本程序即表示接受修改后的协议。
+      </text>
+    </view>
+
+    <view class="section">
+      <text class="section-title">七、争议解决</text>
+      <text class="section-content">
+本协议的解释和适用均适用中华人民共和国法律。因本协议引起的任何争议，双方应友好协商解决；协商不成的，任何一方可向有管辖权的人民法院提起诉讼。
+      </text>
+    </view>
+
+    <view class="section">
+      <text class="section-title">八、联系方式</text>
+      <text class="section-content">
+如您对本协议有任何疑问，请联系我们：[contact@email.com]
+      </text>
+    </view>
+  </scroll-view>
+</view>

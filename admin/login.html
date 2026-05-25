@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>登录 - 管理后台</title>
+  <script src="https://static.cloudbase.net/cloudbase-js-sdk/latest/cloudbase.full.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; background: #1a1a2e; min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+    .box { background: #16213e; padding: 40px; border-radius: 12px; width: 350px; }
+    h2 { color: #0f3460; text-align: center; margin-bottom: 30px; }
+    input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; }
+    button { width: 100%; padding: 12px; background: #e94560; color: white; border: none; border-radius: 6px; cursor: pointer; margin-top: 10px; }
+    button:disabled { background: #999; }
+    .error { color: #e94560; font-size: 14px; text-align: center; margin-top: 10px; display: none; }
+    .version { font-size: 12px; color: #666; text-align: center; margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>管理后台登录</h2>
+    <div class="error" id="error"></div>
+    <input type="text" id="username" placeholder="账号" value="admin">
+    <input type="password" id="password" placeholder="密码" value="admin">
+    <button id="btn" onclick="login()">登录</button>
+    <div class="version">V4-SIMPLIFIED-20240524</div>
+  </div>
+  <script>
+    console.log('[V4] 页面加载');
+    
+    // 初始化
+    const app = cloudbase.init({ env: 'cloud1-7gg9y9tjb2b867b6' });
+    console.log('[V4] app初始化:', !!app);
+
+    async function login() {
+      const btn = document.getElementById('btn');
+      const error = document.getElementById('error');
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      
+      btn.disabled = true;
+      btn.textContent = '登录中...';
+      error.style.display = 'none';
+      
+      try {
+        console.log('[V4] 开始登录');
+        
+        // 匿名登录
+        await app.auth().anonymousAuthProvider().signIn();
+        console.log('[V4] 匿名登录成功');
+        
+        // 调用云函数
+        const result = await app.callFunction({
+          name: 'adminProxy',
+          data: { action: 'adminLogin', data: { username, password } }
+        });
+        console.log('[V4] 云函数返回:', result);
+        
+        if (result.result && result.result.success) {
+          localStorage.setItem('adminToken', result.result.data.token);
+          localStorage.setItem('adminTokenExpires', result.result.data.expiresAt);
+          window.location.href = 'feedback.html';
+        } else {
+          error.textContent = result.result?.error || '登录失败';
+          error.style.display = 'block';
+        }
+      } catch (e) {
+        console.error('[V4] 错误:', e);
+        error.textContent = '错误: ' + e.message;
+        error.style.display = 'block';
+      } finally {
+        btn.disabled = false;
+        btn.textContent = '登录';
+      }
+    }
+    
+    // 检查登录状态
+    const token = localStorage.getItem('adminToken');
+    const expires = localStorage.getItem('adminTokenExpires');
+    if (token && expires && new Date(expires) > new Date()) {
+      window.location.href = 'feedback.html';
+    }
+  </script>
+</body>
+</html>

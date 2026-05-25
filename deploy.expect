@@ -1,0 +1,6 @@
+#!/usr/bin/expect
+set timeout 300
+spawn npx tcb fn deploy startAssessment --dir cloudfunctions/startAssessment
+expect "是否覆盖原函数代码与配置"
+send "y\r"
+expect eof

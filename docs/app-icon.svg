@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f0f23"/>
+      <stop offset="100%" style="stop-color:#1a1a3e"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00D9A5"/>
+      <stop offset="100%" style="stop-color:#00B894"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="300" height="300" rx="40" fill="url(#bgGrad)"/>
+
+  <!-- Outer ring -->
+  <circle cx="150" cy="150" r="110" fill="none" stroke="url(#accentGrad)" stroke-width="3" opacity="0.3"/>
+  <circle cx="150" cy="150" r="95" fill="none" stroke="url(#accentGrad)" stroke-width="1.5" opacity="0.5"/>
+
+  <!-- Central triangle (representing diagnostic/AI) -->
+  <polygon points="150,70 230,200 70,200" fill="none" stroke="url(#accentGrad)" stroke-width="4" stroke-linejoin="round"/>
+
+  <!-- Inner circle (target) -->
+  <circle cx="150" cy="160" r="35" fill="url(#accentGrad)" opacity="0.15"/>
+  <circle cx="150" cy="160" r="25" fill="url(#accentGrad)" opacity="0.25"/>
+  <circle cx="150" cy="160" r="15" fill="url(#accentGrad)"/>
+
+  <!-- Arrow pointing up (progress/improvement) -->
+  <path d="M150 115 L165 140 L155 140 L155 155 L145 155 L145 140 L135 140 Z" fill="url(#accentGrad)"/>
+
+  <!-- Small decorative dots -->
+  <circle cx="60" cy="60" r="4" fill="#00D9A5" opacity="0.4"/>
+  <circle cx="240" cy="70" r="3" fill="#00D9A5" opacity="0.3"/>
+  <circle cx="250" cy="240" r="5" fill="#00D9A5" opacity="0.25"/>
+  <circle cx="50" cy="230" r="3" fill="#00D9A5" opacity="0.35"/>
+</svg>

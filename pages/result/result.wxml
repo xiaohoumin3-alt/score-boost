@@ -1,0 +1,97 @@
+<view class="page">
+  <view class="header">
+    <text class="label">{{mode === 'assessment' ? '诊断测评完成' : '练习完成'}}</text>
+  </view>
+
+  <!-- Perfect Achievement Badge -->
+  <view class="perfect-badge" wx:if="{{isPerfect}}">
+    <text class="badge-icon">🏆</text>
+    <text class="badge-text">完美表现！</text>
+    <text class="badge-desc">全部答对，太棒了！</text>
+  </view>
+
+  <!-- Score Ring -->
+  <view class="score-ring-container {{isPerfect ? 'perfect-ring' : ''}}">
+    <view class="score-ring">
+      <view class="ring-outer" style="background: conic-gradient(from 0deg, #00D9A5 {{accuracy * 3.6}}deg, #222 {{accuracy * 3.6}}deg);">
+        <view class="ring-inner">
+          <text class="score-value">{{score}}</text>
+          <text class="score-total">/ {{total}}</text>
+        </view>
+      </view>
+    </view>
+    <text class="accuracy-text">{{accuracy}}% 正确率</text>
+  </view>
+
+  <!-- Knowledge Points Stats (练习模式专用) -->
+  <view class="kp-stats" wx:if="{{mode === 'practice' && kpStats.length > 0}}">
+    <text class="kp-stats-title">知识点统计</text>
+    <view class="kp-stats-list">
+      <view class="kp-stat-item" wx:for="{{kpStats}}" wx:key="kp_id">
+        <text class="kp-stat-name">{{item.kp_name}}</text>
+        <view class="kp-stat-bar">
+          <view class="kp-stat-fill" style="width: {{item.total > 0 ? (item.correct / item.total * 100) : 0}}%; background-color: {{item.total > 0 && item.correct === item.total ? '#00D9A5' : item.correct === 0 ? '#FF6B6B' : '#FFA94D'}};"></view>
+        </view>
+        <text class="kp-stat-score">{{item.correct}}/{{item.total}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- M6: 复习时间提示 (练习模式专用) -->
+  <view class="review-tip" wx:if="{{mode === 'practice' && showReviewTip}}">
+    <text class="review-icon">📅</text>
+    <view class="review-content">
+      <text class="review-label">下次复习</text>
+      <text class="review-time">{{nextReviewText}}</text>
+    </view>
+  </view>
+  <!-- Retest Status Card (when check completed and not perfect) -->
+  <view class="action-card retest-card" wx:if="{{showRetestCheck && mode === 'assessment' && !isPerfect}}">
+    <text class="action-icon">{{retestEligible ? '🔄' : '📋'}}</text>
+    <view class="action-content">
+      <text class="action-label">{{retestEligible ? '可以重新测评' : '需要完成练习'}}</text>
+      <text class="action-desc">{{retestReason}}</text>
+    </view>
+  </view>
+
+  <!-- Assessment Action Card (非满分时提示练习，满分时提示完成) -->
+  <view class="action-card" wx:elif="{{mode === 'assessment' && !isPerfect}}">
+    <text class="action-icon">📚</text>
+    <view class="action-content">
+      <text class="action-label">开始专项练习</text>
+      <text class="action-desc">针对薄弱知识点强化训练</text>
+    </view>
+  </view>
+
+  <view class="action-card practice-done" wx:elif="{{mode === 'assessment' && isPerfect}}">
+    <text class="action-icon">🏆</text>
+    <view class="action-content">
+      <text class="action-label">测评完成!</text>
+      <text class="action-desc">继续保持，再接再厉</text>
+    </view>
+  </view>
+
+  <!-- Practice Action Card (练习模式专用) -->
+  <view class="action-card practice-done" wx:else>
+    <text class="action-icon">🎯</text>
+    <view class="action-content">
+      <text class="action-label">练习完成!</text>
+      <text class="action-desc">继续保持，再接再厉</text>
+    </view>
+  </view>
+
+  <!-- Practice Mode: Continue Practice + Go Home -->
+  <view wx:if="{{mode === 'practice'}}" class="btn-row">
+    <button class="btn-secondary" bindtap="continuePractice">继续练习</button>
+    <button class="btn-primary" bindtap="goHome">返回首页</button>
+  </view>
+
+  <!-- Assessment Mode: Go Home -->
+  <button class="btn-primary" bindtap="goHome" wx:if="{{mode === 'assessment'}}">返回首页</button>
+
+  <!-- Secondary: Practice or Retest based on eligibility -->
+  <button class="btn-secondary retest-btn" bindtap="goToRetest" wx:if="{{showRetestCheck && retestEligible && mode === 'assessment'}}">重新测评</button>
+  <button class="btn-secondary retest-btn" bindtap="goToRetest" wx:elif="{{mode === 'assessment' && isPerfect}}">重新测评</button>
+  <button class="btn-secondary" bindtap="goToPractice" wx:elif="{{showRetestCheck && !retestEligible && mode === 'assessment'}}">开始{{targetDifficulty}}难度练习</button>
+  <button class="btn-secondary" bindtap="goToPractice" wx:elif="{{mode === 'assessment' && !isPerfect}}">开始练习</button>
+</view>
