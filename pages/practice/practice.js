@@ -89,7 +89,7 @@ Page({
    */
   getStudentProfile() {
     var self = this;
-    return new Promise(function(resolve) {
+    return new Promise(function(resolve, reject) {
       wx.cloud.callFunction({
         name: 'studentMemory',
         data: { action: 'get', student_id: app.globalData.studentId }
@@ -97,7 +97,6 @@ Page({
         if (memoryResult.result && memoryResult.result.success && memoryResult.result.data) {
           var memory = memoryResult.result.data;
           console.log('[Practice] Memory loaded:', memory);
-
           resolve({
             weak_points: (memory.summary && memory.summary.weak_points || []).map(function(wp) { return wp.kp_name; }),
             mastered: memory.summary && memory.summary.mastered || [],
@@ -107,27 +106,26 @@ Page({
             avg_time_per_question: memory.profile && memory.profile.avg_time_per_question || 90
           });
         } else {
-          resolve(null);
+          resolve({
+            weak_points: [],
+            mastered: [],
+            learning_style: 'visual',
+            error_patterns: [],
+            recent_mistakes: [],
+            avg_time_per_question: 90
+          });
         }
       }).catch(function(e) {
         console.log('[Practice] Get memory failed (non-critical):', e.message);
-        resolve(null);
+        resolve({
+          weak_points: [],
+          mastered: [],
+          learning_style: 'visual',
+          error_patterns: [],
+          recent_mistakes: [],
+          avg_time_per_question: 90
+        });
       });
-    }).then(function(memoryData) {
-      if (memoryData) {
-        return memoryData;
-      }
-
-      // 默认画像（新用户或Memory获取失败）
-      console.log('[Practice] Using default student profile');
-      return {
-        weak_points: [],
-        mastered: [],
-        learning_style: 'visual',
-        error_patterns: [],
-        recent_mistakes: [],
-        avg_time_per_question: 90
-      };
     });
   }
 
