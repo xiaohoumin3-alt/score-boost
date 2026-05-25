@@ -138,7 +138,7 @@ function finishAssessment(assessmentId) {
 
 // ========== 练习 API ==========
 
-function startPractice(knowledgePointId, knowledgePointName, numQuestions, weakPoints, assessmentId) {
+function startPractice(knowledgePointId, knowledgePointName, numQuestions, weakPoints, assessmentId, studentProfile) {
   // 科目映射：显示名→存储名
   const subjectMapDb = { '生物': 'biology', '地理': 'geography', '数学': 'math' };
   const currentSubject = app.globalData.subject || '数学';
@@ -153,6 +153,7 @@ function startPractice(knowledgePointId, knowledgePointName, numQuestions, weakP
     weak_points: weakPoints || [],
     student_id: app.globalData.studentId || null,
     assessment_id: assessmentId || null,
+    student_profile: studentProfile || null,  // 新增：学生画像（AI原生核心）
   });
 }
 

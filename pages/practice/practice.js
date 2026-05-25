@@ -83,14 +83,62 @@ Page({
     }
   },
 
+  /**
+   * 获取学生画像（AI原生核心）
+   * 从Memory系统获取或使用默认值
+   */
+  async getStudentProfile() {
+    try {
+      // 尝试从Memory获取（Phase 1实现后可用）
+      const memoryResult = await wx.cloud.callFunction({
+        name: 'studentMemory',
+        data: { action: 'get', student_id: app.globalData.studentId }
+      });
+
+      if (memoryResult.result && memoryResult.result.success && memoryResult.result.data) {
+        const memory = memoryResult.result.data;
+        console.log('[Practice] Memory loaded:', memory);
+
+        // 从Memory构建学生画像
+        return {
+          weak_points: (memory.summary?.weak_points || []).map(wp => wp.kp_name),
+          mastered: memory.summary?.mastered || [],
+          learning_style: memory.profile?.learning_style || 'visual',
+          error_patterns: (memory.summary?.weak_points || []).map(wp => wp.pattern).filter(Boolean),
+          recent_mistakes: [],  // 从mistakes.jsonl获取（后续实现）
+          avg_time_per_question: memory.profile?.avg_time_per_question || 90
+        };
+      }
+    } catch (e) {
+      console.log('[Practice] Get memory failed (non-critical):', e.message);
+    }
+
+    // 默认画像（新用户或Memory获取失败）
+    console.log('[Practice] Using default student profile');
+    return {
+      weak_points: [],
+      mastered: [],
+      learning_style: 'visual',  // 大多数学生偏好视觉型
+      error_patterns: [],
+      recent_mistakes: [],
+      avg_time_per_question: 90
+    };
+  }
+
   async initPractice() {
     wx.showLoading({ title: '加载中...' });
     try {
+      // 新增：获取学生画像（AI原生核心）
+      const studentProfile = await this.getStudentProfile();
+      console.log('[Practice] Student profile loaded:', studentProfile);
+
       const res = await api.startPractice(
         this.data.kpId,
         this.data.kpName,
         5,
-        this.data.weakPoints
+        this.data.weakPoints,
+        null,
+        studentProfile  // 新增参数
       );
 
       const questions = res.questions || [];
