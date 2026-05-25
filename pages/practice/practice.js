@@ -87,110 +87,117 @@ Page({
    * 获取学生画像（AI原生核心）
    * 从Memory系统获取或使用默认值
    */
-  async getStudentProfile() {
-    try {
-      // 尝试从Memory获取（Phase 1实现后可用）
-      const memoryResult = await wx.cloud.callFunction({
+  getStudentProfile() {
+    var self = this;
+    return new Promise(function(resolve) {
+      wx.cloud.callFunction({
         name: 'studentMemory',
         data: { action: 'get', student_id: app.globalData.studentId }
+      }).then(function(memoryResult) {
+        if (memoryResult.result && memoryResult.result.success && memoryResult.result.data) {
+          var memory = memoryResult.result.data;
+          console.log('[Practice] Memory loaded:', memory);
+
+          resolve({
+            weak_points: (memory.summary && memory.summary.weak_points || []).map(function(wp) { return wp.kp_name; }),
+            mastered: memory.summary && memory.summary.mastered || [],
+            learning_style: memory.profile && memory.profile.learning_style || 'visual',
+            error_patterns: (memory.summary && memory.summary.weak_points || []).map(function(wp) { return wp.pattern; }).filter(Boolean),
+            recent_mistakes: [],
+            avg_time_per_question: memory.profile && memory.profile.avg_time_per_question || 90
+          });
+        } else {
+          resolve(null);
+        }
+      }).catch(function(e) {
+        console.log('[Practice] Get memory failed (non-critical):', e.message);
+        resolve(null);
       });
-
-      if (memoryResult.result && memoryResult.result.success && memoryResult.result.data) {
-        const memory = memoryResult.result.data;
-        console.log('[Practice] Memory loaded:', memory);
-
-        // 从Memory构建学生画像
-        return {
-          weak_points: (memory.summary?.weak_points || []).map(wp => wp.kp_name),
-          mastered: memory.summary?.mastered || [],
-          learning_style: memory.profile?.learning_style || 'visual',
-          error_patterns: (memory.summary?.weak_points || []).map(wp => wp.pattern).filter(Boolean),
-          recent_mistakes: [],  // 从mistakes.jsonl获取（后续实现）
-          avg_time_per_question: memory.profile?.avg_time_per_question || 90
-        };
+    }).then(function(memoryData) {
+      if (memoryData) {
+        return memoryData;
       }
-    } catch (e) {
-      console.log('[Practice] Get memory failed (non-critical):', e.message);
-    }
 
-    // 默认画像（新用户或Memory获取失败）
-    console.log('[Practice] Using default student profile');
-    return {
-      weak_points: [],
-      mastered: [],
-      learning_style: 'visual',  // 大多数学生偏好视觉型
-      error_patterns: [],
-      recent_mistakes: [],
-      avg_time_per_question: 90
-    };
+      // 默认画像（新用户或Memory获取失败）
+      console.log('[Practice] Using default student profile');
+      return {
+        weak_points: [],
+        mastered: [],
+        learning_style: 'visual',
+        error_patterns: [],
+        recent_mistakes: [],
+        avg_time_per_question: 90
+      };
+    });
   }
 
-  async initPractice() {
+  initPractice() {
+    var self = this;
     wx.showLoading({ title: '加载中...' });
-    try {
-      // 新增：获取学生画像（AI原生核心）
-      const studentProfile = await this.getStudentProfile();
+
+    // 新增：获取学生画像（AI原生核心）
+    this.getStudentProfile().then(function(studentProfile) {
       console.log('[Practice] Student profile loaded:', studentProfile);
 
-      const res = await api.startPractice(
-        this.data.kpId,
-        this.data.kpName,
+      return api.startPractice(
+        self.data.kpId,
+        self.data.kpName,
         5,
-        this.data.weakPoints,
+        self.data.weakPoints,
         null,
-        studentProfile  // 新增参数
+        studentProfile
       );
-
-      const questions = res.questions || [];
+    }).then(function(res) {
+      var questions = res.questions || [];
       if (questions.length === 0) {
         wx.hideLoading();
         wx.showToast({ title: '加载失败', icon: 'none' });
-        setTimeout(() => wx.navigateBack(), 1500);
+        setTimeout(function() {
+          wx.navigateBack();
+        }, 1500);
         return;
       }
 
       // 解析 options: 支持两种格式
-      // 1. 字符串数组: ["A. 5", "B. 10", ...] 或 ["5", "10", ...]
-      // 2. 对象数组: [{key: "A", value: "5"}, {key: "B", value: "10"}, ...]
-      const keys = ['A', 'B', 'C', 'D', 'E', 'F'];
+      var keys = ['A', 'B', 'C', 'D', 'E', 'F'];
       questions.forEach(function(q) {
         if (!q.options) {
           q.parsedOptions = [];
           return;
         }
         if (typeof q.options[0] === 'string') {
-          // 字符串数组格式
           q.parsedOptions = q.options.map(function(opt, idx) {
             var dotIdx = opt.indexOf('. ');
             if (dotIdx > 0) {
               return { key: opt.substring(0, dotIdx), value: opt.substring(dotIdx + 2) };
             }
-            // 纯字符串格式：使用 A/B/C/D 作为 key
             return { key: keys[idx] || String.fromCharCode(65 + idx), value: opt };
           });
         } else if (typeof q.options[0] === 'object') {
-          // 对象数组格式: [{key: "A", value: "5"}, ...]
           q.parsedOptions = q.options.map(function(opt) {
             return { key: opt.key || opt.label || '', value: opt.value || opt.text || '' };
           });
         }
       });
 
-      this.setData({
+      self.setData({
         sessionId: res.session_id,
         questions: questions,
         currentQuestion: questions[0],
         loading: false,
         questionStartTime: Date.now(),
-        kpName: this.data.kpName,
+        kpName: self.data.kpName,
         progress: 0
       });
       wx.hideLoading();
-    } catch (e) {
+    }).catch(function(e) {
       wx.hideLoading();
+      console.error('[initPractice] Error:', e);
       wx.showToast({ title: '网络错误', icon: 'none' });
-      setTimeout(() => wx.navigateBack(), 1500);
-    }
+      setTimeout(function() {
+        wx.navigateBack();
+      }, 1500);
+    });
   },
 
   selectOption(e) {
