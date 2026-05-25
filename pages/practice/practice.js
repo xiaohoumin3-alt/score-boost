@@ -20,7 +20,7 @@ Page({
     isBrowsingHistory: false
   },
 
-  onLoad(query) {
+  onLoad: function(query) {
     // 检查登录状态
     if (!app.checkLogin()) {
       app.requireLogin();
@@ -62,7 +62,7 @@ Page({
     });
   },
 
-  onShow() {
+  onShow: function() {
     // 当从 path 页面 switchTab 过来时，可能需要重新初始化
     if (app.targetWeakPoints && !this.data.sessionId) {
       var weakPoints = app.targetWeakPoints;
@@ -87,7 +87,7 @@ Page({
    * 获取学生画像（AI原生核心）
    * 从Memory系统获取或使用默认值
    */
-  getStudentProfile() {
+  getStudentProfile: function() {
     var self = this;
     return new Promise(function(resolve, reject) {
       wx.cloud.callFunction({
@@ -97,11 +97,22 @@ Page({
         if (memoryResult.result && memoryResult.result.success && memoryResult.result.data) {
           var memory = memoryResult.result.data;
           console.log('[Practice] Memory loaded:', memory);
+          var weakPoints = memory.summary && memory.summary.weak_points || [];
+          var weakPointsList = [];
+          for (var i = 0; i < weakPoints.length; i++) {
+            weakPointsList.push(weakPoints[i].kp_name);
+          }
+          var errorPatterns = [];
+          for (var i = 0; i < weakPoints.length; i++) {
+            if (weakPoints[i].pattern) {
+              errorPatterns.push(weakPoints[i].pattern);
+            }
+          }
           resolve({
-            weak_points: (memory.summary && memory.summary.weak_points || []).map(function(wp) { return wp.kp_name; }),
+            weak_points: weakPointsList,
             mastered: memory.summary && memory.summary.mastered || [],
             learning_style: memory.profile && memory.profile.learning_style || 'visual',
-            error_patterns: (memory.summary && memory.summary.weak_points || []).map(function(wp) { return wp.pattern; }).filter(Boolean),
+            error_patterns: errorPatterns,
             recent_mistakes: [],
             avg_time_per_question: memory.profile && memory.profile.avg_time_per_question || 90
           });
@@ -127,9 +138,9 @@ Page({
         });
       });
     });
-  }
+  },
 
-  initPractice() {
+  initPractice: function() {
     var self = this;
     wx.showLoading({ title: '加载中...' });
 
@@ -198,7 +209,7 @@ Page({
     });
   },
 
-  selectOption(e) {
+  selectOption: function(e) {
     var option = e.currentTarget.dataset.option;
     var currentQuestion = this.data.currentQuestion;
     var currentIndex = this.data.currentIndex;
@@ -268,7 +279,7 @@ Page({
     }.bind(this), isCorrect ? 800 : 1500);
   },
 
-  previewImage(e) {
+  previewImage: function(e) {
     var url = e.currentTarget.dataset.url;
     if (url) {
       wx.previewImage({
@@ -278,7 +289,7 @@ Page({
     }
   },
 
-  goPrevQuestion() {
+  goPrevQuestion: function() {
     var currentIndex = this.data.currentIndex;
     var questions = this.data.questions;
     var answers = this.data.answers;
@@ -299,7 +310,7 @@ Page({
     }
   },
 
-  goNextQuestion() {
+  goNextQuestion: function() {
     var currentIndex = this.data.currentIndex;
     var questions = this.data.questions;
     var answers = this.data.answers;
@@ -320,7 +331,7 @@ Page({
     }
   },
 
-  submitAll() {
+  submitAll: function() {
     this.setData({ loading: true });
 
     // 批量提交答案到 kp_progress
