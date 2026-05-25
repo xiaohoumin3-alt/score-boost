@@ -93,7 +93,10 @@ async function generateQuestionWithAI(kpId, kpName, difficulty, questionType, ll
     // 元数据：记录使用的场景、勾股数、问法
     scenario_used: parsed.scenario_used,
     triple_used: parsed.triple_used,
-    question_pattern: parsed.question_pattern
+    question_pattern: parsed.question_pattern,
+    // 深度反馈：典型错误和知识上下文
+    typical_mistakes: kc.typical_mistakes || [],
+    knowledge_context: kc.knowledge_context || ''
   };
 
   if (questionType === 'choice' || !questionType) {
@@ -237,6 +240,9 @@ exports.main = async (event, context) => {
           knowledge_point: q.knowledge_point || q.kp_name,
           knowledge_point_id: q.knowledge_point_id || q.kp_id,
           difficulty: q.difficulty,
+          image_url: q.image_url || null,
+          typical_mistakes: q.typical_mistakes || [],
+          knowledge_context: q.knowledge_context || ''
         })),
       }
     };

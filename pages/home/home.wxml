@@ -65,6 +65,52 @@
       </view>
     </view>
 
+    <!-- 今日复习卡片 -->
+    <view class="review-card" wx:if="{{hasPendingReviews}}">
+      <view class="review-header">
+        <text class="review-icon">📝</text>
+        <text class="review-title">今日复习</text>
+        <text class="review-count">{{pendingReviews.length}}个知识点</text>
+      </view>
+      <view class="review-list">
+        <block wx:for="{{pendingReviews}}" wx:key="kp_id">
+          <view class="review-item" bindtap="goReview" data-kp="{{item}}">
+            <text class="review-kp">{{item.kp_name || item.kp_id}}</text>
+            <text class="review-action">去复习 ›</text>
+          </view>
+        </block>
+      </view>
+    </view>
+
+    <!-- 成就展示 -->
+    <view class="achievement-row" wx:if="{{achievements.length > 0}}">
+      <text class="section-title">🏆 近期成就</text>
+      <scroll-view class="achievement-scroll" scroll-x="true">
+        <view class="achievement-list">
+          <block wx:for="{{achievements}}" wx:key="id">
+            <view class="achievement-badge">
+              <text class="badge-icon">{{item.icon}}</text>
+              <text class="badge-name">{{item.name}}</text>
+            </view>
+          </block>
+        </view>
+      </scroll-view>
+    </view>
+
+    <!-- 连续正确题数 -->
+    <view class="streak-card" wx:if="{{streak > 0}}">
+      <text class="streak-icon">🔥</text>
+      <text class="streak-num">{{streak}}</text>
+      <text class="streak-label">最大连续正确</text>
+    </view>
+
+    <!-- Progress Entry -->
+    <view class="progress-entry" bindtap="viewProgress">
+      <text class="entry-icon">📊</text>
+      <text class="entry-text">查看学习进度</text>
+      <text class="entry-arrow">›</text>
+    </view>
+
     <!-- Feedback Entry -->
     <view class="feedback-entry" bindtap="goToFeedback">
       <text class="feedback-icon">💬</text>

@@ -3,6 +3,13 @@
   "region": "ap-shanghai",
   "functions": [
     {
+      "name": "practice_v2",
+      "runtime": "Nodejs16.13",
+      "handler": "index.main",
+      "timeout": 60,
+      "memorySize": 256
+    },
+    {
       "name": "generateAiQuestion",
       "runtime": "Nodejs18.15",
       "handler": "index.main",

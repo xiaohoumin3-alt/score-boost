@@ -152,6 +152,9 @@ class LlmClient {
     prompt += `\n1. 选项长度均衡，不要让正确答案明显长于干扰项`;
     prompt += `\n2. 避免模板化表达`;
     prompt += `\n3. 问法多样化，避免连续使用相同的问句模式`;
+    prompt += `\n4. 【重要】禁止生成需要图片/图形/数轴的题目！所有几何信息必须用文字描述`;
+    prompt += `\n   - 错误示例："已知实数a在数轴上的对应点如图所示"`
+    prompt += `\n   - 正确示例："已知实数a满足-3<a<2，化简:|a+3|+|a-2|"`;
 
     if (question_type === 'choice') {
       prompt += `\n\nJSON格式：{"question":"...","options":["A","B","C","D"],"correct_answer":0,"explanation":"..."}`;

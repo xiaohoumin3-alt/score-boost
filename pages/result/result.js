@@ -12,7 +12,8 @@ Page({
     retestEligible: false,
     targetDifficulty: '',
     showRetestCheck: false,
-    retestReason: ''
+    retestReason: '',
+    perfectShown: false
   },
 
   onLoad(query) {
@@ -57,7 +58,39 @@ Page({
     }
 
     if (this.data.isPerfect) {
+      this.checkAndUnlockPerfectAchievement();
       this.triggerConfetti();
+    }
+  },
+
+  checkAndUnlockPerfectAchievement() {
+    const correctCount = this.data.score;
+    const totalCount = this.data.total;
+
+    // 满分且至少5题
+    const isPerfect = correctCount === totalCount && totalCount >= 5;
+
+    if (isPerfect) {
+      const achievements = wx.getStorageSync('achievements') || {};
+      const achievementId = 'perfect_practice';
+
+      if (!achievements[achievementId] && !this.data.perfectShown) {
+        achievements[achievementId] = {
+          unlockedAt: new Date().toISOString(),
+          count: 1
+        };
+        wx.setStorageSync('achievements', achievements);
+        this.setData({ perfectShown: true });
+
+        setTimeout(() => {
+          wx.showModal({
+            title: '🎉 满分表现！',
+            content: '太棒了！继续保持！\n⭐ 满分成就已解锁',
+            showCancel: false,
+            confirmText: '继续'
+          });
+        }, 1000);
+      }
     }
   },
 

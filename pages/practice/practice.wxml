@@ -24,6 +24,12 @@
     <!-- Question -->
     <view class="question-content">
       <text class="question-text">{{currentQuestion.content}}</text>
+      <image wx:if="{{currentQuestion.image_url}}"
+             class="question-image"
+             src="{{currentQuestion.image_url}}"
+             mode="widthFix"
+             bindtap="previewImage"
+             data-url="{{currentQuestion.image_url}}"/>
     </view>
 
     <!-- Options -->

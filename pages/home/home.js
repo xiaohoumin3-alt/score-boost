@@ -11,7 +11,11 @@ Page({
     nextAction: null,
     recentAssessments: [],
     subject: '',
-    grade: ''
+    grade: '',
+    streak: 0,
+    achievements: [],
+    hasPendingReviews: false,
+    pendingReviews: []
   },
 
   onLoad() {
@@ -70,9 +74,87 @@ Page({
         nextAction,
         recentAssessments: list.slice(0, 3)
       });
+
+      // 加载成就数据
+      await this.loadAchievements();
+      // 加载待复习知识点
+      await this.loadPendingReviews();
     } catch (e) {
       console.error('[home] load error:', e);
       this.setData({ loading: false });
+    }
+  },
+
+  async loadAchievements() {
+    try {
+      const res = await api.getKpProgress();
+      if (res.success && res.data) {
+        const kpList = Array.isArray(res.data) ? res.data : [res.data];
+
+        let maxStreak = 0;
+        kpList.forEach(kp => {
+          ['easy', 'medium', 'hard'].forEach(diff => {
+            if (kp[diff] && kp[diff].consecutive_correct > maxStreak) {
+              maxStreak = kp[diff].consecutive_correct;
+            }
+          });
+        });
+
+        const achievements = [];
+        if (maxStreak >= 3) achievements.push({ id: 'streak_3', name: '连续3题', icon: '🔥' });
+        if (maxStreak >= 7) achievements.push({ id: 'streak_7', name: '连续7题', icon: '💎' });
+        if (maxStreak >= 30) achievements.push({ id: 'streak_30', name: '连续30题', icon: '👑' });
+
+        const hasMastery = kpList.some(kp => kp.current_difficulty === 'easy');
+        if (hasMastery) achievements.push({ id: 'first_mastery', name: '首次掌握', icon: '🎯' });
+
+        const localAchievements = wx.getStorageSync('achievements') || {};
+        if (localAchievements['perfect_practice']) {
+          achievements.push({ id: 'perfect_practice', name: '满分练习', icon: '⭐' });
+        }
+
+        this.setData({
+          streak: maxStreak,
+          achievements: achievements.slice(0, 3)
+        });
+      }
+    } catch (e) {
+      console.error('[home] loadAchievements error:', e);
+    }
+  },
+
+  async loadPendingReviews() {
+    try {
+      const res = await api.getKpProgress();
+      if (res.success && res.data) {
+        const kpList = Array.isArray(res.data) ? res.data : [res.data];
+        const now = new Date();
+
+        let pendingReviews = kpList.filter(kp => {
+          if (!kp.next_review_at) return false;
+          return new Date(kp.next_review_at) <= now;
+        });
+
+        pendingReviews.sort((a, b) => {
+          const aTime = new Date(a.next_review_at || 0).getTime();
+          const bTime = new Date(b.next_review_at || 0).getTime();
+          if (aTime !== bTime) return aTime - bTime;
+          const diffOrder = { hard: 1, medium: 2, easy: 3, unknown: 4 };
+          const aOrder = diffOrder[a.current_difficulty] || diffOrder.unknown;
+          const bOrder = diffOrder[b.current_difficulty] || diffOrder.unknown;
+          return aOrder - bOrder;
+        });
+
+        if (pendingReviews.length > 0) {
+          this.setData({
+            pendingReviews,
+            hasPendingReviews: true
+          });
+        }
+      }
+    } catch (e) {
+      console.error('[home] loadPendingReviews error:', e);
+      wx.showToast({ title: '加载复习数据失败', icon: 'none' });
     }
   },
 
@@ -124,5 +206,16 @@ Page({
 
   goToFeedback() {
     wx.navigateTo({ url: '/pages/feedback/feedback' });
+  },
+
+  viewProgress() {
+    wx.navigateTo({ url: '/pages/progress/progress' });
+  },
+
+  goReview(e) {
+    const kp = e.currentTarget.dataset.kp;
+    app.targetKpId = kp.kp_id;
+    app.targetKpName = kp.kp_name || kp.kp_id;
+    wx.switchTab({ url: '/pages/practice/practice' });
   }
 });

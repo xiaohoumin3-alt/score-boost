@@ -1,0 +1,59 @@
+<view class="page">
+  <view class="header">
+    <text class="title">📊 学习进度</text>
+    <text class="subtitle">当前水平 vs 目标</text>
+  </view>
+
+  <view class="score-card">
+    <view class="score-circle">
+      <text class="score-current">{{currentScore}}</text>
+      <text class="score-divider">/</text>
+      <text class="score-target">{{targetScore}}</text>
+    </view>
+    <view class="progress-bar-wrap">
+      <view class="progress-bar">
+        <view class="bar-fill" style="width: {{currentScore}}%;"></view>
+      </view>
+      <text class="progress-label">差距 {{targetScore - currentScore}} 分</text>
+    </view>
+  </view>
+
+  <view class="stats-row">
+    <view class="stat-item mastered">
+      <text class="stat-num">{{masteredKp}}</text>
+      <text class="stat-label">已掌握</text>
+    </view>
+    <view class="stat-item learning">
+      <text class="stat-num">{{learningKp}}</text>
+      <text class="stat-label">学习中</text>
+    </view>
+    <view class="stat-item weak">
+      <text class="stat-num">{{weakKp}}</text>
+      <text class="stat-label">待加强</text>
+    </view>
+  </view>
+
+  <view class="kp-list">
+    <view class="section-title">📚 知识点详情</view>
+    <block wx:for="{{kpList}}" wx:key="kp_id">
+      <view class="kp-item" bindtap="goPractice" data-kp="{{item}}">
+        <view class="kp-status {{item.current_difficulty}}">
+          <text wx:if="{{item.current_difficulty === 'easy'}}">✅</text>
+          <text wx:elif="{{item.current_difficulty === 'medium'}}">🔄</text>
+          <text wx:else>❌</text>
+        </view>
+        <view class="kp-info">
+          <text class="kp-name">{{item.kp_name || item.kp_id}}</text>
+          <text class="kp-detail">当前难度: {{item.current_difficulty || 'easy'}}</text>
+        </view>
+        <text class="kp-arrow">›</text>
+      </view>
+    </block>
+
+    <view class="empty-state" wx:if="{{kpList.length === 0 && !loading}}">
+      <text class="empty-icon">📝</text>
+      <text class="empty-text">暂无学习数据</text>
+      <text class="empty-hint">开始练习后这里会显示你的进度</text>
+    </view>
+  </view>
+</view>

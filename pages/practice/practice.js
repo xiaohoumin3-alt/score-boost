@@ -170,6 +170,19 @@ Page({
       wx.showToast({ title: '正确!', icon: 'success', duration: 800 });
     } else {
       wx.showToast({ title: '错误: ' + currentQuestion.correct_answer, icon: 'none', duration: 1500 });
+
+      // 显示典型错误
+      const mistakes = currentQuestion.typical_mistakes || [];
+      if (mistakes.length > 0) {
+        setTimeout(() => {
+          wx.showModal({
+            title: '💡 常见错误',
+            content: mistakes.slice(0, 2).join('\n'),
+            showCancel: false,
+            confirmText: '知道了'
+          });
+        }, 1600);
+      }
     }
 
     // 如果处于历史浏览模式，修改答案后清除浏览模式（但仍不自动跳转）
@@ -196,6 +209,16 @@ Page({
         isBrowsingHistory: false
       });
     }, isCorrect ? 800 : 1500);
+  },
+
+  previewImage(e) {
+    const url = e.currentTarget.dataset.url;
+    if (url) {
+      wx.previewImage({
+        current: url,
+        urls: [url]
+      });
+    }
   },
 
   goPrevQuestion() {

@@ -183,6 +183,39 @@ function checkRetestEligibility(assessmentId, score) {
   });
 }
 
+/**
+ * 获取知识点进度
+ */
+function getKpProgress() {
+  return new Promise((resolve, reject) => {
+    initCloud();
+    const db = wx.cloud.database();
+
+    console.log('[cloudApi] getKpProgress fetching...');
+
+    db.collection('kp_progress')
+      .where({
+        student_id: app.globalData.studentId || null,
+      })
+      .get()
+      .then(res => {
+        console.log('[cloudApi] getKpProgress result:', res.data);
+        resolve({
+          success: true,
+          data: res.data || [],
+        });
+      })
+      .catch(err => {
+        console.error('[cloudApi] getKpProgress error:', err);
+        resolve({
+          success: false,
+          data: [],
+          error: err.errMsg || '获取进度失败',
+        });
+      });
+  });
+}
+
 // ========== 诊断 API ==========
 
 /**
@@ -335,6 +368,9 @@ module.exports = {
   // 练习 API
   submitPracticeResult,
   checkRetestEligibility,
+
+  // 进度 API
+  getKpProgress,
 
   // 直接调用云函数
   callCloudFunction,
