@@ -39,8 +39,30 @@
       </view>
     </view>
 
+    <!-- AI今日任务卡片 (AI原生Phase 2) -->
+    <view class="task-card" wx:if="{{todayTask}}" bindtap="startTodayTask">
+      <view class="task-header">
+        <text class="task-icon">🎯</text>
+        <text class="task-title">今日任务</text>
+      </view>
+      <view class="task-content">
+        <text class="task-name">{{todayTask.title}}</text>
+        <text class="task-reason" wx:if="{{todayTask.reason}}">{{todayTask.reason}}</text>
+      </view>
+      <view class="task-footer">
+        <text class="task-time">⏱️ 预计{{todayTask.estimated_time || 5}}分钟</text>
+        <text class="task-action">开始练习 ›</text>
+      </view>
+    </view>
+
+    <!-- 次要入口（折叠） -->
+    <view class="other-entry" bindtap="showAllTopics" wx:if="{{!showTopics}}">
+      <text class="other-text">我想自己选知识点</text>
+      <text class="other-arrow">›</text>
+    </view>
+
     <!-- Main Action Card -->
-    <view class="action-card" bindtap="handleAction">
+    <view class="action-card" bindtap="handleAction" wx:if="{{!todayTask}}">
       <view class="action-icon">
         <text wx:if="{{nextAction.type === 'start_assessment'}}">🎯</text>
         <text wx:elif="{{nextAction.type === 'practice'}}">📚</text>

@@ -459,3 +459,88 @@
   color: #444;
   font-weight: bold;
 }
+
+/* AI今日任务卡片（AI原生Phase 2） */
+.task-card {
+  margin: 0 40rpx 30rpx;
+  padding: 32rpx;
+  background: linear-gradient(135deg, #1a3a2e 0%, #2a3a2e 100%);
+  border-radius: 24rpx;
+  border: 2rpx solid #00D9A5;
+  box-shadow: 0 8rpx 24rpx rgba(0, 217, 165, 0.15);
+}
+
+.task-header {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  margin-bottom: 20rpx;
+}
+
+.task-icon {
+  font-size: 36rpx;
+}
+
+.task-title {
+  font-size: 32rpx;
+  color: #fff;
+  font-weight: bold;
+}
+
+.task-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+  margin-bottom: 20rpx;
+}
+
+.task-name {
+  font-size: 36rpx;
+  color: #00D9A5;
+  font-weight: bold;
+}
+
+.task-reason {
+  font-size: 24rpx;
+  color: #888;
+  line-height: 1.5;
+}
+
+.task-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.task-time {
+  font-size: 24rpx;
+  color: #666;
+}
+
+.task-action {
+  font-size: 26rpx;
+  color: #00D9A5;
+  font-weight: bold;
+}
+
+/* 次要入口 */
+.other-entry {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 40rpx 30rpx;
+  padding: 20rpx 24rpx;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 16rpx;
+  border: 2rpx dashed #444;
+}
+
+.other-text {
+  font-size: 26rpx;
+  color: #888;
+}
+
+.other-arrow {
+  font-size: 32rpx;
+  color: #666;
+}

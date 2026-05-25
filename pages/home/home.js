@@ -15,7 +15,9 @@ Page({
     streak: 0,
     achievements: [],
     hasPendingReviews: false,
-    pendingReviews: []
+    pendingReviews: [],
+    todayTask: null,  // AI原生Phase 2: 今日任务
+    showTopics: false  // 是否显示知识点选择
   },
 
   onLoad() {
@@ -79,6 +81,8 @@ Page({
       await this.loadAchievements();
       // 加载待复习知识点
       await this.loadPendingReviews();
+      // AI原生Phase 2: 加载今日任务
+      await this.loadTodayTask();
     } catch (e) {
       console.error('[home] load error:', e);
       this.setData({ loading: false });
@@ -232,5 +236,54 @@ Page({
     app.targetKpId = kp.kp_id;
     app.targetKpName = kp.kp_name || kp.kp_id;
     wx.switchTab({ url: '/pages/practice/practice' });
+  },
+
+  /**
+   * 加载今日任务（AI原生Phase 2）
+   */
+  async loadTodayTask() {
+    try {
+      const studentId = app.globalData.studentId;
+      if (!studentId) {
+        console.log('[home] No studentId, skip today task');
+        return;
+      }
+
+      const result = await wx.cloud.callFunction({
+        name: 'generateDailyTask',
+        data: { student_id: studentId }
+      });
+
+      if (result.result && result.result.success && result.result.data) {
+        this.setData({ todayTask: result.result.data });
+        console.log('[home] Today task loaded:', result.result.data);
+      }
+    } catch (e) {
+      console.log('[home] Load today task failed (non-critical):', e.message);
+      // 任务加载失败不影响主页显示
+    }
+  },
+
+  /**
+   * 开始今日任务
+   */
+  startTodayTask() {
+    const { todayTask } = this.data;
+    if (!todayTask) return;
+
+    // 设置目标知识点
+    app.targetKpId = todayTask.kp_id;
+    app.targetKpName = todayTask.kp_name;
+
+    // 跳转到练习页
+    wx.switchTab({ url: '/pages/practice/practice' });
+  },
+
+  /**
+   * 显示所有知识点（次要入口）
+   */
+  showAllTopics() {
+    this.setData({ showTopics: true });
+    wx.switchTab({ url: '/pages/path/path' });
   }
 });
