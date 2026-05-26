@@ -143,6 +143,11 @@ Page({
   initPractice: function() {
     var self = this;
     wx.showLoading({ title: '加载中...' });
+    console.log('[Practice] initPractice called with:', {
+      kpId: self.data.kpId,
+      kpName: self.data.kpName,
+      weakPoints: self.data.weakPoints
+    });
 
     // 新增：获取学生画像（AI原生核心）
     this.getStudentProfile().then(function(studentProfile) {
@@ -157,7 +162,9 @@ Page({
         studentProfile
       );
     }).then(function(res) {
+      console.log('[Practice] startPractice response:', res);
       var questions = res.questions || [];
+      console.log('[Practice] questions count:', questions.length);
       if (questions.length === 0) {
         wx.hideLoading();
         wx.showToast({ title: '加载失败', icon: 'none' });
@@ -202,10 +209,11 @@ Page({
     }).catch(function(e) {
       wx.hideLoading();
       console.error('[initPractice] Error:', e);
-      wx.showToast({ title: '网络错误', icon: 'none' });
+      console.error('[initPractice] Error stack:', e.stack);
+      wx.showToast({ title: '加载失败: ' + (e.message || '未知错误'), icon: 'none', duration: 2000 });
       setTimeout(function() {
         wx.navigateBack();
-      }, 1500);
+      }, 2000);
     });
   },
 

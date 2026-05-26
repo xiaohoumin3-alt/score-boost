@@ -40,6 +40,9 @@ function callCloudFunction(name, data) {
             resolve(res.result.data);
           } else if (res.result && res.result.error) {
             reject(new Error(res.result.error));
+          } else if (res.result && !res.result.success) {
+            // 处理 success: false 的情况
+            reject(new Error(res.result.error || '云函数返回失败'));
           } else {
             resolve(res.result);
           }
@@ -144,7 +147,7 @@ function startPractice(knowledgePointId, knowledgePointName, numQuestions, weakP
   const currentSubject = app.globalData.subject || '数学';
   const dbSubject = subjectMapDb[currentSubject] || currentSubject;
 
-  return callCloudFunction('practice_v2', {
+  const payload = {
     knowledge_point_id: knowledgePointId || null,
     kp_name: knowledgePointName || '',
     num_questions: numQuestions || 20,
@@ -154,7 +157,10 @@ function startPractice(knowledgePointId, knowledgePointName, numQuestions, weakP
     student_id: app.globalData.studentId || null,
     assessment_id: assessmentId || null,
     student_profile: studentProfile || null,  // 新增：学生画像（AI原生核心）
-  });
+  };
+
+  console.log('[cloudApi] startPractice payload:', JSON.stringify(payload));
+  return callCloudFunction('practice_v2', payload);
 }
 
 function finishPractice(sessionId) {
@@ -225,9 +231,10 @@ function getKpProgress() {
  * @returns {Array} 薄弱点列表 [{kp_id, kp_name, chapter: ''}]
  */
 function analyzeWeakPoints(kpStats) {
+  console.log('[cloudApi] analyzeWeakPoints input:', JSON.stringify(kpStats));
   if (!kpStats || kpStats.length === 0) return [];
 
-  return kpStats
+  const result = kpStats
     .filter(kp => {
       const rate = kp.correct / kp.total;
       return rate < 0.8 || kp.total - kp.correct >= 1;  // 正确率<80% 或 错>=1题
@@ -238,6 +245,13 @@ function analyzeWeakPoints(kpStats) {
       kp_name: kp.kp_name,
       chapter: '',
     }));
+
+  console.log('[cloudApi] analyzeWeakPoints output:', JSON.stringify(result));
+  // 检查第一个结果是否有 kp_id
+  if (result[0]) {
+    console.log('[cloudApi] analyzeWeakPoints output[0].kp_id:', result[0].kp_id || 'MISSING!');
+  }
+  return result;
 }
 
 function getLatestDiagnosis(subject, grade) {
@@ -271,6 +285,13 @@ function getLatestDiagnosis(subject, grade) {
         const doc = res.data && res.data[0];
         console.log('[cloudApi] getLatestDiagnosis result:', doc ? doc.assessment_id : 'none');
         if (doc && doc.kp_stats) {
+          // 详细日志：检查 kp_stats 的数据结构
+          console.log('[cloudApi] getLatestDiagnosis kp_stats:', JSON.stringify(doc.kp_stats));
+          console.log('[cloudApi] getLatestDiagnosis kp_stats[0]:', JSON.stringify(doc.kp_stats[0] || 'no data'));
+          // 检查第一个元素是否有 kp_id
+          if (doc.kp_stats[0]) {
+            console.log('[cloudApi] getLatestDiagnosis kp_stats[0].kp_id:', doc.kp_stats[0].kp_id || 'MISSING!');
+          }
           resolve({
             kp_stats: doc.kp_stats,
             assessment_id: doc.assessment_id,

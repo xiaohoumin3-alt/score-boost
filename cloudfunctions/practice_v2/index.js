@@ -117,13 +117,19 @@ async function generateQuestionWithAI(kpId, kpName, difficulty, questionType, ll
 
 exports.main = async (event, context) => {
   try {
-    const params = event.data || event || {};
+    // 微信小程序云函数调用时，data 参数会直接作为 event 传入
+    // 所以 event 就是 { knowledge_point_id, kp_name, num_questions, ... }
+    const params = event || {};
     const kpId = params.knowledge_point_id || params.kpId;
     const weakPoints = params.weak_points || [];
     const numQuestions = parseInt(params.num_questions || params.numQuestions || 5);
     const grade = String(params.grade || '8');
     const subject = params.subject || 'math';
     const studentId = params.student_id;
+
+    console.log('[Practice] params:', JSON.stringify({
+      kpId, weakPoints: weakPoints.length, numQuestions, grade, subject, studentId
+    }));
 
     console.log('[Practice] params:', JSON.stringify({
       kpId, weakPoints: weakPoints.length, numQuestions, grade, subject, studentId
@@ -173,9 +179,18 @@ exports.main = async (event, context) => {
       return distributions[targetDifficulty] || distributions.easy;
     }
 
+    console.log('[Practice] weakPoints received:', JSON.stringify(weakPoints));
+
     if (weakPoints && weakPoints.length > 0) {
       for (const wp of weakPoints) {
         const wpKpId = wp.kp_id || wp.id;
+        console.log(`[Practice] Processing weakPoint: kp_id=${wpKpId}, kp_name=${wp.kp_name || wp.name}, full_obj=`, JSON.stringify(wp));
+
+        if (!wpKpId) {
+          console.error('[Practice] weakPoint missing kp_id and id:', wp);
+          continue;  // 跳过没有 kp_id 的薄弱点
+        }
+
         const savedDifficulty = kpCurrentDifficulty[wpKpId] || 'easy';
         // 混合难度而非单一难度
         const difficultyMix = getDifficultyDistribution(savedDifficulty);
@@ -211,6 +226,17 @@ exports.main = async (event, context) => {
       const knowledgePoint = kpId || 'kp2_3';
       return generateQuestionWithAI(kpId, kpName, difficulty, questionType, llm, subject, knowledgePoint);
     };
+
+    // 检查 plan 是否为空
+    if (plan.length === 0) {
+      console.error('[Practice] plan is empty! weakPoints:', weakPoints, 'kpId:', kpId);
+      return {
+        success: false,
+        error: '无法生成题目：缺少有效的知识点ID。请检查薄弱点数据是否包含 kp_id 字段。'
+      };
+    }
+
+    console.log('[Practice] Generated plan:', JSON.stringify(plan));
 
     // 生成题目（题库优先，不足时AI生成）
     const questions = await generateMixedQuestions(plan, numQuestions, callAiGenerate);
