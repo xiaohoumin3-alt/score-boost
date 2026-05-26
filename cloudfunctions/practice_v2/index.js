@@ -238,11 +238,15 @@ exports.main = async (event, context) => {
 
     console.log('[Practice] Generated plan:', JSON.stringify(plan));
 
-    // 生成题目（题库优先，不足时AI生成）
-    const questions = await generateMixedQuestions(plan, numQuestions, callAiGenerate);
+    // 生成题目（题池优先，Practice模式：10% verified + 60% unverified + 30% AI）
+    const db = cloud.database();
+    const questions = await generateMixedQuestions(plan, numQuestions, callAiGenerate, {
+      db,
+      userId: studentId || 'anonymous',
+      mode: 'practice'
+    });
 
     // 保存练习会话
-    const db = cloud.database();
     await db.collection('practices').add({
       data: {
         session_id: sessionId,
