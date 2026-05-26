@@ -36,7 +36,7 @@ class LlmClient {
         temperature: 0.9,
         top_p: 0.95,
         messages: [
-          { role: 'system', content: config.systemPrompt },
+          { role: 'system', content: '你是一个专业的题目生成助手。请严格按照用户要求的JSON格式返回题目。' },
           { role: 'user', content: prompt }
         ]
       });

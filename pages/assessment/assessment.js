@@ -50,7 +50,55 @@ Page({
       this.data.examMode = 'huikao';
     }
 
+    // 检查是否有未完成的队列任务
+    const savedQueueId = wx.getStorageSync('currentQueueId');
+    if (savedQueueId && !this.data.assessmentId) {
+      this.resumeQueuedAssessment(savedQueueId);
+      return;
+    }
+
     this.initAssessment();
+  },
+
+  /**
+   * 恢复队列中的测评
+   */
+  async resumeQueuedAssessment(queueId) {
+    console.log('[assessment] 恢复队列任务, queue_id:', queueId);
+
+    wx.showLoading({ title: '正在恢复...' });
+
+    try {
+      const pollResult = await api.pollQueueStatus(queueId, {
+        maxAttempts: 60,
+        intervalMs: 5000,
+        onProgress: (progress) => {
+          console.log('[assessment] 恢复进度:', progress);
+        }
+      });
+
+      if (pollResult.status === 'completed' && pollResult.assessment_id) {
+        wx.removeStorageSync('currentQueueId');
+        await this.loadAssessment(pollResult.assessment_id);
+      } else if (pollResult.status === 'failed') {
+        wx.hideLoading();
+        wx.removeStorageSync('currentQueueId');
+        wx.showToast({ title: '题目生成失败', icon: 'none', duration: 3000 });
+        setTimeout(function() { wx.navigateBack(); }, 3000);
+      } else if (pollResult.exceededMaxAttempts) {
+        wx.hideLoading();
+        wx.removeStorageSync('currentQueueId');
+        wx.showToast({ title: '题目生成超时', icon: 'none', duration: 3000 });
+        setTimeout(function() { wx.navigateBack(); }, 3000);
+      } else {
+        // 仍在处理中，继续等待
+        await this.handleQueuedResponse({ queue_id: queueId, message: '继续生成中...' });
+      }
+    } catch (e) {
+      wx.hideLoading();
+      wx.showToast({ title: '恢复失败: ' + (e.message || '未知'), icon: 'none', duration: 3000 });
+      setTimeout(function() { wx.navigateBack(); }, 3000);
+    }
   },
 
   async initAssessment() {
@@ -100,9 +148,27 @@ Page({
         null
       );
       console.log('[assessment] startAssessment 返回:', res);
+
+      // 处理队列模式响应
+      if (res.status === 'queued') {
+        wx.hideLoading();
+        // 保存queue_id并跳转到等待页面
+        wx.setStorageSync('currentQueueId', res.queue_id);
+        wx.redirectTo({
+          url: '/pages/waiting/waiting?queueId=' + res.queue_id
+        });
+        return;
+      }
+
+      // 处理ready响应（已有assessment_id）
+      if (res.status === 'ready' && res.assessment_id) {
+        await this.loadAssessment(res.assessment_id);
+        return;
+      }
+
+      // 兼容原有直接返回assessment_id的响应
       wx.hideLoading();
 
-      // 后端返回 assessment_id（不是 session_id）
       var assessmentId = res.assessment_id;
       var questions = res.questions || [];
 
@@ -142,6 +208,119 @@ Page({
     } catch (e) {
       wx.hideLoading();
       wx.showToast({ title: '网络错误: ' + (e.message || '未知'), icon: 'none', duration: 3000 });
+      setTimeout(function() { wx.navigateBack(); }, 3000);
+    }
+  },
+
+  /**
+   * 处理队列模式响应
+   */
+  async handleQueuedResponse(queuedRes) {
+    const queueId = queuedRes.queue_id;
+    console.log('[assessment] 进入队列模式, queue_id:', queueId);
+
+    // 保存queue_id用于页面恢复
+    wx.setStorageSync('currentQueueId', queueId);
+
+    // 更新loading提示
+    wx.showLoading({ title: queuedRes.message || '题目正在生成中...' });
+
+    try {
+      // 轮询队列状态
+      const pollResult = await api.pollQueueStatus(queueId, {
+        maxAttempts: 60,  // 最多5分钟
+        intervalMs: 5000,  // 每5秒查询一次
+        onProgress: (progress) => {
+          console.log('[assessment] 队列进度:', progress);
+          // 可选：更新UI显示进度
+        }
+      });
+
+      console.log('[assessment] 轮询结果:', pollResult);
+
+      if (pollResult.status === 'completed' && pollResult.assessment_id) {
+        // 清除queue_id
+        wx.removeStorageSync('currentQueueId');
+        // 加载测评
+        await this.loadAssessment(pollResult.assessment_id);
+      } else if (pollResult.status === 'failed') {
+        wx.hideLoading();
+        const errorMsg = pollResult.error || '题目生成失败';
+        wx.showToast({ title: errorMsg, icon: 'none', duration: 3000 });
+        setTimeout(function() { wx.navigateBack(); }, 3000);
+      } else if (pollResult.exceededMaxAttempts) {
+        wx.hideLoading();
+        wx.showToast({ title: '题目生成超时，请重试', icon: 'none', duration: 3000 });
+        setTimeout(function() { wx.navigateBack(); }, 3000);
+      } else {
+        wx.hideLoading();
+        wx.showToast({ title: '题目生成异常', icon: 'none', duration: 3000 });
+        setTimeout(function() { wx.navigateBack(); }, 3000);
+      }
+    } catch (e) {
+      wx.hideLoading();
+      wx.showToast({ title: '网络错误: ' + (e.message || '未知'), icon: 'none', duration: 3000 });
+      setTimeout(function() { wx.navigateBack(); }, 3000);
+    }
+  },
+
+  /**
+   * 加载测评题目
+   */
+  async loadAssessment(assessmentId) {
+    console.log('[assessment] 加载测评, assessment_id:', assessmentId);
+
+    wx.showLoading({ title: '正在加载题目...' });
+
+    try {
+      // 从数据库获取测评数据
+      const db = wx.cloud.database();
+      const res = await db.collection('assessments').where({
+        assessment_id: assessmentId
+      }).get();
+
+      if (!res.data || res.data.length === 0) {
+        wx.hideLoading();
+        wx.showToast({ title: '测评不存在', icon: 'none' });
+        setTimeout(function() { wx.navigateBack(); }, 1500);
+        return;
+      }
+
+      const assessment = res.data[0];
+      const questions = assessment.questions || [];
+
+      // 解析 options
+      questions.forEach(function(q) {
+        if (q.options && typeof q.options[0] === 'string') {
+          var keys = ['A', 'B', 'C', 'D', 'E', 'F'];
+          q.parsedOptions = q.options.map(function(opt, idx) {
+            var dotIdx = opt.indexOf('. ');
+            if (dotIdx > 0) {
+              return { key: opt.substring(0, dotIdx), value: opt.substring(dotIdx + 2) };
+            }
+            return { key: keys[idx] || String.fromCharCode(65 + idx), value: opt };
+          });
+        }
+      });
+
+      wx.hideLoading();
+
+      // 持久化 assessmentId
+      wx.setStorageSync('currentAssessmentId', assessmentId);
+      wx.removeStorageSync('currentQueueId');
+
+      this.setData({
+        assessmentId: assessmentId,
+        questions: questions,
+        totalQuestions: questions.length,
+        currentQuestion: questions[0],
+        loading: false,
+        startTime: Date.now(),
+        questionStartTime: Date.now()
+      });
+    } catch (e) {
+      wx.hideLoading();
+      wx.showToast({ title: '加载失败: ' + (e.message || '未知'), icon: 'none', duration: 3000 });
       setTimeout(function() { wx.navigateBack(); }, 3000);
     }
   },

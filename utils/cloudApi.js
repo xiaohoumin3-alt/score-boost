@@ -2,18 +2,32 @@
  * 云函数 API - 微信云开发
  */
 
-const app = getApp();
+// 兼容测试环境：getApp可能不存在
+let app;
+try {
+  app = getApp();
+} catch (e) {
+  app = { globalData: {} };
+}
 
 // 云环境ID
 const CLOUD_ENV = 'cloud1-7gg9y9tjb2b867b6';
 
 let cloudInitialized = false;
 
+// 兼容测试环境：wx可能不存在
+let wx;
+try {
+  wx = global.wx || (typeof wx !== 'undefined' ? wx : null);
+} catch (e) {
+  wx = null;
+}
+
 /**
  * 初始化云开发
  */
 function initCloud() {
-  if (!cloudInitialized) {
+  if (!cloudInitialized && wx && wx.cloud) {
     wx.cloud.init({
       env: CLOUD_ENV,
       traceUser: true,
@@ -28,6 +42,13 @@ function initCloud() {
 function callCloudFunction(name, data) {
   return new Promise((resolve, reject) => {
     console.log(`[cloudApi] calling ${name}:`, data);
+
+    // 测试环境：如果没有wx对象，直接抛出（由mock处理）
+    if (!wx || !wx.cloud) {
+      reject(new Error('wx.cloud not available'));
+      return;
+    }
+
     initCloud();
 
     wx.cloud.callFunction({
@@ -117,6 +138,11 @@ function submitAssessmentAnswer(assessmentId, answersOrQuestionId, answer, timeS
 function finishAssessment(assessmentId) {
   return new Promise((resolve, reject) => {
     initCloud();
+    if (!wx || !wx.cloud) {
+      console.error('[cloudApi] finishAssessment: wx.cloud not available');
+      reject(new Error('云服务不可用'));
+      return;
+    }
     const db = wx.cloud.database();
     db.collection('assessments').where({ assessment_id: assessmentId }).get()
       .then(res => {
@@ -196,6 +222,11 @@ function checkRetestEligibility(assessmentId, score) {
 function getKpProgress() {
   return new Promise((resolve, reject) => {
     initCloud();
+    if (!wx || !wx.cloud) {
+      console.error('[cloudApi] getKpProgress: wx.cloud not available');
+      resolve({ success: false, data: [], error: '云服务不可用' });
+      return;
+    }
     const db = wx.cloud.database();
 
     console.log('[cloudApi] getKpProgress fetching...');
@@ -257,6 +288,11 @@ function analyzeWeakPoints(kpStats) {
 function getLatestDiagnosis(subject, grade) {
   return new Promise((resolve, reject) => {
     initCloud();
+    if (!wx || !wx.cloud) {
+      console.error('[cloudApi] getLatestDiagnosis: wx.cloud not available');
+      resolve({ kp_stats: [], assessment_id: null, score_percent: 0 });
+      return;
+    }
     const db = wx.cloud.database();
 
     // 科目映射：显示名→存储名
@@ -313,6 +349,11 @@ function getLatestDiagnosis(subject, grade) {
 function getAssessmentList(subject, grade) {
   return new Promise((resolve, reject) => {
     initCloud();
+    if (!wx || !wx.cloud) {
+      console.error('[cloudApi] getAssessmentList: wx.cloud not available');
+      resolve({ assessments: [] });
+      return;
+    }
     const db = wx.cloud.database();
 
     // 科目映射：显示名→存储名
@@ -372,6 +413,100 @@ function getAssessmentList(subject, grade) {
   });
 }
 
+// ========== 队列 API ==========
+
+/**
+ * 检查队列任务状态
+ * @param {string} queueId - 队列任务ID
+ * @returns {Promise<Object>} 状态信息
+ */
+function checkQueueStatus(queueId) {
+  if (!queueId) {
+    return Promise.reject(new Error('缺少queue_id参数'));
+  }
+  return callCloudFunction('checkQueueStatus', { queue_id: queueId });
+}
+
+/**
+ * 轮询队列任务状态直到完成
+ * @param {string} queueId - 队列任务ID
+ * @param {Object} options - 轮询选项
+ * @param {number} options.maxAttempts - 最大尝试次数（默认60次，约5分钟）
+ * @param {number} options.intervalMs - 轮询间隔（默认5000ms）
+ * @param {Function} options.onProgress - 进度回调
+ * @returns {Promise<Object>} 最终状态
+ */
+function pollQueueStatus(queueId, options = {}) {
+  const {
+    maxAttempts = 60,
+    intervalMs = 5000,
+    onProgress = null
+  } = options;
+
+  let attempts = 0;
+
+  function poll() {
+    return checkQueueStatus(queueId)
+      .then(result => {
+        attempts++;
+
+        // checkQueueStatus已经解包了data，直接访问result
+        const status = result.status;
+
+        // 通知进度
+        if (onProgress) {
+          onProgress({
+            attempt: attempts,
+            maxAttempts: maxAttempts,
+            status: status
+          });
+        }
+
+        // 检查是否需要继续轮询
+        if (status === 'completed' || status === 'failed' || status === 'cancelled') {
+          // 终态：返回结果
+          return {
+            status: status,
+            assessment_id: result.assessment_id,
+            error: result.error,
+            retry_count: result.retry_count,
+            exceededMaxAttempts: false
+          };
+        }
+
+        // 检查是否超过最大尝试次数
+        if (attempts >= maxAttempts) {
+          return {
+            status: status || 'timeout',
+            exceededMaxAttempts: true,
+            attempts: attempts
+          };
+        }
+
+        // 继续轮询
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            poll().then(resolve);
+          }, intervalMs);
+        });
+      });
+  }
+
+  return poll();
+}
+
+/**
+ * 取消队列任务
+ * @param {string} queueId - 队列任务ID
+ * @returns {Promise<Object>} 取消结果
+ */
+function cancelQueueTask(queueId) {
+  if (!queueId) {
+    return Promise.reject(new Error('缺少queue_id参数'));
+  }
+  return callCloudFunction('cancelQueueTask', { queue_id: queueId });
+}
+
 // ========== 导出 ==========
 
 module.exports = {
@@ -393,6 +528,11 @@ module.exports = {
 
   // 进度 API
   getKpProgress,
+
+  // 队列 API
+  checkQueueStatus,
+  pollQueueStatus,
+  cancelQueueTask,
 
   // 直接调用云函数
   callCloudFunction,

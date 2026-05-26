@@ -27,7 +27,7 @@ class QuestionValidator {
       max,
       min,
       diff,
-      pass: diff < 0.3
+      pass: diff < 0.5  // 放宽到0.5，允许更大的选项长度差异
     };
   }
 

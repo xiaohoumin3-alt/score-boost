@@ -249,6 +249,11 @@ Page({
         return;
       }
 
+      if (!wx || !wx.cloud) {
+        console.log('[home] wx.cloud not available, skip today task');
+        return;
+      }
+
       const result = await wx.cloud.callFunction({
         name: 'generateDailyTask',
         data: { student_id: studentId }

@@ -1,0 +1,28 @@
+<!--pages/waiting/waiting.wxml-->
+<view class="waiting-container">
+  <!-- 动画图标 -->
+  <view class="loading-icon">
+    <view class="dot"></view>
+    <view class="dot"></view>
+    <view class="dot"></view>
+  </view>
+
+  <!-- 状态文字 -->
+  <view class="status-text">{{statusText}}</view>
+
+  <!-- 进度信息 -->
+  <view class="progress-info" wx:if="{{showProgress}}">
+    <view class="progress-bar">
+      <view class="progress-fill" style="width: {{progressPercent}}%"></view>
+    </view>
+    <view class="progress-text">{{progressText}}</view>
+  </view>
+
+  <!-- 提示信息 -->
+  <view class="tip-text">{{tipText}}</view>
+
+  <!-- 取消按钮 -->
+  <button class="cancel-btn" bindtap="onCancel" wx:if="{{allowCancel}}">
+    取消生成
+  </button>
+</view>

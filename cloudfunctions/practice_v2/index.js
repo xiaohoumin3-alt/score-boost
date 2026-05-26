@@ -257,6 +257,32 @@ exports.main = async (event, context) => {
       }
     });
 
+    // 将AI生成的题目保存到题池
+    const aiQuestions = questions.filter(q => q.source === 'ai');
+    if (aiQuestions.length > 0) {
+      try {
+        const poolRecords = aiQuestions.map(q => ({
+          question: q.content || q.question,
+          options: q.options || [],
+          correct_answer: q.correct_answer,
+          kp_id: q.knowledge_point_id || q.kp_id,
+          kp_name: q.knowledge_point || q.kp_name,
+          chapter: q.chapter || '',
+          difficulty: q.difficulty,
+          subject: subject,
+          source: 'ai',
+          verified: false,
+          correct_rate: 0.5,  // 默认0.5，让未验证题目可以被查询到
+          usage_count: 1,
+          created_at: new Date().toISOString()
+        }));
+        await db.collection('ai_question_pool').add({ data: poolRecords });
+        console.log(`[Practice] Saved ${poolRecords.length} AI questions to pool`);
+      } catch (e) {
+        console.error('[Practice] Failed to save AI questions to pool:', e.message);
+      }
+    }
+
     return {
       success: true,
       data: {
