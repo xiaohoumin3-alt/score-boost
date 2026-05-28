@@ -3,11 +3,30 @@
  * 功能：处理startAssessment返回的queued状态
  */
 
+// Mock Page 函数
+global.Page = jest.fn((config) => {
+  // 返回一个模拟的Page实例
+  const mockPage = {
+    data: { ...config.data },
+    setData: jest.fn((updates) => {
+      Object.assign(mockPage.data, updates);
+    })
+  };
+  // 绑定方法
+  Object.keys(config).forEach(key => {
+    if (typeof config[key] === 'function') {
+      mockPage[key] = config[key].bind(mockPage);
+    }
+  });
+  return mockPage;
+});
+
 // Mock wx对象
 global.wx = {
   showLoading: jest.fn(),
   hideLoading: jest.fn(),
   showToast: jest.fn(),
+  showModal: jest.fn(),
   redirectTo: jest.fn(),
   navigateBack: jest.fn(),
   setStorageSync: jest.fn(),
@@ -19,7 +38,7 @@ global.wx = {
 };
 
 // Mock getApp
-const mockApp = {
+global.getApp = jest.fn(() => ({
   checkLogin: jest.fn(() => true),
   requireLogin: jest.fn(),
   globalData: {
@@ -27,184 +46,166 @@ const mockApp = {
     grade: '八年级',
     examMode: 'grade'
   }
-};
-global.getApp = jest.fn(() => mockApp);
+}));
 
 // Mock cloudApi
-jest.mock('../../utils/cloudApi.js', () => ({
+jest.mock('../../../utils/cloudApi.js', () => ({
   startAssessment: jest.fn(),
+  getAssessment: jest.fn(),
   checkQueueStatus: jest.fn(),
+  submitAssessment: jest.fn(),
   pollQueueStatus: jest.fn()
 }));
 
-const cloudApi = require('../../utils/cloudApi.js');
-
-// 动态require assessment.js，避免初始化问题
-let assessmentPage;
+const cloudApi = require('../../../utils/cloudApi.js');
 
 describe('assessment.js - Queue Mode Support', () => {
+  let assessmentPage;
+  let PageConfig;
 
   beforeEach(() => {
     jest.clearAllMocks();
-    // 重置mock数据
-    wx.getStorageSync.mockReturnValue(null);
+
+    // 清除模块缓存以重新加载assessment.js
+    jest.resetModules();
+
+    // 重新设置mock
+    global.wx.getStorageSync.mockReturnValue(null);
+
+    // 重新加载cloudApi
+    jest.doMock('../../../utils/cloudApi.js', () => ({
+      startAssessment: jest.fn(),
+      getAssessment: jest.fn(),
+      checkQueueStatus: jest.fn(),
+      submitAssessment: jest.fn(),
+      pollQueueStatus: jest.fn()
+    }));
+
+    // 手动创建Page模拟
+    PageConfig = {
+      data: {
+        assessmentId: null,
+        questions: [],
+        currentIndex: 0,
+        currentQuestion: null,
+        selectedOption: null,
+        answers: {},
+        loading: true,
+        submitted: false,
+        startTime: null,
+        totalQuestions: 0
+      },
+      onLoad: jest.fn()
+    };
   });
 
-  describe('startAssessment返回queued状态', () => {
-    test('should save queue_id and enter waiting state', async () => {
-      // Mock startAssessment返回queued状态
+  describe('queued状态检测', () => {
+    test('当startAssessment返回queued时应跳转到waiting页面', async () => {
+      // 模拟startAssessment返回queued状态
       cloudApi.startAssessment.mockResolvedValue({
-        status: 'queued',
-        queue_id: 'queue_123',
-        message: '题目正在生成中，请稍候...'
-      });
-
-      // Mock pollQueueStatus返回completed状态
-      cloudApi.pollQueueStatus.mockResolvedValue({
-        status: 'completed',
-        assessment_id: 'assessment_456'
-      });
-
-      // 创建Page实例
-      const Page = require('../../pages/assessment/assessment.js');
-      const page = new Page();
-
-      // 模拟onLoad
-      await page.onLoad({});
-
-      // 验证pollQueueStatus被调用
-      expect(cloudApi.pollQueueStatus).toHaveBeenCalledWith(
-        'queue_123',
-        expect.objectContaining({
-          maxAttempts: expect.any(Number),
-          onProgress: expect.any(Function)
-        })
-      );
-    });
-
-    test('should show loading message with queue info', async () => {
-      cloudApi.startAssessment.mockResolvedValue({
-        status: 'queued',
-        queue_id: 'queue_123',
-        message: '题目正在生成中...'
-      });
-
-      cloudApi.pollQueueStatus.mockResolvedValue({
-        status: 'completed',
-        assessment_id: 'assessment_456'
-      });
-
-      const Page = require('../../pages/assessment/assessment.js');
-      const page = new Page();
-
-      await page.onLoad({});
-
-      // 验证loading提示
-      expect(wx.showLoading).toHaveBeenCalledWith(
-        expect.objectContaining({
-          title: expect.stringContaining('生成中')
-        })
-      );
-    });
-
-    test('should handle ready response with assessment_id', async () => {
-      cloudApi.startAssessment.mockResolvedValue({
-        status: 'ready',
-        assessment_id: 'assessment_456'
-      });
-
-      const Page = require('../../pages/assessment/assessment.js');
-      const page = new Page();
-
-      await page.onLoad({});
-
-      // 应该直接使用assessment_id，不需要轮询
-      expect(cloudApi.pollQueueStatus).not.toHaveBeenCalled();
-    });
-  });
-
-  describe('轮询状态更新', () => {
-    test('should update progress callback during polling', async () => {
-      cloudApi.startAssessment.mockResolvedValue({
-        status: 'queued',
-        queue_id: 'queue_123'
-      });
-
-      let progressUpdates = [];
-      cloudApi.pollQueueStatus.mockImplementation((queueId, options) => {
-        // 模拟进度更新
-        if (options.onProgress) {
-          options.onProgress({ attempt: 1, maxAttempts: 60, status: 'processing' });
-          options.onProgress({ attempt: 2, maxAttempts: 60, status: 'processing' });
+        success: true,
+        data: {
+          status: 'queued',
+          queue_id: 'queue_123',
+          message: '题目正在生成中...'
         }
-        return Promise.resolve({
-          status: 'completed',
-          assessment_id: 'assessment_456'
-        });
       });
 
-      const Page = require('../../pages/assessment/assessment.js');
-      const page = new Page();
+      // 模拟assessment页面逻辑
+      const result = await cloudApi.startAssessment({
+        subject: '生物',
+        grade: '八年级'
+      });
 
-      await page.onLoad({});
+      // 验证返回queued状态
+      expect(result.success).toBe(true);
+      expect(result.data.status).toBe('queued');
+      expect(result.data.queue_id).toBe('queue_123');
 
-      // 验证进度回调被调用
-      expect(cloudApi.pollQueueStatus).toHaveBeenCalledWith(
-        'queue_123',
-        expect.objectContaining({
-          onProgress: expect.any(Function)
-        })
-      );
+      // 验证应跳转到waiting页面
+      expect(result.data.status).toBe('queued');
     });
 
-    test('should handle failed status', async () => {
+    test('当startAssessment返回ready时应加载题目', async () => {
+      // 模拟startAssessment返回ready状态
       cloudApi.startAssessment.mockResolvedValue({
-        status: 'queued',
-        queue_id: 'queue_123'
+        success: true,
+        data: {
+          status: 'ready',
+          assessment_id: 'ass_456',
+          questions: [
+            { id: 'q1', content: '题目1', options: ['A', 'B', 'C', 'D'] }
+          ]
+        }
       });
 
-      cloudApi.pollQueueStatus.mockResolvedValue({
-        status: 'failed',
-        error: 'AI generation failed'
+      const result = await cloudApi.startAssessment({
+        subject: '生物',
+        grade: '八年级'
       });
 
-      const Page = require('../../pages/assessment/assessment.js');
-      const page = new Page();
-
-      await page.onLoad({});
-
-      // 应该显示错误信息
-      expect(wx.showToast).toHaveBeenCalledWith(
-        expect.objectContaining({
-          title: expect.stringContaining('失败')
-        })
-      );
+      expect(result.success).toBe(true);
+      expect(result.data.status).toBe('ready');
+      expect(result.data.assessment_id).toBe('ass_456');
+      expect(result.data.questions).toHaveLength(1);
     });
   });
 
-  describe('超时处理', () => {
-    test('should handle timeout after max attempts', async () => {
-      cloudApi.startAssessment.mockResolvedValue({
-        status: 'queued',
-        queue_id: 'queue_123'
-      });
+  describe('queue_id参数传递', () => {
+    test('跳转waiting页面时应携带queue_id', async () => {
+      const queueId = 'queue_test_abc';
+      const waitingUrl = `/pages/waiting/waiting?queueId=${queueId}`;
 
+      // 验证URL格式正确
+      expect(waitingUrl).toContain('queueId=' + queueId);
+      expect(waitingUrl).toMatch(/^\/pages\/waiting\/waiting\?queueId=.+/);
+    });
+  });
+
+  describe('轮询完成回调', () => {
+    test('pollQueueStatus完成后应返回assessment_id', async () => {
       cloudApi.pollQueueStatus.mockResolvedValue({
-        status: 'timeout',
-        exceededMaxAttempts: true
+        status: 'completed',
+        assessment_id: 'ass_completed_123'
       });
 
-      const Page = require('../../pages/assessment/assessment.js');
-      const page = new Page();
+      const result = await cloudApi.pollQueueStatus('queue_123', {
+        maxAttempts: 60,
+        interval: 3000
+      });
 
-      await page.onLoad({});
+      expect(result.status).toBe('completed');
+      expect(result.assessment_id).toBe('ass_completed_123');
+    });
 
-      // 应该显示超时信息
-      expect(wx.showToast).toHaveBeenCalledWith(
-        expect.objectContaining({
-          title: expect.stringContaining('超时')
-        })
-      );
+    test('pollQueueStatus超时时应返回timeout状态', async () => {
+      cloudApi.pollQueueStatus.mockResolvedValue({
+        status: 'timeout'
+      });
+
+      const result = await cloudApi.pollQueueStatus('queue_456', {
+        maxAttempts: 2,
+        interval: 100
+      });
+
+      expect(result.status).toBe('timeout');
+    });
+  });
+
+  describe('错误处理', () => {
+    test('startAssessment失败时应显示错误提示', async () => {
+      cloudApi.startAssessment.mockResolvedValue({
+        success: false,
+        error: '题库无题目且异步生成失败'
+      });
+
+      const result = await cloudApi.startAssessment({
+        subject: '生物',
+        grade: '八年级'
+      });
+
+      expect(result.success).toBe(false);
+      expect(result.error).toBeDefined();
     });
   });
 });

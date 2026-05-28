@@ -16,19 +16,20 @@ const CLOUD_ENV = 'cloud1-7gg9y9tjb2b867b6';
 let cloudInitialized = false;
 
 // 兼容测试环境：wx可能不存在
-let wx;
-try {
-  wx = global.wx || (typeof wx !== 'undefined' ? wx : null);
-} catch (e) {
-  wx = null;
+// 使用函数延迟获取，避免模块加载时wx未定义的时序问题
+function getWx() {
+  if (typeof wx !== 'undefined') return wx;
+  if (typeof global !== 'undefined' && global.wx) return global.wx;
+  return null;
 }
 
 /**
  * 初始化云开发
  */
 function initCloud() {
-  if (!cloudInitialized && wx && wx.cloud) {
-    wx.cloud.init({
+  const _wx = getWx();
+  if (!cloudInitialized && _wx && _wx.cloud) {
+    _wx.cloud.init({
       env: CLOUD_ENV,
       traceUser: true,
     });
@@ -43,15 +44,17 @@ function callCloudFunction(name, data) {
   return new Promise((resolve, reject) => {
     console.log(`[cloudApi] calling ${name}:`, data);
 
+    const _wx = getWx();
     // 测试环境：如果没有wx对象，直接抛出（由mock处理）
-    if (!wx || !wx.cloud) {
+    if (!_wx || !_wx.cloud) {
+      console.error('[cloudApi] wx.cloud not available, _wx:', _wx);
       reject(new Error('wx.cloud not available'));
       return;
     }
 
     initCloud();
 
-    wx.cloud.callFunction({
+    _wx.cloud.callFunction({
       name: name,
       data: data,
       success: res => {

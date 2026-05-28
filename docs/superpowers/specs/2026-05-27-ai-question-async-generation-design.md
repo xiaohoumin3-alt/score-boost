@@ -185,9 +185,457 @@ async pollQueueStatus(queueId) {
 
 ---
 
-## 5. 通知机制
+## 5. 接口设计
 
-### 5.1 微信订阅消息（Phase 4可选项）
+### 5.1 云函数接口
+
+#### 5.1.1 startAssessment
+
+**功能：** 发起测评或检查预生成队列状态
+
+**请求参数：**
+```javascript
+{
+  student_id: string,      // 学生ID（必填）
+  subject: string,         // 科目（必填）：math | biology | english | chinese | physics | chemistry
+  grade: string,           // 年级（必填）：7 | 8 | 9
+  semester: string,        // 学期（可选）：up | down
+  mode: string,            // 模式（可选）：quick | full | wrong_book
+  num_questions: number    // 题目数量（可选），默认20
+}
+```
+
+**响应格式：**
+```javascript
+// 同步模式：题池充足
+{
+  success: true,
+  status: "ready",
+  data: {
+    assessment_id: string,
+    questions: Array<{
+      id: string,
+      content: string,
+      options: string[],
+      answer: string,
+      difficulty: string,
+      knowledge_point: string
+    }>
+  }
+}
+
+// 预生成模式：有已完成的队列任务
+{
+  success: true,
+  status: "ready",
+  data: {
+    assessment_id: string,
+    from_cache: true,  // 标识来自预生成
+    questions: [...]
+  }
+}
+
+// 异步队列模式：需要等待生成
+{
+  success: true,
+  status: "queued",
+  data: {
+    queue_id: string,
+    estimated_time: number,  // 预计等待时间（秒）
+    message: "题目正在生成中，请稍候..."
+  }
+}
+
+// 错误响应
+{
+  success: false,
+  error: string,
+  error_code: number
+}
+```
+
+**错误码：**
+| error_code | 说明 |
+|-----------|------|
+| 400 | 参数错误（缺少必填参数） |
+| 429 | 请求过于频繁（同一学生有进行中的任务） |
+| 500 | 服务器错误 |
+
+---
+
+#### 5.1.2 checkQueueStatus
+
+**功能：** 检查队列任务状态
+
+**请求参数：**
+```javascript
+{
+  queue_id: string  // 队列任务ID（必填）
+}
+```
+
+**响应格式：**
+```javascript
+// pending/processing 状态
+{
+  success: true,
+  data: {
+    status: "pending" | "processing",
+    queue_id: string,
+    message: "题目正在排队生成中..." | "题目正在生成中...",
+    progress: {  // 可选，进度信息
+      total: number,
+      completed: number,
+      percentage: number
+    }
+  }
+}
+
+// completed 状态
+{
+  success: true,
+  data: {
+    status: "completed",
+    queue_id: string,
+    assessment_id: string,
+    message: "题目已生成完成"
+  }
+}
+
+// failed 状态
+{
+  success: true,
+  data: {
+    status: "failed",
+    queue_id: string,
+    error: string,      // 失败原因
+    retry_count: number,  // 已重试次数
+    message: "题目生成失败"
+  }
+}
+
+// cancelled 状态
+{
+  success: true,
+  data: {
+    status: "cancelled",
+    queue_id: string,
+    message: "任务已取消"
+  }
+}
+
+// 队列不存在或已过期
+{
+  success: false,
+  error: "Queue task not found or has expired"
+}
+```
+
+---
+
+#### 5.1.3 questionGenerator
+
+**功能：** 后台定时处理队列任务（定时触发，不直接调用）
+
+**处理流程：**
+```
+1. 查询 question_queue 中 status=pending 的任务
+2. 按 priority DESC, created_at ASC 排序
+3. 每次最多处理 3 个任务
+4. 对每个任务执行：
+   a. 更新状态为 processing
+   b. 调用 AI 生成题目
+   c. 保存到 ai_question_pool
+   d. 创建 assessment 记录
+   e. 更新状态为 completed
+   f. （可选）发送订阅消息
+5. 清理过期任务
+```
+
+**返回格式（内部日志）：**
+```javascript
+{
+  processed: number,      // 处理的任务数
+  success: number,        // 成功完成任务数
+  failed: number,         // 失败任务数
+  cleaned: number,        // 清理的过期任务数
+  errors: Array<{        // 错误详情
+    task_id: string,
+    error: string
+  }>
+}
+```
+
+---
+
+### 5.2 数据库接口
+
+#### 5.2.1 question_queue 集合操作
+
+**查询操作：**
+```javascript
+// 获取学生的活跃任务
+db.collection('question_queue')
+  .where({
+    student_id: 'xxx',
+    status: _.in(['pending', 'processing'])
+  })
+  .get()
+
+// 获取待处理任务（questionGenerator使用）
+db.collection('question_queue')
+  .where({ status: 'pending' })
+  .where({ expires_at: _.gt(new Date()) })
+  .orderBy('priority', 'desc')
+  .orderBy('created_at', 'asc')
+  .limit(3)
+  .get()
+
+// 获取单个任务状态
+db.collection('question_queue').doc(queue_id).get()
+```
+
+**写入操作：**
+```javascript
+// 创建新任务
+db.collection('question_queue').add({
+  student_id: string,
+  openid: string,
+  subject: string,
+  grade: string,
+  semester: string,
+  mode: string,
+  num_questions: number,
+  difficulty_distribution: object,
+  status: 'pending',
+  priority: 1,
+  created_at: new Date(),
+  updated_at: new Date(),
+  expires_at: new Date(Date.now() + 24*3600*1000)
+})
+
+// 更新任务状态
+db.collection('question_queue').doc(queue_id).update({
+  status: string,
+  updated_at: new Date(),
+  generated_assessment_id: string,  // completed时
+  error: string,                     // failed时
+  retry_count: number                // 失败重试时
+})
+
+// 删除过期任务
+db.collection('question_queue')
+  .where({
+    status: _.in(['completed', 'failed']),
+    expires_at: _.lte(new Date())
+  })
+  .remove()
+```
+
+**索引要求：**
+```javascript
+// 索引1：查询学生活跃任务
+db.collection('question_queue').createIndex({
+  student_id: 1,
+  status: 1,
+  created_at: -1
+})
+
+// 索引2：优先级排序
+db.collection('question_queue').createIndex({
+  priority: -1,
+  created_at: 1
+})
+
+// 索引3：过期清理
+db.collection('question_queue').createIndex({
+  status: 1,
+  expires_at: 1
+})
+```
+
+---
+
+### 5.3 前端API接口
+
+#### 5.3.1 cloudApi.js 方法
+
+**startAssessment：**
+```javascript
+/**
+ * 发起测评请求
+ * @param {Object} params - 测评参数
+ * @param {string} params.subject - 科目
+ * @param {string} params.grade - 年级
+ * @param {number} params.numQuestions - 题目数量
+ * @returns {Promise<Object>} 响应结果
+ */
+startAssessment: function(params) {
+  return callCloudFunction('startAssessment', {
+    subject: params.subject,
+    grade: params.grade,
+    semester: params.semester || 'down',
+    mode: params.mode || 'quick',
+    num_questions: params.numQuestions || 20
+  });
+}
+```
+
+**checkQueueStatus：**
+```javascript
+/**
+ * 检查队列状态
+ * @param {string} queueId - 队列任务ID
+ * @returns {Promise<Object>} 状态结果
+ */
+checkQueueStatus: function(queueId) {
+  return callCloudFunction('checkQueueStatus', { queue_id: queueId });
+}
+```
+
+**pollQueueStatus（轮询封装）：**
+```javascript
+/**
+ * 轮询队列状态直到完成
+ * @param {string} queueId - 队列任务ID
+ * @param {Object} options - 轮询选项
+ * @param {number} options.interval - 轮询间隔（毫秒），默认3000
+ * @param {number} options.timeout - 超时时间（毫秒），默认60000
+ * @param {Function} options.onProgress - 进度回调
+ * @returns {Promise<Object>} 完成后的结果
+ */
+pollQueueStatus: function(queueId, options = {}) {
+  const { interval = 3000, timeout = 60000, onProgress } = options;
+  const startTime = Date.now();
+
+  return new Promise((resolve, reject) => {
+    const poll = async () => {
+      if (Date.now() - startTime > timeout) {
+        reject(new Error('Queue status polling timeout'));
+        return;
+      }
+
+      try {
+        const result = await this.checkQueueStatus(queueId);
+        
+        if (result.data.status === 'completed') {
+          resolve(result);
+        } else if (result.data.status === 'failed') {
+          reject(new Error(result.data.error || '题目生成失败'));
+        } else if (result.data.status === 'cancelled') {
+          reject(new Error('任务已取消'));
+        } else {
+          // 继续轮询
+          if (onProgress) onProgress(result.data);
+          setTimeout(poll, interval);
+        }
+      } catch (e) {
+        reject(e);
+      }
+    };
+
+    poll();
+  });
+}
+```
+
+---
+
+### 5.4 响应格式规范
+
+#### 5.4.1 统一响应结构
+
+```javascript
+// 成功响应
+{
+  success: true,
+  data: {
+    // 业务数据
+  },
+  timestamp?: number  // 可选，服务器时间戳
+}
+
+// 错误响应
+{
+  success: false,
+  error: string,           // 错误描述
+  error_code?: number,     // 可选，错误码
+  details?: any            // 可选，错误详情
+}
+```
+
+#### 5.4.2 HTTP状态码映射
+
+| 状态码 | 说明 | 云函数响应 |
+|-------|------|-----------|
+| 200 | 成功 | success: true |
+| 400 | 请求参数错误 | success: false, error: "Invalid parameter" |
+| 404 | 资源不存在 | success: false, error: "Not found" |
+| 429 | 请求过于频繁 | success: false, error: "Too many requests" |
+| 500 | 服务器错误 | success: false, error: "Internal server error" |
+
+---
+
+### 5.5 接口调用示例
+
+#### 5.5.1 完整流程示例
+
+```javascript
+// 步骤1：发起测评
+const startResult = await api.startAssessment({
+  subject: 'math',
+  grade: '8',
+  numQuestions: 50
+});
+
+if (startResult.success) {
+  if (startResult.status === 'ready') {
+    // 题目已准备好，直接进入答题
+    console.log('获取到题目:', startResult.data.questions.length);
+    // 跳转到答题页面
+    wx.navigateTo({
+      url: `/pages/assessment/assessment?id=${startResult.data.assessment_id}`
+    });
+  } else if (startResult.status === 'queued') {
+    // 需要等待生成
+    console.log('队列ID:', startResult.data.queue_id);
+    
+    // 显示等待页面
+    wx.showLoading({ title: '题目生成中...', mask: true });
+    
+    // 步骤2：轮询检查状态
+    try {
+      const pollResult = await api.pollQueueStatus(
+        startResult.data.queue_id,
+        {
+          interval: 3000,
+          timeout: 60000,
+          onProgress: (data) => {
+            console.log('当前状态:', data.status, data.message);
+          }
+        }
+      );
+      
+      wx.hideLoading();
+      
+      // 步骤3：获取生成的题目
+      console.log('生成完成，assessment_id:', pollResult.data.assessment_id);
+      wx.navigateTo({
+        url: `/pages/assessment/assessment?id=${pollResult.data.assessment_id}`
+      });
+    } catch (e) {
+      wx.hideLoading();
+      wx.showToast({ title: e.message, icon: 'none' });
+    }
+  }
+}
+```
+
+---
+
+## 6. 通知机制
+
+### 6.1 微信订阅消息（Phase 4可选项）
 
 **模板定义：**
 ```javascript
@@ -223,34 +671,15 @@ if (subscription.enabled) {
 - ⚠️ 需配置模板ID和字段映射
 - ⚠️ 需处理用户订阅状态（用户可能拒绝订阅）
 
-### 5.2 轮询机制（Phase 3必需，作为主方案）
+### 6.2 轮询机制（Phase 3必需，作为主方案）
 
-**API接口：**
-```javascript
-// 云函数：checkQueueStatus
-// 检查队列状态
-GET /api/queue/{queue_id}/status
-
-// 返回格式
-{
-  "success": true,
-  "data": {
-    "status": "pending" | "processing" | "completed" | "failed" | "cancelled",
-    "assessment_id": "xxx", // status=completed时存在
-    "error": "错误信息",      // status=failed时存在
-    "progress": {
-      "total": 20,
-      "completed": 5
-    }
-  }
-}
-```
+轮询机制已在 5.3.1 节（pollQueueStatus）中详细说明。
 
 ---
 
-### 6. 安全与边界处理
+## 7. 安全与边界处理
 
-### 6.1 队列状态机
+### 7.1 队列状态机
 
 ```
                     ┌─────────────────────────────────────────────────────────┐
@@ -276,22 +705,22 @@ GET /api/queue/{queue_id}/status
 - `completed`：生成完成，可获取题目
 - `failed`：生成失败（重试3次后仍失败）
 
-### 6.2 队列过期与清理
+### 7.2 队列过期与清理
 - 队列任务 24 小时后自动过期
 - questionGenerator 每分钟检查一次，删除过期的 completed/failed 任务
 - 清理时同时删除关联的未完成 assessment
 
-### 6.3 失败重试
+### 7.3 失败重试
 - 队列任务失败最多重试 3 次
 - 重试间隔：1分钟、2分钟、4分钟（指数退避）
 - 3 次失败后标记为 failed，通知用户
 
-### 6.4 并发控制
+### 7.4 并发控制
 - questionGenerator 每次最多处理 3 个任务
 - 避免同时占用过多 AI API 配额
 - 使用数据库事务确保状态一致性
 
-### 6.5 学生隔离与任务中断
+### 7.5 学生隔离与任务中断
 
 **并发控制：**
 - 每个学生只能有一个 pending/processing 状态的队列任务
@@ -324,7 +753,7 @@ if (currentTask.data.status === 'cancelled') {
 
 ---
 
-## 6. 配置依赖检查清单
+## 8. 配置依赖检查清单
 
 **实施前需确认：**
 
@@ -364,7 +793,7 @@ db.collection('question_queue').createIndex({
 
 ---
 
-## 7. 实施计划
+## 9. 实施计划
 
 ### Phase 1：基础设施
 1. 创建 `question_queue` 集合并建立索引
@@ -387,7 +816,7 @@ db.collection('question_queue').createIndex({
 
 ---
 
-## 8. 验证标准
+## 10. 验证标准
 
 | 功能 | 验证方法 |
 |------|----------|
@@ -399,7 +828,7 @@ db.collection('question_queue').createIndex({
 
 ---
 
-## 9. 回滚方案
+## 11. 回滚方案
 
 如果新系统出现问题：
 1. 将 `startAssessment` 回滚到"题池优先 + AI补足"模式

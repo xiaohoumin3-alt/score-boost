@@ -1,6 +1,9 @@
 module.exports = {
   testEnvironment: 'node',
   setupFiles: ['<rootDir>/jest.setup.js'],
+  moduleNameMapper: {
+    'wx-server-sdk': '<rootDir>/__mocks__/wx-server-sdk.js'
+  },
   coverageDirectory: 'coverage',
   collectCoverageFrom: [
     'cloudfunctions/**/*.js',
