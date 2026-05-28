@@ -8,7 +8,7 @@ cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV });
 const { loadKnowledgeTree, loadHuikaoTree, generateQuestionPlan, generateHuikaoPlan } = require('./knowledge_tree');
 const { fetchQuestionsFromPool, fetchQuestionsBatch } = require('./question_pool');
 const { LlmClient, parseLlmResponse, validateQuestion } = require('./llm_client');
-const { logKpRequest } = require('../shared/kp-request-logger');
+const { logKpRequest } = require('./kp-request-logger');
 const { startAsyncGeneration } = require('./async-generator');
 
 function generateUUID() {
@@ -257,6 +257,7 @@ exports.main = async (event, context) => {
     // 1. 检查学生是否有活跃的队列任务
     const { checkQueueForStudent, createQueueTask } = require('./queue_manager');
     const queueCheck = await checkQueueForStudent(db, studentId);
+    let assessmentResult = null;  // 预声明，供后续判断使用
 
     if (queueCheck.found) {
       console.log('[startAssessment] Found existing queue:', queueCheck);
@@ -267,7 +268,7 @@ exports.main = async (event, context) => {
 
         // 获取assessment详情
         try {
-          const assessmentResult = await db.collection('assessments')
+          assessmentResult = await db.collection('assessments')
             .where({ assessment_id: queueCheck.assessment_id })
             .get();
 
@@ -292,23 +293,16 @@ exports.main = async (event, context) => {
               }
             };
           } else {
-            // 队列状态显示completed但找不到assessment，降级处理
+            // 队列状态显示completed但找不到assessment，降级处理：继续正常流程
             console.warn('[startAssessment] Queue completed but assessment not found, will regenerate');
-            return {
-              success: false,
-              error: 'Assessment not found despite queue completion'
-            };
           }
         } catch (e) {
           console.error('[startAssessment] Error fetching completed assessment:', e.message);
-          return {
-            success: false,
-            error: 'Failed to fetch completed assessment'
-          };
         }
-      } else {
-        // 2b. 进行中任务：返回queued状态
-        console.log('[startAssessment] Returning queued status for existing task');
+      }
+
+      // 2b. 进行中任务或缓存未命中：返回queued状态
+      if (queueCheck.status !== 'completed' || !assessmentResult?.data?.length) {
         return {
           success: true,
           data: {
