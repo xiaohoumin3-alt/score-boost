@@ -120,8 +120,9 @@ Page({
     console.log('[waiting] 轮询结果:', result);
 
     if (result.status === 'completed' && result.assessment_id) {
-      // 清除队列ID
+      // 清除队列ID 和 assessmentId（防止重复进入）
       wx.removeStorageSync('currentQueueId');
+      wx.removeStorageSync('currentAssessmentId');
 
       wx.showToast({ title: '题目生成完成', icon: 'success' });
 

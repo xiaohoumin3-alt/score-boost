@@ -45,12 +45,8 @@ Page({
       }
     }
 
-    // 保存会考模式标志
-    if (options.mode === 'huikao') {
-      this.data.examMode = 'huikao';
-    }
-
     // 检查是否有未完成的队列任务
+    // ⚠️ 重要：如果已有 assessmentId，说明是从 waiting 页面跳转来的，不要再走队列流程
     const savedQueueId = wx.getStorageSync('currentQueueId');
     if (savedQueueId && !this.data.assessmentId) {
       this.resumeQueuedAssessment(savedQueueId);
