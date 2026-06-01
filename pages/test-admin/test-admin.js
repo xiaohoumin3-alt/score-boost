@@ -34,5 +34,9 @@ Page({
         result: `❌ 网络错误: ${e.errMsg || JSON.stringify(e)}`
       });
     }
+  },
+
+  goToMaterialReview() {
+    wx.navigateTo({ url: '/pages/admin/material-review/material-review' });
   }
 });

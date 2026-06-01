@@ -227,6 +227,14 @@ Page({
     wx.navigateTo({ url: '/pages/feedback/feedback' });
   },
 
+  goToUpload() {
+    wx.navigateTo({ url: '/pages/material-upload/material-upload' });
+  },
+
+  goToExclusiveExam() {
+    wx.navigateTo({ url: '/pages/exclusive-exam-start/exclusive-exam-start' });
+  },
+
   viewProgress() {
     wx.navigateTo({ url: '/pages/progress/progress' });
   },

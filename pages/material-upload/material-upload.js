@@ -6,6 +6,7 @@ Page({
     fileType: '',
     fileName: '',
     fileSize: 0,
+    fileSizeText: '',
     materialType: 'personal',
     subject: '',
     grade: '',
@@ -56,6 +57,7 @@ Page({
         this.setData({
           fileName: file.name,
           fileSize: file.size,
+          fileSizeText: (file.size / 1024).toFixed(1) + ' KB',
           fileType: ext,
           filePath: file.path,
           error: ''
