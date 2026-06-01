@@ -37,6 +37,18 @@ async function checkQueueForStudent(db, studentId) {
     }
 
     const task = result.data[0];
+
+    // 检查 processing 任务是否超时（超过5分钟视为卡死）
+    if (task.status === 'processing') {
+      const taskAge = Date.now() - new Date(task.created_at).getTime();
+      const STUCK_THRESHOLD = 5 * 60 * 1000; // 5分钟
+
+      if (taskAge > STUCK_THRESHOLD) {
+        console.log(`[checkQueueForStudent] Processing task stuck for ${Math.floor(taskAge / 1000)}s, ignoring`);
+        return { found: false }; // 返回未找到，让调用方创建新任务
+      }
+    }
+
     return {
       found: true,
       queue_id: task._id,
@@ -58,6 +70,11 @@ async function checkQueueForStudent(db, studentId) {
  */
 async function createQueueTask(db, taskData) {
   try {
+    console.log('[createQueueTask] === DIAGNOSTIC LOG START ===');
+    console.log('[createQueueTask] taskData:', JSON.stringify(taskData));
+    console.log('[createQueueTask] taskData.subject:', taskData.subject, `(type: ${typeof taskData.subject})`);
+    console.log('[createQueueTask] === END DIAGNOSTIC LOG ===`);
+
     const now = new Date().toISOString();
     const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString();
 
@@ -71,8 +88,11 @@ async function createQueueTask(db, taskData) {
       expires_at: expiresAt
     };
 
-    const result = await db.collection('question_queue').add({ data });
+    const result = await db.collection('question_queue').add({
+      data: data
+    });
 
+    console.log('[createQueueTask] Created queue task:', result._id || result.id);
     return {
       success: true,
       queue_id: result._id || result.id

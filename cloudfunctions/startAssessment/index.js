@@ -264,7 +264,7 @@ exports.main = async (event, context) => {
 
       if (queueCheck.status === 'completed' && queueCheck.assessment_id) {
         // 2a. 已完成任务：直接返回assessment
-        console.log('[startAssessment] Returning completed assessment:', queueCheck.assessment_id);
+        console.log('[startAssessment] Found completed queue, checking assessment:', queueCheck.assessment_id);
 
         // 获取assessment详情
         try {
@@ -274,27 +274,38 @@ exports.main = async (event, context) => {
 
           if (assessmentResult.data.length > 0) {
             const assessment = assessmentResult.data[0];
-            return {
-              success: true,
-              data: {
-                assessment_id: assessment.assessment_id,
-                status: 'ready',
-                from_cache: true,
-                questions: assessment.questions.map(q => ({
-                  id: q.id,
-                  type: q.type,
-                  content: q.content,
-                  options: q.options,
-                  knowledge_point: q.knowledge_point,
-                  knowledge_point_id: q.knowledge_point_id,
-                  difficulty: q.difficulty,
-                })),
-                time_limit_minutes: assessment.time_limit_minutes
-              }
-            };
+            // 检查题目是否存在
+            if (assessment.questions && assessment.questions.length > 0) {
+              console.log('[startAssessment] Assessment found with', assessment.questions.length, 'questions');
+              return {
+                success: true,
+                data: {
+                  assessment_id: assessment.assessment_id,
+                  status: 'ready',
+                  from_cache: true,
+                  questions: assessment.questions.map(q => ({
+                    id: q.id,
+                    type: q.type,
+                    content: q.content,
+                    options: q.options,
+                    knowledge_point: q.knowledge_point,
+                    knowledge_point_id: q.knowledge_point_id,
+                    difficulty: q.difficulty,
+                  })),
+                  time_limit_minutes: assessment.time_limit_minutes
+                }
+              };
+            } else {
+              console.warn('[startAssessment] Assessment found but questions empty, treating as incomplete');
+            }
           } else {
-            // 队列状态显示completed但找不到assessment，降级处理：继续正常流程
-            console.warn('[startAssessment] Queue completed but assessment not found, will regenerate');
+            console.warn('[startAssessment] Queue status=completed but assessment not found! Cleaning up dirty data.');
+            // 清理脏数据：删除这个僵尸队列记录
+            await db.collection('question_queue').doc(queueCheck.queue_id).update({
+              data: { status: 'failed', error: 'Assessment record not found, cleaned up' }
+            });
+            // 注意：不设置assessmentResult，继续正常流程创建新任务
+            assessmentResult = null;  // 重置为null，表示需要重新生成
           }
         } catch (e) {
           console.error('[startAssessment] Error fetching completed assessment:', e.message);
@@ -302,7 +313,13 @@ exports.main = async (event, context) => {
       }
 
       // 2b. 进行中任务或缓存未命中：返回queued状态
-      if (queueCheck.status !== 'completed' || !assessmentResult?.data?.length) {
+      // 只有当 assessmentResult 有有效数据时才返回 ready
+      if (queueCheck.status === 'completed' && assessmentResult?.data?.length > 0) {
+        // 上面已经处理了，直接返回（不会到这里）
+      } else if (queueCheck.status === 'completed' && !assessmentResult) {
+        // 脏数据已清理，assessmentResult为null，继续正常流程（不返回queued）
+      } else if (queueCheck.status !== 'completed') {
+        // 任务还在进行中，返回queued
         return {
           success: true,
           data: {

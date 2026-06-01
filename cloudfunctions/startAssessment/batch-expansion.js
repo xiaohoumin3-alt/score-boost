@@ -136,7 +136,7 @@ async function saveToPool(db, questions, metadata = {}) {
           kp_id: question.kp_id || metadata.kp_id,
           kp_name: question.kp_name || metadata.kp_name,
           difficulty: question.difficulty || 'medium',
-          subject: metadata.subject || 'math',
+          subject: question.subject || metadata.subject || 'math',
           verified: false,
           source: 'ai_expansion',
           created_at: new Date().toISOString(),

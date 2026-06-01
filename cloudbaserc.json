@@ -11,16 +11,65 @@
     },
     {
       "name": "generateAiQuestion",
-      "runtime": "Nodejs18.15",
+      "runtime": "Nodejs16.13",
       "handler": "index.main",
       "timeout": 60,
-      "memorySize": 256
+      "memorySize": 512,
+      "envVariables": {
+        "LLM_API_KEY": "sk-0ab2f79426e64ec3b0a1eac5889835d2",
+        "LLM_BASE_URL": "https://api.deepseek.com",
+        "LLM_MODEL": "deepseek-chat",
+        "LLM_TIMEOUT_MS": "45000",
+        "LLM_MAX_RETRIES": "2",
+        "LLM_RETRY_DELAY_MS": "1000"
+      }
     },
     {
       "name": "startAssessment",
       "runtime": "Nodejs16.13",
       "handler": "index.main",
       "timeout": 60,
+      "memorySize": 256
+    },
+    {
+      "name": "questionGenerator",
+      "runtime": "Nodejs18.15",
+      "handler": "index.main",
+      "timeout": 90,
+      "memorySize": 512,
+      "envVariables": {
+        "LLM_API_KEY": "sk-0ab2f79426e64ec3b0a1eac5889835d2",
+        "LLM_BASE_URL": "https://api.deepseek.com",
+        "LLM_MODEL": "deepseek-chat"
+      },
+      "triggers": [
+        {
+          "name": "processQueueTimer",
+          "type": "timer",
+          "config": "0 */1 * * * * *",
+          "description": "每分钟执行一次队列处理"
+        }
+      ]
+    },
+    {
+      "name": "fixEmptySubjects",
+      "runtime": "Nodejs18.15",
+      "handler": "index.main",
+      "timeout": 300,
+      "memorySize": 512
+    },
+    {
+      "name": "removeGradeSemester",
+      "runtime": "Nodejs18.15",
+      "handler": "index.main",
+      "timeout": 300,
+      "memorySize": 512
+    },
+    {
+      "name": "fixPoolSubjects",
+      "runtime": "Nodejs18.15",
+      "handler": "index.main",
+      "timeout": 300,
       "memorySize": 256
     }
   ]
