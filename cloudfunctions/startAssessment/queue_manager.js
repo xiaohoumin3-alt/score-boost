@@ -73,7 +73,7 @@ async function createQueueTask(db, taskData) {
     console.log('[createQueueTask] === DIAGNOSTIC LOG START ===');
     console.log('[createQueueTask] taskData:', JSON.stringify(taskData));
     console.log('[createQueueTask] taskData.subject:', taskData.subject, `(type: ${typeof taskData.subject})`);
-    console.log('[createQueueTask] === END DIAGNOSTIC LOG ===`);
+    console.log('[createQueueTask] === END DIAGNOSTIC LOG ===');
 
     const now = new Date().toISOString();
     const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString();

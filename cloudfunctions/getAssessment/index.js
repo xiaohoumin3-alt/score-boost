@@ -82,20 +82,31 @@ exports.main = async (event, context) => {
       console.log(`[getAssessment] Filtered ${questions.length - validQuestions.length} questions with wrong subject`);
     }
 
+    // 标准化选项格式：统一为字符串数组 ["A. 选项1", "B. 选项2", ...]
+    const normalizeOptions = (options) => {
+      if (!options || options.length === 0) return [];
+      return options.map((opt, idx) => {
+        if (typeof opt === 'string') return opt;
+        if (typeof opt === 'object' && opt !== null) {
+          // 对象格式：{key: "A", value: "选项1"} → "A. 选项1"
+          const key = opt.key || String.fromCharCode(65 + idx);
+          const value = opt.value || opt.text || '';
+          return value.includes(`${key}. `) ? value : `${key}. ${value}`;
+        }
+        return String(opt);
+      });
+    };
+
     return {
       success: true,
       data: {
         assessment_id: assessmentId,
         status: session.status || 'in_progress',
         questions: validQuestions.map(q => ({
-          id: q._id,
+          id: q.id || q._id,  // 优先使用 id，回退到 _id（保持与 startAssessment 一致）
           type: q.type || 'choice',
           content: q.content || q.question || q.text || q.title || '',
-          options: (q.options || []).map(opt => {
-            if (typeof opt === 'string') return opt;
-            if (typeof opt === 'object' && opt !== null) return opt.value || opt.text || String(opt);
-            return String(opt);
-          }),
+          options: normalizeOptions(q.options),
           knowledge_point: q.knowledge_point || q.kp_name,
           knowledge_point_id: q.knowledge_point_id || q.kp_id,
           difficulty: q.difficulty,
