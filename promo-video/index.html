@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>日日守护推广视频</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      background: #0f0f23;
+      overflow: hidden;
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    }
+    
+    .composition {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      background: linear-gradient(180deg, #0f0f23 0%, #141428 50%, #0f0f23 100%);
+    }
+    
+    /* 场景 */
+    .scene {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 100px 80px;
+      box-sizing: border-box;
+    }
+    
+    .scene-content {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 50px;
+    }
+    
+    /* 通用文字样式 */
+    .main-text {
+      font-size: 80px;
+      font-weight: 700;
+      color: #ffffff;
+      text-align: center;
+      line-height: 1.3;
+    }
+    
+    .sub-text {
+      font-size: 36px;
+      color: #8888aa;
+      text-align: center;
+    }
+    
+    .highlight {
+      color: #00d9a5;
+    }
+    
+    /* 场景1 - 开头 */
+    #s1 .main-text {
+      font-size: 90px;
+      text-shadow: 0 4px 30px rgba(0, 217, 165, 0.4);
+    }
+    
+    /* 场景2 - 问题 */
+    #s2 .main-text {
+      font-size: 48px;
+      line-height: 1.8;
+    }
+    
+    /* 场景3 - 功能 */
+    .feature-list {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+    
+    .feature {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      font-size: 42px;
+      color: #ffffff;
+    }
+    
+    .feature-icon {
+      width: 70px;
+      height: 70px;
+      background: linear-gradient(135deg, #00d9a5, #00a885);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      flex-shrink: 0;
+    }
+    
+    /* 场景4 - 对比 */
+    .comparison {
+      display: flex;
+      gap: 40px;
+      width: 100%;
+    }
+    
+    .compare-box {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 24px;
+      padding: 50px 30px;
+      text-align: center;
+    }
+    
+    .compare-box.good {
+      border: 3px solid #00d9a5;
+    }
+    
+    .compare-label {
+      font-size: 36px;
+      color: #666;
+      margin-bottom: 20px;
+    }
+    
+    .compare-label.good {
+      color: #00d9a5;
+    }
+    
+    .compare-text {
+      font-size: 34px;
+      color: #ffffff;
+      line-height: 1.5;
+    }
+    
+    /* 场景5 - 结尾 */
+    #s5 .brand {
+      font-size: 100px;
+      font-weight: 700;
+      color: #00d9a5;
+      text-align: center;
+    }
+    
+    #s5 .tagline {
+      font-size: 38px;
+      color: #ffffff;
+      text-align: center;
+      line-height: 1.6;
+    }
+    
+    #s5 .cta {
+      font-size: 34px;
+      color: #00d9a5;
+      text-align: center;
+      padding: 25px 50px;
+      border: 2px solid #00d9a5;
+      border-radius: 60px;
+    }
+    
+    /* 装饰光效 */
+    .glow {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0, 217, 165, 0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    
+    .glow-1 {
+      width: 400px;
+      height: 400px;
+      top: -100px;
+      right: -100px;
+    }
+    
+    .glow-2 {
+      width: 500px;
+      height: 500px;
+      bottom: -150px;
+      left: -150px;
+    }
+  </style>
+</head>
+<body>
+  <div class="composition" data-composition-id="promo-video" data-width="1080" data-height="1920">
+    
+    <!-- 装饰光效 -->
+    <div class="glow glow-1"></div>
+    <div class="glow glow-2"></div>
+    
+    <!-- 场景1: 开头钩子 (0-10秒) -->
+    <div class="scene" id="s1" style="opacity: 1;">
+      <div class="scene-content">
+        <div class="main-text">刷了1000题<br>成绩还是上不去？</div>
+        <div class="sub-text">问题不在题量，在方法</div>
+      </div>
+    </div>
+    
+    <!-- 场景2: 问题揭示 (10-20秒) -->
+    <div class="scene" id="s2">
+      <div class="scene-content">
+        <div class="main-text">
+          大班课讲的是<br>
+          <span class="highlight">"标准进度"</span><br>
+          不是"你的进度"<br><br>
+          题库刷的是<br>
+          <span class="highlight">"随机题目"</span><br>
+          不是"你的漏洞"
+        </div>
+      </div>
+    </div>
+    
+    <!-- 场景3: 解决方案 (20-45秒) -->
+    <div class="scene" id="s3">
+      <div class="scene-content">
+        <div class="main-text" style="font-size: 56px; color: #00d9a5;">日日守护的AI会：</div>
+        <div class="feature-list">
+          <div class="feature">
+            <div class="feature-icon">🎯</div>
+            <span>识别你的真实薄弱点</span>
+          </div>
+          <div class="feature">
+            <div class="feature-icon">✨</div>
+            <span>实时生成只针对你的题目</span>
+          </div>
+          <div class="feature">
+            <div class="feature-icon">📊</div>
+            <span>自动记录你的学习轨迹</span>
+          </div>
+          <div class="feature">
+            <div class="feature-icon">🔄</div>
+            <span>每天调整你的复习计划</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 场景4: 差异化 (45-55秒) -->
+    <div class="scene" id="s4">
+      <div class="scene-content">
+        <div class="main-text" style="font-size: 52px;">
+          同样一个知识点<br>
+          你不会的那道题<br>
+          和他不一样
+        </div>
+        <div class="comparison">
+          <div class="compare-box">
+            <div class="compare-label">传统题库</div>
+            <div class="compare-text">所有人<br>做同一道题</div>
+          </div>
+          <div class="compare-box good">
+            <div class="compare-label good">AI定制</div>
+            <div class="compare-text">你不会的那道题<br>只有你有</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 场景5: 结尾 (55-60秒) -->
+    <div class="scene" id="s5">
+      <div class="scene-content">
+        <div class="brand">日日守护</div>
+        <div class="tagline">每天守护你的学习进度<br>大班课补不上的漏洞，让AI来补</div>
+        <div class="cta">微信搜索"日日守护"</div>
+      </div>
+    </div>
+    
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <script>
+    // 注册timeline
+    window.__timelines = window.__timelines || {};
+    
+    const tl = gsap.timeline({ paused: true });
+    
+    // 设置初始可见性
+    gsap.set("#s1", { opacity: 1 });
+    gsap.set(["#s2", "#s3", "#s4", "#s5"], { opacity: 0 });
+    
+    // 场景1动画 (0-2秒入场)
+    tl.from("#s1 .main-text", { y: 80, opacity: 0, duration: 1.2, ease: "power3.out" }, 0.3)
+      .from("#s1 .sub-text", { y: 40, opacity: 0, duration: 0.8, ease: "power2.out" }, 0.9);
+    
+    // 场景1淡出 → 场景2淡入 (10秒)
+    tl.to("#s1", { opacity: 0, duration: 0.6, ease: "power2.in" }, 9.5)
+      .to("#s2", { opacity: 1, duration: 0.3 }, 10.1)
+      .from("#s2 .main-text", { y: 60, opacity: 0, duration: 1.0, ease: "power3.out" }, 10.3);
+    
+    // 场景2淡出 → 场景3淡入 (20秒)
+    tl.to("#s2", { opacity: 0, duration: 0.6, ease: "power2.in" }, 19.5)
+      .to("#s3", { opacity: 1, duration: 0.3 }, 20.1)
+      .from("#s3 .main-text", { y: 50, opacity: 0, duration: 0.8, ease: "power3.out" }, 20.3)
+      .from("#s3 .feature", { y: 40, opacity: 0, duration: 0.6, stagger: 0.25, ease: "power2.out" }, 21.0);
+    
+    // 场景3淡出 → 场景4淡入 (45秒)
+    tl.to("#s3", { opacity: 0, duration: 0.6, ease: "power2.in" }, 44.5)
+      .to("#s4", { opacity: 1, duration: 0.3 }, 45.1)
+      .from("#s4 .main-text", { y: 50, opacity: 0, duration: 0.8, ease: "power3.out" }, 45.3)
+      .from("#s4 .compare-box", { scale: 0.85, opacity: 0, duration: 0.6, stagger: 0.2, ease: "back.out" }, 45.9);
+    
+    // 场景4淡出 → 场景5淡入 (55秒)
+    tl.to("#s4", { opacity: 0, duration: 0.6, ease: "power2.in" }, 54.5)
+      .to("#s5", { opacity: 1, duration: 0.3 }, 55.1)
+      .from("#s5 .brand", { y: 70, opacity: 0, duration: 1.0, ease: "power3.out" }, 55.3)
+      .from("#s5 .tagline", { y: 40, opacity: 0, duration: 0.7, ease: "power2.out" }, 55.9)
+      .from("#s5 .cta", { scale: 0.8, opacity: 0, duration: 0.5, ease: "back.out" }, 56.5);
+    
+    window.__timelines["promo-video"] = tl;
+  </script>
+</body>
+</html>

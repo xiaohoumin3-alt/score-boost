@@ -1,0 +1,53 @@
+.container {
+  padding: 20rpx;
+}
+
+.header {
+  margin-bottom: 40rpx;
+}
+
+.title {
+  font-size: 36rpx;
+  font-weight: bold;
+}
+
+.section {
+  margin-bottom: 40rpx;
+}
+
+.section-title {
+  font-size: 28rpx;
+  font-weight: bold;
+  margin-bottom: 20rpx;
+  display: block;
+}
+
+.info {
+  padding: 20rpx;
+  background: #f5f5f5;
+  margin-bottom: 10rpx;
+  border-radius: 8rpx;
+}
+
+.btn {
+  margin-bottom: 20rpx;
+}
+
+.btn.primary {
+  background: #007AFF;
+  color: white;
+}
+
+.btn.success {
+  background: #4CD964;
+  color: white;
+}
+
+.code {
+  font-family: monospace;
+  font-size: 20rpx;
+  background: #f5f5f5;
+  padding: 20rpx;
+  border-radius: 8rpx;
+  word-break: break-all;
+}

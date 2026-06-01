@@ -1,0 +1,36 @@
+<view class="container">
+  <view class="header">
+    <text class="title">调试工具</text>
+  </view>
+
+  <view class="section">
+    <text class="section-title">当前状态</text>
+    <view class="info">
+      <text>科目：{{currentSubject}}</text>
+    </view>
+    <view class="info">
+      <text>年级：{{currentGrade}}</text>
+    </view>
+    <view class="info">
+      <text>模式：{{currentExamMode}}</text>
+    </view>
+  </view>
+
+  <view class="section">
+    <text class="section-title">快速操作</text>
+    <button class="btn" bindtap="clearAll">清除所有缓存</button>
+    <button class="btn primary" bindtap="set7Geo">设置为7年地理</button>
+    <button class="btn primary" bindtap="set8Bio">设置为8年生物</button>
+  </view>
+
+  <view class="section">
+    <text class="section-title">跳转</text>
+    <button class="btn" bindtap="goTOnboarding">重新选择科目</button>
+    <button class="btn success" bindtap="goToAssessment">开始测评</button>
+  </view>
+
+  <view class="section">
+    <text class="section-title">缓存数据</text>
+    <text class="code">{{storageData}}</text>
+  </view>
+</view>

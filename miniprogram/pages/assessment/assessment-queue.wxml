@@ -1,0 +1,31 @@
+<view class="queue-container">
+  <!-- 状态图标 -->
+  <view class="status-icon">
+    <view class="{{status === 'completed' ? 'icon-success' : status === 'failed' ? 'icon-failed' : 'icon-loading'}}"></view>
+  </view>
+
+  <!-- 状态消息 -->
+  <view class="status-message">{{message}}</view>
+
+  <!-- 进度条 -->
+  <view class="progress-section">
+    <view class="progress-bar">
+      <view class="progress-fill" style="width: {{progress}}%"></view>
+    </view>
+    <view class="progress-text">{{progress}}%</view>
+  </view>
+
+  <!-- 轮询次数 -->
+  <view class="poll-info" wx:if="{{pollCount > 0}}">
+    <text class="poll-label">已检查次数：</text>
+    <text class="poll-count">{{pollCount}}</text>
+  </view>
+
+  <!-- 提示信息 -->
+  <view class="tips">
+    <text class="tip-text">请耐心等待，题目生成完成后将自动跳转</text>
+  </view>
+
+  <!-- 取消按钮 -->
+  <button class="cancel-btn" bindtap="onCancel">取消</button>
+</view>
