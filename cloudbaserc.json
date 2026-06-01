@@ -32,6 +32,13 @@
       "memorySize": 256
     },
     {
+      "name": "getAssessment",
+      "runtime": "Nodejs16.13",
+      "handler": "index.main",
+      "timeout": 60,
+      "memorySize": 256
+    },
+    {
       "name": "questionGenerator",
       "runtime": "Nodejs18.15",
       "handler": "index.main",

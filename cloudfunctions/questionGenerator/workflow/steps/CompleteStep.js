@@ -68,12 +68,26 @@ class CompleteStep extends BaseStep {
               console.log('[CompleteStep] Skipping invalid question: docId=', docId, ', hasQuestion=', !!questionContent);
               continue;
             }
+
+            // 处理 correct_answer：支持字母和数字两种格式
+            let correctAnswer = q.correct_answer;
+            if (typeof correctAnswer === 'string') {
+              // 字母格式 (A, B, C, D) 转换为数字索引
+              const letterToNum = { 'A': 0, 'B': 1, 'C': 2, 'D': 3, 'E': 4, 'F': 5 };
+              const upperAnswer = correctAnswer.toUpperCase().trim();
+              correctAnswer = letterToNum[upperAnswer] !== undefined ? letterToNum[upperAnswer] : 0;
+            }
+            // 如果不是数字也不是有效字母，默认为 0
+            if (typeof correctAnswer !== 'number' || isNaN(correctAnswer)) {
+              correctAnswer = 0;
+            }
+
             questions.push({
               id: docId,
               type: q.question_type || 'choice',
               content: questionContent,
               options: Array.isArray(q.options) ? q.options : [],
-              correct_answer: typeof q.correct_answer === 'number' ? q.correct_answer : 0,
+              correct_answer: correctAnswer,
               knowledge_point: q.kp_name || '',
               knowledge_point_id: q.kp_id || '',
               difficulty: q.difficulty || 'medium'

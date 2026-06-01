@@ -15,16 +15,57 @@ exports.main = async (event, context) => {
       return { success: false, error: 'assessment_id is required' };
     }
 
-    // 获取测评会话
+    console.log('[submitAnswer] ========== 诊断日志开始 ==========');
+    console.log('[submitAnswer] assessmentId:', assessmentId);
+    console.log('[submitAnswer] newAnswers:', JSON.stringify(newAnswers));
+
     const db = cloud.database();
     const doc = await db.collection('assessments').where({ assessment_id: assessmentId }).get();
 
     if (!doc.data || doc.data.length === 0) {
+      console.log('[submitAnswer] Assessment not found!');
       return { success: false, error: 'Assessment not found' };
     }
 
     const session = doc.data[0];
-    const questions = session.questions || [];
+    let questions = session.questions || [];
+
+    console.log('[submitAnswer] Session questions count:', questions.length);
+
+    // Fallback: 如果 questions 为空但有 question_ids，从题池加载
+    if (questions.length === 0 && session.question_ids && session.question_ids.length > 0) {
+      console.log('[submitAnswer] Questions empty, loading from pool with', session.question_ids.length, 'IDs...');
+      try {
+        const poolResult = await db.collection('ai_question_pool')
+          .where({
+            _id: db.command.in(session.question_ids)
+          })
+          .get();
+
+        if (poolResult.data && poolResult.data.length > 0) {
+          questions = poolResult.data.map(q => ({
+            id: q._id,
+            type: q.question_type || 'choice',
+            content: q.question || q.content || '',
+            options: Array.isArray(q.options) ? q.options : [],
+            correct_answer: q.correct_answer,
+            knowledge_point: q.kp_name || '',
+            knowledge_point_id: q.kp_id || '',
+            difficulty: q.difficulty || 'medium'
+          }));
+          console.log('[submitAnswer] Loaded', questions.length, 'questions from pool');
+        } else {
+          console.log('[submitAnswer] Pool returned no questions');
+        }
+      } catch (e) {
+        console.error('[submitAnswer] Failed to load from pool:', e.message);
+      }
+    }
+
+    console.log('[submitAnswer] Final questions count:', questions.length);
+    if (questions.length > 0) {
+      console.log('[submitAnswer] Sample question:', JSON.stringify(questions[0]).substring(0, 200));
+    }
 
     // 构建题目映射
     const questionMap = {};
@@ -41,6 +82,8 @@ exports.main = async (event, context) => {
     });
 
     const allAnswers = Object.values(existingAnswerMap);
+    console.log('[submitAnswer] Total answers to grade:', allAnswers.length);
+    console.log('[submitAnswer] Sample answer:', JSON.stringify(allAnswers[0]));
 
     // 评判所有答案
     const allResults = [];
@@ -51,7 +94,10 @@ exports.main = async (event, context) => {
       const userAnswer = (answer.answer || '').toUpperCase().trim();
 
       const question = questionMap[questionId];
-      if (!question) continue;
+      if (!question) {
+        console.log('[submitAnswer] Question not found for answer:', questionId);
+        continue;
+      }
 
       // 统一 correct_answer 格式：支持数字(0,1,2,3)和字母(A,B,C,D)
       let correct = question.correct_answer;
@@ -61,6 +107,12 @@ exports.main = async (event, context) => {
         correct = String(correct || '').toUpperCase().trim();
       }
       const isCorrect = userAnswer === correct;
+
+      console.log('[submitAnswer] Question:', questionId);
+      console.log('[submitAnswer]   correct_answer (raw):', question.correct_answer, `(type: ${typeof question.correct_answer})`);
+      console.log('[submitAnswer]   correct_answer (processed):', correct);
+      console.log('[submitAnswer]   userAnswer:', userAnswer, `(type: ${typeof userAnswer})`);
+      console.log('[submitAnswer]   isCorrect:', isCorrect);
 
       if (isCorrect) totalCorrect++;
 
@@ -79,6 +131,12 @@ exports.main = async (event, context) => {
     // 计算分数
     const totalQuestions = allResults.length;
     const scorePercent = totalQuestions > 0 ? Math.round((totalCorrect / totalQuestions) * 1000) / 10 : 0;
+
+    console.log('[submitAnswer] ========== 判分结果 ==========');
+    console.log('[submitAnswer] totalCorrect:', totalCorrect);
+    console.log('[submitAnswer] totalQuestions:', totalQuestions);
+    console.log('[submitAnswer] scorePercent:', scorePercent);
+    console.log('[submitAnswer] ========== 诊断日志结束 ==========');
 
     // 按知识点统计
     const kpStats = {};
