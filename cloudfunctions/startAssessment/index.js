@@ -236,7 +236,9 @@ exports.main = async (event, context) => {
             type: 'choice',
             content: pq.question || pq.content,
             options: pq.options || [],
-            correct_answer: pq.correct_answer,
+            correct_answer: typeof pq.correct_answer === 'number'
+              ? String.fromCharCode(65 + pq.correct_answer)
+              : String(pq.correct_answer || ''),
             knowledge_point: pq.kp_name || kpName,
             knowledge_point_id: pq.kp_id || kpId,
             difficulty: pq.difficulty || difficulty,

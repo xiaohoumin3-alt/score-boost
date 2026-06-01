@@ -53,7 +53,13 @@ exports.main = async (event, context) => {
       const question = questionMap[questionId];
       if (!question) continue;
 
-      const correct = (question.correct_answer || '').toUpperCase().trim();
+      // 统一 correct_answer 格式：支持数字(0,1,2,3)和字母(A,B,C,D)
+      let correct = question.correct_answer;
+      if (typeof correct === 'number') {
+        correct = String.fromCharCode(65 + correct); // 0→A, 1→B, 2→C, 3→D
+      } else {
+        correct = String(correct || '').toUpperCase().trim();
+      }
       const isCorrect = userAnswer === correct;
 
       if (isCorrect) totalCorrect++;
