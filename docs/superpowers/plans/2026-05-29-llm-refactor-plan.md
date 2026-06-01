@@ -60,7 +60,7 @@
 | 2.1.3 | **重构 LlmClient 为使用 llm-core**<br>- 删除内嵌 LlmClient 类<br>- 从 llm-core 导入 createLLMClient<br>- 保留 ImageClient（独立功能）<br>- 保留 parseLlmResponse, validateQuestion（业务逻辑）<br>- 保留 postProcessLatex（业务逻辑） | `grep -n "class LlmClient" cloudfunctions/generateAiQuestion/index.js \| wc -l` 输出 0 | 中 |
 | 2.1.4 | **重构 generateQuestion 函数**<br>- 使用 llm-core 的重试机制替代内嵌重试<br>- 移除手动 429 处理<br>- 确保异常类型正确 | `grep -n "isRateLimit\|exponential backoff" cloudfunctions/generateAiQuestion/index.js \| wc -l` 输出 0 | 中 |
 | 2.1.5 | **保留 safeFetch 作为兼容层**<br>- 标记为 @deprecated<br>- 仅在 ImageClient 中使用 | `grep -n "safeFetch" cloudfunctions/generateAiQuestion/index.js` 仅出现在 ImageClient | 低 |
-| 2.1.6 | **云函数部署测试**<br>- 部署到微信云开发<br>- 调用 generateAiQuestion 验证功能 | 微信小程序调用成功 | 高 |
+| 2.1.6 | **云函数部署测试**<br>- 部署到微信云开发<br>- 本地 API 测试：`curl 调用云函数，HTTP 200 且返回有效题目 JSON`<br>- 小程序端验证：微信小程序调用成功 | `curl 命令返回 HTTP 200 且包含有效题目数据` | 高 |
 
 ### 2.2 迁移 startAssessment
 
@@ -70,7 +70,7 @@
 | 2.2.2 | **分析使用情况**<br>- startAssessment/index.js 中的调用<br>- evaluator.js 中的调用<br>- 确认 callWithTimeout 的使用（evaluator.js） | `grep -rn "LlmClient\|parseLlmResponse\|validateQuestion" cloudfunctions/startAssessment/ --include="*.js" \| grep -v node_modules \| grep -v ".bak"` | 低 |
 | 2.2.3 | **创建兼容适配器**<br>- `startAssessment/llm_client.js` 现在是 llm-core 的薄包装<br>- 保留原有的 API（generate, callWithTimeout）<br>- 内部使用 llm-core 的 MiniMaxClient | `node -e "const {LlmClient}=require('./cloudfunctions/startAssessment/llm_client.js');console.log('LlmClient:',typeof LlmClient)"` | 中 |
 | 2.2.4 | **重构 evaluator.js**<br>- 使用 llm-core 的超时控制<br>- 移除 callWithTimeout（集成到 llm-core） | `grep -n "callWithTimeout" cloudfunctions/startAssessment/evaluator.js \| wc -l` 输出 0 | 中 |
-| 2.2.5 | **云函数部署测试** | 微信小程序调用成功 | 高 |
+| 2.2.5 | **云函数部署测试**<br>- 本地 API 测试：验证题目返回格式<br>- 小程序端验证：微信小程序调用成功 | `curl 命令返回 HTTP 200 且包含题目数据` | 高 |
 
 ### 2.3 迁移 initQuestionBank
 
@@ -79,7 +79,7 @@
 | 2.3.1 | **备份原始文件**<br>`cp cloudfunctions/initQuestionBank/shared/llm-client.js cloudfunctions/initQuestionBank/shared/llm-client.js.bak` | 文件存在 | 低 |
 | 2.3.2 | **分析使用情况**<br>- 确认 initQuestionBank/shared/question_bank.js 的调用 | `grep -rn "LlmClient" cloudfunctions/initQuestionBank/shared/ --include="*.js"` | 低 |
 | 2.3.3 | **替换为 llm-core**<br>- question_bank.js 直接使用 llm-core<br>- 删除 initQuestionBank/shared/llm-client.js | `ls cloudfunctions/initQuestionBank/shared/llm-client.js 2>/dev/null \| wc -l` 输出 0 | 中 |
-| 2.3.4 | **验证功能** | 手动运行迁移成功 | 低 |
+| 2.3.4 | **验证功能**<br>- 本地测试：`node -e "require('./initQuestionBank/shared/question_bank.js'); console.log('OK')"` 无错误 | `node 命令输出 "OK"` | 低 |
 
 ### 2.4 迁移 practice_v2 (最复杂，含状态跟踪)
 
@@ -89,7 +89,7 @@
 | 2.4.2 | **分析特有功能**<br>- generateQuestion 方法<br>- _detectScenario, _detectTriple, _detectPattern<br>- GenerationState 集成<br>- SubjectLoader, QuestionValidator 集成 | `grep -n "generateQuestion\|_detect\|GenerationState\|SubjectLoader" cloudfunctions/practice_v2/llm_client.js` | 低 |
 | 2.4.3 | **分离业务逻辑和 LLM 调用**<br>- 保留业务逻辑（_detect*, state）<br>- LLM 调用部分使用 llm-core<br>- 创建 QuestionService 类组合两者 | `grep -n "http.request\|https.request" cloudfunctions/practice_v2/llm_client.js \| wc -l` 输出 0 | 高 |
 | 2.4.4 | **保留兼容 API**<br>- generateQuestion(params) 保留<br>- 内部调用 llm-core.complete() | `node -e "const {LlmClient}=require('./cloudfunctions/practice_v2/llm_client.js');console.log('generateQuestion:',typeof new LlmClient().generateQuestion)"` | 中 |
-| 2.4.5 | **云函数部署测试** | 微信小程序调用成功 | 高 |
+| 2.4.5 | **云函数部署测试**<br>- 本地 API 测试：验证薄弱点练习功能<br>- 小程序端验证：微信小程序调用成功 | `curl 命令返回 HTTP 200 且包含练习数据` | 高 |
 
 ### 2.5 清理 shared/llm-client.js (最终清理)
 
@@ -171,13 +171,36 @@ Phase 1 (必须先完成)
 
 3. **evaluator.js 的 callWithTimeout**
    - 缓解：llm-core 的超时控制可以替代，验证功能一致
+   - 验证：对比超时行为、错误类型是否一致
 
 4. **云函数部署失败**
    - 缓解：每个步骤完成后立即部署测试，不累积变更
 
+5. **数据不一致风险** (补充)
+   - 缓解：添加 LLM 输出格式兼容性测试
+   - 验证：新旧实现的输出格式对比测试
+
+6. **性能退化风险** (补充)
+   - 缓解：基准测试，响应时间监控
+   - 验证：对比迁移前后的平均响应时间
+
+7. **并发风险** (补充)
+   - 缓解：重试机制在高并发下需注意额外请求
+   - 验证：模拟并发场景，确认重试行为正确
+
 ---
 
 ## 回滚计划
+
+### 回滚触发条件
+
+出现以下情况之一时必须回滚：
+- 错误率 > 5%（对比迁移前基线）
+- 响应延迟增加 > 50%（对比迁移前基线）
+- 题目格式错误率 > 1%
+- 云函数调用失败率 > 1%
+
+### 回滚步骤
 
 每个迁移步骤都保留了 `.bak` 备份文件。如需回滚：
 
@@ -190,6 +213,22 @@ for f in cloudfunctions/*/index.js.bak cloudfunctions/*/llm_client.js.bak; do
   cp "$f" "${f%.bak}"
 done
 ```
+
+### 回滚验证步骤
+
+回滚后执行以下验证：
+1. 云函数重新部署成功
+2. 调用所有云函数验证基本功能
+3. 检查错误日志恢复正常水平
+4. 确认响应时间恢复到基线
+
+### 数据修复预案
+
+如果部分数据已写入新格式：
+1. 识别数据写入时间窗口
+2. 对比新旧数据格式的差异
+3. 执行数据迁移回滚（如有必要）
+4. 验证数据完整性
 
 ---
 

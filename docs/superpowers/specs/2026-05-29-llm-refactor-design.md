@@ -9,11 +9,12 @@
 
 ### 当前问题
 
-1. **代码重复**: 4 处独立的 `LlmClient` 实现
-   - `generateAiQuestion/index.js`
+1. **代码重复**: 5 处独立的 `LlmClient` 实现
+   - `generateAiQuestion/index.js` (内嵌)
    - `shared/llm-client.js`
-   - `startAssessment/llm-client.js`
+   - `startAssessment/llm_client.js`
    - `initQuestionBank/shared/llm-client.js`
+   - `practice_v2/llm_client.js`
 
 2. **缺乏鲁棒性**:
    - 错误处理不统一，某些错误未捕获
