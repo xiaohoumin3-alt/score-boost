@@ -69,21 +69,21 @@
       "name": "startExclusiveExam",
       "runtime": "Nodejs16.13",
       "handler": "index.main",
-      "timeout": 60,
-      "memorySize": 256
+      "timeout": 90,
+      "memorySize": 512
     },
     {
       "name": "uploadMaterial",
       "runtime": "Nodejs16.13",
       "handler": "index.main",
-      "timeout": 60,
-      "memorySize": 256
+      "timeout": 180,
+      "memorySize": 1024
     },
     {
       "name": "adminReviewMaterial",
       "runtime": "Nodejs16.13",
       "handler": "index.main",
-      "timeout": 60,
+      "timeout": 30,
       "memorySize": 256
     }
   ],
