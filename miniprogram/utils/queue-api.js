@@ -36,7 +36,7 @@ class QueueApi {
    */
   async pollQueueStatus(queueId, options = {}) {
     const {
-      maxPolls = 60,
+      maxPolls = 300,
       interval = 3000,
       onPoll = null
     } = options;

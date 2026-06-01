@@ -35,24 +35,22 @@ Page({
       this.setData({ isRetest: true });
     }
 
-    // 优先从 URL params 获取 assessmentId，否则从 storage 恢复
+    // 优先从 URL params 获取 assessmentId
     if (options.assessmentId) {
       this.setData({ assessmentId: options.assessmentId });
-    } else {
-      const savedId = wx.getStorageSync('currentAssessmentId');
-      if (savedId) {
-        this.setData({ assessmentId: savedId });
-      }
+      this.loadAssessment(options.assessmentId);
+      return;
     }
 
-    // 检查是否有未完成的队列任务
-    // ⚠️ 重要：如果已有 assessmentId，说明是从 waiting 页面跳转来的，不要再走队列流程
+    // 检查是否有未完成的队列任务（恢复中断的测评）
     const savedQueueId = wx.getStorageSync('currentQueueId');
-    if (savedQueueId && !this.data.assessmentId) {
+    if (savedQueueId) {
       this.resumeQueuedAssessment(savedQueueId);
       return;
     }
 
+    // 没有指定测评，清除旧缓存，开始新测评
+    wx.removeStorageSync('currentAssessmentId');
     this.initAssessment();
   },
 
@@ -66,7 +64,7 @@ Page({
 
     try {
       const pollResult = await api.pollQueueStatus(queueId, {
-        maxAttempts: 60,
+        maxAttempts: 300,
         intervalMs: 5000,
         onProgress: (progress) => {
           console.log('[assessment] 恢复进度:', progress);
@@ -98,15 +96,29 @@ Page({
   },
 
   async initAssessment() {
+    // 清除旧的测评缓存（换科目/年级后不应加载旧测评）
+    wx.removeStorageSync('currentAssessmentId');
+    wx.removeStorageSync('currentQueueId');
+
     // 会考模式只需要科目，年级测评模式需要年级和科目
     const examMode = app.globalData.examMode || this.data.examMode || 'grade';
     const isHuikao = examMode === 'huikao';
 
+    // === 诊断日志 ===
+    console.log('[assessment] === DIAGNOSTIC LOG START ===');
+    console.log('[assessment] app.globalData.subject:', app.globalData.subject, `(type: ${typeof app.globalData.subject})`);
+    console.log('[assessment] app.globalData.grade:', app.globalData.grade);
+    console.log('[assessment] app.globalData.examMode:', app.globalData.examMode);
+    console.log('[assessment] storage userSession:', JSON.stringify(wx.getStorageSync('userSession')));
+    console.log('[assessment] === DIAGNOSTIC LOG END ===');
+
     if (!app.globalData.subject) {
+      console.warn('[assessment] subject is null/undefined, redirecting to onboarding');
       wx.redirectTo({ url: '/pages/onboarding/onboarding' });
       return;
     }
     if (!isHuikao && !app.globalData.grade) {
+      console.warn('[assessment] grade is null/undefined, redirecting to onboarding');
       wx.redirectTo({ url: '/pages/onboarding/onboarding' });
       return;
     }
@@ -224,7 +236,7 @@ Page({
     try {
       // 轮询队列状态
       const pollResult = await api.pollQueueStatus(queueId, {
-        maxAttempts: 60,  // 最多5分钟
+        maxAttempts: 300,  // 最多5分钟
         intervalMs: 5000,  // 每5秒查询一次
         onProgress: (progress) => {
           console.log('[assessment] 队列进度:', progress);
@@ -269,21 +281,27 @@ Page({
     wx.showLoading({ title: '正在加载题目...' });
 
     try {
-      // 从数据库获取测评数据
-      const db = wx.cloud.database();
-      const res = await db.collection('assessments').where({
-        assessment_id: assessmentId
-      }).get();
+      // 使用 getAssessment 云函数（会从题池加载题目）
+      const res = await wx.cloud.callFunction({
+        name: 'getAssessment',
+        data: { assessment_id: assessmentId }
+      });
 
-      if (!res.data || res.data.length === 0) {
+      if (!res.result || !res.result.success) {
         wx.hideLoading();
-        wx.showToast({ title: '测评不存在', icon: 'none' });
+        wx.showToast({ title: res.result?.error || '测评不存在', icon: 'none' });
         setTimeout(function() { wx.navigateBack(); }, 1500);
         return;
       }
 
-      const assessment = res.data[0];
-      const questions = assessment.questions || [];
+      const questions = res.result.data.questions || [];
+
+      if (questions.length === 0) {
+        wx.hideLoading();
+        wx.showToast({ title: '题目为空', icon: 'none' });
+        setTimeout(function() { wx.navigateBack(); }, 1500);
+        return;
+      }
 
       // 解析 options
       questions.forEach(function(q) {

@@ -12,7 +12,7 @@ Page({
     message: '题目正在生成中...',
     progress: 0,
     pollCount: 0,
-    maxPolls: 60,
+    maxPolls: 300,
     interval: 3000
   },
 

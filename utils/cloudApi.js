@@ -434,14 +434,14 @@ function checkQueueStatus(queueId) {
  * 轮询队列任务状态直到完成
  * @param {string} queueId - 队列任务ID
  * @param {Object} options - 轮询选项
- * @param {number} options.maxAttempts - 最大尝试次数（默认60次，约5分钟）
+ * @param {number} options.maxAttempts - 最大尝试次数（默认300次，约25分钟）
  * @param {number} options.intervalMs - 轮询间隔（默认5000ms）
  * @param {Function} options.onProgress - 进度回调
  * @returns {Promise<Object>} 最终状态
  */
 function pollQueueStatus(queueId, options = {}) {
   const {
-    maxAttempts = 60,
+    maxAttempts = 300,
     intervalMs = 5000,
     onProgress = null
   } = options;

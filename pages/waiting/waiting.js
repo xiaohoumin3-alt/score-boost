@@ -11,7 +11,7 @@ Page({
     tipText: 'AI正在根据您的学习情况智能生成题目，请耐心等待',
     allowCancel: true,
     polling: false,
-    maxAttempts: 60,
+    maxAttempts: 300,
     currentAttempt: 0
   },
 
@@ -120,15 +120,15 @@ Page({
     console.log('[waiting] 轮询结果:', result);
 
     if (result.status === 'completed' && result.assessment_id) {
-      // 清除队列ID 和 assessmentId（防止重复进入）
+      // 清除队列ID（防止重复进入）
       wx.removeStorageSync('currentQueueId');
       wx.removeStorageSync('currentAssessmentId');
 
       wx.showToast({ title: '题目生成完成', icon: 'success' });
 
-      // 跳转到测评页面
+      // 跳转到测评页面（清除页面栈，防止返回到旧页面）
       setTimeout(() => {
-        wx.redirectTo({
+        wx.reLaunch({
           url: '/pages/assessment/assessment?assessmentId=' + result.assessment_id
         });
       }, 500);

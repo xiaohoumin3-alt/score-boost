@@ -15,7 +15,8 @@
     "pages/feedback-detail/feedback-detail",
     "pages/test-admin/test-admin",
     "pages/progress/progress",
-    "pages/waiting/waiting"
+    "pages/waiting/waiting",
+    "pages/debug-tools/debug-tools"
   ],
   "window": {
     "navigationBarTitleText": "日日守护",
