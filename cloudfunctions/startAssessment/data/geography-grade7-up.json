@@ -1,0 +1,110 @@
+{
+  "subject": "地理",
+  "grade": "7",
+  "semester": "上",
+  "version": "2024人教版",
+  "chapters": [
+    {
+      "id": "ch1",
+      "name": "地球与地图一、地球的形状、大小",
+      "knowledge_points": [
+        {
+          "id": "kp1_1",
+          "name": "用事实分别说明地球自转",
+          "sub_topics": [
+            "概念理解",
+            "读图分析"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题",
+            "读图题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "name": "天气与气候",
+      "knowledge_points": [
+        {
+          "id": "kp2_1",
+          "name": "多变的天气",
+          "sub_topics": [
+            "概念理解",
+            "读图分析"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题",
+            "读图题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp2_2",
+          "name": "气温和气温的分布",
+          "sub_topics": [
+            "概念理解",
+            "读图分析"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题",
+            "读图题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp2_3",
+          "name": "降水与降水的分布",
+          "sub_topics": [
+            "概念理解",
+            "读图分析"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题",
+            "读图题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp2_4",
+          "name": "世界的气候",
+          "sub_topics": [
+            "概念理解",
+            "读图分析"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题",
+            "读图题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        }
+      ]
+    }
+  ]
+}

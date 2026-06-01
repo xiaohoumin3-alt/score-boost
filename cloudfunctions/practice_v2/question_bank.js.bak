@@ -1,0 +1,251 @@
+/**
+ * 题库 - 预置题目，支持离线快速出题
+ */
+
+const QUESTION_BANK = {
+  kp1_1: [
+    { content: '下列哪个是二次根式？', options: ['A. √5', 'B. 3²', 'C. -2', 'D. 1/2'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '下列哪个式子有意义？', options: ['A. √(-4)', 'B. √4', 'C. √(-1)', 'D. √(-9)'], correct_answer: 'B', difficulty: 'easy' },
+    { content: '当x满足什么条件时，√(x-1)有意义？', options: ['A. x≥1', 'B. x≤1', 'C. x>1', 'D. x<1'], correct_answer: 'A', difficulty: 'medium' },
+    { content: '√16的值是？', options: ['A. 4', 'B. ±4', 'C. 8', 'D. -4'], correct_answer: 'A', difficulty: 'easy' },
+  ],
+  kp1_2: [
+    { content: '(√3)² 的值是？', options: ['A. 3', 'B. 6', 'C. 9', 'D. √3'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '√(5²)的值是？', options: ['A. 5', 'B. -5', 'C. ±5', 'D. 25'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '√(a²)=|a|，当a<0时，√(a²)等于？', options: ['A. a', 'B. -a', 'C. a²', 'D. -a²'], correct_answer: 'B', difficulty: 'medium' },
+    { content: '化简√48的结果是？', options: ['A. 4√3', 'B. 3√4', 'C. 2√12', 'D. 8√3'], correct_answer: 'A', difficulty: 'medium' },
+  ],
+  kp1_3: [
+    { content: '√12 化简后等于？', options: ['A. 2√3', 'B. 3√2', 'C. 4√3', 'D. 6'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '√2 × √8 的值是？', options: ['A. 4', 'B. √16', 'C. 2√2', 'D. 8'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '√18 ÷ √2 的值是？', options: ['A. 3', 'B. √9', 'C. √16', 'D. 9'], correct_answer: 'A', difficulty: 'medium' },
+    { content: '分母有理化：1/√3 = ？', options: ['A. √3', 'B. √3/3', 'C. 3√3', 'D. 1/3√3'], correct_answer: 'B', difficulty: 'medium' },
+  ],
+  kp2_1: [
+    { content: '直角三角形两直角边为3和4，斜边长为？', options: ['A. 5', 'B. 6', 'C. 7', 'D. 12'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '在直角三角形中，a=5，b=12，则c=？', options: ['A. 13', 'B. 17', 'C. 7', 'D. 60'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '等边三角形边长为6，高为？', options: ['A. 3√3', 'B. 3', 'C. 6', 'D. 3√2'], correct_answer: 'A', difficulty: 'medium' },
+    { content: '菱形对角线长为6和8，边长为？', options: ['A. 5', 'B. 7', 'C. 10', 'D. 14'], correct_answer: 'A', difficulty: 'medium' },
+  ],
+  kp2_2: [
+    { content: '三边长为5, 12, 13的三角形是？', options: ['A. 直角三角形', 'B. 锐角三角形', 'C. 钝角三角形', 'D. 无法确定'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '三边为3,4,6的三角形是什么三角形？', options: ['A. 钝角三角形', 'B. 直角三角形', 'C. 锐角三角形', 'D. 等腰三角形'], correct_answer: 'A', difficulty: 'medium' },
+    { content: '判断：边长为7,24,25的三角形是直角三角形吗？', options: ['A. 是', 'B. 不是', 'C. 无法判断', 'D. 等腰直角三角形'], correct_answer: 'A', difficulty: 'easy' },
+  ],
+  kp2_3: [
+    { content: '一个梯子长5米，底端离墙3米，顶端离地面多高？', options: ['A. 4米', 'B. 3米', 'C. 2米', 'D. 5米'], correct_answer: 'A', difficulty: 'easy', image_url: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMTUwIiB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCI+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIxNTAiIGZpbGw9IiMxYTFhMzUiLz48cG9seWdvbiBwb2ludHM9IjIwLDEzMCAxODAsMTMwIDIwLDMwIiBmaWxsPSJub25lIiBzdHJva2U9IiMwMEQ5QTUiIHN0cm9rZS13aWR0aD0iMyIvPjx0ZXh0IHg9IjkwIiB5PSIxNDUiIGZpbGw9IiMwMEQ5QTUiIGZvbnQtc2l6ZT0iMTQiPnQ9NSZsdDtsZWZ0O3c9MyZndDs8L3RleHQ+PC9zdmc+', typical_mistakes: ['错误用 a² - b² = c²，正确的是 a² + b² = c²', '混淆了直角边和斜边，斜边是最长边'] },
+    { content: '从A点到B点，走路4km，向北走3km，AB距离为？', options: ['A. 5km', 'B. 7km', 'C. 1km', 'D. 12km'], correct_answer: 'A', difficulty: 'easy', image_url: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMTUwIiB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCI+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIxNTAiIGZpbGw9IiMxYTFhMzUiLz48bGluZSB4MT0iMTAwIiB5MT0iNzUiIHgyPSIxMDAiIHkyPSIxMjAiIHN0cm9rZT0iIzAwRDlBNSIgc3Ryb2tlLXdpZHRoPSIzIi8+PGxpbmUgeDE9IjEwMCIgeTE9Ijc1IiB4Mj0iMTYwIiB5Mj0iNzUiIHN0cm9rZT0iIzAwRDlBNSIgc3Ryb2tlLXdpZHRoPSIzIi8+PGNpcmNsZSBjeD0iMTAwIiBjeT0iNzUiIHI9IjYiIGZpbGw9IiMwMEQ5QTUiLz48dGV4dCB4PSIxMjAiIHk9IjgwIiBmaWxsPSIjMEREOUE1IiBmb250LXNpemU9IjE0Ij5BPC90ZXh0Pjx0ZXh0IHg9IjEwMCIgeT0iNjAiIGZpbGw9IiMwMEQ5QTUiIGZvbnQtc2l6ZT0iMTQiPkI8L3RleHQ+PC9zdmc+', typical_mistakes: ['直接相加 4+3=7，没有用勾股定理', '忘记了平方运算，直接用边长相加'] },
+    { content: '正方形边长为5√2，对角线长为？', options: ['A. 10', 'B. 5', 'C. 10√2', 'D. 5√4'], correct_answer: 'A', difficulty: 'medium', image_url: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIiB3aWR0aD0iNDAwIiBoZWlnaHQ9IjQwMCI+PHJlY3Qgd2lkdGg9IjE4MCIgaGVpZ2h0PSIxODAiIHg9IjEwIiB5PSIxMCIgZmlsbD0iIzFhMWEzNSIvPjxsaW5lIHgxPSIyMCIgeTE9IjE4MCIgeDI9IjE5MCIgeTI9IjEwIiBzdHJva2U9IiMwMEQ5QTUiIHN0cm9rZS13aWR0aD0iMyIvPjx0ZXh0IHg9IjkwIiB5PSIxNTAiIGZpbGw9IiMwMEQ5QTUiIGZvbnQtc2l6ZT0iMTQiPjU8L3RleHQ+PHRleHQgeD0iMTUwIiB5PSIxMDAiIGZpbGw9IiMwMEQ5QTUiIGZvbnQtc2l6ZT0iMTQiPjU8L3RleHQ+PC9zdmc+', typical_mistakes: ['忘记正方形对角线公式 d = a√2', '混淆了边长和对角线的关系'] },
+  ],
+  kp3_1: [
+    { content: '平行四边形的对角线有什么性质？', options: ['A. 互相平分', 'B. 相等', 'C. 垂直', 'D. 互相垂直平分'], correct_answer: 'A', difficulty: 'easy', image_url: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMTUwIiB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCI+CiAgPHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIxNTAiIGZpbGw9IiMxYTFhMzUiLz4KICA8cG9seWdvbiBwb2ludHM9IjIwLDEwMCA4MCw0MCAxODAsNDAgMTIwLDEwMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDBEOUE1IiBzdHJva2Utd2lkdGg9IjMiLz4KICA8bGluZSB4MT0iMjAiIHkxPSIxMDAiIHgyPSIxODAiIHkyPSI0MCIgc3Ryb2tlPSIjMDBEOUE1IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1kYXNoYXJyYXk9IjUsMyIvPgogIDxsaW5lIHgxPSI4MCIgeTE9IjQwIiB4Mj0iMTIwIiB5Mj0iMTAwIiBzdHJva2U9IiMwMEQ5QTUiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWRhc2hhcnJheT0iNSwzIi8+CiAgPHRleHQgeD0iOTAiIHk9IjI1IiBmaWxsPSIjMDBEOUE1IiBmb250LXNpemU9IjE0Ij5BPC90ZXh0PgogIDx0ZXh0IHg9IjE4NSIgeT0iMzUiIGZpbGw9IiMwMEQ5QTUiIGZvbnQtc2l6ZT0iMTQiPkI8L3RleHQ+CiAgPHRleHQgeD0iMTg1IiB5PSIxMTUiIGZpbGw9IiMwMEQ5QTUiIGZvbnQtc2l6ZT0iMTQiPkM8L3RleHQ+CiAgPHRleHQgeD0iOTAiIHk9IjExNSIgZmlsbD0iIzAwRDlBNSIgZm9udC1zaXplPSIxNCI+RDwvdGV4dD4KICA8dGV4dCB4PSI5NSIgeT0iNzUiIGZpbGw9IiNmZmYiIGZvbnQtc2l6ZT0iMTIiPk88L3RleHQ+Cjwvc3ZnPgo=' },
+    { content: '平行四边形 ABCD 中，∠A=60°，则∠C=？', options: ['A. 60°', 'B. 120°', 'C. 90°', 'D. 30°'], correct_answer: 'A', difficulty: 'easy', image_url: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMTUwIiB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCI+CiAgPHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIxNTAiIGZpbGw9IiMxYTFhMzUiLz4KICA8cG9seWdvbiBwb2ludHM9IjIwLDEwMCA4MCw0MCAxODAsNDAgMTIwLDEwMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDBEOUE1IiBzdHJva2Utd2lkdGg9IjMiLz4KICA8dGV4dCB4PSI5MCIgeT0iMjUiIGZpbGw9IiMwMEQ5QTUiIGZvbnQtc2l6ZT0iMTQiPkE8L3RleHQ+CiAgPHRleHQgeD0iOTAiIHk9IjExNSIgZmlsbD0iIzAwRDlBNSIgZm9udC1zaXplPSIxNCI+QzwvdGV4dD4KPC9zdmc+Cg==' },
+    { content: '平行四边形周长为20，相邻两边之比为3:2，则较长边为？', options: ['A. 6', 'B. 4', 'C. 10', 'D. 5'], correct_answer: 'A', difficulty: 'medium' },
+  ],
+  kp3_2: [
+    { content: '下列哪个条件不能判定四边形是平行四边形？', options: ['A. 一组对边平行', 'B. 两组对边分别平行', 'C. 两组对边分别相等', 'D. 对角线互相平分'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '一组对边平行且相等的四边形是？', options: ['A. 平行四边形', 'B. 矩形', 'C. 菱形', 'D. 梯形'], correct_answer: 'A', difficulty: 'medium' },
+    { content: '对角线互相平分的四边形是？', options: ['A. 平行四边形', 'B. 矩形', 'C. 菱形', 'D. 正方形'], correct_answer: 'A', difficulty: 'easy' },
+  ],
+  kp3_3: [
+    { content: '矩形的对角线有什么特点？', options: ['A. 相等', 'B. 垂直', 'C. 不相等', 'D. 互相垂直'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '菱形的对角线有什么特点？', options: ['A. 互相垂直平分', 'B. 相等', 'C. 平行', 'D. 相等且平分'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '正方形是特殊的？', options: ['A. 矩形且菱形', 'B. 只有矩形', 'C. 只有菱形', 'D. 梯形'], correct_answer: 'A', difficulty: 'easy' },
+  ],
+  kp4_1: [
+    { content: '在函数y=2x+1中，当x=3时，y的值为？', options: ['A. 7', 'B. 5', 'C. 6', 'D. 8'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '下列哪个是函数关系？', options: ['A. y=±√x', 'B. y=2x', 'C. x=y²', 'D. x²+y²=1'], correct_answer: 'A', difficulty: 'medium' },
+    { content: '函数y=x²中，x的取值范围是？', options: ['A. 全体实数', 'B. x≥0', 'C. x≤0', 'D. x≠0'], correct_answer: 'A', difficulty: 'easy' },
+  ],
+  kp4_2: [
+    { content: '一次函数y=2x+1的图像经过哪个点？', options: ['A. (0,1)', 'B. (1,0)', 'C. (0,2)', 'D. (2,0)'], correct_answer: 'A', difficulty: 'easy' },
+    { content: 'y=3x-2与y轴交点坐标是？', options: ['A. (0,-2)', 'B. (0,2)', 'C. (2,0)', 'D. (-2,0)'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '一次函数y=kx+b，k>0，b>0，图像不经过哪个象限？', options: ['A. 第三象限', 'B. 第一象限', 'C. 第二象限', 'D. 第四象限'], correct_answer: 'A', difficulty: 'medium' },
+  ],
+  kp4_3: [
+    { content: '小明以2元/支的价格买铅笔，花y元买x支，函数关系式为？', options: ['A. y=2x', 'B. y=x+2', 'C. y=2/x', 'D. y=x-2'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '出租车起价10元，每公里2元，费用y与里程x的函数是？', options: ['A. y=2x+10', 'B. y=10x+2', 'C. y=2x', 'D. y=x+12'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '某种商品进价100元，售价150元，卖出m件的利润是？', options: ['A. 50m', 'B. 150m', 'C. 100m', 'D. 250m'], correct_answer: 'A', difficulty: 'medium' },
+  ],
+  kp5_1: [
+    { content: '数据2, 3, 5, 5, 7的众数是？', options: ['A. 5', 'B. 4.4', 'C. 4', 'D. 3'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '数据1,2,3,4,5的平均数是？', options: ['A. 3', 'B. 2.5', 'C. 4', 'D. 3.5'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '数据3,3,3,3,3,3的中位数是？', options: ['A. 3', 'B. 3.5', 'C. 4', 'D. 2.5'], correct_answer: 'A', difficulty: 'easy' },
+  ],
+  kp5_2: [
+    { content: '数据1, 1, 1, 1的方差是？', options: ['A. 0', 'B. 1', 'C. 4', 'D. 0.5'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '数据2,4,6,8的方差是？', options: ['A. 4', 'B. 5', 'C. 8', 'D. 2'], correct_answer: 'A', difficulty: 'medium' },
+    { content: '方差越大，说明数据？', options: ['A. 波动越大', 'B. 波动越小', 'C. 越稳定', 'D. 越集中'], correct_answer: 'A', difficulty: 'easy' },
+  ],
+};
+
+// 生物题库
+const BIO_QUESTION_BANK = {
+  bio_kp1: [
+    { content: '腔肠动物的主要特征是？', options: ['A. 身体呈辐射对称', 'B. 身体呈两侧对称', 'C. 有肛门', 'D. 有骨骼'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '水螅属于哪类动物？', options: ['A. 腔肠动物', 'B. 扁形动物', 'C. 线形动物', 'D. 环节动物'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '腔肠动物消化腔的特点是？', options: ['A. 有口无肛门', 'B. 有口有肛门', 'C. 无口无肛门', 'D. 口和肛门相同'], correct_answer: 'A', difficulty: 'medium' },
+    { content: '珊瑚虫是哪种动物？', options: ['A. 腔肠动物', 'B. 扁形动物', 'C. 软体动物', 'D. 节肢动物'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '海葵属于哪类动物？', options: ['A. 腔肠动物', 'B. 扁形动物', 'C. 环节动物', 'D. 鱼类'], correct_answer: 'A', difficulty: 'easy' },
+  ],
+  bio_kp2: [
+    { content: '涡虫属于哪类动物？', options: ['A. 扁形动物', 'B. 腔肠动物', 'C. 线形动物', 'D. 环节动物'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '扁形动物的身体呈什么对称？', options: ['A. 两侧对称', 'B. 辐射对称', 'C. 不对称', 'D. 球形对称'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '血吸虫属于哪类动物？', options: ['A. 扁形动物', 'B. 线形动物', 'C. 环节动物', 'D. 软体动物'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '猪肉绦虫属于哪类动物？', options: ['A. 扁形动物', 'B. 线形动物', 'C. 环节动物', 'D. 扁形动物'], correct_answer: 'A', difficulty: 'medium' },
+    { content: '扁形动物比腔肠动物高等，主要体现在？', options: ['A. 有脑和感官', 'B. 有肛门', 'C. 有骨骼', 'D. 有外壳'], correct_answer: 'A', difficulty: 'medium' },
+  ],
+  bio_kp3: [
+    { content: '蛔虫属于哪类动物？', options: ['A. 线形动物', 'B. 扁形动物', 'C. 环节动物', 'D. 软体动物'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '线形动物的主要特征是？', options: ['A. 身体细长呈线形，有角质层', 'B. 身体扁平，有外壳', 'C. 身体分节，有刚毛', 'D. 身体柔软，有贝壳'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '蛔虫的消化管特点是？', options: ['A. 有口有肛门', 'B. 有口无肛门', 'C. 无口无肛门', 'D. 消化管退化'], correct_answer: 'A', difficulty: 'medium' },
+    { content: '线形动物比扁形动物高等，主要是因为？', options: ['A. 出现了肛门', 'B. 身体更长', 'C. 没有感官', 'D. 生活在土壤中'], correct_answer: 'A', difficulty: 'medium' },
+  ],
+  bio_kp4: [
+    { content: '蚯蚓属于哪类动物？', options: ['A. 环节动物', 'B. 线形动物', 'C. 扁形动物', 'D. 软体动物'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '环节动物的主要特征是？', options: ['A. 身体由许多相似的环节构成', 'B. 身体细长呈线形', 'C. 身体扁平', 'D. 身体不分节'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '沙蚕属于哪类动物？', options: ['A. 环节动物', 'B. 线形动物', 'C. 扁形动物', 'D. 节肢动物'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '环节动物的循环系统是？', options: ['A. 闭管式循环', 'B. 开管式循环', 'C. 没有循环系统', 'D. 单循环'], correct_answer: 'A', difficulty: 'medium' },
+  ],
+  bio_kp7: [
+    { content: '鱼类的主要特征是？', options: ['A. 用鳃呼吸，用鳍游泳', 'B. 用肺呼吸，用四肢运动', 'C. 用皮肤呼吸，用附肢运动', 'D. 用气管呼吸，用足运动'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '鱼的体温特点是？', options: ['A. 变温动物', 'B. 恒温动物', 'C. 兼性体温', 'D. 体温恒定'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '鲫鱼的呼吸器官是？', options: ['A. 鳃', 'B. 肺', 'C. 皮肤', 'D. 气管'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '鱼鳔的作用是？', options: ['A. 调节身体比重，帮助浮沉', 'B. 呼吸', 'C. 消化', 'D. 感知水流'], correct_answer: 'A', difficulty: 'medium' },
+    { content: '软骨鱼和硬骨鱼的主要区别是？', options: ['A. 骨骼是否钙化', 'B. 是否有鳞片', 'C. 是否有鳍', 'D. 生活环境'], correct_answer: 'A', difficulty: 'medium' },
+  ],
+  bio_kp8: [
+    { content: '两栖动物的主要特征是？', options: ['A. 幼体用鳃呼吸，成体用肺呼吸', 'B. 终身用鳃呼吸', 'C. 终身用肺呼吸', 'D. 用皮肤呼吸'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '青蛙的呼吸方式是？', options: ['A. 幼体用鳃，成体用肺和皮肤', 'B. 终身用鳃', 'C. 终身用肺', 'D. 只能用皮肤'], correct_answer: 'A', difficulty: 'medium' },
+    { content: '两栖动物属于变温动物，原因之一是？', options: ['A. 体温随环境变化', 'B. 体温恒定', 'C. 有羽毛保温', 'D. 有毛发保温'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '青蛙的发育过程经历了哪些阶段？', options: ['A. 受精卵→蝌蚪→幼蛙→成蛙', 'B. 受精卵→幼蛙→成蛙', 'C. 卵→成蛙', 'D. 受精卵→蝌蚪→成蛙'], correct_answer: 'A', difficulty: 'medium' },
+  ],
+  bio_kp9: [
+    { content: '爬行动物的主要特征是？', options: ['A. 用肺呼吸，体表覆盖角质鳞片或甲', 'B. 用鳃呼吸', 'C. 皮肤湿润', 'D. 幼体在水中生活'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '爬行动物是真正的陆生脊椎动物，因为？', options: ['A. 产羊膜卵，适应陆地生活', 'B. 用鳃呼吸', 'C. 必须在水中繁殖', 'D. 体温恒定'], correct_answer: 'A', difficulty: 'medium' },
+    { content: '蛇属于哪类动物？', options: ['A. 爬行动物', 'B. 两栖动物', 'C. 鱼类', 'D. 环节动物'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '龟属于哪类动物？', options: ['A. 爬行动物', 'B. 两栖动物', 'C. 软体动物', 'D. 鱼类'], correct_answer: 'A', difficulty: 'easy' },
+  ],
+  bio_kp10: [
+    { content: '鸟类的主要特征是？', options: ['A. 体表覆盖羽毛，前肢变成翼，有喙无齿', 'B. 体表覆盖鳞片', 'C. 用鳃呼吸', 'D. 体温随环境变化'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '家鸽的呼吸方式是？', options: ['A. 双重呼吸（肺+气囊）', 'B. 只有肺呼吸', 'C. 用皮肤呼吸', 'D. 用鳃呼吸'], correct_answer: 'A', difficulty: 'medium' },
+    { content: '鸟类的体温特点是？', options: ['A. 恒温', 'B. 变温', 'C. 兼性恒温', 'D. 体温随环境变化'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '家鸽飞行时呼吸效率高的原因是？', options: ['A. 吸气和呼气时都能进行气体交换', 'B. 肺的体积大', 'C. 没有呼吸系统', 'D. 用皮肤辅助呼吸'], correct_answer: 'A', difficulty: 'medium' },
+  ],
+  bio_kp11: [
+    { content: '哺乳动物的主要特征是？', options: ['A. 体表被毛，胎生哺乳，体温恒定', 'B. 体表有鳞片', 'C. 用鳃呼吸', 'D. 卵生'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '哺乳动物的牙齿分化为？', options: ['A. 门齿、犬齿、臼齿', 'B. 只有门齿', 'C. 只有臼齿', 'D. 没有牙齿分化'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '哺乳动物心脏的特点是？', options: ['A. 四腔（左右心房和心室）', 'B. 两腔', 'C. 三腔', 'D. 单腔'], correct_answer: 'A', difficulty: 'medium' },
+    { content: '哺乳动物大脑比鸟类更发达，主要体现在？', options: ['A. 大脑皮层更复杂', 'B. 小脑更大', 'C. 脑干更大', 'D. 没有区别'], correct_answer: 'A', difficulty: 'medium' },
+  ],
+};
+
+// 地理题库
+const GEO_QUESTION_BANK = {
+  geo_kp1: [
+    { content: '中国位于哪个大洲？', options: ['A. 亚洲', 'B. 欧洲', 'C. 非洲', 'D. 北美洲'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '中国大部分领土位于哪个温度带？', options: ['A. 北温带', 'B. 热带', 'C. 寒带', 'D. 南温带'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '中国濒临的海洋从北到南依次是？', options: ['A. 渤海、黄海、东海、南海', 'B. 黄海、渤海、东海、南海', 'C. 东海、黄海、渤海、南海', 'D. 南海、东海、黄海、渤海'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '中国的纬度位置对气候的影响是？', options: ['A. 跨纬度广，造成气候差异大', 'B. 全境高温', 'C. 全境寒冷', 'D. 无影响'], correct_answer: 'A', difficulty: 'medium' },
+    { content: '中国位于哪个半球？', options: ['A. 北半球、东半球', 'B. 南半球、东半球', 'C. 北半球、西半球', 'D. 南半球、西半球'], correct_answer: 'A', difficulty: 'easy' },
+  ],
+  geo_kp2: [
+    { content: '中国的陆地面积约是多少万平方公里？', options: ['A. 960', 'B. 1260', 'C. 860', 'D. 1100'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '中国最北端位于哪个省？', options: ['A. 黑龙江', 'B. 吉林', 'C. 辽宁', 'D. 内蒙古'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '中国最南端位于哪个海？', options: ['A. 南海', 'B. 东海', 'C. 黄海', 'D. 渤海'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '中国的疆域辽阔，造成的意义是？', options: ['A. 资源丰富，疆界漫长', 'B. 气候单一', 'C. 无特殊意义', 'D. 不利于经济发展'], correct_answer: 'A', difficulty: 'medium' },
+  ],
+  geo_kp3: [
+    { content: '中国共有多少个省级行政区？', options: ['A. 34个', 'B. 23个', 'C. 15个', 'D. 56个'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '中国有两个特别行政区，分别是？', options: ['A. 香港、澳门', 'B. 台湾、香港', 'C. 澳门、台湾', 'D. 海南、香港'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '中国四个直辖市中，位于北方的是？', options: ['A. 北京、天津', 'B. 上海、重庆', 'C. 广州、深圳', 'D. 成都、武汉'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '中国目前有几个自治区？', options: ['A. 5个', 'B. 4个', 'C. 3个', 'D. 6个'], correct_answer: 'A', difficulty: 'easy' },
+  ],
+  geo_kp4: [
+    { content: '中国人口最多的省份是？', options: ['A. 广东', 'B. 山东', 'C. 河南', 'D. 四川'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '中国共有多少个民族？', options: ['A. 56个', 'B. 54个', 'C. 52个', 'D. 58个'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '中国少数民族主要分布在？', options: ['A. 西南、西北、东北等边疆地区', 'B. 东部沿海地区', 'C. 中部地区', 'D. 全国均匀分布'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '中国人口分布的特点是？', options: ['A. 东南多，西北少', 'B. 西北多，东南少', 'C. 分布均匀', 'D. 集中在中部'], correct_answer: 'A', difficulty: 'easy' },
+  ],
+  geo_kp5: [
+    { content: '中国地形的主要特点是？', options: ['A. 西高东低，呈三级阶梯状分布', 'B. 东高西低', 'C. 地形平坦', 'D. 无规律分布'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '中国最高的高原是？', options: ['A. 青藏高原', 'B. 内蒙古高原', 'C. 黄土高原', 'D. 云贵高原'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '中国最大的盆地是？', options: ['A. 塔里木盆地', 'B. 准噶尔盆地', 'C. 柴达木盆地', 'D. 四川盆地'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '中国四大高原中，位于第二级阶梯的是？', options: ['A. 内蒙古高原、黄土高原、云贵高原', 'B. 青藏高原', 'C. 全部都在第一阶梯', 'D. 全部都在第三阶梯'], correct_answer: 'A', difficulty: 'medium' },
+  ],
+  geo_kp7: [
+    { content: '中国气候的主要特征是？', options: ['A. 气候复杂多样，季风气候显著', 'B. 气候单一', 'C. 无季风气候', 'D. 全年高温'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '影响中国气候的重要因素是？', options: ['A. 季风', 'B. 洋流', 'C. 人工因素', 'D. 地形无影响'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '中国年降水量分布规律是？', options: ['A. 从东南向西北递减', 'B. 从西北向东南递减', 'C. 分布均匀', 'D. 无规律'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '夏季风来自？', options: ['A. 太平洋和印度洋', 'B. 北冰洋', 'C. 大西洋', 'D. 内陆'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '中国夏季南北温差小的原因是？', options: ['A. 夏季太阳直射北半球，北方昼长日照多', 'B. 北方更热', 'C. 无影响', 'D. 南方更冷'], correct_answer: 'A', difficulty: 'medium' },
+  ],
+  geo_kp8: [
+    { content: '中国最大的河流是？', options: ['A. 长江', 'B. 黄河', 'C. 珠江', 'D. 黑龙江'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '长江最终流入哪个海？', options: ['A. 东海', 'B. 黄海', 'C. 南海', 'D. 渤海'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '黄河流经的主要地形区是？', options: ['A. 青藏高原、内蒙古高原、黄土高原、华北平原', 'B. 只有青藏高原', 'C. 只有华北平原', 'D. 全部流经平原'], correct_answer: 'A', difficulty: 'medium' },
+    { content: '长江水能资源丰富主要集中在哪一段？', options: ['A. 上游源头至宜宾', 'B. 中游', 'C. 下游', 'D. 全流域均匀'], correct_answer: 'A', difficulty: 'medium' },
+    { content: '中国最大的淡水湖是？', options: ['A. 鄱阳湖', 'B. 洞庭湖', 'C. 太湖', 'D. 洪泽湖'], correct_answer: 'A', difficulty: 'easy' },
+  ],
+};
+
+function randomChoice(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+function generateQuestions(plan, numQuestions = 5) {
+  const questions = [];
+  const kpCount = {};
+
+  for (let i = 0; i < Math.min(numQuestions, plan.length); i++) {
+    const item = plan[i];
+    const kpId = item.kp.kp_id;
+    const difficulty = item.difficulty;
+
+    if (!kpCount[kpId]) kpCount[kpId] = 0;
+
+    const bank = QUESTION_BANK[kpId];
+    if (bank) {
+      const matching = bank.filter(q => q.difficulty === difficulty);
+      const source = matching.length > 0 ? matching : bank;
+      // 用索引轮换选择题目，确保不重复
+      const q = source[kpCount[kpId] % source.length];
+
+      // 转换 options 格式: ['A. xxx', 'B. xxx'] -> [{key: 'A', value: 'xxx'}, ...]
+      const optionsFormatted = q.options.map(opt => {
+        const match = opt.match(/^([A-D])\.\s*(.+)$/);
+        if (match) {
+          return { key: match[1], value: match[2] };
+        }
+        return { key: '', value: opt };
+      });
+
+      questions.push({
+        id: `q${kpCount[kpId] + 1}_${kpId}`,
+        type: 'choice',
+        content: q.content,
+        options: optionsFormatted,
+        correct_answer: q.correct_answer,
+        knowledge_point: item.kp.kp_name,
+        knowledge_point_id: kpId,
+        difficulty: difficulty,
+        chapter: item.kp.chapter_name,
+      });
+      kpCount[kpId]++;
+    }
+  }
+
+  return questions;
+}
+
+function getAllKpIds() {
+  return Object.keys(QUESTION_BANK);
+}
+
+module.exports = {
+  QUESTION_BANK,
+  BIO_QUESTION_BANK,
+  GEO_QUESTION_BANK,
+  generateQuestions,
+  getAllKpIds,
+};

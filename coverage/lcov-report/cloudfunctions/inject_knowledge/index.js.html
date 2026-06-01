@@ -1,0 +1,259 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Code coverage report for cloudfunctions/inject_knowledge/index.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+    
+<body>
+<div class='wrapper'>
+    <div class='pad1'>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">cloudfunctions/inject_knowledge</a> index.js</h1>
+        <div class='clearfix'>
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Statements</span>
+                <span class='fraction'>0/16</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>0/4</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>0/1</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>0/16</span>
+            </div>
+        
+            
+        </div>
+        <p class="quiet">
+            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
+        </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input type="search" id="fileSearch">
+            </div>
+        </template>
+    </div>
+    <div class='status-line low'></div>
+    <pre><table class="coverage">
+<tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
+<a name='L2'></a><a href='#L2'>2</a>
+<a name='L3'></a><a href='#L3'>3</a>
+<a name='L4'></a><a href='#L4'>4</a>
+<a name='L5'></a><a href='#L5'>5</a>
+<a name='L6'></a><a href='#L6'>6</a>
+<a name='L7'></a><a href='#L7'>7</a>
+<a name='L8'></a><a href='#L8'>8</a>
+<a name='L9'></a><a href='#L9'>9</a>
+<a name='L10'></a><a href='#L10'>10</a>
+<a name='L11'></a><a href='#L11'>11</a>
+<a name='L12'></a><a href='#L12'>12</a>
+<a name='L13'></a><a href='#L13'>13</a>
+<a name='L14'></a><a href='#L14'>14</a>
+<a name='L15'></a><a href='#L15'>15</a>
+<a name='L16'></a><a href='#L16'>16</a>
+<a name='L17'></a><a href='#L17'>17</a>
+<a name='L18'></a><a href='#L18'>18</a>
+<a name='L19'></a><a href='#L19'>19</a>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/**
+ * 知识点注入 - 硬编码数据，调试版本
+ */
+const cloud = <span class="cstat-no" title="statement not covered" >require('wx-server-sdk');</span>
+<span class="cstat-no" title="statement not covered" >cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV });</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >exports.main = <span class="fstat-no" title="function not covered" >as</span>ync (event, context) =&gt; {</span>
+  const db = <span class="cstat-no" title="statement not covered" >cloud.database();</span>
+  const collection = <span class="cstat-no" title="statement not covered" >db.collection('knowledge_points');</span>
+&nbsp;
+  const data = <span class="cstat-no" title="statement not covered" >[</span>
+    { kp_id: 'kp1_1', kp_name: '二次根式的概念', chapter: '第十六章 二次根式', knowledge_context: '二次根式定义：形如√a（a≥0）的式子。核心：双重非负性a≥0且√a≥0。常见考点：判断二次根式、求定义域。题型：选择题、填空题。', related_concepts: ['算术平方根', '平方根'], typical_mistakes: ['忘记被开方数必须非负', '混淆√a²与|a|'] },
+    { kp_id: 'kp1_2', kp_name: '二次根式的性质', chapter: '第十六章 二次根式', knowledge_context: '性质：(√a)²=a；√a²=|a|；√(ab)=√a·√b。化简：√12=2√3；√18=3√2。注意：√a²=|a|≠a。', related_concepts: ['绝对值', '因式分解'], typical_mistakes: ['√a²=a错误', '乘除忘记条件'] },
+    { kp_id: 'kp1_3', kp_name: '二次根式的运算', chapter: '第十六章 二次根式', knowledge_context: '运算：加法同类项合并√3+2√3=3√3；乘法√a·√b=√(ab)；除法√a÷√b=√(a/b)；分母有理化1/√3=√3/3。', related_concepts: ['分母有理化', '乘法公式'], typical_mistakes: ['不同类二次根式相加', '分母有理化符号错误'] },
+    { kp_id: 'kp2_1', kp_name: '勾股定理', chapter: '第十七章 勾股定理', knowledge_context: '勾股定理：直角三角形a²+b²=c²。勾股数：3、4、5；5、12、13；6、8、10。', related_concepts: ['直角三角形', '平方根'], typical_mistakes: ['混淆直角边和斜边', '忘记平方'] },
+    { kp_id: 'kp2_2', kp_name: '勾股定理的逆定理', chapter: '第十七章 勾股定理', knowledge_context: '逆定理：三边a²+b²=c²则直角三角形。步骤：1.找最大边；2.验证a²+b²=c²。', related_concepts: ['三角形三边关系'], typical_mistakes: ['不判断最大边就套公式'] },
+    { kp_id: 'kp2_3', kp_name: '勾股定理的应用', chapter: '第十七章 勾股定理', knowledge_context: '应用：梯子问题h=√(L²-d²)；方向问题距离=√(x²+y²)；最短路径；判定矩形。解题：画图→识别直角三角形→代入公式→计算检验。', related_concepts: ['最短距离', '展开图'], typical_mistakes: ['画错直角位置', '计算忘记开方'] },
+    { kp_id: 'kp3_1', kp_name: '平行四边形的性质', chapter: '第十八章 平行四边形', knowledge_context: '性质：对边平行且相等；对角相等；对角线互相平分；面积=底×高。', related_concepts: ['对角线', '高'], typical_mistakes: ['把对角线当成角平分线'] },
+    { kp_id: 'kp3_2', kp_name: '平行四边形的判定', chapter: '第十八章 平行四边形', knowledge_context: '判定：1.两组对边分别平行；2.两组对边分别相等；3.一组对边平行且相等；4.对角线互相平分。', related_concepts: ['全等三角形', '中点'], typical_mistakes: ['只证一组对边平行就判定'] },
+    { kp_id: 'kp3_3', kp_name: '特殊的平行四边形', chapter: '第十八章 平行四边形', knowledge_context: '矩形：四角直角、对角线相等。菱形：四边等、对角线垂直。正方形：四边等+四角直角+对角线等垂直。', related_concepts: ['矩形判定', '菱形判定'], typical_mistakes: ['混淆判定条件'] },
+    { kp_id: 'kp4_1', kp_name: '函数的认识', chapter: '第十九章 一次函数', knowledge_context: '函数：变化过程中每一个x对应唯一y。表示：解析法、列表法、图像法。定义域：分式分母不为0、二次根式被开方数≥0。', related_concepts: ['变量', '自变量'], typical_mistakes: ['混淆自变量和函数值'] },
+    { kp_id: 'kp4_2', kp_name: '一次函数的图像', chapter: '第十九章 一次函数', knowledge_context: '一次函数y=kx+b，图像是直线。k决定增减性；b是y轴截距。与坐标轴交点：y轴(0,b)，x轴(-b/k,0)。', related_concepts: ['斜率', '截距'], typical_mistakes: ['混淆k和b的作用'] },
+    { kp_id: 'kp4_3', kp_name: '一次函数的应用', chapter: '第十九章 一次函数', knowledge_context: '应用：行程问题、销售问题、通信问题。待定系数法：设y=kx+b，用两个点建立方程组求解。', related_concepts: ['待定系数法', '方程组'], typical_mistakes: ['单位搞混', '搞错数量关系'] },
+    { kp_id: 'kp5_1', kp_name: '数据的集中趋势', chapter: '第二十章 数据的分析', knowledge_context: '平均数=总和÷个数；中位数是中间那个（或中间两数平均）；众数是出现次数最多的。选择：受极端值影响选中位数；需要全部数据选平均数；关注最常见选众数。', related_concepts: ['平均数', '中位数', '众数'], typical_mistakes: ['计算中位数忘记排序'] },
+    { kp_id: 'kp5_2', kp_name: '数据的波动程度', chapter: '第二十章 数据的分析', knowledge_context: '极差=最大值-最小值。方差=Σ(数据-平均数)²÷个数。标准差=√方差。方差越大波动越大。', related_concepts: ['极差', '方差', '标准差'], typical_mistakes: ['计算方差忘记平方', '混淆方差和标准差'] }
+  ];
+&nbsp;
+  let successCount = <span class="cstat-no" title="statement not covered" >0;</span>
+<span class="cstat-no" title="statement not covered" >  for (const kpData of data) {</span>
+<span class="cstat-no" title="statement not covered" >    try {</span>
+      const exist = <span class="cstat-no" title="statement not covered" >await collection.where({ kp_id: kpData.kp_id }).get();</span>
+<span class="cstat-no" title="statement not covered" >      if (exist.data &amp;&amp; exist.data.length &gt; 0) {</span>
+<span class="cstat-no" title="statement not covered" >        await collection.doc(exist.data[0]._id).update({</span>
+          data: {
+            knowledge_context: kpData.knowledge_context,
+            related_concepts: kpData.related_concepts,
+            typical_mistakes: kpData.typical_mistakes,
+            chapter: kpData.chapter,
+            kp_name: kpData.kp_name,
+            updated_at: new Date().toISOString()
+          }
+        });
+      } else {
+<span class="cstat-no" title="statement not covered" >        await collection.add({</span>
+          data: {
+            ...kpData,
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString()
+          }
+        });
+      }
+<span class="cstat-no" title="statement not covered" >      successCount++;</span>
+    } catch (e) {
+<span class="cstat-no" title="statement not covered" >      console.error('Error for ' + kpData.kp_id + ':', e.message);</span>
+    }
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return { success: true, count: successCount, total: data.length };</span>
+};</pre></td></tr></table></pre>
+
+                <div class='push'></div><!-- for sticky footer -->
+            </div><!-- /wrapper -->
+            <div class='footer quiet pad2 space-top1 center small'>
+                Code coverage generated by
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2026-05-29T13:29:46.610Z
+            </div>
+        <script src="../../prettify.js"></script>
+        <script>
+            window.onload = function () {
+                prettyPrint();
+            };
+        </script>
+        <script src="../../sorter.js"></script>
+        <script src="../../block-navigation.js"></script>
+    </body>
+</html>
+    

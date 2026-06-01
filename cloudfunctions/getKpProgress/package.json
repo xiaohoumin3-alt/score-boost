@@ -1,0 +1,9 @@
+{
+  "name": "getKpProgress",
+  "version": "1.0.0",
+  "description": "获取学生知识点进度",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

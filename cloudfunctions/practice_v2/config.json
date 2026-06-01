@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "cloudDb": {
+      "COLLECTION": ["practices"]
+    }
+  },
+  "cloudfunction-config": {
+    "memorySize": 256,
+    "timeout": 60,
+    "envId": "cloud1-7gg9y9tjb2b867b6"
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "name": "getDiagnosticReport",
+  "version": "1.0.0",
+  "description": "诊断报告云函数 - 生成家长可见的周报"
+}

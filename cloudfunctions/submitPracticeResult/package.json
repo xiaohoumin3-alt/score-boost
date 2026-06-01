@@ -1,0 +1,9 @@
+{
+  "name": "submitPracticeResult",
+  "version": "1.0.0",
+  "description": "提交练习答案并更新进度",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

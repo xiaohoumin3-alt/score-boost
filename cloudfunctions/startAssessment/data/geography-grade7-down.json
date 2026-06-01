@@ -1,0 +1,253 @@
+{
+  "subject": "地理",
+  "grade": "7",
+  "semester": "下",
+  "version": "2024人教版",
+  "chapters": [
+    {
+      "id": "ch1",
+      "name": "我们临近的国家和地区",
+      "knowledge_points": [
+        {
+          "id": "kp1_1",
+          "name": "多火山",
+          "sub_topics": [
+            "概念理解",
+            "读图分析"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题",
+            "读图题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp1_2",
+          "name": "与世界联系密切的工业",
+          "sub_topics": [
+            "概念理解",
+            "读图分析"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题",
+            "读图题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp1_3",
+          "name": "东西方兼容的文化",
+          "sub_topics": [
+            "概念理解",
+            "读图分析"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题",
+            "读图题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp1_4",
+          "name": "十字路口的位置位置和范围：(",
+          "sub_topics": [
+            "概念理解",
+            "读图分析"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题",
+            "读图题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp1_5",
+          "name": "热带气候与农业生产",
+          "sub_topics": [
+            "概念理解",
+            "读图分析"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题",
+            "读图题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp1_6",
+          "name": "山河相间与城市分布",
+          "sub_topics": [
+            "概念理解",
+            "读图分析"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题",
+            "读图题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp1_7",
+          "name": "世界第二人口大国",
+          "sub_topics": [
+            "概念理解",
+            "读图分析"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题",
+            "读图题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp1_8",
+          "name": "水旱灾害频繁",
+          "sub_topics": [
+            "概念理解",
+            "读图分析"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题",
+            "读图题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp1_9",
+          "name": "迅速发展的服务外包产业",
+          "sub_topics": [
+            "概念理解",
+            "读图分析"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题",
+            "读图题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp1_10",
+          "name": "横跨亚欧大陆北部",
+          "sub_topics": [
+            "概念理解",
+            "读图分析"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题",
+            "读图题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp1_11",
+          "name": "自然资源丰富，重工业发达p",
+          "sub_topics": [
+            "概念理解",
+            "读图分析"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题",
+            "读图题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp1_12",
+          "name": "发达的交通：",
+          "sub_topics": [
+            "概念理解",
+            "读图分析"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题",
+            "读图题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "name": "东半球的其他国家和地区",
+      "knowledge_points": [
+        {
+          "id": "kp2_1",
+          "name": "东半球的其他国家和地区",
+          "sub_topics": [
+            "全章概览",
+            "读图分析"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.5,
+            "medium": 0.3,
+            "hard": 0.2
+          }
+        }
+      ]
+    }
+  ]
+}

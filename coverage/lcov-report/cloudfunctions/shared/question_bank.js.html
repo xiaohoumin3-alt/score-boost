@@ -1,0 +1,853 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Code coverage report for cloudfunctions/shared/question_bank.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+    
+<body>
+<div class='wrapper'>
+    <div class='pad1'>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">cloudfunctions/shared</a> question_bank.js</h1>
+        <div class='clearfix'>
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Statements</span>
+                <span class='fraction'>0/48</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>0/25</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>0/6</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>0/45</span>
+            </div>
+        
+            
+        </div>
+        <p class="quiet">
+            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
+        </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input type="search" id="fileSearch">
+            </div>
+        </template>
+    </div>
+    <div class='status-line low'></div>
+    <pre><table class="coverage">
+<tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
+<a name='L2'></a><a href='#L2'>2</a>
+<a name='L3'></a><a href='#L3'>3</a>
+<a name='L4'></a><a href='#L4'>4</a>
+<a name='L5'></a><a href='#L5'>5</a>
+<a name='L6'></a><a href='#L6'>6</a>
+<a name='L7'></a><a href='#L7'>7</a>
+<a name='L8'></a><a href='#L8'>8</a>
+<a name='L9'></a><a href='#L9'>9</a>
+<a name='L10'></a><a href='#L10'>10</a>
+<a name='L11'></a><a href='#L11'>11</a>
+<a name='L12'></a><a href='#L12'>12</a>
+<a name='L13'></a><a href='#L13'>13</a>
+<a name='L14'></a><a href='#L14'>14</a>
+<a name='L15'></a><a href='#L15'>15</a>
+<a name='L16'></a><a href='#L16'>16</a>
+<a name='L17'></a><a href='#L17'>17</a>
+<a name='L18'></a><a href='#L18'>18</a>
+<a name='L19'></a><a href='#L19'>19</a>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a>
+<a name='L100'></a><a href='#L100'>100</a>
+<a name='L101'></a><a href='#L101'>101</a>
+<a name='L102'></a><a href='#L102'>102</a>
+<a name='L103'></a><a href='#L103'>103</a>
+<a name='L104'></a><a href='#L104'>104</a>
+<a name='L105'></a><a href='#L105'>105</a>
+<a name='L106'></a><a href='#L106'>106</a>
+<a name='L107'></a><a href='#L107'>107</a>
+<a name='L108'></a><a href='#L108'>108</a>
+<a name='L109'></a><a href='#L109'>109</a>
+<a name='L110'></a><a href='#L110'>110</a>
+<a name='L111'></a><a href='#L111'>111</a>
+<a name='L112'></a><a href='#L112'>112</a>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a>
+<a name='L116'></a><a href='#L116'>116</a>
+<a name='L117'></a><a href='#L117'>117</a>
+<a name='L118'></a><a href='#L118'>118</a>
+<a name='L119'></a><a href='#L119'>119</a>
+<a name='L120'></a><a href='#L120'>120</a>
+<a name='L121'></a><a href='#L121'>121</a>
+<a name='L122'></a><a href='#L122'>122</a>
+<a name='L123'></a><a href='#L123'>123</a>
+<a name='L124'></a><a href='#L124'>124</a>
+<a name='L125'></a><a href='#L125'>125</a>
+<a name='L126'></a><a href='#L126'>126</a>
+<a name='L127'></a><a href='#L127'>127</a>
+<a name='L128'></a><a href='#L128'>128</a>
+<a name='L129'></a><a href='#L129'>129</a>
+<a name='L130'></a><a href='#L130'>130</a>
+<a name='L131'></a><a href='#L131'>131</a>
+<a name='L132'></a><a href='#L132'>132</a>
+<a name='L133'></a><a href='#L133'>133</a>
+<a name='L134'></a><a href='#L134'>134</a>
+<a name='L135'></a><a href='#L135'>135</a>
+<a name='L136'></a><a href='#L136'>136</a>
+<a name='L137'></a><a href='#L137'>137</a>
+<a name='L138'></a><a href='#L138'>138</a>
+<a name='L139'></a><a href='#L139'>139</a>
+<a name='L140'></a><a href='#L140'>140</a>
+<a name='L141'></a><a href='#L141'>141</a>
+<a name='L142'></a><a href='#L142'>142</a>
+<a name='L143'></a><a href='#L143'>143</a>
+<a name='L144'></a><a href='#L144'>144</a>
+<a name='L145'></a><a href='#L145'>145</a>
+<a name='L146'></a><a href='#L146'>146</a>
+<a name='L147'></a><a href='#L147'>147</a>
+<a name='L148'></a><a href='#L148'>148</a>
+<a name='L149'></a><a href='#L149'>149</a>
+<a name='L150'></a><a href='#L150'>150</a>
+<a name='L151'></a><a href='#L151'>151</a>
+<a name='L152'></a><a href='#L152'>152</a>
+<a name='L153'></a><a href='#L153'>153</a>
+<a name='L154'></a><a href='#L154'>154</a>
+<a name='L155'></a><a href='#L155'>155</a>
+<a name='L156'></a><a href='#L156'>156</a>
+<a name='L157'></a><a href='#L157'>157</a>
+<a name='L158'></a><a href='#L158'>158</a>
+<a name='L159'></a><a href='#L159'>159</a>
+<a name='L160'></a><a href='#L160'>160</a>
+<a name='L161'></a><a href='#L161'>161</a>
+<a name='L162'></a><a href='#L162'>162</a>
+<a name='L163'></a><a href='#L163'>163</a>
+<a name='L164'></a><a href='#L164'>164</a>
+<a name='L165'></a><a href='#L165'>165</a>
+<a name='L166'></a><a href='#L166'>166</a>
+<a name='L167'></a><a href='#L167'>167</a>
+<a name='L168'></a><a href='#L168'>168</a>
+<a name='L169'></a><a href='#L169'>169</a>
+<a name='L170'></a><a href='#L170'>170</a>
+<a name='L171'></a><a href='#L171'>171</a>
+<a name='L172'></a><a href='#L172'>172</a>
+<a name='L173'></a><a href='#L173'>173</a>
+<a name='L174'></a><a href='#L174'>174</a>
+<a name='L175'></a><a href='#L175'>175</a>
+<a name='L176'></a><a href='#L176'>176</a>
+<a name='L177'></a><a href='#L177'>177</a>
+<a name='L178'></a><a href='#L178'>178</a>
+<a name='L179'></a><a href='#L179'>179</a>
+<a name='L180'></a><a href='#L180'>180</a>
+<a name='L181'></a><a href='#L181'>181</a>
+<a name='L182'></a><a href='#L182'>182</a>
+<a name='L183'></a><a href='#L183'>183</a>
+<a name='L184'></a><a href='#L184'>184</a>
+<a name='L185'></a><a href='#L185'>185</a>
+<a name='L186'></a><a href='#L186'>186</a>
+<a name='L187'></a><a href='#L187'>187</a>
+<a name='L188'></a><a href='#L188'>188</a>
+<a name='L189'></a><a href='#L189'>189</a>
+<a name='L190'></a><a href='#L190'>190</a>
+<a name='L191'></a><a href='#L191'>191</a>
+<a name='L192'></a><a href='#L192'>192</a>
+<a name='L193'></a><a href='#L193'>193</a>
+<a name='L194'></a><a href='#L194'>194</a>
+<a name='L195'></a><a href='#L195'>195</a>
+<a name='L196'></a><a href='#L196'>196</a>
+<a name='L197'></a><a href='#L197'>197</a>
+<a name='L198'></a><a href='#L198'>198</a>
+<a name='L199'></a><a href='#L199'>199</a>
+<a name='L200'></a><a href='#L200'>200</a>
+<a name='L201'></a><a href='#L201'>201</a>
+<a name='L202'></a><a href='#L202'>202</a>
+<a name='L203'></a><a href='#L203'>203</a>
+<a name='L204'></a><a href='#L204'>204</a>
+<a name='L205'></a><a href='#L205'>205</a>
+<a name='L206'></a><a href='#L206'>206</a>
+<a name='L207'></a><a href='#L207'>207</a>
+<a name='L208'></a><a href='#L208'>208</a>
+<a name='L209'></a><a href='#L209'>209</a>
+<a name='L210'></a><a href='#L210'>210</a>
+<a name='L211'></a><a href='#L211'>211</a>
+<a name='L212'></a><a href='#L212'>212</a>
+<a name='L213'></a><a href='#L213'>213</a>
+<a name='L214'></a><a href='#L214'>214</a>
+<a name='L215'></a><a href='#L215'>215</a>
+<a name='L216'></a><a href='#L216'>216</a>
+<a name='L217'></a><a href='#L217'>217</a>
+<a name='L218'></a><a href='#L218'>218</a>
+<a name='L219'></a><a href='#L219'>219</a>
+<a name='L220'></a><a href='#L220'>220</a>
+<a name='L221'></a><a href='#L221'>221</a>
+<a name='L222'></a><a href='#L222'>222</a>
+<a name='L223'></a><a href='#L223'>223</a>
+<a name='L224'></a><a href='#L224'>224</a>
+<a name='L225'></a><a href='#L225'>225</a>
+<a name='L226'></a><a href='#L226'>226</a>
+<a name='L227'></a><a href='#L227'>227</a>
+<a name='L228'></a><a href='#L228'>228</a>
+<a name='L229'></a><a href='#L229'>229</a>
+<a name='L230'></a><a href='#L230'>230</a>
+<a name='L231'></a><a href='#L231'>231</a>
+<a name='L232'></a><a href='#L232'>232</a>
+<a name='L233'></a><a href='#L233'>233</a>
+<a name='L234'></a><a href='#L234'>234</a>
+<a name='L235'></a><a href='#L235'>235</a>
+<a name='L236'></a><a href='#L236'>236</a>
+<a name='L237'></a><a href='#L237'>237</a>
+<a name='L238'></a><a href='#L238'>238</a>
+<a name='L239'></a><a href='#L239'>239</a>
+<a name='L240'></a><a href='#L240'>240</a>
+<a name='L241'></a><a href='#L241'>241</a>
+<a name='L242'></a><a href='#L242'>242</a>
+<a name='L243'></a><a href='#L243'>243</a>
+<a name='L244'></a><a href='#L244'>244</a>
+<a name='L245'></a><a href='#L245'>245</a>
+<a name='L246'></a><a href='#L246'>246</a>
+<a name='L247'></a><a href='#L247'>247</a>
+<a name='L248'></a><a href='#L248'>248</a>
+<a name='L249'></a><a href='#L249'>249</a>
+<a name='L250'></a><a href='#L250'>250</a>
+<a name='L251'></a><a href='#L251'>251</a>
+<a name='L252'></a><a href='#L252'>252</a>
+<a name='L253'></a><a href='#L253'>253</a>
+<a name='L254'></a><a href='#L254'>254</a>
+<a name='L255'></a><a href='#L255'>255</a>
+<a name='L256'></a><a href='#L256'>256</a>
+<a name='L257'></a><a href='#L257'>257</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/**
+ * 题库 - 预置题目，支持离线快速出题
+ * 当题库中没有目标难度题目时，回退到AI生成，确保题目难度符合预期
+ */
+&nbsp;
+const { createLLMClient } = <span class="cstat-no" title="statement not covered" >require('./llm-core');</span>
+&nbsp;
+// LLM客户端实例（按需初始化）
+let llmClient = <span class="cstat-no" title="statement not covered" >null;</span>
+&nbsp;
+function <span class="fstat-no" title="function not covered" >getLlmClient(</span>) {
+<span class="cstat-no" title="statement not covered" >  if (!llmClient) {</span>
+<span class="cstat-no" title="statement not covered" >    llmClient = createLLMClient();</span>
+  }
+<span class="cstat-no" title="statement not covered" >  return llmClient;</span>
+}
+&nbsp;
+const QUESTION_BANK = <span class="cstat-no" title="statement not covered" >{</span>
+  kp1_1: [
+    { content: '下列哪个是二次根式？', options: ['A. √5', 'B. 3²', 'C. -2', 'D. 1/2'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '下列哪个式子有意义？', options: ['A. √(-4)', 'B. √4', 'C. √(-1)', 'D. √(-9)'], correct_answer: 'B', difficulty: 'easy' },
+    { content: '当x满足什么条件时，√(x-1)有意义？', options: ['A. x≥1', 'B. x≤1', 'C. x&gt;1', 'D. x&lt;1'], correct_answer: 'A', difficulty: 'medium' },
+    { content: '√16的值是？', options: ['A. 4', 'B. ±4', 'C. 8', 'D. -4'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '若√(a+2) + √(3-a)有意义，则a的取值范围是？', options: ['A. -2≤a≤3', 'B. a≥-2', 'C. a≤3', 'D. -2&lt;a&lt;3'], correct_answer: 'A', difficulty: 'hard' },
+  ],
+  kp1_2: [
+    { content: '(√3)² 的值是？', options: ['A. 3', 'B. 6', 'C. 9', 'D. √3'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '√(5²)的值是？', options: ['A. 5', 'B. -5', 'C. ±5', 'D. 25'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '√(a²)=|a|，当a&lt;0时，√(a²)等于？', options: ['A. a', 'B. -a', 'C. a²', 'D. -a²'], correct_answer: 'B', difficulty: 'medium' },
+    { content: '化简√48的结果是？', options: ['A. 4√3', 'B. 3√4', 'C. 2√12', 'D. 8√3'], correct_answer: 'A', difficulty: 'medium' },
+    { content: '若a&lt;0，b&lt;0，化简√(a²b²)的结果是？', options: ['A. -ab', 'B. ab', 'C. a²b²', 'D. |a||b|'], correct_answer: 'A', difficulty: 'hard' },
+    { content: '已知x = √5 + 1，则x² - 2x + 1的值是？', options: ['A. 5', 'B. 4', 'C. 6', 'D. 7'], correct_answer: 'A', difficulty: 'hard' },
+  ],
+  kp1_3: [
+    { content: '√12 化简后等于？', options: ['A. 2√3', 'B. 3√2', 'C. 4√3', 'D. 6'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '√2 × √8 的值是？', options: ['A. 4', 'B. √16', 'C. 2√2', 'D. 8'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '√18 ÷ √2 的值是？', options: ['A. 3', 'B. √9', 'C. √16', 'D. 9'], correct_answer: 'A', difficulty: 'medium' },
+    { content: '分母有理化：1/√3 = ？', options: ['A. √3', 'B. √3/3', 'C. 3√3', 'D. 1/3√3'], correct_answer: 'B', difficulty: 'medium' },
+    { content: '若 √(a-1) + √(b+2) = 0，则 a + b = ？', options: ['A. -1', 'B. 1', 'C. 0', 'D. 3'], correct_answer: 'A', difficulty: 'hard' },
+    { content: '计算：(√6 + √2)(√6 - √2) - √8的结果是？', options: ['A. 4 - 2√2', 'B. 2√2', 'C. 4', 'D. 6'], correct_answer: 'A', difficulty: 'hard' },
+  ],
+  kp2_1: [
+    { content: '直角三角形两直角边为3和4，斜边长为？', options: ['A. 5', 'B. 6', 'C. 7', 'D. 12'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '在直角三角形中，a=5，b=12，则c=？', options: ['A. 13', 'B. 17', 'C. 7', 'D. 60'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '等边三角形边长为6，高为？', options: ['A. 3√3', 'B. 3', 'C. 6', 'D. 3√2'], correct_answer: 'A', difficulty: 'medium' },
+    { content: '菱形对角线长为6和8，边长为？', options: ['A. 5', 'B. 7', 'C. 10', 'D. 14'], correct_answer: 'A', difficulty: 'medium' },
+    { content: '直角三角形斜边上的高将斜边分成两段，长分别为4和9，则斜边上的高是？', options: ['A. 6', 'B. 5', 'C. 7', 'D. 8'], correct_answer: 'A', difficulty: 'hard' },
+  ],
+  kp2_2: [
+    { content: '三边长为5, 12, 13的三角形是？', options: ['A. 直角三角形', 'B. 锐角三角形', 'C. 钝角三角形', 'D. 无法确定'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '三边为3,4,6的三角形是什么三角形？', options: ['A. 钝角三角形', 'B. 直角三角形', 'C. 锐角三角形', 'D. 等腰三角形'], correct_answer: 'A', difficulty: 'medium' },
+    { content: '判断：边长为7,24,25的三角形是直角三角形吗？', options: ['A. 是', 'B. 不是', 'C. 无法判断', 'D. 等腰直角三角形'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '若三角形三边长分别为√2, √3, √5，则这个三角形是什么三角形？', options: ['A. 直角三角形', 'B. 锐角三角形', 'C. 钝角三角形', 'D. 等腰三角形'], correct_answer: 'A', difficulty: 'hard' },
+  ],
+  kp2_3: [
+    { content: '一个梯子长5米，底端离墙3米，顶端离地面多高？', options: ['A. 4米', 'B. 3米', 'C. 2米', 'D. 5米'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '从A点到B点，走路4km，向北走3km，AB距离为？', options: ['A. 5km', 'B. 7km', 'C. 1km', 'D. 12km'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '正方形边长为5√2，对角线长为？', options: ['A. 10', 'B. 5', 'C. 10√2', 'D. 5√4'], correct_answer: 'A', difficulty: 'medium' },
+    { content: '一只蚂蚁从长方体一个顶点沿表面爬到相对顶点，长方体长宽高分别为3,4,5，最短路径为？', options: ['A. √74', 'B. √90', 'C. √50', 'D. 10'], correct_answer: 'A', difficulty: 'hard' },
+    { content: '在平面直角坐标系中，点A(-3,0)，点B(0,4)，点P在x轴上，且PA+PB最小，则点P坐标是？', options: ['A. (-9/7, 0)', 'B. (-1, 0)', 'C. (0, 0)', 'D. (-2, 0)'], correct_answer: 'A', difficulty: 'hard' },
+  ],
+  kp3_1: [
+    { content: '平行四边形的对角线有什么性质？', options: ['A. 互相平分', 'B. 相等', 'C. 垂直', 'D. 互相垂直平分'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '平行四边形 ABCD 中，∠A=60°，则∠C=？', options: ['A. 60°', 'B. 120°', 'C. 90°', 'D. 30°'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '平行四边形周长为20，相邻两边之比为3:2，则较长边为？', options: ['A. 6', 'B. 4', 'C. 10', 'D. 5'], correct_answer: 'A', difficulty: 'medium' },
+    { content: '平行四边形ABCD中，对角线AC与BD相交于点O，若AO=3，BO=5，则AB的取值范围是？', options: ['A. 2&lt;AB&lt;8', 'B. AB&gt;5', 'C. AB&lt;3', 'D. 0&lt;AB&lt;15'], correct_answer: 'A', difficulty: 'hard' },
+  ],
+  kp3_2: [
+    { content: '下列哪个条件不能判定四边形是平行四边形？', options: ['A. 一组对边平行', 'B. 两组对边分别平行', 'C. 两组对边分别相等', 'D. 对角线互相平分'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '一组对边平行且相等的四边形是？', options: ['A. 平行四边形', 'B. 矩形', 'C. 菱形', 'D. 梯形'], correct_answer: 'A', difficulty: 'medium' },
+    { content: '对角线互相平分的四边形是？', options: ['A. 平行四边形', 'B. 矩形', 'C. 菱形', 'D. 正方形'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '在平行四边形ABCD中，若AB=5，BC=3，对角线AC的取值范围是？', options: ['A. 2&lt;AC&lt;8', 'B. 0&lt;AC&lt;15', 'C. AC&gt;5', 'D. AC&lt;3'], correct_answer: 'A', difficulty: 'hard' },
+    { content: '在四边形ABCD中，AB∥CD，AB=CD，添加一个条件后可判定ABCD是平行四边形，不能添加的是？', options: ['A. AD∥BC', 'B. AD=BC', 'C. ∠A=∠C', 'D. ∠B=∠D'], correct_answer: 'C', difficulty: 'hard' },
+  ],
+  kp3_3: [
+    { content: '矩形的对角线有什么特点？', options: ['A. 相等', 'B. 垂直', 'C. 不相等', 'D. 互相垂直'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '菱形的对角线有什么特点？', options: ['A. 互相垂直平分', 'B. 相等', 'C. 平行', 'D. 相等且平分'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '正方形是特殊的？', options: ['A. 矩形且菱形', 'B. 只有矩形', 'C. 只有菱形', 'D. 梯形'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '一个四边形的四条边都相等，对角线相等，则这个四边形是？', options: ['A. 正方形', 'B. 菱形', 'C. 矩形', 'D. 平行四边形'], correct_answer: 'A', difficulty: 'hard' },
+    { content: '矩形ABCD中，对角线AC与BD相交于点O，若AB=6，OA=5，则矩形周长是？', options: ['A. 28', 'B. 24', 'C. 20', 'D. 32'], correct_answer: 'A', difficulty: 'hard' },
+  ],
+  kp4_1: [
+    { content: '在函数y=2x+1中，当x=3时，y的值为？', options: ['A. 7', 'B. 5', 'C. 6', 'D. 8'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '下列哪个是函数关系？', options: ['A. y=±√x', 'B. y=2x', 'C. x=y²', 'D. x²+y²=1'], correct_answer: 'A', difficulty: 'medium' },
+    { content: '函数y=x²中，x的取值范围是？', options: ['A. 全体实数', 'B. x≥0', 'C. x≤0', 'D. x≠0'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '若函数y=√(x-2)有意义，且y=3，则x的值是？', options: ['A. 11', 'B. 7', 'C. 5', 'D. 9'], correct_answer: 'A', difficulty: 'hard' },
+    { content: '已知函数y = √(x-3) + √(6-x)，则x的取值范围和y的最大值是？', options: ['A. 3≤x≤6，y最大值为√3', 'B. x&gt;3，y最大值为3', 'C. 3&lt;x&lt;6，y最大值为6', 'D. x≥3，y最大值为√6'], correct_answer: 'A', difficulty: 'hard' },
+  ],
+  kp4_2: [
+    { content: '一次函数y=2x+1的图像经过哪个点？', options: ['A. (0,1)', 'B. (1,0)', 'C. (0,2)', 'D. (2,0)'], correct_answer: 'A', difficulty: 'easy' },
+    { content: 'y=3x-2与y轴交点坐标是？', options: ['A. (0,-2)', 'B. (0,2)', 'C. (2,0)', 'D. (-2,0)'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '一次函数y=kx+b，k&gt;0，b&gt;0，图像不经过哪个象限？', options: ['A. 第三象限', 'B. 第一象限', 'C. 第二象限', 'D. 第四象限'], correct_answer: 'A', difficulty: 'medium' },
+    { content: '若一次函数y=kx+b的图像经过点(1,3)和点(-1,7)，则k与b的值是？', options: ['A. k=-2, b=5', 'B. k=2, b=1', 'C. k=-1, b=4', 'D. k=1, b=2'], correct_answer: 'A', difficulty: 'hard' },
+    { content: '一次函数y=kx+b的图像经过第一、二、四象限，则k和b的符号是？', options: ['A. k&lt;0，b&gt;0', 'B. k&gt;0，b&gt;0', 'C. k&lt;0，b&lt;0', 'D. k&gt;0，b&lt;0'], correct_answer: 'A', difficulty: 'hard' },
+  ],
+  kp4_3: [
+    { content: '小明以2元/支的价格买铅笔，花y元买x支，函数关系式为？', options: ['A. y=2x', 'B. y=x+2', 'C. y=2/x', 'D. y=x-2'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '出租车起价10元，每公里2元，费用y与里程x的函数是？', options: ['A. y=2x+10', 'B. y=10x+2', 'C. y=2x', 'D. y=x+12'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '某种商品进价100元，售价150元，卖出m件的利润是？', options: ['A. 50m', 'B. 150m', 'C. 100m', 'D. 250m'], correct_answer: 'A', difficulty: 'medium' },
+    { content: '水箱中有水100升，每分钟流出5升，同时流入2升，几分钟后水箱水量减少一半？', options: ['A. 20分钟', 'B. 10分钟', 'C. 15分钟', 'D. 25分钟'], correct_answer: 'A', difficulty: 'hard' },
+    { content: '甲、乙两人分别从A、B两地同时出发相向而行，甲速度为5km/h，乙速度为3km/h，2小时后相遇。若甲单独走完全程需要？', options: ['A. 3.2小时', 'B. 4小时', 'C. 3小时', 'D. 5小时'], correct_answer: 'A', difficulty: 'hard' },
+  ],
+  kp5_1: [
+    { content: '数据2, 3, 5, 5, 7的众数是？', options: ['A. 5', 'B. 4.4', 'C. 4', 'D. 3'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '数据1,2,3,4,5的平均数是？', options: ['A. 3', 'B. 2.5', 'C. 4', 'D. 3.5'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '数据3,3,3,3,3,3的中位数是？', options: ['A. 3', 'B. 3.5', 'C. 4', 'D. 2.5'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '一组数据从小到大排列为：2, x, 5, 7, y，已知中位数是6，平均数也是6，则x和y的值是？', options: ['A. x=5, y=10', 'B. x=4, y=12', 'C. x=6, y=9', 'D. x=5, y=11'], correct_answer: 'A', difficulty: 'hard' },
+    { content: '一组数据：3, 5, 7, 9, x。若中位数与平均数相等，则x的值是？', options: ['A. 6或9', 'B. 7', 'C. 8', 'D. 5或11'], correct_answer: 'A', difficulty: 'hard' },
+  ],
+  kp5_2: [
+    { content: '数据1, 1, 1, 1的方差是？', options: ['A. 0', 'B. 1', 'C. 4', 'D. 0.5'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '数据2,4,6,8的方差是？', options: ['A. 4', 'B. 5', 'C. 8', 'D. 2'], correct_answer: 'A', difficulty: 'medium' },
+    { content: '方差越大，说明数据？', options: ['A. 波动越大', 'B. 波动越小', 'C. 越稳定', 'D. 越集中'], correct_answer: 'A', difficulty: 'easy' },
+    { content: '甲组数据：1, 2, 3, 4, 5；乙组数据：2, 3, 3, 3, 4。哪组数据更稳定？', options: ['A. 乙组', 'B. 甲组', 'C. 一样稳定', 'D. 无法判断'], correct_answer: 'A', difficulty: 'hard' },
+    { content: '一组数据的方差为4，若每个数据都乘以2，则新数据的方差是？', options: ['A. 16', 'B. 8', 'C. 4', 'D. 2'], correct_answer: 'A', difficulty: 'hard' },
+  ],
+};
+&nbsp;
+function <span class="fstat-no" title="function not covered" >randomChoice(</span>arr) {
+<span class="cstat-no" title="statement not covered" >  return arr[Math.floor(Math.random() * arr.length)];</span>
+}
+&nbsp;
+/**
+ * 使用AI生成题目（当题库中无匹配难度时回退）
+ * @param {Object} params - 生成参数
+ * @param {string} params.kp_name - 知识点名称
+ * @param {string} params.difficulty - 难度 easy/medium/hard
+ * @param {string} params.chapter - 章节
+ * @returns {Promise&lt;Object|null&gt;} 生成的题目对象，失败返回null
+ */
+async function <span class="fstat-no" title="function not covered" >generateQuestionWithAI(</span>params) {
+<span class="cstat-no" title="statement not covered" >  try {</span>
+    const llm = <span class="cstat-no" title="statement not covered" >getLlmClient();</span>
+    const result = <span class="cstat-no" title="statement not covered" >await llm.complete({</span>
+      systemPrompt: '你是一个专业的数学题目生成助手。请严格按照用户要求的JSON格式返回题目。',
+      userPrompt: `请为以下知识点生成一道${params.difficulty === 'easy' ? '简单' : params.difficulty === 'medium' ? '中等' : '困难'}难度的选择题：
+&nbsp;
+知识点：${params.kp_name}
+章节：${params.chapter || '通用'}
+&nbsp;
+要求：
+1. 题目清晰明确
+2. 4个选项，只有一个正确
+3. 提供详细解析
+4. **只返回纯JSON格式，不要任何其他文字**
+&nbsp;
+JSON格式：
+{
+  "question": "题目内容",
+  "options": ["选项A", "选项B", "选项C", "选项D"],
+  "correct_answer": 0,
+  "explanation": "解析内容"
+}`,
+      temperature: 0.7,
+      maxTokens: 500
+    });
+&nbsp;
+    // 解析AI返回的JSON
+    let aiQuestion;
+<span class="cstat-no" title="statement not covered" >    try {</span>
+      // 清理可能的markdown代码块标记
+      let content = <span class="cstat-no" title="statement not covered" >result.content.trim();</span>
+<span class="cstat-no" title="statement not covered" >      if (content.startsWith('```')) {</span>
+<span class="cstat-no" title="statement not covered" >        content = content.replace(/^```(?:json)?\n?/, '').replace(/\n?```$/, '');</span>
+      }
+<span class="cstat-no" title="statement not covered" >      aiQuestion = JSON.parse(content);</span>
+    } catch (parseError) {
+<span class="cstat-no" title="statement not covered" >      console.error('[question_bank] AI返回解析失败:', parseError, 'raw:', result.content);</span>
+<span class="cstat-no" title="statement not covered" >      return null;</span>
+    }
+&nbsp;
+    // 转换为统一格式
+<span class="cstat-no" title="statement not covered" >    return {</span>
+      content: aiQuestion.question || aiQuestion.content,
+      options: aiQuestion.options || [],
+      correct_answer: typeof aiQuestion.correct_answer === 'number'
+        ? ['A', 'B', 'C', 'D'][aiQuestion.correct_answer]
+        : aiQuestion.correct_answer,
+      difficulty: params.difficulty,
+      ai_generated: true,
+    };
+  } catch (error) {
+<span class="cstat-no" title="statement not covered" >    console.error('[question_bank] AI生成失败:', error.message);</span>
+<span class="cstat-no" title="statement not covered" >    return null;</span>
+  }
+}
+&nbsp;
+async function <span class="fstat-no" title="function not covered" >generateQuestions(</span>plan, numQuestions = <span class="branch-0 cbranch-no" title="branch not covered" >5)</span> {
+  const questions = <span class="cstat-no" title="statement not covered" >[];</span>
+  const kpCount = <span class="cstat-no" title="statement not covered" >{};</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  for (let i = <span class="cstat-no" title="statement not covered" >0;</span> i &lt; Math.min(numQuestions, plan.length); i++) {</span>
+    const item = <span class="cstat-no" title="statement not covered" >plan[i];</span>
+    const kpId = <span class="cstat-no" title="statement not covered" >item.kp.kp_id;</span>
+    const difficulty = <span class="cstat-no" title="statement not covered" >item.difficulty;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (!kpCount[kpId]) <span class="cstat-no" title="statement not covered" >kpCount[kpId] = 0;</span></span>
+&nbsp;
+    const bank = <span class="cstat-no" title="statement not covered" >QUESTION_BANK[kpId];</span>
+<span class="cstat-no" title="statement not covered" >    if (bank) {</span>
+      // 先尝试从题库中找匹配难度的题目
+      const matching = <span class="cstat-no" title="statement not covered" >bank.filter(<span class="fstat-no" title="function not covered" >q </span>=&gt; <span class="cstat-no" title="statement not covered" >q.difficulty === difficulty)</span>;</span>
+&nbsp;
+      let q;
+      let usedFallback = <span class="cstat-no" title="statement not covered" >false;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      if (matching.length &gt; 0) {</span>
+        // 题库中有匹配难度，直接使用
+<span class="cstat-no" title="statement not covered" >        q = randomChoice(matching);</span>
+      } else {
+        // 题库中没有匹配难度，回退到AI生成
+<span class="cstat-no" title="statement not covered" >        console.log(`[question_bank] 题库${kpId}中无${difficulty}难度题目，使用AI生成`);</span>
+        const aiQuestion = <span class="cstat-no" title="statement not covered" >await generateQuestionWithAI({</span>
+          kp_name: item.kp.kp_name,
+          difficulty: difficulty,
+          chapter: item.kp.chapter_name,
+        });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        if (aiQuestion) {</span>
+<span class="cstat-no" title="statement not covered" >          q = aiQuestion;</span>
+<span class="cstat-no" title="statement not covered" >          usedFallback = true;</span>
+        } else {
+          // AI生成失败，回退到题库中任意题目
+<span class="cstat-no" title="statement not covered" >          console.warn(`[question_bank] AI生成失败，使用题库任意题目`);</span>
+<span class="cstat-no" title="statement not covered" >          q = randomChoice(bank);</span>
+        }
+      }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      questions.push({</span>
+        id: `q${kpCount[kpId] + 1}_${kpId}`,
+        type: 'choice',
+        content: q.content,
+        options: q.options,
+        correct_answer: q.correct_answer,
+        knowledge_point: item.kp.kp_name,
+        knowledge_point_id: kpId,
+        difficulty: difficulty, // 始终使用目标难度
+        chapter: item.kp.chapter_name,
+        ai_generated: usedFallback,
+      });
+<span class="cstat-no" title="statement not covered" >      kpCount[kpId]++;</span>
+    }
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return questions;</span>
+}
+&nbsp;
+function <span class="fstat-no" title="function not covered" >getAllKpIds(</span>) {
+<span class="cstat-no" title="statement not covered" >  return Object.keys(QUESTION_BANK);</span>
+}
+&nbsp;
+<span class="cstat-no" title="statement not covered" >module.exports = {</span>
+  QUESTION_BANK,
+  generateQuestions,
+  getAllKpIds,
+};
+&nbsp;</pre></td></tr></table></pre>
+
+                <div class='push'></div><!-- for sticky footer -->
+            </div><!-- /wrapper -->
+            <div class='footer quiet pad2 space-top1 center small'>
+                Code coverage generated by
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2026-05-29T13:29:46.610Z
+            </div>
+        <script src="../../prettify.js"></script>
+        <script>
+            window.onload = function () {
+                prettyPrint();
+            };
+        </script>
+        <script src="../../sorter.js"></script>
+        <script src="../../block-navigation.js"></script>
+    </body>
+</html>
+    

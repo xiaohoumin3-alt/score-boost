@@ -1,0 +1,9 @@
+{
+  "name": "recordKpRequest",
+  "version": "1.0.0",
+  "description": "记录知识点练习请求，用于热度计算",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

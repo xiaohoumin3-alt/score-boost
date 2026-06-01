@@ -1,0 +1,21 @@
+{
+  "envId": "cloud1-7gg9y9tjb2b867b6",
+  "functions": [
+    {
+      "name": "generateAiQuestion",
+      "timeout": 60,
+      "runtime": "Nodejs16.13",
+      "handler": "index.main",
+      "installDependency": true,
+      "envVariables": {
+        "LLM_MODEL": "deepseek-chat",
+        "LLM_API_KEY": "sk-0ab2f79426e64ec3b0a1eac5889835d2",
+        "LLM_BASE_URL": "https://api.deepseek.com",
+        "LLM_TIMEOUT_MS": "45000",
+        "LLM_MAX_RETRIES": "2",
+        "LLM_RETRY_DELAY_MS": "1000",
+        "LLM_MAX_RETRY_DELAY_MS": "10000"
+      }
+    }
+  ]
+}

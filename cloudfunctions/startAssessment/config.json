@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "cloudDb": {
+      "COLLECTION": ["assessments"]
+    }
+  },
+  "timeout": 60,
+  "memorySize": 256
+}

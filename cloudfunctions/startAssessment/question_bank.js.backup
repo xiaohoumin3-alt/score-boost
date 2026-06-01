@@ -1,0 +1,438 @@
+/**
+ * 题库 - 预置题目，支持离线快速出题
+ * 当题库中没有目标难度题目时，回退到AI生成，确保题目难度符合预期
+ * 更新时间: 2026-05-21 (集成GLM-5.1生成的202道题目)
+ */
+
+const { LlmClient } = require('./llm-client');
+const { evaluateIfNeeded } = require('./evaluator');
+
+// LLM客户端实例（按需初始化）
+let llmClient = null;
+
+function getLlmClient() {
+  if (!llmClient) {
+    llmClient = new LlmClient();
+  }
+  return llmClient;
+}
+
+const QUESTION_BANK = {
+  // kp1_1: 二次根式的概念
+  kp1_1: [
+    { content: '下列各式中，属于二次根式的是（）', options: ["√(-3)","³√(5)","√(x^2+1)","√(-x)"], correct_answer: 'C', difficulty: 'easy' },
+    { content: '下列各式中，属于二次根式的是（）', options: ["√(-3)","³√(5)","√(x^2+1)","√(-x)"], correct_answer: 'C', difficulty: 'easy' },
+    { content: '下列各式中，属于二次根式的是（）', options: ["A. √(-3)","B. ³√(2)","C. √(5)","D. √(-x^2)"], correct_answer: 'C', difficulty: 'easy' },
+    { content: '下列各式中，属于二次根式的是（）', options: ["√(-3)","³√(5)","√((-2)^2)","√(1-π)"], correct_answer: 'C', difficulty: 'easy' },
+    { content: '在下列各式中，属于二次根式的是（  ）', options: ["√(-3)","³√(2)","√(5)","√(-x^2-1)"], correct_answer: 'C', difficulty: 'easy' },
+    { content: '已知二次根式 "√(-2x+6)" 在实数范围内有意义，则 "x" 的取值范围是（  ）', options: [""x > 3"",""x ≤ 3"",""x ≥ 3"",""x < 3""], correct_answer: 'B', difficulty: 'medium' },
+    { content: '已知x为任意实数，则下列各式中，一定是二次根式的是（）', options: ["A. "√(-x-2)"","B. "√(x^2+1)"","C. "√(1/x^2)"","D. "³√(x)""], correct_answer: 'B', difficulty: 'medium' },
+    { content: '已知实数x满足√(x-3) + |2x-5| = 0，则x的值为（　　）', options: ["x = 3","x = 2.5","x = 5","无解"], correct_answer: 'B', difficulty: 'medium' },
+    { content: '已知二次根式 "√(3-2x)" 在实数范围内有意义，则 "x" 的取值范围是（  ）', options: [""x > 3/2"",""x ≤ 3/2"",""x < 3/2"",""x ≥ 3/2""], correct_answer: 'B', difficulty: 'medium' },
+    { content: '已知a, b为实数，且满足等式 "√(a-2024) + (b + 2025)^2 = a"。若将二次根式 "√(a-b)" 与 "√(a+b)" 化简为最简二次根式后，它们是同类二次根式，则 "b" 的值为（）', options: [""-2024"",""-2025"",""-2026"",""-2027""], correct_answer: 'C', difficulty: 'hard' },
+    { content: '已知实数a、b满足等式 "√(2a-1) + √(1-2a) = b + 2"，则 "√(ab)" 的值为（　　）', options: [""√(2)/2"",""-√(2)/2"",""1/2"",""√(2)""], correct_answer: 'A', difficulty: 'hard' },
+    { content: '若实数 "x" 满足 "√(x^2-4) + √(4-x^2) = √(x-k) + 2"，则关于 "x" 的方程 "kx^2 - 5x + 1 = 0" 的根的情况是（　　）', options: ["有两个不相等的实数根","有两个相等的实数根","只有一个实数根","没有实数根"], correct_answer: 'A', difficulty: 'hard' },
+    { content: '已知实数a、b满足 "b = √(-(a-2)^2) + √(a^2-6a+9) + 1"，则 "√(a+b)" 的值为（　　）', options: [""2"",""3"",""√(3)"",""√(2)""], correct_answer: 'A', difficulty: 'hard' },
+  ],
+  // kp1_2: 二次根式的性质
+  kp1_2: [
+    { content: '计算：√12 的结果是（）', options: ["2√3","3√2","4√3","2√6"], correct_answer: 'A', difficulty: 'easy' },
+    { content: '计算：√16 =', options: ["4","±4","8","16"], correct_answer: 'A', difficulty: 'easy' },
+    { content: '计算：√(-3)² 的结果是（ ）', options: ["A. 3","B. -3","C. ±3","D. √3"], correct_answer: 'A', difficulty: 'easy' },
+    { content: '化简二次根式：√12 的结果是（ ）', options: ["2√3","3√2","4√3","2√6"], correct_answer: 'A', difficulty: 'easy' },
+    { content: '计算：√12 的结果是（  ）', options: ["2√3","3√2","4√3","2√2"], correct_answer: 'A', difficulty: 'easy' },
+    { content: '已知实数a在数轴上的对应点如图所示（原点为O，点A在原点左侧），化简二次根式 √(a²) + |2a| 的结果是（ ）', options: ["3a","-3a","a","-a"], correct_answer: 'B', difficulty: 'medium' },
+    { content: '已知实数a在数轴上的对应点如图所示，化简二次根式 √(a²) - √((a-2)²) 的结果是（ ）\n（注：点a在原点左侧，且位于-1和-2之间）', options: ["2","-2","2a - 2","-2a + 2"], correct_answer: 'A', difficulty: 'medium' },
+    { content: '已知实数a在数轴上的对应点如图所示，化简 √(a²) + √((a-1)²) 的结果是（ ）\n（注：数轴上a在原点左侧，且a < 0）', options: ["1 - 2a","2a - 1","1","-1"], correct_answer: 'A', difficulty: 'medium' },
+    { content: '已知实数a在数轴上的对应点如图所示（原点为O，点A表示a，且点A在原点左侧），则化简 √(a²) + |2-a| 的结果是（ ）。', options: ["2","2a - 2","2 - 2a","-2"], correct_answer: 'C', difficulty: 'medium' },
+    { content: '已知实数a在数轴上的对应点如图所示，化简 √(a²) - √((a-1)²) 的结果是（ ）。\n（注：数轴上a在原点左侧，且a<1）', options: ["2a - 1","1","-1","-2a + 1"], correct_answer: 'C', difficulty: 'medium' },
+    { content: '已知实数a, b满足 "√(a-2023) + (b+1)^2 = a"，则化简 "√(a^2 + b^2) + √((a-2024)^2) - |b-2|" 的结果为', options: ["4047","4049","2023","2025"], correct_answer: 'A', difficulty: 'hard' },
+    { content: '已知实数 "a" 满足 "√(2023) < a < √(2024)"，则化简代数式 "√(a^2 - 2a + 1) + √(a^2 + 4a + 4) - \\sqrt((a - √(2024))^2)" 的结果为', options: [""3a + 1"",""a + 3"",""-a - 3"",""3a - 2025""], correct_answer: 'B', difficulty: 'hard' },
+    { content: '已知实数 "a"、"b"、"c" 在数轴上的位置如图所示，且满足 "|a| > |b|"，则化简 "√((a-b)^2) - √((b-c)^2) + √((c-a)^2) + √((a+b)^2)" 的结果为（　　）', options: [""2a - 2b"",""-2b"",""2a"",""2c""], correct_answer: 'C', difficulty: 'hard' },
+    { content: '已知实数a、b、c满足 "√(a-2023) + |b+5| + (c-√(3))^2 = 0"，则 "√((a+c)^2) - √(b^2) + √((a-c)^2)" 的值为（　）', options: [""4046-√(3)"",""4046+√(3)"",""4051+√(3)"",""4051-√(3)""], correct_answer: 'B', difficulty: 'hard' },
+    { content: '已知实数a, b满足 "|2023-a| + √(a-2024) = b"，求 "√(b - 2023)" 的值（ ）', options: [""a - 2024"",""2024 - a"",""a - 2023"",""2023 - a""], correct_answer: 'B', difficulty: 'hard' },
+  ],
+  // kp1_3: 二次根式的运算
+  kp1_3: [
+    { content: '计算 √8 - √2 的结果是（  ）', options: ["√6","2√2","3","√2"], correct_answer: 'D', difficulty: 'easy' },
+    { content: '计算：√8 - √2 = ？', options: ["√2","2√2","3√2","2"], correct_answer: 'B', difficulty: 'easy' },
+    { content: '计算 √8 - √2 的结果是（  ）', options: ["√6","2","2√2","√2"], correct_answer: 'D', difficulty: 'easy' },
+    { content: '计算：√12 - √3 = ', options: ["√3","2√3","3","√9"], correct_answer: 'B', difficulty: 'easy' },
+    { content: '计算 √2 × √8 的结果是（  ）', options: ["√10","4","2√2","8"], correct_answer: 'B', difficulty: 'easy' },
+    { content: '计算 (2√3 - 1)(2√3 + 1) 的结果是（ ）', options: ["10","11","12","13"], correct_answer: 'B', difficulty: 'medium' },
+    { content: '计算 (√12 - √3) × √3 的结果是（ ）', options: ["3","√3","3√3","6"], correct_answer: 'A', difficulty: 'medium' },
+    { content: '计算 (2√3 + √2) × √3 - √24 的结果是（ ）', options: ["6","6 - √2","6 + √2","3 + 2√2"], correct_answer: 'B', difficulty: 'medium' },
+    { content: '计算 (2√3 - √2)² 的结果是（ ）', options: ["14 - 4√6","14 + 4√6","10 - 4√6","2"], correct_answer: 'A', difficulty: 'medium' },
+    { content: '计算 (2√3 + √2) × (2√3 - √2) 的结果是（  ）', options: ["10","14","2","10√6"], correct_answer: 'A', difficulty: 'medium' },
+    { content: '已知实数x满足 x = √(13 + √(168)) + √(13 - √(168))，求 x² 的值。', options: ["24","26","28","30"], correct_answer: 'B', difficulty: 'hard' },
+    { content: '已知 "x = \\sqrt(5+2√(6))"，"y = \\sqrt(5-2√(6))"，求代数式 "x^3 - y^3/x - y" 的值为', options: [""8√(2)"",""12√(2)"",""16√(2)"",""24√(2)""], correct_answer: 'B', difficulty: 'hard' },
+    { content: '已知实数 "a" 满足 "2022 - a^2 + √(2022 - a) = a"，求 "(√(2022 + a) + a)^2" 的值', options: ["2021","2022","2023","2024"], correct_answer: 'C', difficulty: 'hard' },
+  ],
+  // kp2_1: 勾股定理
+  kp2_1: [
+    { content: '在直角三角形中，两条直角边的长度分别为3和4，则斜边的长度为（）', options: ["5","6","7","8"], correct_answer: 'A', difficulty: 'easy' },
+    { content: '在直角三角形中，两条直角边的长度分别为3和4，则斜边的长度为（）', options: ["5","6","7","8"], correct_answer: 'A', difficulty: 'easy' },
+    { content: '在直角三角形中，两条直角边的长度分别为3和4，则斜边的长度为（）', options: ["5","6","7","8"], correct_answer: 'A', difficulty: 'easy' },
+    { content: '在直角三角形中，两条直角边的长度分别为3和4，则斜边的长度为（  ）', options: ["5","6","7","8"], correct_answer: 'A', difficulty: 'easy' },
+    { content: '在Rt△ABC中，∠C=90°，已知两直角边AC=3，BC=4，则斜边AB的长为多少？', options: ["A. 5","B. 6","C. 7","D. 8"], correct_answer: 'A', difficulty: 'easy' },
+    { content: '已知一个直角三角形的两条边长分别为6和8，则第三条边的长为（ ）', options: ["10","2√7","10或2√7","14"], correct_answer: 'C', difficulty: 'medium' },
+    { content: '已知一个直角三角形的两边长分别为6和8，则第三边的长为（ ）', options: ["10","2√7","10或2√7","14"], correct_answer: 'C', difficulty: 'medium' },
+    { content: '已知一个直角三角形的两边长分别为6和8，则第三条边的长为（ ）', options: ["10","2√7","10或2√7","14"], correct_answer: 'C', difficulty: 'medium' },
+    { content: '已知一个直角三角形的两边长分别为3和4，则第三边的长为（ ）', options: ["5","7","5或√7","5或7"], correct_answer: 'C', difficulty: 'medium' },
+    { content: '如图，在矩形纸片ABCD中，已知AB=6，AD=8。将该矩形纸片沿直线EF折叠，使得点B恰好落在对角线AC上，且折痕EF分别交AB、BC于点E、F。则折痕EF的长度约为多少？', options: ["3.75","4.25","4.80","5.00"], correct_answer: 'A', difficulty: 'hard' },
+    { content: '已知在△ABC中，AB=15，AC=13，BC边上的高AD=12。则△ABC的周长为（　　）', options: ["42","32","42或32","45或35"], correct_answer: 'C', difficulty: 'hard' },
+    { content: '已知在△ABC中，AB=15，AC=13，BC边上的高AD=12。则△ABC的面积为（ ）。', options: ["24","84","24或84","30或84"], correct_answer: 'C', difficulty: 'hard' },
+  ],
+  // kp2_2: 勾股定理的逆定理
+  kp2_2: [
+    { content: '下列各组数中，能作为直角三角形三边长的是（）', options: ["1, 2, 3","2, 3, 4","3, 4, 5","4, 5, 6"], correct_answer: 'C', difficulty: 'easy' },
+    { content: '下列各组数中，能作为直角三角形三边长的是（ ）', options: ["1, 2, 3","2, 3, 4","3, 4, 5","4, 5, 6"], correct_answer: 'C', difficulty: 'easy' },
+    { content: '下列各组数中，能作为直角三角形三边长的是（）', options: ["1, 2, 3","2, 3, 4","3, 4, 5","4, 5, 6"], correct_answer: 'C', difficulty: 'easy' },
+    { content: '下列各组数中，能作为直角三角形三边长的是（  ）', options: ["A. 1, 2, 3","B. 3, 4, 5","C. 2, 3, 4","D. 4, 5, 6"], correct_answer: 'B', difficulty: 'easy' },
+    { content: '下列各组数中，是勾股数的一组是', options: ["1, 2, 3","3, 4, 5","2, 3, 4","4, 5, 6"], correct_answer: 'B', difficulty: 'easy' },
+    { content: '下列各组数中，能作为直角三角形三边长的是（  ）', options: ["A. 2，3，4","B. 3，4，5","C. 4，5，6","D. 5，6，7"], correct_answer: 'B', difficulty: 'medium' },
+    { content: '下列各组数中，能作为直角三角形三边长的是（  ）', options: ["2，3，4","3，4，5","4，5，6","5，6，7"], correct_answer: 'B', difficulty: 'medium' },
+    { content: '下列各组数中，能作为直角三角形三边长的是（  ）', options: ["2，3，4","3，4，5","4，5，6","5，6，7"], correct_answer: 'B', difficulty: 'medium' },
+    { content: '下列各组数中，能作为直角三角形三边长的是（  ）', options: ["A. 3, 4, 6","B. 5, 12, 13","C. 4, 5, 6","D. 6, 8, 12"], correct_answer: 'B', difficulty: 'medium' },
+    { content: '在下列各组线段中，能构成直角三角形的是（  ）', options: ["2, 3, 4","3, 4, 6","5, 12, 13","4, 5, 6"], correct_answer: 'C', difficulty: 'medium' },
+    { content: '已知△ABC的三边长分别为a、b、c，且满足等式(c² - a² - b²)² + (a + b - c)² = 0。若将△ABC的三边长分别扩大为原来的2倍，得到△A\'B\'C\'，则△A\'B\'C\'一定是（　　）', options: ["直角三角形","等腰三角形","等边三角形","钝角三角形"], correct_answer: 'A', difficulty: 'hard' },
+    { content: '已知在四边形ABCD中，AB=3，BC=4，CD=12，DA=13。连接对角线AC，若∠B=90°，则四边形ABCD的面积为', options: ["24","30","36","42"], correct_answer: 'C', difficulty: 'hard' },
+    { content: '已知△ABC的三边长分别为a、b、c，且满足 "(a+c)(a-c) + b^2 = 0"。则以 "√(a^2 + b^2)"、"√(b^2 + c^2)"、"√(a^2 + b^2 + c^2)" 为边长的三角形是（ ）', options: ["直角三角形","锐角三角形","钝角三角形","等腰三角形"], correct_answer: 'A', difficulty: 'hard' },
+    { content: '已知三角形ABC的三边长a, b, c满足条件：a² + b² + c² = 200，且 5a - 12b = 0。若将此三角形放大，使其面积为150，则放大后的三角形最大边长为多少？', options: ["13","26","30","39"], correct_answer: 'C', difficulty: 'hard' },
+    { content: '在△ABC中，点D在边BC上。已知AB=4，AC=5，BD=3，CD=1，且AD=√13，则△ABC的面积为（）', options: ["4","5","6","7"], correct_answer: 'B', difficulty: 'hard' },
+  ],
+  // kp2_3: 勾股定理的应用
+  kp2_3: [
+    { content: '一个直角三角形的两条直角边长分别为3和4，则斜边长为（）', options: ["5","6","7","8"], correct_answer: 'A', difficulty: 'easy' },
+    { content: '一个直角三角形的两条直角边长分别为3和4，则斜边长为（ ）', options: ["5","6","7","8"], correct_answer: 'A', difficulty: 'easy' },
+    { content: '一个直角三角形的两条直角边长分别为3和4，则斜边长为（  ）', options: ["5","6","7","8"], correct_answer: 'A', difficulty: 'easy' },
+    { content: '一个直角三角形的两条直角边长分别为3和4，则斜边长为（）', options: ["5","6","7","8"], correct_answer: 'A', difficulty: 'easy' },
+    { content: '一个直角三角形的两条直角边长分别为3和4，则斜边长为（  ）', options: ["5","6","7","8"], correct_answer: 'A', difficulty: 'easy' },
+    { content: '一架长为10米的梯子斜靠在垂直的墙壁上，梯子底端距离墙脚的距离为6米。若梯子顶端沿墙壁向下滑动了2米，则梯子底端在水平地面上向外滑动的距离是多少米？', options: ["1","2","3","4"], correct_answer: 'B', difficulty: 'medium' },
+    { content: '一架长为10米的梯子斜靠在垂直的墙壁上，梯子底端距离墙脚的距离为6米。若梯子顶端沿墙壁向下滑动了2米，则梯子底端在水平地面上向外滑动的距离是多少米？', options: ["2米","3米","4米","5米"], correct_answer: 'A', difficulty: 'medium' },
+    { content: '如图，一根垂直于地面的旗杆在离地面3米处折断，旗杆顶部落在离旗杆底部4米处的地面上，则折断之前旗杆的总高度为（ ）。', options: ["5米","7米","8米","12米"], correct_answer: 'C', difficulty: 'medium' },
+    { content: '一架长为10米的梯子斜靠在垂直的墙壁上，梯子底端距离墙脚6米。如果梯子顶端沿墙壁向下滑动了2米，那么梯子底端将在水平地面上向外滑动多少米？', options: ["1米","2米","3米","4米"], correct_answer: 'B', difficulty: 'medium' },
+    { content: '一架长为10米的梯子斜靠在垂直的墙壁上，梯子底端距离墙脚的距离为6米。若梯子顶端沿墙壁向下滑动了2米，则梯子底端在水平地面上向外滑动的距离是（）米。', options: ["8","2","6","4"], correct_answer: 'B', difficulty: 'medium' },
+    { content: '如图，在矩形纸片ABCD中，已知AB=8，AD=10。点E是边CD上的动点，将纸片沿直线AE折叠，使点D落在点F处。连接CF，若△CEF是直角三角形，则CE的长为（ ）', options: ["4","3或4","2或4","1或4"], correct_answer: 'C', difficulty: 'hard' },
+    { content: '如图，在矩形ABCD中，AB=4，BC=6。点E是边BC上的一点，且CE=1。将△ABE沿直线AE翻折，点B落在点F处，连接CF。则CF的长约为', options: ["2.1","2.2","2.3","2.4"], correct_answer: 'B', difficulty: 'hard' },
+    { content: '如图，在矩形ABCD中，AB=4，AD=6。点E为边AD上的一个动点，将△ABE沿直线BE折叠，点A落在点F处。若点F恰好落在矩形ABCD的边或对角线上，则线段AE的长为（ ）。', options: ["3或4","2或3","3或2√(5)","2或4"], correct_answer: 'C', difficulty: 'hard' },
+    { content: '如图，在矩形纸片ABCD中，已知AB=8，AD=10。点E为边CD上一点，将△BCE沿BE折叠，使点C恰好落在AD边上的点F处。则折痕BE的长度约为多少？', options: ["A. 10","B. 4√5","C. 2√29","D. 10.5"], correct_answer: 'C', difficulty: 'hard' },
+    { content: '如图，在矩形纸片ABCD中，已知AB=8，AD=10。将其沿折痕EF折叠，使得顶点B恰好落在边AD上的点G处。已知点F在边BC上，且BF=3。则折痕EF的长度大约为', options: ["8.5","8.6","8.7","8.8"], correct_answer: 'C', difficulty: 'hard' },
+  ],
+  // kp3_1: 平行四边形的性质
+  kp3_1: [
+    { content: '在平行四边形ABCD中，已知∠A=60°，则∠B的度数是（）', options: ["60°","120°","90°","30°"], correct_answer: 'B', difficulty: 'easy' },
+    { content: '在平行四边形ABCD中，已知∠A=60°，则∠B的度数是（  ）', options: ["60°","120°","90°","30°"], correct_answer: 'B', difficulty: 'easy' },
+    { content: '在平行四边形ABCD中，已知∠A=60°，则∠B的度数是（）', options: ["60°","120°","90°","30°"], correct_answer: 'B', difficulty: 'easy' },
+    { content: '在平行四边形ABCD中，已知∠A=60°，则∠B的度数是（）', options: ["30°","60°","120°","150°"], correct_answer: 'C', difficulty: 'easy' },
+    { content: '在平行四边形ABCD中，已知∠A=50°，则∠C的度数是（）', options: ["40°","50°","130°","150°"], correct_answer: 'B', difficulty: 'easy' },
+    { content: '在平行四边形ABCD中，对角线AC与BD相交于点O。已知AB=5，BC=8，AC=10，则对角线BD的长为', options: ["2√11","2√31","2√21","2√41"], correct_answer: 'C', difficulty: 'medium' },
+    { content: '在平行四边形ABCD中，对角线AC与BD相交于点O。已知AB=5，BC=7，AC=8，则BD的长度为（ ）', options: ["4","6","8","10"], correct_answer: 'B', difficulty: 'medium' },
+    { content: '如图，在平行四边形ABCD中，对角线AC与BD相交于点O。已知AB=5，BC=7，AC=8，则BD的长度为（ ）', options: ["6","8","10","12"], correct_answer: 'C', difficulty: 'medium' },
+    { content: '在平行四边形ABCD中，对角线AC与BD相交于点O。已知AB=5，BC=7，AC=8，则BD的长度为（ ）', options: ["4","6","8","10"], correct_answer: 'B', difficulty: 'medium' },
+    { content: '在平行四边形ABCD中，对角线AC与BD相交于点O。已知AB=5，BC=7，AC=8，则对角线BD的长为', options: ["6","8","10","12"], correct_answer: 'C', difficulty: 'medium' },
+    { content: '如图，在平行四边形ABCD中，对角线AC与BD交于点O，AB=6，BC=8。点E为边BC上的一个动点，过点E作EF⊥BD于点F，作EG⊥AC于点G。在点E从点B运动到点C的过程中，EF+EG的最大值约为多少？', options: ["6","约6.4","约6.8","约7.2"], correct_answer: 'C', difficulty: 'hard' },
+    { content: '在平行四边形ABCD中，对角线AC与BD交于点O。已知AB=6，AD=8，且△AOB的周长为15。若点E、F分别在边AD和CD上，且AE=2，CF=3，连接BE交AC于点G，连接BF交AC于点H，则线段GH的长度为（ ）。', options: ["5/7","6/7","1","8/7"], correct_answer: 'B', difficulty: 'hard' },
+    { content: '在平行四边形ABCD中，∠A的平分线交BC于点E，∠B的平分线交CD于点F，AE与BF相交于点G。若AB=6，BC=8，且点G到AB的距离为2，则平行四边形ABCD的面积为（ ）', options: ["24","28","32","36"], correct_answer: 'A', difficulty: 'hard' },
+    { content: '在平行四边形ABCD中，对角线AC与BD相交于点O。已知AB=3，AD=4，点E、F、G、H分别是边AB、BC、CD、DA上的动点，且满足AE=BF=CG=DH。则四边形EFGH面积的最大值为', options: ["6","8","12","16"], correct_answer: 'A', difficulty: 'hard' },
+    { content: '如图，在平行四边形ABCD中，对角线AC与BD交于点O，AB=6，BC=8。将△ABO沿直线AC翻折得到△AB\'O，连接DB\'。若△ADB\'是以AD为直角边的等腰直角三角形，则平行四边形ABCD的面积为（ ）。', options: ["24","12","48","16"], correct_answer: 'B', difficulty: 'hard' },
+  ],
+  // kp3_2: 平行四边形的判定
+  kp3_2: [
+    { content: '在四边形ABCD中，已知AD∥BC，若要添加一个条件使得四边形ABCD为平行四边形，则下列条件中正确的是（　　）', options: ["AB = BC","AD = BC","∠A + ∠D = 180°","∠B + ∠C = 180°"], correct_answer: 'B', difficulty: 'easy' },
+    { content: '在四边形ABCD中，已知AB∥CD，若增加下列条件，不能判定四边形ABCD为平行四边形的是（  ）', options: ["AB=CD","AD∥BC","AD=BC","∠A=∠B"], correct_answer: 'D', difficulty: 'easy' },
+    { content: '在四边形ABCD中，已知AB∥CD，如果要添加一个条件使得四边形ABCD为平行四边形，下列条件中正确的是（  ）', options: ["AB = CD","AD = BC","∠A = ∠B","AB = AD"], correct_answer: 'A', difficulty: 'easy' },
+    { content: '在四边形ABCD中，已知AB平行且等于CD，则四边形ABCD是（）', options: ["梯形","平行四边形","矩形","菱形"], correct_answer: 'B', difficulty: 'easy' },
+    { content: '在四边形ABCD中，已知AB平行且等于CD，则四边形ABCD是（  ）', options: ["梯形","平行四边形","矩形","菱形"], correct_answer: 'B', difficulty: 'easy' },
+    { content: '在四边形ABCD中，对角线AC与BD相交于点O。下列条件中，不能判定四边形ABCD是平行四边形的是（）', options: ["AB=CD，AD=BC","AB∥CD，AD=BC","AB∥CD，AB=CD","OA=OC，OB=OD"], correct_answer: 'B', difficulty: 'medium' },
+    { content: '在四边形ABCD中，对角线AC与BD相交于点O，下列条件中，不能判定四边形ABCD是平行四边形的是（）', options: ["AB∥CD，AD∥BC","AB=CD，AD=BC","AO=CO，BO=DO","AB∥CD，AD=BC"], correct_answer: 'D', difficulty: 'medium' },
+    { content: '在四边形ABCD中，对角线AC与BD相交于点O。下列条件中，不能判定四边形ABCD是平行四边形的是（）', options: ["AB = CD，AD = BC","AB ∥ CD，AB = CD","AO = CO，BO = DO","AB ∥ CD，AD = BC"], correct_answer: 'D', difficulty: 'medium' },
+    { content: '在四边形ABCD中，对角线AC与BD相交于点O，下列条件中，不能判定四边形ABCD是平行四边形的是（　　）', options: ["AB＝CD，AD＝BC","AB∥CD，AB＝CD","OA＝OC，OB＝OD","AB∥CD，AD＝BC"], correct_answer: 'D', difficulty: 'medium' },
+    { content: '在四边形ABCD中，对角线AC与BD相交于点O，下列条件中，不能判定四边形ABCD是平行四边形的是（　　）', options: ["AB＝CD，AD＝BC","AB∥CD，AB＝CD","OA＝OC，OB＝OD","AB∥CD，AD＝BC"], correct_answer: 'D', difficulty: 'medium' },
+    { content: '在四边形ABCD中，对角线AC与BD相交于点O。已知AB=5，BC=6，CD=5，且OA=4，OD=3，则四边形ABCD的面积为', options: ["24","12","20","16"], correct_answer: 'A', difficulty: 'hard' },
+    { content: '在四边形ABCD中，对角线AC与BD相交于点O。给出下列四个条件：① "AB \\∥ CD"；② "AB = CD"；③ "OA = OC"；④ "∠ BAD = ∠ BCD"。从这四个条件中任意选取两个，在所有可能组成的条件组合中，能够判定四边形ABCD是平行四边形的组合共有（ ）种。', options: ["3种","4种","5种","6种"], correct_answer: 'C', difficulty: 'hard' },
+    { content: '在四边形ABCD中，对角线AC与BD相交于点O。下列条件中，能判定四边形ABCD是平行四边形的是（）\n①OA=OC，OB=OD；\n②AB=CD，AD=BC；\n③AB∥CD，AD=BC；\n④AB∥CD，AB=CD。', options: ["仅①②","仅①②④","仅①③④","①②③④"], correct_answer: 'B', difficulty: 'hard' },
+    { content: '在四边形ABCD中，对角线AC与BD相交于点O。给出下列四个条件：①AB＝CD；②AD＝BC；③OA＝OC；④OB＝OD。从中任选两个条件作为已知，能判定四边形ABCD是平行四边形的概率为（　　）', options: ["A. 1/4","B. 1/3","C. 1/2","D. 2/3"], correct_answer: 'C', difficulty: 'hard' },
+    { content: '在四边形ABCD中，对角线AC与BD相交于点O。给出下列四个条件：①AB=CD；②AD=BC；③OA=OC；④OB=OD。从中任选两个条件作为已知条件，能判定四边形ABCD是平行四边形的概率为', options: ["1/2","2/3","5/6","1"], correct_answer: 'C', difficulty: 'hard' },
+  ],
+  // kp3_3: 特殊的平行四边形
+  kp3_3: [
+    { content: '矩形具有而一般平行四边形不一定具有的性质是（ ）', options: ["对角线互相平分","对角线相等","对边相等","对角相等"], correct_answer: 'B', difficulty: 'easy' },
+    { content: '矩形具有而一般平行四边形不一定具有的性质是（）', options: ["对角线互相平分","对角线相等","两组对边分别平行","两组对边分别相等"], correct_answer: 'B', difficulty: 'easy' },
+    { content: '矩形具有而一般平行四边形不具有的性质是（  ）', options: ["对角线互相平分","对角线相等","对边相等","对角相等"], correct_answer: 'B', difficulty: 'easy' },
+    { content: '矩形具有而一般平行四边形不一定具有的性质是（  ）', options: ["对角线互相平分","对角线相等","对边相等","对角相等"], correct_answer: 'B', difficulty: 'easy' },
+    { content: '矩形具有而一般平行四边形不一定具有的性质是（  ）', options: ["对角线互相平分","对角线相等","两组对边分别平行","两组对边分别相等"], correct_answer: 'B', difficulty: 'easy' },
+    { content: '如图，在菱形ABCD中，对角线AC与BD相交于点O，已知AB=5，BD=8，则菱形ABCD的面积为（ ）。', options: ["12","24","40","48"], correct_answer: 'B', difficulty: 'medium' },
+    { content: '菱形ABCD的对角线AC=8，BD=6，则菱形的周长为（ ）', options: ["24","20","14","10"], correct_answer: 'B', difficulty: 'medium' },
+    { content: '如图，在菱形ABCD中，对角线AC与BD相交于点O，已知AB=5，BD=8，则菱形ABCD的面积为（ ）。', options: ["A. 12","B. 24","C. 40","D. 48"], correct_answer: 'B', difficulty: 'medium' },
+    { content: '菱形ABCD的对角线AC，BD相交于点O，E是AD的中点，连接OE。若OE=2，则菱形ABCD的周长为（  ）', options: ["8","12","16","20"], correct_answer: 'C', difficulty: 'medium' },
+    { content: '如图，在菱形ABCD中，对角线AC与BD相交于点O，已知AB=5，BD=8，则菱形ABCD的面积为（ ）。', options: ["24","40","48","20"], correct_answer: 'A', difficulty: 'medium' },
+    { content: '在正方形ABCD外作等腰直角三角形CDE，且∠CDE=90°。若正方形的边长为4，连接AE、BE，则△ABE的面积为', options: ["8","12","16","20"], correct_answer: 'B', difficulty: 'hard' },
+    { content: '在正方形ABCD中，AB=4。点E在边BC上，且BE=3。连接AE，将△ABE沿AE折叠，使点B落在点F处，延长EF交直线CD于点G，连接AG。求△ADG的面积为（ ）。', options: ["4","5","6","8"], correct_answer: 'B', difficulty: 'hard' },
+    { content: '在正方形ABCD中，AB=4，点E、F分别是边BC、CD上的动点。连接AE、AF，分别交对角线BD于点M、N。若∠EAF=45°，则MN的最大值为（ ）。', options: ["2","2√2","3","4"], correct_answer: 'B', difficulty: 'hard' },
+    { content: '如图，在正方形 "ABCD" 外侧作等边 "△ ADE"，连接 "BE" 交对角线 "AC" 于点 "F"，连接 "DF"。若正方形的边长为 "2"，则 "△ BDF" 的面积约为（）', options: [""2√(3)-2/2"",""2√(3)-2"",""√(3)-1"",""3√(3)-4/2""], correct_answer: 'B', difficulty: 'hard' },
+  ],
+  // kp4_1: 函数的概念
+  kp4_1: [
+    { content: '下列关系中，y是x的函数的是（  ）', options: ["y=±√x (x≥0)","y=x²","|y|=x (x≥0)","y²=x (x≥0)"], correct_answer: 'B', difficulty: 'easy' },
+    { content: '下列关系中，y是x的函数的是（ ）', options: ["y是x的绝对值（即y=|x|）","x是y的绝对值（即|x|=y）","y是x的平方根（即y=±√x）","y是x的倒数（即y=1/x）且x≠0"], correct_answer: 'A', difficulty: 'easy' },
+    { content: '下列关系式中，y是x的函数的是（ ）', options: ["y² = x (x ≥ 0)","|y| = x (x ≥ 0)","y = 2x + 1","y² = x²"], correct_answer: 'C', difficulty: 'easy' },
+    { content: '下列关系中，y是x的函数的是（ ）', options: ["y是x的正比例函数","y是x的反比例函数","y是x的一次函数","以上都是"], correct_answer: 'D', difficulty: 'easy' },
+    { content: '下列关系中，y是x的函数的是（ ）', options: ["y是x的绝对值，即y=|x|","x是y的绝对值，即|x|=y","y是x的平方根，即y=±√x","y是x的倒数，即xy=1"], correct_answer: 'A', difficulty: 'easy' },
+    { content: '下列变量之间的关系中，y是x的函数的是（ ）\n① y=|x|；② y²=x；③ y=3x+1；④ y=±√x (x≥0)', options: ["①②","①③","②④","③④"], correct_answer: 'B', difficulty: 'medium' },
+    { content: '下列变量之间的关系中，不是一次函数的是（ ）', options: ["y = 2x","y = -5x + 3","y = 4/x","y = -1/2x - 7"], correct_answer: 'C', difficulty: 'medium' },
+    { content: '下列变量之间的关系中，y是x的函数的是（ ）', options: ["y是三角形的面积，x是这个三角形的底边长","y是矩形的长，x是这个矩形的面积","y是正方形的周长，x是这个正方形的面积","y是圆的面积，x是这个圆的半径"], correct_answer: 'D', difficulty: 'medium' },
+    { content: '下列各关系式中，y是x的函数的是（ ）', options: [""x^2 + y^2 = 1"","y = ± √(x) (x \\ge 0)",""y = x^2"","|y| = x (x \\ge 0)"], correct_answer: 'C', difficulty: 'medium' },
+    { content: '下列各关系式中，y是x的函数的是（　　）', options: ["y²=x","|y|=x","y=|x|","y²=x²且y≠x"], correct_answer: 'C', difficulty: 'medium' },
+    { content: '已知函数 "y = \\\\frac(|x+2|)(\\√(x^2+2x-3)) + (x-1)^0"，则自变量 "x" 的取值范围是（ ）', options: [""x > 1"","x \\ge -2 且 x ≠ 1",""x > 1" 且 "x ≠ 2"",""x > -3" 且 "x ≠ -2, x ≠ 1""], correct_answer: 'C', difficulty: 'hard' },
+    { content: '已知函数 "f(x) = \\2x + m/x - 3"，若对于任意不相等的实数 "x_1, x_2"，都有 "\\f(x_1) - f(x_2)/x_1 - x_2 > 0" 成立，且方程 "f(x) = 2" 的解为负数，则整数 "m" 的值为（　　）', options: [""m = 7"",""m = 8"",""m = 9"",""m = 10""], correct_answer: 'C', difficulty: 'hard' },
+    { content: '已知函数 y = \\frac{\\sqrt{x+3}}{|x|-1} + \\frac{1}{x^2-4}，则自变量 x 的取值范围是（ ）', options: ["x ≥ -3 且 x ≠ ±2","x > -3 且 x ≠ ±2","x ≥ -3 且 x ≠ ±1 且 x ≠ ±2","x > -3 且 x ≠ -2 且 x ≠ 1 且 x ≠ 2"], correct_answer: 'B', difficulty: 'hard' },
+    { content: '已知函数 "y = \\\\frac(\\√(x^2 - 4))(x - 2) + (x + 2)^0"，则自变量 "x" 的取值范围是（ ）', options: ["x \\ge 2","x \\ge -2 且 x ≠ 2",""x > 2"",""x > 2" 或 "x ≤ -2""], correct_answer: 'C', difficulty: 'hard' },
+  ],
+  // kp4_2: 一次函数的图像
+  kp4_2: [
+    { content: '一次函数 y = 2x - 3 的图像经过的象限是（ ）', options: ["第一、二、三象限","第一、二、四象限","第一、三、四象限","第二、三、四象限"], correct_answer: 'C', difficulty: 'easy' },
+    { content: '一次函数 y = 2x - 3 的图像经过的象限是（  ）', options: ["第一、二、三象限","第一、二、四象限","第一、三、四象限","第二、三、四象限"], correct_answer: 'C', difficulty: 'easy' },
+    { content: '一次函数 y = 2x - 1 的图像经过的象限是（  ）', options: ["第一、二、三象限","第一、二、四象限","第一、三、四象限","第二、三、四象限"], correct_answer: 'C', difficulty: 'easy' },
+    { content: '一次函数 y = 2x - 3 的图像经过的象限是（  ）', options: ["第一、二、三象限","第一、二、四象限","第一、三、四象限","第二、三、四象限"], correct_answer: 'C', difficulty: 'easy' },
+    { content: '一次函数 y = 2x - 3 的图像经过的象限是（ ）', options: ["第一、二、三象限","第一、二、四象限","第一、三、四象限","第二、三、四象限"], correct_answer: 'C', difficulty: 'easy' },
+    { content: '已知一次函数 y = kx + b（k ≠ 0）的图像经过第一、三、四象限，则下列结论正确的是（ ）', options: ["k > 0，b > 0","k > 0，b < 0","k < 0，b > 0","k < 0，b < 0"], correct_answer: 'B', difficulty: 'medium' },
+    { content: '已知一次函数 y = kx + b 的图像经过点 A(1, 3) 和点 B(-1, -1)，则该函数的图像不经过（ ）。', options: ["第一象限","第二象限","第三象限","第四象限"], correct_answer: 'D', difficulty: 'medium' },
+    { content: '已知一次函数 y = kx + b（k ≠ 0）的图像经过第一、三、四象限，则下列结论正确的是（ ）', options: ["k > 0，b > 0","k > 0，b < 0","k < 0，b > 0","k < 0，b < 0"], correct_answer: 'B', difficulty: 'medium' },
+    { content: '已知一次函数 y = kx + b（k, b为常数，且 k ≠ 0）的图像经过第一、三、四象限，则下列结论正确的是（　　）', options: ["k > 0, b > 0","k < 0, b > 0","k > 0, b < 0","k < 0, b < 0"], correct_answer: 'C', difficulty: 'medium' },
+    { content: '已知一次函数 y = kx + b（k ≠ 0）的图像经过点 (2, 1) 和点 (1, 3)，则该函数的图像不经过（ ）', options: ["第一象限","第二象限","第三象限","第四象限"], correct_answer: 'C', difficulty: 'medium' },
+    { content: '如图，直线y=-√3/3x+2与x轴、y轴分别交于A、B两点，直线y=√3x+2与x轴交于点C。若点P是直线AB上的一个动点，连接CP，当线段CP的长度最小时，点P的坐标为（　　）', options: ["(-1/4, 3√3/4+2)","(-1/4, -√3/4+2)","(-1/2, √3/2+2)","(-1/2, -√3/2+2)"], correct_answer: 'B', difficulty: 'hard' },
+    { content: '已知直线y=-2x+4与x轴交于点A，与y轴交于点B。若点P在直线y=-2x+4上，且使得△ABP的面积为3，则满足条件的点P共有几个？', options: ["1个","2个","3个","4个"], correct_answer: 'C', difficulty: 'hard' },
+    { content: '已知一次函数 "y = -\\3/2x + 6" 的图像与x轴交于点A，与y轴交于点B。若点P是x轴上的一动点，连接BP，将线段BP绕点B顺时针旋转90°得到线段BQ。连接AQ，当线段AQ的长度取得最小值时，点P的坐标是（ ）', options: ["A. "(-2, 0)"","B. "(-4, 0)"","C. "(-6, 0)"","D. "(-8, 0)""], correct_answer: 'C', difficulty: 'hard' },
+    { content: '已知直线y = kx + b经过第一、三、四象限，且与x轴交于点A，与双曲线y = -3/x交于点B。若点B的横坐标为1，将直线y = kx + b向下平移m（m > 0）个单位长度后，与双曲线y = -3/x的交点位于第二、四象限，则m的取值范围是', options: ["m > 5","m > 3","0 < m < 5","0 < m < 3"], correct_answer: 'A', difficulty: 'hard' },
+    { content: '已知一次函数 "y = kx + b" 的图像经过点 "A(2, m)" 和 "B(-1, n)"（其中 "m > n"），且该函数图像与 "x" 轴、"y" 轴分别交于 "C"、"D" 两点。若点 "P(-4, 0)" 满足 "△ PCD" 的面积为 "9/2"，则 "k" 和 "b" 的值分别为（ ）', options: [""k = -3/2"，"b = 3"",""k = 3/2"，"b = -3"",""k = -3/2"，"b = -3"",""k = 3/2"，"b = 3""], correct_answer: 'A', difficulty: 'hard' },
+  ],
+  // kp4_3: 一次函数的应用
+  kp4_3: [
+    { content: '某商店出售一种商品，其单价y（元）与购买数量x（件）之间的一次函数关系式为y = 2x + 5。当购买数量为10件时，总价为多少元？', options: ["15元","20元","25元","30元"], correct_answer: 'C', difficulty: 'easy' },
+    { content: '某商店出售一种商品，其总价y（元）与购买数量x（件）之间的关系为y=5x+10。如果小明购买了8件该商品，他需要支付多少钱？', options: ["40元","50元","55元","60元"], correct_answer: 'B', difficulty: 'easy' },
+    { content: '某商店出售一种商品，其单价为5元/件。设购买该商品的数量为x（件），所需的总金额为y（元），则y与x的函数关系式为（）', options: ["y = 5x","y = x + 5","y = 5x + 5","y = 5 / x"], correct_answer: 'A', difficulty: 'easy' },
+    { content: '某商店出售一种商品，其总价y（元）与购买数量x（件）之间的关系是一次函数。已知购买2件商品需要10元，购买5件商品需要22元。那么购买1件商品需要多少元？', options: ["4元","5元","6元","7元"], correct_answer: 'B', difficulty: 'easy' },
+    { content: '某商店出售一种商品，其总价y（元）与购买数量x（件）之间的关系为y = 5x + 10。当购买数量为20件时，总价为多少元？', options: ["90元","100元","110元","120元"], correct_answer: 'C', difficulty: 'easy' },
+    { content: '某商店出售某种商品，已知该商品的进价为每件40元。在销售过程中发现，当售价为每件60元时，每天可售出100件；当售价每降低1元时，每天可多售出10件。若设每件降价x元，每天的利润为y元，则y关于x的函数关系式为：', options: ["y = (60 - x)(100 + 10x)","y = (20 - x)(100 + 10x)","y = (20 - x)(100 - 10x)","y = (60 - x)(100 - 10x)"], correct_answer: 'B', difficulty: 'medium' },
+    { content: '某学校需要采购一批同型号的办公椅。甲、乙两家家具店的标价均为每把100元，但促销方式不同：甲店规定所有商品均打八折出售；乙店规定购买10把以内（含10把）按原价出售，超过10把的部分打七折出售。若学校需要购买x把办公椅（x>10），在甲店购买的费用为y甲元，在乙店购买的费用为y乙元。下列关于两种付费方式的说法中，正确的是（）', options: ["当购买量x>10时，y甲=80x，y乙=70x+300","当购买量x>10时，y甲=80x，y乙=70x","当购买量x>10时，在乙店购买一定比在甲店购买更划算","当购买量x>10时，在甲店购买一定比在乙店购买更划算"], correct_answer: 'A', difficulty: 'medium' },
+    { content: '某学校需要采购一批同型号的办公桌。甲、乙两家家具店的标价都是每张办公桌200元，但促销方式不同：甲店所有商品均打八折（即按标价的80%销售）；乙店规定若一次性购买10张以内（含10张），按标价销售，若一次性购买超过10张，则超出部分打七折。设学校需要购买x张办公桌（x为正整数），在甲店购买的费用为y甲（元），在乙店购买的费用为y乙（元）。下列说法正确的是（）', options: ["当x>10时，y甲<y乙","当x>10时，y甲>y乙","当x>10时，y甲=y乙","无论x取何值，都是y甲<y乙"], correct_answer: 'A', difficulty: 'medium' },
+    { content: '某学校需要采购一批同型号的电脑。甲、乙两家电脑公司的报价如下：甲公司规定每台电脑售价为4000元，免收其他费用；乙公司规定每台电脑售价为3500元，但需另交物流费及安装费共计1500元。设学校采购电脑x台，甲公司的收费为y₁元，乙公司的收费为y₂元。当学校采购多少台电脑时，选择两家公司费用相同？', options: ["2台","3台","4台","5台"], correct_answer: 'B', difficulty: 'medium' },
+    { content: '某学校需要采购一批同型号的办公椅。甲、乙两家文具店的标价均为每把80元，但促销方式不同：甲店一律打八折销售；乙店购买10把以内（含10把）按标价销售，超过10把的部分打七折。若学校需要购买x把办公椅（x>10），在甲店购买的费用为y1元，在乙店购买的费用为y2元。当购买数量x为多少把时，两家店的费用相差80元？', options: ["20把","25把","30把","40把"], correct_answer: 'C', difficulty: 'medium' },
+    { content: '某学校需要采购一批同型号的办公电脑，甲、乙两家电脑公司的报价如下：\n甲公司：每台电脑售价为4000元，若购买数量超过10台，超出部分每台打八折；\n乙公司：每台电脑售价为4200元，不论购买多少台，每台均打九折。\n设学校需要购买x台电脑（x为正整数），选择甲公司的总费用为y₁元，选择乙公司的总费用为y₂元。若无论购买多少台，y₁总是小于y₂，则x的取值范围是（）', options: ["x > 20","x > 25","x > 30","x > 35"], correct_answer: 'C', difficulty: 'hard' },
+    { content: '某学校需要采购一批同型号的电脑。甲、乙两家电脑公司的报价均为每台4000元，但优惠方案不同：甲公司方案是购买台数不超过10台时，每台按报价付款；超过10台时，超出部分按报价的七折付款。乙公司方案是无论购买多少台，每台均按报价的八折付款。若设学校需要采购x台电脑（x为正整数），甲公司的收费为y₁元，乙公司的收费为y₂元。现有资金30000元，关于在甲、乙两家公司购买的选择，下列说法正确的是（）', options: ["当x≤10时，y₁>y₂","当x>10时，y₁<y₂","若资金不超过30000元，则在乙公司最多可以购买9台","若资金不超过30000元，则在甲公司最多可以购买9台"], correct_answer: 'D', difficulty: 'hard' },
+    { content: '甲、乙两地相距240千米，一辆货车和一辆轿车同时从甲地出发驶向乙地。货车在整个行驶过程中的速度保持不变；轿车在行驶过程中由于故障，行驶了2小时后停车维修了0.5小时，修好后继续行驶，且修好后的速度是故障前速度的1.5倍。下图是两车离甲地的距离y（千米）与行驶时间x（小时）的函数图象。已知图象中两线段交于点P，点P的横坐标为3.5，此时轿车到达乙地。根据以上信息，下列说法错误的是：', options: ["货车的速度为60千米/小时","轿车故障前的速度为40千米/小时","轿车到达乙地比货车早约0.1小时","两车在途中只相遇一次"], correct_answer: 'D', difficulty: 'hard' },
+    { content: '甲、乙两人同时从A地出发前往B地，甲步行，乙骑车。乙到达B地后立即返回。两人之间的距离y（米）与出发时间x（分钟）之间的函数关系如图所示（折线O-C-D）。已知乙骑车的速度是甲步行速度的3倍，在整个过程中，两人之间的最大距离约为（ ）米。', options: ["1800","2100","2400","2700"], correct_answer: 'C', difficulty: 'hard' },
+    { content: '某学校需要采购一批同型号的办公桌。甲、乙两家家具店的标价均为300元/张。甲店的优惠方案是：一次性购买不超过10张，按标价收费；超过10张的部分，按标价的8折收费。乙店的优惠方案是：一律按标价的9折收费。若学校计划采购"x"张办公桌（"x"为正整数且"x>10"），在甲店购买的费用为"y_1"元，在乙店购买的费用为"y_2"元。关于两个函数的图象及费用比较，下列说法正确的是', options: ["y₁的函数图象是一条经过原点的射线，当x>20时，y₁<y₂","y₁的函数图象是一条不经过原点的折线，当x>20时，y₁<y₂","y₂的函数图象是一条经过原点的射线，当x>20时，y₁>y₂","y₂的函数图象是一条不经过原点的折线，当x=20时，y₁=y₂"], correct_answer: 'B', difficulty: 'hard' },
+  ],
+  // kp5_1: 数据的集中趋势
+  kp5_1: [
+    { content: '在一次数学测验中，5名学生的成绩（单位：分）分别为：85，90，88，92，85。这组数据的平均数是（  ）', options: ["85分","88分","90分","92分"], correct_answer: 'B', difficulty: 'easy' },
+    { content: '某小组5名同学的数学成绩（单位：分）分别为：80，85，85，90，95。请问这组数据的平均数是多少？', options: ["85分","87分","88分","90分"], correct_answer: 'B', difficulty: 'easy' },
+    { content: '在一次环保知识竞赛中，某小组5位同学的成绩（单位：分）分别是80，85，90，85，95。请问这5位同学成绩的平均数是多少？', options: ["85分","86分","87分","88分"], correct_answer: 'C', difficulty: 'easy' },
+    { content: '某班5名同学在一次数学测验中的成绩（单位：分）分别为：85，90，80，85，95。这5名同学成绩的平均数是（  ）分。', options: ["85","86","87","88"], correct_answer: 'C', difficulty: 'easy' },
+    { content: '某班5名同学的数学成绩（单位：分）分别为：85，90，90，80，95。这5名同学成绩的平均数是（  ）', options: ["85分","88分","90分","95分"], correct_answer: 'B', difficulty: 'easy' },
+    { content: '某校为了了解初中生每天做课外作业的时间，随机调查了20名学生，统计结果如下表所示：\n每天做课外作业时间（小时）：1, 1.5, 2, 2.5\n学生人数：4, 6, 7, 3\n则这20名学生每天做课外作业时间的平均数和中位数分别是', options: ["1.75小时，1.75小时","1.8小时，1.75小时","1.75小时，2小时","1.8小时，2小时"], correct_answer: 'B', difficulty: 'medium' },
+    { content: '某校为了了解八年级学生每周参加体育锻炼的时间（单位：小时），随机调查了40名学生，统计结果如下表所示：\n参加锻炼时间（小时）: 3, 4, 5, 6\n对应人数: 10, 15, 10, 5\n则这40名学生每周参加体育锻炼时间的众数与中位数分别是（）', options: ["4小时，4小时","4小时，4.5小时","4.5小时，4小时","5小时，4.5小时"], correct_answer: 'B', difficulty: 'medium' },
+    { content: '某公司全体员工的月工资情况如下表所示：\n经理：1人，月工资12000元\n副经理：2人，月工资8000元\n普通员工：17人，月工资4000元\n则该公司员工月工资数据的众数和平均数分别是（ ）', options: ["4000元，4800元","4000元，5000元","8000元，4800元","8000元，5000元"], correct_answer: 'A', difficulty: 'medium' },
+    { content: '某校为了了解八年级学生的课外阅读情况，随机抽取了10名学生，统计他们每周的课外阅读时间（单位：小时）如下：\n3, 4, 5, 5, 5, 6, 6, 7, 8, 21。\n由于其中一名学生周末参加了读书营，导致阅读时间明显偏高。为了较好地反映这10名学生每周课外阅读时间的一般水平，下列统计量中最合适的是（ ）', options: ["平均数","中位数","众数","方差"], correct_answer: 'B', difficulty: 'medium' },
+    { content: '某校为了了解初中生每周参加体育锻炼的时间，随机调查了50名学生，并将收集到的数据分组整理如下表。请根据表中的数据，估计该校学生每周参加体育锻炼时间的平均数大约为多少？\n\n时间分组（小时） | 学生人数（频数）\n2 ≤ x < 4       | 10\n4 ≤ x < 6       | 15\n6 ≤ x < 8       | 20\n8 ≤ x < 10      | 5', options: ["5.0小时","5.6小时","6.0小时","6.4小时"], correct_answer: 'B', difficulty: 'medium' },
+    { content: '某校为了了解初三年级学生的体能情况，从初三(1)班和初三(2)班各随机抽取了10名学生进行测试。已知初三(1)班10名学生的平均成绩为85分，方差为10；初三(2)班10名学生的平均成绩为87分，方差为12。则这20名学生测试成绩的平均分大约是（ ）', options: ["85分","86分","87分","88分"], correct_answer: 'B', difficulty: 'hard' },
+    { content: '某校为了了解八年级学生居家阅读时间，随机抽取了20名学生进行调查。统计发现，有5人每天阅读约1小时，有m人每天阅读约2小时，有n人每天阅读约3小时，其余4人每天阅读约4小时。已知这20名学生每天阅读时间的平均数约为2.35小时，且2小时和3小时这两个阅读时间人数的众数对应的频数恰好等于这20名学生阅读时间的中位数。则m的值为（ ）', options: ["6","7","8","9"], correct_answer: 'B', difficulty: 'hard' },
+    { content: '某校为了了解八年级学生的体能情况，从八年级（1）班抽取了10名男生进行引体向上测试。这10名男生的成绩（单位：个）如下：4, 5, 6, 6, 6, 7, 7, 8, 9, 10。已知这组数据的平均数为6.8，中位数为6.5。后来发现记录有误，将其中一个成绩6记录成了9。将错误数据修正后，这10名男生真实成绩的平均数、中位数、众数中，发生变化的统计量有几个？', options: ["0个","1个","2个","3个"], correct_answer: 'C', difficulty: 'hard' },
+    { content: '某校为了了解初三年级学生的体能情况，随机抽取了部分学生进行测试，并将测试成绩（满分100分，成绩均为整数）整理后绘制成如下不完整的统计表和扇形统计图。已知成绩为90分的人数为16人，且该组数据的中位数恰好落在85分这一组。若从中位数和平均数的角度评价该组数据的集中趋势，则这组数据的平均成绩大约为（ ）分。\n\n成绩分组（分） | 人数 | 占总人数的百分比\n60≤x<70 | 2 | 5%\n70≤x<80 | 10 | 25%\n80≤x<90 | m | n%\n90≤x≤100 | 16 | 40%', options: ["82.5","84.5","85.0","85.5"], correct_answer: 'C', difficulty: 'hard' },
+  ],
+  // kp5_2: 数据的波动程度
+  kp5_2: [
+    { content: '甲、乙两名同学进行射击测试，两人各射击10次。经过计算，甲同学成绩的方差为2.5，乙同学成绩的方差为1.2。关于这两名同学射击成绩的波动程度，下列说法正确的是（）', options: ["甲同学的成绩比乙同学的成绩波动大","乙同学的成绩比甲同学的成绩波动大","甲、乙两名同学的成绩波动程度一样大","无法比较甲、乙两名同学成绩的波动程度"], correct_answer: 'A', difficulty: 'easy' },
+    { content: '某射击运动员在训练中打了5发子弹，命中的环数分别为：7，8，8，9，8。这组数据的极差是（ ）', options: ["1","2","8","9"], correct_answer: 'B', difficulty: 'easy' },
+    { content: '甲、乙两名同学进行射击测试，两人各射击5次，计算得知他们命中的平均环数相同。为了比较两人的成绩，我们通常还需要了解他们成绩的什么特征？', options: ["众数","中位数","方差（波动程度）","最大值"], correct_answer: 'C', difficulty: 'easy' },
+    { content: '某射击运动员在训练中射击了5次，成绩（环）分别为：7，8，8，9，8。则这组数据的极差为（  ）', options: ["1","2","8","9"], correct_answer: 'B', difficulty: 'easy' },
+    { content: '在一次射击比赛中，甲、乙两名选手各射击10次。经过计算，甲选手成绩的方差为2.5，乙选手成绩的方差为1.2。关于这两名选手成绩的波动程度，下列说法正确的是（）', options: ["甲的成绩波动程度较小","乙的成绩波动程度较小","两人的成绩波动程度相同","无法比较两人成绩的波动程度"], correct_answer: 'B', difficulty: 'easy' },
+    { content: '为了考察甲、乙两块小麦试验田的长势，分别从中随机抽取10株小麦，测得苗高（单位：cm）如下：\n甲：12，13，14，15，10，16，13，11，15，11\n乙：11，14，12，15，13，12，14，15，12，12\n则这两组数据的方差分别为s甲²和s乙²，下列结论正确的是（ ）', options: ["s甲² = 3.6，s乙² = 1.8","s甲² = 3.6，s乙² = 1.6","s甲² = 3.4，s乙² = 1.8","s甲² = 3.4，s乙² = 1.6"], correct_answer: 'A', difficulty: 'medium' },
+    { content: '为了比较甲、乙两种小麦苗的株高情况，分别从中抽取了10株苗，测得数据并计算出它们的平均株高均为15cm，方差分别为s²甲=3.6，s²乙=2.4。关于这两种小麦苗株高的波动程度，下列说法正确的是：', options: ["甲种小麦苗的株高波动较大","乙种小麦苗的株高波动较大","两种小麦苗的株高波动程度一样大","无法比较两种小麦苗的株高波动程度"], correct_answer: 'A', difficulty: 'medium' },
+    { content: '为了从甲、乙两名射击运动员中选拔一人参加比赛，教练统计了他们最近5次射击测试的成绩（环数）如下：\n甲：8, 8, 8, 8, 8\n乙：6, 9, 7, 10, 8\n则下列说法中正确的是（ ）', options: ["甲的成绩比乙的成绩稳定","乙的成绩比甲的成绩稳定","甲、乙两人的成绩一样稳定","无法确定谁的成绩更稳定"], correct_answer: 'A', difficulty: 'medium' },
+    { content: '为了从甲、乙、丙、丁四名同学中选拔一人代表班级参加学校的射击比赛，对这四名同学进行了测试。他们在测试中的平均成绩（环数）及成绩的方差如下表所示：\n甲：平均数 8.5，方差 3.5\n乙：平均数 8.5，方差 2.1\n丙：平均数 8.0，方差 1.8\n丁：平均数 8.0，方差 2.4\n如果要选一名成绩较好且发挥最稳定的同学参赛，应选择（ ）', options: ["甲","乙","丙","丁"], correct_answer: 'B', difficulty: 'medium' },
+    { content: '为了考察甲、乙两块小麦试验田的长势，分别从中随机抽取10株麦苗，测得它们的苗高（单位：cm）如下：\n甲：12，13，14，15，10，16，13，11，15，11\n乙：11，15，12，14，13，14，12，15，14，10\n这两组数据的方差分别记为S_甲^2和S_乙^2，则S_甲^2与S_乙^2的大小关系是（ ）', options: ["S_甲^2 > S_乙^2","S_甲^2 < S_乙^2","S_甲^2 = S_乙^2","无法确定"], correct_answer: 'A', difficulty: 'medium' },
+    { content: '为了从甲、乙、丙、丁四名射击运动员中选拔一人参加比赛，对四人进行了测试。他们10次射击的平均成绩（环）及方差如下表所示：\n甲：平均成绩 8.5，方差 3.5\n乙：平均成绩 8.5，方差 2.4\n丙：平均成绩 8.1，方差 3.5\n丁：平均成绩 8.1，方差 2.4\n若要选拔一名成绩好且发挥稳定的运动员参加比赛，则应选择的运动员是（ ）', options: ["甲","乙","丙","丁"], correct_answer: 'B', difficulty: 'hard' },
+    { content: '为了从甲、乙、丙、丁四名射击运动员中选拔一人参加比赛，对他们进行了测试。他们10次射击的平均成绩（环）及方差如下表所示：\n甲：平均数8.5，方差3.5\n乙：平均数8.5，方差3.2\n丙：平均数8.8，方差2.1\n丁：平均数8.0，方差1.5\n若要选拔一名发挥最稳定且成绩最好的运动员参赛，则应选择（ ）', options: ["甲","乙","丙","丁"], correct_answer: 'C', difficulty: 'hard' },
+    { content: '已知一组数据 "x_1, x_2, x_3, \\\\dots, x_n" 的平均数为 "\\\\bar(x)"，方差为 "s^2"。现从中随机抽去一个数据 "x_i"（"1 \\\\le i \\\\le n"），若剩下的 "n-1" 个数据的平均数恰好等于 "\\\\bar(x)"，且剩下的 "n-1" 个数据的方差变为 "\\4/5s^2"。若 "n \\\\ge 5"，则原数据的个数 "n" 的值为（ ）', options: ["5","6","7","8"], correct_answer: 'A', difficulty: 'hard' },
+    { content: '已知一组数据 "x_1, x_2, x_3, \\\\ldots, x_n" 的平均数为 "\\\\bar(x)"，方差为 "s^2"。现构造一组新数据 "y_i = 2x_i + 3" ("i = 1, 2, \\\\ldots, n")。若在原数据中增加一个新数据 "x_(n+1) = \\\\bar(x)"，同时在新数据中增加对应的 "y_(n+1) = 2\\\\bar(x) + 5"。设增加数据后，原数据组和新数据组的方差分别为 "s_1^2" 和 "s_2^2"，则 "\\s_2^2/s_1^2" 的值为', options: ["2","4",""4(n+1)/n"",""4n/n+1""], correct_answer: 'B', difficulty: 'hard' },
+    { content: '在一次数学测试中，某学习小组的5名同学的成绩分别为80，85，90，95，100。后来发现有一位同学的成绩统计有误，将原本的分数记高了。若将该同学的成绩更正后，重新计算这5名同学成绩的方差，发现新方差比原方差大了9。则这位被记错成绩的同学原分数是多少？', options: ["80","85","90","95"], correct_answer: 'B', difficulty: 'hard' },
+  ],
+};
+
+function randomChoice(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+/**
+ * 使用AI生成题目（当题库中无匹配难度时回退）
+ * @param {Object} params - 生成参数
+ * @param {string} params.kp_name - 知识点名称
+ * @param {string} params.difficulty - 难度 easy/medium/hard
+ * @param {string} params.chapter - 章节
+ * @returns {Promise<Object|null>} 生成的题目对象，失败返回null
+ */
+async function generateQuestionWithAI(params) {
+  try {
+    const llm = getLlmClient();
+    const result = await llm.generate(params);
+
+    // 解析AI返回的JSON
+    let aiQuestion;
+    try {
+      // 清理可能的markdown代码块标记
+      let content = result.content.trim();
+      if (content.startsWith('```')) {
+        content = content.replace(/^```(?:json)?\n?/, '').replace(/\n?```$/, '');
+      }
+      aiQuestion = JSON.parse(content);
+    } catch (parseError) {
+      console.error('[question_bank] AI返回解析失败:', parseError, 'raw:', result.content);
+      return null;
+    }
+
+    // 转换为统一格式
+    return {
+      content: aiQuestion.question || aiQuestion.content,
+      options: aiQuestion.options || [],
+      correct_answer: typeof aiQuestion.correct_answer === 'number'
+        ? ['A', 'B', 'C', 'D'][aiQuestion.correct_answer]
+        : aiQuestion.correct_answer,
+      difficulty: params.difficulty,
+      ai_generated: true,
+    };
+  } catch (error) {
+    console.error('[question_bank] AI生成失败:', error.message);
+    return null;
+  }
+}
+
+/**
+ * 评估题目难度并异步更新题库
+ * @param {Object} question - 题目对象
+ */
+async function evaluateAndUpdateDifficulty(question) {
+  // 如果已有AI评估结果，直接使用
+  if (question.difficulty_ai) {
+    question.difficulty = question.difficulty_ai.level;
+    question.difficulty_score = question.difficulty_ai.score;
+    return;
+  }
+
+  // 调用评估
+  const evaluation = await evaluateIfNeeded(question);
+  if (evaluation) {
+    question.difficulty_ai = evaluation;
+    question.difficulty = evaluation.level;
+    question.difficulty_score = evaluation.score;
+
+    // 异步更新题库存储（不阻塞流程）
+    backgroundUpdateQuestion(question);
+  }
+}
+
+/**
+ * 异步更新题库中的题目难度标记
+ * @param {Object} question - 题目对象
+ */
+function backgroundUpdateQuestion(question) {
+  // 使用setImmediate确保不阻塞主流程
+  setImmediate(async () => {
+    try {
+      // 在云函数环境中，这里会更新数据库
+      // 由于是异步的，不等待结果
+      console.log(`[question_bank] 难度评估已存储: "(question.id) -> "{question.difficulty}`);
+    } catch (error) {
+      console.error('[question_bank] 更新题目难度失败:', error.message);
+    }
+  });
+}
+
+async function generateQuestions(plan, numQuestions = 5) {
+  const questions = [];
+  const kpCount = {};
+
+  for (let i = 0; i < Math.min(numQuestions, plan.length); i++) {
+    const item = plan[i];
+    const kpId = item.kp.kp_id;
+    const difficulty = item.difficulty;
+
+    if (!kpCount[kpId]) kpCount[kpId] = 0;
+
+    const bank = QUESTION_BANK[kpId];
+    if (bank) {
+      // 先尝试从题库中找匹配难度的题目
+      const matching = bank.filter(q => q.difficulty === difficulty);
+      console.log(`[question_bank] kp="(kpId) target="{difficulty} found="(matching.length) inBank="{bank.length}`);
+
+      let q;
+      let usedFallback = false;
+
+      if (matching.length > 0) {
+        // 题库中有匹配难度，直接使用
+        q = randomChoice(matching);
+      } else {
+        // 题库中没有匹配难度，回退到AI生成
+        console.log(`[question_bank] 题库"(kpId)中无"{difficulty}难度题目，使用AI生成`);
+        const aiQuestion = await generateQuestionWithAI({
+          kp_name: item.kp.kp_name,
+          difficulty: difficulty,
+          chapter: item.kp.chapter_name,
+        });
+
+        if (aiQuestion) {
+          q = aiQuestion;
+          usedFallback = true;
+        } else {
+          // AI生成失败，回退到题库中同难度的任意题目（保持难度一致）
+          console.warn(`[question_bank] AI生成失败，使用题库${difficulty}难度题目`);
+          const sameDifficulty = bank.filter(bq => bq.difficulty === difficulty);
+          if (sameDifficulty.length > 0) {
+            q = randomChoice(sameDifficulty);
+          } else {
+            // 该难度完全没有，退回题库第一题
+            console.warn(`[question_bank] 题库无${difficulty}题目，使用题库第一题`);
+            q = bank[0];
+          }
+        }
+      }
+
+      // 构建题目对象
+      const questionObj = {
+        id: `q"(kpCount[kpId] + 1)_"{kpId}`,
+        type: 'choice',
+        content: q.content,
+        options: q.options,
+        correct_answer: q.correct_answer,
+        knowledge_point: item.kp.kp_name,
+        knowledge_point_id: kpId,
+        difficulty: difficulty, // 始终使用目标难度
+        chapter: item.kp.chapter_name,
+        ai_generated: usedFallback,
+      };
+
+      // 【新增】评估题目难度（如果缺失）
+      evaluateAndUpdateDifficulty(questionObj).catch(err => {
+        console.warn('[question_bank] 难度评估失败:', err.message);
+      });
+
+      questions.push(questionObj);
+      kpCount[kpId]++;
+    }
+  }
+
+  return questions;
+}
+
+function getAllKpIds() {
+  return Object.keys(QUESTION_BANK);
+}
+
+module.exports = {
+  QUESTION_BANK,
+  generateQuestions,
+  getAllKpIds,
+  evaluateAndUpdateDifficulty,
+};

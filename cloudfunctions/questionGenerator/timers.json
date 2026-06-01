@@ -1,0 +1,33 @@
+{
+  "description": "定时触发器配置 - questionGenerator云函数",
+  "timers": [
+    {
+      "name": "processQueueTimer",
+      "description": "每30秒执行一次队列处理",
+      "cron": "*/30 * * * * *",
+      "function_name": "questionGenerator",
+      "enabled": true
+    },
+    {
+      "name": "cleanupStaleTasksTimer",
+      "description": "每小时清理一次过期任务（待实现）",
+      "cron": "0 * * * *",
+      "function_name": "questionGenerator",
+      "function_data": {
+        "action": "cleanup_stale"
+      },
+      "enabled": false
+    }
+  ],
+  "setup_instructions": [
+    "1. 打开微信开发者工具",
+    "2. 进入云开发控制台",
+    "3. 点击'云函数'标签",
+    "4. 找到 questionGenerator 云函数",
+    "5. 点击'详情' -> '定时触发器'",
+    "6. 添加定时触发器：",
+    "   - 名称: processQueueTimer",
+    "   - Cron表达式: */30 * * * * *",
+    "   - 说明: 每30秒执行一次队列处理"
+  ]
+}

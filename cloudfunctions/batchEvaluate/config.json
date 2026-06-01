@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "openapi": []
+  },
+  "triggers": [
+    {
+      "name": "daily_evaluation",
+      "type": "timer",
+      "config": "0 3 * * * *"
+    }
+  ]
+}

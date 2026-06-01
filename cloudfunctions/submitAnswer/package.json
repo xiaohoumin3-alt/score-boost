@@ -1,0 +1,8 @@
+{
+  "name": "submitAnswer",
+  "version": "1.0.0",
+  "description": "提交答案云函数",
+  "dependencies": {
+    "wx-server-sdk": "^2.6.3"
+  }
+}

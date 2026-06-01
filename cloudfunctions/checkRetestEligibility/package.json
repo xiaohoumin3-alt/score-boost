@@ -1,0 +1,9 @@
+{
+  "name": "checkRetestEligibility",
+  "version": "1.0.0",
+  "description": "检查复测条件",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

@@ -1,0 +1,139 @@
+/**
+ * LLM客户端 - 简化版，供 startAssessment 使用
+ */
+
+const http = require('http');
+
+class LlmClient {
+  constructor(apiKey) {
+    this.apiKey = apiKey || process.env.MINIMAX_API_KEY;
+    this.model = 'MiniMax-M2.7';
+  }
+
+  async generate(params) {
+    if (!this.apiKey) {
+      throw new Error('MINIMAX_API_KEY not configured');
+    }
+
+    const prompt = this._buildPrompt(params);
+
+    return new Promise((resolve, reject) => {
+      const postData = JSON.stringify({
+        model: this.model,
+        stream: false,
+        tokens_to_generate: 500,
+        temperature: 0.9,
+        top_p: 0.95,
+        messages: [
+          { role: 'system', content: '你是一个专业的题目生成助手。请严格按照用户要求的JSON格式返回题目。' },
+          { role: 'user', content: prompt }
+        ]
+      });
+
+      const options = {
+        hostname: 'api.minimax.chat',
+        path: '/v1/text/chatcompletion_v2',
+        method: 'POST',
+        timeout: 45000,
+        headers: {
+          'Authorization': `Bearer ${this.apiKey}`,
+          'Content-Type': 'application/json',
+          'Content-Length': Buffer.byteLength(postData)
+        }
+      };
+
+      const req = http.request(options, (res) => {
+        let data = '';
+        res.setTimeout(45000, () => {  // 增加到45秒
+          req.destroy();
+          reject(new Error('Request timeout'));
+        });
+        res.on('data', (chunk) => { data += chunk; });
+        res.on('end', () => {
+          try {
+            const result = JSON.parse(data);
+            if (result.error) throw new Error(result.error.message || JSON.stringify(result.error));
+            if (result.base_resp?.status_code !== 0) throw new Error(result.base_resp?.status_msg);
+            const content = result.choices?.[0]?.message?.content;
+            if (!content) throw new Error('Empty response from LLM');
+            resolve({ content, usage: result.usage });
+          } catch (e) {
+            reject(e);
+          }
+        });
+      });
+
+      req.on('error', reject);
+      req.on('timeout', () => {
+        req.destroy();
+        reject(new Error('Request timeout'));
+      });
+      req.write(postData);
+      req.end();
+    });
+  }
+
+  _buildPrompt(params) {
+    const { kp_name, difficulty, subject = 'math' } = params;
+    const difficultyText = { easy: '简单', medium: '中等', hard: '困难' }[difficulty] || '中等';
+
+    const subjectConfig = {
+      biology: {
+        guidance: '题目应符合初中生物水平，涉及动物的主要类群',
+        topics: ['腔肠动物', '扁形动物', '线形动物', '环节动物', '鱼类', '两栖类', '爬行类', '鸟类', '哺乳类']
+      },
+      math: {
+        guidance: '题目应符合初中数学水平，涉及二次根式、勾股定理等知识点',
+        scenarios: ['梯子靠墙', '航海航行', '测量距离'],
+        triples: [[3, 4, 5], [5, 12, 13]]
+      },
+      geography: {
+        guidance: '题目应符合初中地理水平',
+        topics: ['中国的地理位置', '中国的行政区划', '中国的人口与民族', '中国的地形', '中国的气候']
+      }
+    };
+
+    const config = subjectConfig[subject] || subjectConfig.biology;
+    let prompt = `请为以下知识点生成一道${difficultyText}难度的选择题：知识点：${kp_name}`;
+
+    prompt += `\n\n【科目指导】${config.guidance}`;
+
+    if (config.topics) {
+      prompt += `\n【话题要求】请选择相关知识：${config.topics.join('、')}`;
+    }
+    if (config.scenarios) {
+      prompt += `\n【场景要求】从以下场景选择：${config.scenarios.join('、')}`;
+    }
+    if (config.triples) {
+      prompt += `\n【数值要求】使用勾股数：${config.triples.map(t => t.join('-')).join('、')}`;
+    }
+
+    prompt += `\n\n【质量要求】禁止生成需要图片/图形的题目`;
+    prompt += `\n\nJSON格式：{"question":"...","options":["A","B","C","D"],"correct_answer":0,"explanation":"..."}`;
+
+    return prompt;
+  }
+}
+
+function parseLlmResponse(content) {
+  if (!content || typeof content !== 'string') return null;
+  const codeBlockMatch = content.match(/```(?:json)?\s*\n?([\s\S]*?)\n?```/);
+  const jsonStr = codeBlockMatch ? codeBlockMatch[1] : (content.match(/\{[\s\S]*\}/)?.[0] || content);
+  try {
+    const parsed = JSON.parse(jsonStr);
+    return (parsed && Object.keys(parsed).length > 0) ? parsed : null;
+  } catch { return null; }
+}
+
+function validateQuestion(q, question_type = 'choice') {
+  if (!q || typeof q !== 'object') return false;
+  if (!q.question) return false;
+
+  if (question_type === 'choice') {
+    if (!Array.isArray(q.options) || q.options.length < 2) return false;
+    if (typeof q.correct_answer !== 'number' || q.correct_answer < 0 || q.correct_answer >= q.options.length) return false;
+  }
+  return true;
+}
+
+module.exports = { LlmClient, parseLlmResponse, validateQuestion };

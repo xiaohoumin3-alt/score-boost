@@ -1,0 +1,300 @@
+{
+  "subject": "地理",
+  "grade": "8",
+  "semester": "下",
+  "version": "2024人教版",
+  "chapters": [
+    {
+      "id": "ch1",
+      "name": "北方地区",
+      "knowledge_points": [
+        {
+          "id": "kp1_1",
+          "name": "地理位置我国北方地区大体位于大兴安岭",
+          "sub_topics": [
+            "概念理解",
+            "读图分析"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题",
+            "读图题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp1_2",
+          "name": "黑土地和黄土地",
+          "sub_topics": [
+            "概念理解",
+            "读图分析"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题",
+            "读图题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp1_3",
+          "name": "重要的旱作农业区（一）自然条件",
+          "sub_topics": [
+            "概念理解",
+            "读图分析"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题",
+            "读图题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp1_4",
+          "name": "从“北大荒”到“北大仓”",
+          "sub_topics": [
+            "概念理解",
+            "读图分析"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题",
+            "读图题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp1_5",
+          "name": "我国最大的重工业基地",
+          "sub_topics": [
+            "概念理解",
+            "读图分析"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题",
+            "读图题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp1_6",
+          "name": "文明的摇篮",
+          "sub_topics": [
+            "概念理解",
+            "读图分析"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题",
+            "读图题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp1_7",
+          "name": "严重的水土流水",
+          "sub_topics": [
+            "概念理解",
+            "读图分析"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题",
+            "读图题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp1_8",
+          "name": "区域全貌地理位置经纬度位置",
+          "sub_topics": [
+            "概念理解",
+            "读图分析"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题",
+            "读图题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp1_9",
+          "name": "现代化的大都市",
+          "sub_topics": [
+            "概念理解",
+            "读图分析"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题",
+            "读图题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "name": "南方地区",
+      "knowledge_points": [
+        {
+          "id": "kp2_1",
+          "name": "气候湿热的红土地",
+          "sub_topics": [
+            "概念理解",
+            "读图分析"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题",
+            "读图题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp2_2",
+          "name": "重要的水田农业区",
+          "sub_topics": [
+            "概念理解",
+            "读图分析"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题",
+            "读图题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp2_3",
+          "name": "江海交汇之地",
+          "sub_topics": [
+            "概念理解",
+            "读图分析"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题",
+            "读图题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp2_4",
+          "name": "我国最大的城市群",
+          "sub_topics": [
+            "概念理解",
+            "读图分析"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题",
+            "读图题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        }
+      ]
+    },
+    {
+      "id": "ch3",
+      "name": "西北地区",
+      "knowledge_points": [
+        {
+          "id": "kp3_1",
+          "name": "西北地区",
+          "sub_topics": [
+            "全章概览",
+            "读图分析"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.5,
+            "medium": 0.3,
+            "hard": 0.2
+          }
+        }
+      ]
+    },
+    {
+      "id": "ch4",
+      "name": "青藏地区",
+      "knowledge_points": [
+        {
+          "id": "kp4_1",
+          "name": "青藏地区",
+          "sub_topics": [
+            "全章概览",
+            "读图分析"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.5,
+            "medium": 0.3,
+            "hard": 0.2
+          }
+        }
+      ]
+    }
+  ]
+}

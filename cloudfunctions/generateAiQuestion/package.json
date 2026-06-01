@@ -1,0 +1,13 @@
+{
+  "name": "云函数",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3",
+    "node-fetch": "^2.7.0"
+  },
+  "devDependencies": {
+    "nock": "^14.0.15"
+  }
+}

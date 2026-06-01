@@ -1,0 +1,1103 @@
+{
+  "subject": "地理",
+  "grade": "8",
+  "semester": "上",
+  "version": "2024人教版",
+  "chapters": [
+    {
+      "id": "ch1",
+      "name": "从世界看中国",
+      "knowledge_points": [
+        {
+          "id": "kp1_1",
+          "name": "从东西半球看，她位于东半球，从南北半球看，她位于北半球",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp1_2",
+          "name": "从大洲大洋位置看，她位于亚洲东部太平洋的西岸",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp1_3",
+          "name": "我国濒临的海洋从北到南依次是渤海，黄海、东海、南海",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp1_4",
+          "name": "渤海有我国最大的盐场长芦盐场，东海有我国最大的渔场舟山渔场",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp1_5",
+          "name": "全国的行政区域，基本分为省、县、乡三级",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp1_6",
+          "name": "我国人口分布不均，东部地区人口密度大，特别是东南沿海更大",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp1_7",
+          "name": "我国人口分界线是黑龙江省黑河市到云南省腾冲市",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp1_8",
+          "name": "我国人口最多的河南省，面积最大的新疆省",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "name": "中国的自然环境",
+      "knowledge_points": [
+        {
+          "id": "kp2_1",
+          "name": "山区常见的自然灾害是崩塌、滑坡、泥石流",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp2_2",
+          "name": "开发利用山区的时候，要特别注意生态环境建设",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp2_3",
+          "name": "冬季，我国南北气温差别很大，夏季，大多数地方普遍高温",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp2_4",
+          "name": "冬季最冷的地方是黑龙江漠河 ，夏季最热的地方是新疆吐鲁番",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp2_5",
+          "name": "号称我国“三大火炉”的是重庆、武汉、南京",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp2_6",
+          "name": "划分我国温度带的主要指标是活动积温",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp2_7",
+          "name": "我国年降水量的总趋势是从东南沿海向西北内陆递减",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp2_8",
+          "name": "我国降水最多的地方是台湾的火烧寮 ，降水最少的地方是吐鲁番盆地的托克逊",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp2_9",
+          "name": "一个地方的降水量和蒸发量对比关系，反映该地气候的湿润程度",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp2_10",
+          "name": "我国南北温差大的主要原因是纬度位置和冬季风",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp2_11",
+          "name": "季风区和非季风区的分界线是大兴安岭、阴山、贺兰山、巴颜喀拉山、冈底斯山",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp2_12",
+          "name": "季风气候的最大优点是雨热同期，但它会带来一些灾害性天气如寒潮、水旱灾害、台风",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp2_13",
+          "name": "黄河发源地巴颜喀拉山，注入渤海",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp2_14",
+          "name": "具有“塞上江南”美称的是宁夏平原和河套平原",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp2_15",
+          "name": "黄河上中游的分界是内蒙古河口，中下游的分界是河南孟津",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp2_16",
+          "name": "长江上游中游的分界湖北宜昌，中游和下游的分界江西湖口",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp2_17",
+          "name": "长江水能资源主要集中在上游河段",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp2_18",
+          "name": "有“九曲回肠”之称的是荆江，本河段的治理措施是裁弯取直",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp2_19",
+          "name": "注意黄河流域的图和长江流域图",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        }
+      ]
+    },
+    {
+      "id": "ch3",
+      "name": "中国的自然资源",
+      "knowledge_points": [
+        {
+          "id": "kp3_1",
+          "name": "根据土地的用途及土地利用的状况把土地资源分为耕地、林地、草地、建设用地",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp3_2",
+          "name": "我国土地利用中存在的问题有水土流失、土地荒漠化、乱占耕地",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp3_3",
+          "name": "土地资源的一项基本国策是十分珍惜和合理利用每一寸土地，切实保护耕地",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp3_4",
+          "name": "南水北调工程就是把长江水系水调到缺水严重的华北、西北地区",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp3_5",
+          "name": "针对我国水资源严重紧缺的问题，节约用水尤为重要",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        }
+      ]
+    },
+    {
+      "id": "ch4",
+      "name": "中国的经济发展",
+      "knowledge_points": [
+        {
+          "id": "kp4_1",
+          "name": "经济发展的“先行官”是交通运输",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp4_2",
+          "name": "历史上我国著名的四大“米市”是无锡、芜湖、九江、长沙",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp4_3",
+          "name": "在各种交通运输线中，铁路运输是我国最重要的运输方式",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp4_4",
+          "name": "贵重或急需的货物而数量又不大的，多由航空运送",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp4_5",
+          "name": "容易死亡或变质的货物，多采用公路运送",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp4_6",
+          "name": "农业的生产部门有种植业、林业、畜牧业、渔业",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp4_7",
+          "name": "农业是支撑国民经济建设与发民的基础产业",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp4_8",
+          "name": "西部地区天然草场广布，有我国四大牧区是内蒙古牧区、青海牧区、新疆牧区、西藏牧区",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp4_9",
+          "name": "林业集中分布在东北、西南、东南地区",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp4_10",
+          "name": "粮食作物中的水稻、小麦分布呈现“南稻北麦 ”的格局",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp4_11",
+          "name": "油料生产形成了长江油菜带和黄淮花生区两大生产区",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp4_12",
+          "name": "棉花生产以北方为主，形成了新疆南部、黄河流域、长江流域三大棉区",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp4_13",
+          "name": "北京的中关村是我国最早建立的高新技术开发试验区",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp4_14",
+          "name": "高新技术产业主要特点",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp4_15",
+          "name": "从业人员中，科技人员所占的比重大",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp4_16",
+          "name": "销售收入中，用于研究与开发的费用比例大",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp4_17",
+          "name": "产品更新换代快",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp4_18",
+          "name": "高新技术产为是以电子和信息类主业为“龙头”产业",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp4_19",
+          "name": "我国高新技术产业开民区多依附于大城市 ，呈现出大分散、小集中的分布特点",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp4_20",
+          "name": "我国地理位置的优点？",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp4_21",
+          "name": "你了解的少数民族的生活习俗？",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp4_22",
+          "name": "地势对我国气候、河流的流向、东西交通产生的影响？",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp4_23",
+          "name": "治理黄河水患，应当在上、中、下游分别采取什么措施？",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp4_24",
+          "name": "我国气候的特点是？",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp4_25",
+          "name": "山区的有利条件和不利条件？",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp4_26",
+          "name": "不同温度带对我们的生产、生活产生的影响？",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp4_27",
+          "name": "不同的干湿区对我们生产、生活产生的影响？",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp4_28",
+          "name": "评价我国土地资源的有利条件和不利条件？",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp4_29",
+          "name": "我国农业发展面临的问题及对策？",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp4_30",
+          "name": "“东部沿海发达地区要积极发展出口创汇农业”地理条件？",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "kp4_31",
+          "name": "高新技术产业的特点？",
+          "sub_topics": [
+            "概念理解",
+            "重点记忆"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        }
+      ]
+    }
+  ]
+}

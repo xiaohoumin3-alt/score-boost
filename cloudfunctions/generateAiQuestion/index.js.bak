@@ -1,0 +1,1002 @@
+/**
+ * generateAiQuestion 云函数
+ * 功能：调用LLM生成题目，写入ai_question_pool
+ * TDD: Red-Green-Refactor
+ */
+
+// 引入个性化Prompt模板
+const { buildPersonalizedPrompt } = require('./prompt-templates.js');
+
+let cloud = null;
+let db = null;
+
+// 云数据库初始化（延迟到调用时）
+function getDb() {
+  if (db) return db;
+  try {
+    cloud = require('wx-server-sdk');
+    cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV });
+    db = cloud.database();
+    console.log('[DB] Initialized successfully');
+    return db;
+  } catch (e) {
+    console.log('[DB] wx-server-sdk init failed:', e.message);
+    return null;
+  }
+}
+
+const http = require('http');
+const https = require('https');
+
+// Fetch polyfill for Node.js environment (微信云函数可能没有全局fetch)
+let fetchPolyfill = null;
+try {
+  // 尝试使用内置的 fetch（Node 18+）
+  if (typeof fetch !== 'undefined') {
+    fetchPolyfill = fetch;
+    console.log('[Fetch] Using native fetch');
+  } else {
+    // 使用 node-fetch 或 undici
+    fetchPolyfill = require('node-fetch');
+    console.log('[Fetch] Using node-fetch polyfill');
+  }
+} catch (e) {
+  console.error('[Fetch] Failed to load fetch:', e.message);
+  console.error('[Fetch] Will use https module as fallback');
+}
+
+// 统一的fetch接口（带超时控制）
+function safeFetch(url, options) {
+  if (fetchPolyfill) {
+    // 为原生fetch添加AbortController超时控制
+    const controller = new AbortController();
+    const timeout = options.timeout || 60000;
+
+    // 设置超时
+    const timeoutId = setTimeout(() => {
+      controller.abort();
+      console.error('[safeFetch] Request timeout after', timeout, 'ms');
+    }, timeout);
+
+    return fetchPolyfill(url, {
+      ...options,
+      signal: controller.signal
+    }).finally(() => {
+      clearTimeout(timeoutId);
+    });
+  }
+  // Fallback to https module
+  return new Promise((resolve, reject) => {
+    const urlObj = new URL(url);
+    const protocol = urlObj.protocol === 'https:' ? https : http;
+
+    const headers = {};
+    if (options.headers) {
+      if (options.headers instanceof Headers) {
+        options.headers.forEach((value, key) => {
+          headers[key] = value;
+        });
+      } else {
+        Object.assign(headers, options.headers);
+      }
+    }
+
+    const timeout = options.timeout || 60000;
+
+    const reqOptions = {
+      hostname: urlObj.hostname,
+      port: urlObj.port || (protocol === https ? 443 : 80),
+      path: urlObj.pathname + urlObj.search,
+      method: options.method || 'GET',
+      headers: headers,
+      timeout: timeout
+    };
+
+    const req = protocol.request(reqOptions, (res) => {
+      let body = '';
+      res.on('data', (chunk) => body += chunk);
+      res.on('end', () => {
+        const response = {
+          ok: res.statusCode >= 200 && res.statusCode < 300,
+          status: res.statusCode,
+          text: async () => body,
+          json: async () => JSON.parse(body)
+        };
+        resolve(response);
+      });
+    });
+
+    req.on('error', (err) => {
+      console.error('[safeFetch] Request error:', err.message);
+      reject(err);
+    });
+
+    req.on('timeout', () => {
+      console.error('[safeFetch] Request timeout after', timeout, 'ms');
+      req.destroy();
+      reject(new Error('Request timeout'));
+    });
+
+    // 额外保险：强制超时
+    const timeoutId = setTimeout(() => {
+      console.error('[safeFetch] Forced timeout after', timeout, 'ms');
+      req.destroy();
+      reject(new Error('Forced timeout'));
+    }, timeout + 5000);
+
+    req.on('close', () => clearTimeout(timeoutId));
+    req.on('error', () => clearTimeout(timeoutId));
+    req.on('timeout', () => clearTimeout(timeoutId));
+
+    if (options.body) {
+      req.write(options.body);
+    }
+    req.end();
+  });
+}
+
+/**
+ * 图片生成客户端 - 封装MiniMax Image API
+ */
+class ImageClient {
+  constructor() {
+    this.apiKey = process.env.MINIMAX_API_KEY;
+    this.baseUrl = 'api.minimax.chat';
+    this.model = 'image-01';
+    this.timeout = 60000;
+  }
+
+  async generateImage(params) {
+    if (!this.apiKey) {
+      console.log('[ImageClient] API key missing!');
+      return null;
+    }
+
+    const { question, kpName, difficulty, subject = 'math' } = params;
+    const prompt = this._buildPrompt(question, kpName, difficulty, subject);
+
+    try {
+      const result = await this._callApi(prompt);
+      if (result && result.data && result.data.image_urls) {
+        return {
+          imageUrl: result.data.image_urls[0],
+          prompt: prompt
+        };
+      }
+      return null;
+    } catch (error) {
+      console.error('[ImageClient] Generation failed:', error.message);
+      return null;
+    }
+  }
+
+  _buildPrompt(question, kpName, difficulty, subject) {
+    const graphicTypes = {
+      '勾股定理': '直角三角形示意图',
+      '二次根式': '数轴示意图',
+      '一次函数': '平面直角坐标系中的一次函数直线',
+      '平行四边形': '平行四边形几何图形',
+      '数据的分析': '统计图表'
+    };
+
+    let graphicType = '几何示意图';
+    for (const [key, value] of Object.entries(graphicTypes)) {
+      if (kpName && kpName.includes(key)) {
+        graphicType = value;
+        break;
+      }
+    }
+
+    return `Math geometry: ${graphicType}. Clean educational style, white background. Simple and clear.`;
+  }
+
+  _callApi(prompt) {
+    return new Promise((resolve, reject) => {
+      const data = JSON.stringify({
+        model: this.model,
+        prompt: prompt
+      });
+
+      const options = {
+        hostname: this.baseUrl,
+        port: 443,
+        path: '/v1/image_generation',
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${this.apiKey}`,
+          'Content-Type': 'application/json',
+          'Content-Length': Buffer.byteLength(data)
+        },
+        timeout: this.timeout
+      };
+
+      const req = https.request(options, (res) => {
+        let body = '';
+        res.on('data', (chunk) => body += chunk);
+        res.on('end', () => {
+          try {
+            const result = JSON.parse(body);
+            if (result.base_resp?.status_code !== 0) {
+              reject(new Error(result.base_resp?.status_msg || 'API error'));
+            } else {
+              resolve(result);
+            }
+          } catch (e) {
+            reject(new Error(`Parse error: ${e.message}`));
+          }
+        });
+      });
+
+      req.on('error', reject);
+      req.on('timeout', () => {
+        req.destroy();
+        reject(new Error('Request timeout'));
+      });
+
+      req.write(data);
+      req.end();
+    });
+  }
+}
+
+/**
+ * LLM客户端 - 封装MIMO/MiniMax API调用（OpenAI兼容接口）
+ */
+class LlmClient {
+  constructor(config = {}) {
+    // 使用新的MIMO API
+    this.apiKey = config.apiKey || process.env.MINIMAX_API_KEY;
+    this.baseUrl = config.baseUrl || 'https://token-plan-cn.xiaomimimo.com/v1';
+    // 默认使用mimo-v2-flash（非推理模型，content字段有JSON答案）
+    // 可通过环境变量 MINIMAX_MODEL 覆盖
+    this.model = config.model || process.env.MINIMAX_MODEL || 'mimo-v2-flash';
+    this.timeout = config.timeout || 30000;
+  }
+
+  async generate(params) {
+    console.log('[LLM] === GENERATE START ===');
+    console.log('[LLM] params:', JSON.stringify(params));
+    console.log('[LLM] apiKey present:', !!this.apiKey);
+    console.log('[LLM] apiKey prefix:', this.apiKey ? this.apiKey.substring(0, 10) + '...' : 'N/A');
+    console.log('[LLM] baseUrl:', this.baseUrl);
+    console.log('[LLM] model:', this.model);
+
+    if (!this.apiKey) {
+      console.error('[LLM] API key missing!');
+      throw new Error('MINIMAX_API_KEY not configured');
+    }
+
+    const prompt = this._buildPrompt(params);
+    console.log('[LLM] Prompt built, length:', prompt.length);
+
+    // 使用OpenAI兼容接口（https fetch）
+    const requestStart = Date.now();
+    console.log('[LLM] Calling API:', `${this.baseUrl}/chat/completions`);
+
+    try {
+      const response = await safeFetch(`${this.baseUrl}/chat/completions`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${this.apiKey}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          model: this.model,
+          stream: false,
+          max_tokens: 500,
+          temperature: 0.7,
+          top_p: 0.95,
+          thinking: { type: 'disabled' },
+          messages: [
+            {
+              role: 'system',
+              content: `你是一个专业的数学题目生成助手。
+
+**难度控制原则**：
+1. 严格按照用户要求的难度级别生成题目
+2. 简单题：90%的学生应能独立完成
+3. 中等题：60%的学生经过思考能完成
+4. 困难题：30%的学生能完成，需要深度思考
+
+请严格按照用户要求的JSON格式返回题目，不要添加任何其他文字或说明。`
+            },
+            {
+              role: 'user',
+              content: prompt
+            }
+          ]
+        })
+      });
+
+      const requestDuration = Date.now() - requestStart;
+      console.log('[LLM] API response received in', requestDuration, 'ms');
+      console.log('[LLM] response.ok:', response.ok);
+      console.log('[LLM] response.status:', response.status);
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('[LLM] API error:', response.status, errorText);
+        throw new Error(`MIMO API error: ${response.status} ${errorText}`);
+      }
+
+      const result = await response.json();
+      console.log('[LLM] Response JSON parsed');
+      console.log('[LLM] has choices:', !!result.choices);
+      console.log('[LLM] has error:', !!result.error);
+
+      // 检查API错误
+      if (result.error) {
+        console.error('[LLM] API error:', JSON.stringify(result.error));
+        throw new Error(`MIMO API error: ${result.error.message || JSON.stringify(result.error)}`);
+      }
+
+      // OpenAI兼容格式
+      // MIMO推理模型: reasoning_content是推理过程，content是最终JSON答案
+      const message = result.choices?.[0]?.message || {};
+
+      // 诊断：打印完整message结构
+      console.log('[LLM] === MESSAGE STRUCTURE ===');
+      console.log('[LLM] message keys:', Object.keys(message));
+      console.log('[LLM] message.content exists:', !!message.content);
+      console.log('[LLM] message.content length:', message.content?.length || 0);
+      console.log('[LLM] message.reasoning_content exists:', !!message.reasoning_content);
+      console.log('[LLM] message.reasoning_content length:', message.reasoning_content?.length || 0);
+      if (message.content) {
+        console.log('[LLM] content preview:', message.content.substring(0, 100));
+      }
+      if (message.reasoning_content) {
+        console.log('[LLM] reasoning_content preview:', message.reasoning_content.substring(0, 100));
+      }
+
+      // 优先使用content（最终JSON答案），只有当content真正为空时才考虑reasoning_content
+      const content = message.content || '';
+
+      if (!content) {
+        console.error('[LLM] ERROR: content field is empty!');
+        console.error('[LLM] Cannot use reasoning_content - it contains reasoning process, not JSON answer');
+        console.error('[LLM] Full message:', JSON.stringify(message).substring(0, 1000));
+        throw new Error('MIMO API returned empty content field. The model may need different configuration.');
+      }
+
+      console.log('[LLM] === SUCCESS === using content field, length:', content.length);
+      console.log('[LLM] content preview:', content.substring(0, 100));
+      return { content, usage: result.usage };
+
+    } catch (e) {
+      const requestDuration = Date.now() - requestStart;
+      console.error('[LLM] === FAILED === duration:', requestDuration, 'ms error:', e.message);
+      console.error('[LLM] error stack:', e.stack);
+      throw e;
+    }
+  }
+
+  _buildPrompt(params) {
+    const { kp_name, difficulty, chapter, question_type = 'choice', knowledge_context = '', exclude_questions = [], student_profile } = params;
+
+    // 新增：优先使用个性化Prompt（AI原生核心）
+    if (student_profile && Object.keys(student_profile).length > 0) {
+      console.log('[LLM] Using personalized prompt with student profile');
+      return buildPersonalizedPrompt(params);
+    }
+
+    // 保留：原有通用Prompt（fallback）
+    return this._buildGenericPrompt(params);
+  }
+
+  // 通用Prompt（原有逻辑，重命名）
+  _buildGenericPrompt(params) {
+    const { kp_name, difficulty, chapter, question_type = 'choice', knowledge_context = '', exclude_questions = [] } = params;
+
+    const difficultyText = {
+      easy: '简单',
+      medium: '中等',
+      hard: '困难'
+    }[difficulty] || '中等';
+
+    // 难度标准说明
+    const difficultyGuidance = {
+      easy: `【难度标准 - 简单】
+- 直接套用公式或基本概念即可解答
+- 单步推理，不需要复杂变换
+- 数据简单，计算量小
+- 选项中只有一个明显正确答案，干扰项较弱
+- 示例题型：√16的值是？选项：["2", "4", "8", "16"]；直角三角形两直角边为3和4，斜边长为？选项：["5", "6", "7", "8"]`,
+
+      medium: `【难度标准 - 中等】
+- 需要对公式或概念进行适度变形或转换
+- 需要2-3步推理才能得出答案
+- 可能涉及多个知识点的综合应用
+- 选项设计有一定迷惑性，需要仔细辨别
+- 示例题型：√(a²)=|a|，当a<0时，√(a²)等于？选项：["a", "-a", "0", "±a"]；等边三角形边长为6，高为？选项：["3", "3√3", "6", "12"]`,
+
+      hard: `【难度标准 - 困难】
+- 需要多步推理，或涉及抽象概念理解
+- 可能需要逆向思维或特殊情况分析
+- 结果可能具有反直觉性，容易误判
+- 选项高度相似，每个选项都有一定的合理性
+- 可能涉及陷阱题型或边界条件
+- 示例题型：判断下列关于二次根式的说法是否正确（多知识点综合）；需要分类讨论的复杂情况`
+    };
+
+    const questionTypeText = {
+      choice: '选择题',
+      written: '简答题',
+      coding: '编程题'
+    }[question_type] || '选择题';
+
+    let prompt = `请为以下知识点生成一道${difficultyText}难度的${questionTypeText}：
+
+${difficultyGuidance[difficulty] || difficultyGuidance.medium}
+
+知识点：${kp_name}
+章节：${chapter || '通用'}`;
+
+    // RAG知识上下文注入
+    if (knowledge_context) {
+      prompt += `\n\n知识上下文：\n${knowledge_context}`;
+    }
+
+    // 防重复：已生成的相似题目
+    if (exclude_questions && exclude_questions.length > 0) {
+      prompt += `\n\n已生成的相似题目（请避免生成相同或高度相似的）：\n`;
+      exclude_questions.forEach((q, i) => {
+        prompt += `${i + 1}. ${q}\n`;
+      });
+    }
+
+    // 题型特定要求
+    if (question_type === 'choice') {
+      prompt += `\n\n要求：
+1. 必须提供恰好 4 个选项且仅 1 个正确答案
+2. **选项长度均衡**：所有选项长度应大致相同，不要让正确选项明显比干扰项更长或更详细
+3. 所有选项应具有合理的迷惑性，风格和长度相近，避免考生通过选项长度猜出答案
+4. 提供详细解析
+5. **数学符号格式**：使用Unicode数学符号而非LaTeX
+   - 平方根：用 √ 表示（不要用 \\sqrt）
+   - 分数：用 a/b 表示（不要用 \\frac）
+   - 不等号：用 ≤ ≥ ≠ < > 表示（不要用 \\leq \\geq \\neq）
+   - 希腊字母：用 π α β 表示（不要用 \\pi \\alpha \\beta）
+   - 平方：用 ² ³ 表示（不要用 ^2 ^3）
+   - 示例：√16 而非 \\sqrt{16}；a/b 而非 \\frac{a}{b}；x ≤ 3 而非 $x \\leq 3$
+6. **【重要】禁止生成需要图片/图形/数轴的题目！所有几何信息必须用文字描述
+   - 错误示例："已知实数a在数轴上的对应点如图所示"
+   - 正确示例："已知实数a满足-3<a<2，化简:|a+3|+|a-2|"`;
+    } else if (question_type === 'written') {
+      prompt += `\n\n要求：
+1. 不要提供选项
+2. 作答方式应为简答、解释或分析
+3. 给出清晰解释
+4. **数学符号格式**：使用Unicode数学符号（√ ≤ ≥ π ² ³ 等），不要使用LaTeX格式`;
+    } else if (question_type === 'coding') {
+      prompt += `\n\n要求：
+1. 不要提供选项
+2. 作答方式应为编写代码、伪代码或算法步骤
+3. 给出清晰解释`;
+    }
+
+    // JSON格式要求
+    prompt += `\n\n**严格返回纯JSON格式，不要任何其他文字**`;
+
+    if (question_type === 'choice') {
+      prompt += `\n\nJSON格式：
+{
+  "question": "题目内容",
+  "options": ["选项A", "选项B", "选项C", "选项D"],
+  "correct_answer": 0,
+  "explanation": "解析内容"
+}`;
+    } else if (question_type === 'written') {
+      prompt += `\n\nJSON格式：
+{
+  "question": "题目内容",
+  "sample_answer": "参考答案",
+  "explanation": "解析内容"
+}`;
+    } else if (question_type === 'coding') {
+      prompt += `\n\nJSON格式：
+{
+  "question": "题目内容",
+  "expected_code": "期望代码或算法步骤",
+  "explanation": "解析内容"
+}`;
+    }
+
+    return prompt;
+  }
+}
+
+/**
+ * 解析LLM响应
+ */
+function parseLlmResponse(content) {
+  if (!content || typeof content !== 'string') {
+    console.log('[parseLlmResponse] Invalid content type or empty');
+    return null;
+  }
+
+  console.log('[parseLlmResponse] Content length:', content.length);
+  console.log('[parseLlmResponse] Content preview:', content.substring(0, 200));
+
+  // 尝试提取JSON（可能在markdown代码块中）
+  let jsonStr = content;
+
+  // 提取 ```json ... ``` 代码块
+  const codeBlockMatch = content.match(/```(?:json)?\s*\n?([\s\S]*?)\n?```/);
+  if (codeBlockMatch) {
+    jsonStr = codeBlockMatch[1];
+    console.log('[parseLlmResponse] Found code block, extracted JSON length:', jsonStr.length);
+  }
+
+  // 提取 { ... } JSON对象
+  const objectMatch = content.match(/\{[\s\S]*\}/);
+  if (objectMatch) {
+    jsonStr = objectMatch[0];
+    console.log('[parseLlmResponse] Found object match, JSON length:', jsonStr.length);
+  }
+
+  try {
+    const parsed = JSON.parse(jsonStr);
+    console.log('[parseLlmResponse] Parsed successfully, keys:', Object.keys(parsed));
+    // 至少要有一些内容才返回
+    if (parsed && Object.keys(parsed).length > 0) {
+      console.log('[parseLlmResponse] Parsed data:', JSON.stringify(parsed).substring(0, 500));
+      return parsed;
+    }
+    console.log('[parseLlmResponse] Parsed but empty object');
+    return null;
+  } catch (e) {
+    console.error('[parseLlmResponse] JSON parse failed:', e.message);
+    console.error('[parseLlmResponse] JSON string was:', jsonStr.substring(0, 500));
+    return null;
+  }
+}
+
+/**
+ * 验证题目结构
+ */
+function validateQuestion(q, question_type = 'choice') {
+  if (!q || typeof q !== 'object') {
+    console.log('[validateQuestion] Invalid question: not an object or null');
+    return false;
+  }
+
+  console.log('[validateQuestion] Validating, type:', question_type, 'keys:', Object.keys(q));
+
+  if (question_type === 'choice') {
+    const required = ['question', 'options', 'correct_answer', 'explanation'];
+    for (const field of required) {
+      if (!(field in q)) {
+        console.log('[validateQuestion] Missing required field:', field);
+        return false;
+      }
+    }
+    if (!Array.isArray(q.options) || q.options.length < 2 || q.options.length > 6) {
+      console.log('[validateQuestion] Invalid options:', q.options);
+      return false;
+    }
+    console.log('[validateQuestion] correct_answer value:', q.correct_answer, 'type:', typeof q.correct_answer);
+    if (typeof q.correct_answer !== 'number' ||
+        q.correct_answer < 0 ||
+        q.correct_answer >= q.options.length) {
+      console.log('[validateQuestion] Invalid correct_answer:', q.correct_answer, 'options length:', q.options.length);
+      return false;
+    }
+  } else if (question_type === 'written' || question_type === 'coding') {
+    const required = ['question', 'explanation'];
+    for (const field of required) {
+      if (!(field in q)) {
+        console.log('[validateQuestion] Missing required field:', field);
+        return false;
+      }
+    }
+    // written需要sample_answer，coding需要expected_code
+    if (question_type === 'written' && !q.sample_answer) {
+      console.log('[validateQuestion] Missing sample_answer for written question');
+      return false;
+    }
+    if (question_type === 'coding' && !q.expected_code) {
+      console.log('[validateQuestion] Missing expected_code for coding question');
+      return false;
+    }
+  }
+
+  console.log('[validateQuestion] Validation passed!');
+  return true;
+}
+
+/**
+ * 获取知识点已有的题目（用于防重复）
+ * @param {string} kp_id - 知识点ID
+ * @param {number} limit - 最多返回条数
+ * @returns {Promise<Array>} 已有题目列表
+ */
+async function getExistingQuestions(kp_id, limit = 10) {
+  const database = getDb();
+  if (!database) return [];
+
+  try {
+    const result = await database.collection('ai_question_pool')
+      .where({ kp_id })
+      .orderBy('created_at', 'desc')
+      .limit(limit)
+      .get();
+
+    return result.data.map(q => q.question || q.concentration || '');
+  } catch (e) {
+    console.log('[DEDUP] Failed to fetch existing questions:', e.message);
+    return [];
+  }
+}
+
+/**
+ * 获取知识点的上下文（用于RAG）
+ * @param {string} kp_id - 知识点ID
+ * @returns {Promise<Object>} { knowledge_context, related_concepts, typical_mistakes }
+ */
+async function getKnowledgeContext(kp_id) {
+  const database = getDb();
+  if (!database || !kp_id || kp_id === 'unknown') {
+    return { knowledge_context: '', related_concepts: [], typical_mistakes: [] };
+  }
+
+  try {
+    const result = await database.collection('knowledge_points')
+      .where({ kp_id })
+      .limit(1)
+      .get();
+
+    if (result.data && result.data.length > 0) {
+      const kp = result.data[0];
+      return {
+        knowledge_context: kp.knowledge_context || '',
+        related_concepts: kp.related_concepts || [],
+        typical_mistakes: kp.typical_mistakes || []
+      };
+    }
+  } catch (e) {
+    console.log('[RAG] Failed to fetch kp context:', e.message);
+  }
+
+  return { knowledge_context: '', related_concepts: [], typical_mistakes: [] };
+}
+
+/**
+ * LaTeX 到 Unicode 转换（后处理）
+ * 清理AI生成时可能残留的LaTeX格式
+ */
+function postProcessLatex(text) {
+  if (!text || typeof text !== 'string') return text;
+
+  let result = text;
+
+  // 移除 $ 符号
+  result = result.replace(/\$/g, '');
+
+  // 分数（先处理，避免与花括号冲突）
+  result = result.replace(/\\frac\{([^{}]+)\}\{([^{}]+)\}/g, '$1/$2');
+
+  // 立方根
+  result = result.replace(/\\sqrt\[3\]\{([^{}]+)\}/g, '³√($1)');
+
+  // 平方根
+  result = result.replace(/\\sqrt\{([^{}]+)\}/g, '√($1)');
+
+  // 希腊字母和符号
+  result = result.replace(/\\pi/g, 'π');
+  result = result.replace(/\\leq/g, '≤');
+  result = result.replace(/\\geq/g, '≥');
+  result = result.replace(/\\neq/g, '≠');
+  result = result.replace(/\\times/g, '×');
+  result = result.replace(/\\div/g, '÷');
+  result = result.replace(/\\pm/g, '±');
+  result = result.replace(/\\infty/g, '∞');
+  result = result.replace(/\\angle/g, '∠');
+  result = result.replace(/\\circ/g, '°');
+  result = result.replace(/\\parallel/g, '∥');
+  result = result.replace(/\\perp/g, '⊥');
+  result = result.replace(/\\triangle/g, '△');
+
+  // 清理剩余的花括号
+  result = result.replace(/\{([^{}]+)\}/g, '($1)');
+
+  return result;
+}
+
+/**
+ * 生成题目
+ * @param {Object} kp - 知识点
+ * @param {string} difficulty - 难度
+ * @param {Object} options - 选项
+ * @returns {Promise<Object>} 生成的题目
+ */
+async function generateQuestion(kp, difficulty, options = {}) {
+  const {
+    llm = new LlmClient(),
+    maxRetries = 2
+  } = options;
+
+  console.log('[generateQuestion] Starting, kp:', kp.kp_name, 'difficulty:', difficulty, 'maxRetries:', maxRetries);
+
+  let lastError;
+  for (let attempt = 0; attempt <= maxRetries; attempt++) {
+    console.log(`[generateQuestion] Attempt ${attempt + 1}/${maxRetries + 1}`);
+    try {
+      const response = await llm.generate({
+        kp_name: kp.kp_name,
+        difficulty,
+        chapter: kp.chapter,
+        question_type: options.question_type || 'choice',
+        knowledge_context: options.knowledge_context || '',
+        exclude_questions: options.exclude_questions || []
+      });
+
+      console.log('[generateQuestion] LLM response received, content length:', response.content?.length || 0);
+      const parsed = parseLlmResponse(response.content);
+      if (!validateQuestion(parsed, options.question_type || 'choice')) {
+        const errorMsg = 'Invalid question structure from LLM';
+        console.error('[generateQuestion]', errorMsg, 'parsed:', JSON.stringify(parsed).substring(0, 300));
+        throw new Error(errorMsg);
+      }
+
+      // 后处理：转换LaTeX为Unicode
+      const cleanQuestion = postProcessLatex(parsed.question);
+      const cleanExplanation = postProcessLatex(parsed.explanation);
+      const cleanOptions = parsed.options ? parsed.options.map(opt => postProcessLatex(opt)) : [];
+
+      const result = {
+        kp_id: kp.kp_id,
+        difficulty,
+        question_type: options.question_type || 'choice',
+        question: cleanQuestion,
+        explanation: cleanExplanation,
+        verified: false,
+        created_at: new Date().toISOString()
+      };
+
+      if (result.question_type === 'choice') {
+        result.options = cleanOptions;
+        result.correct_answer = parsed.correct_answer;
+      }
+      if (result.question_type === 'written') {
+        const cleanSampleAnswer = postProcessLatex(parsed.sample_answer);
+        result.sample_answer = cleanSampleAnswer;
+        result.correct_answer = cleanSampleAnswer;
+      }
+      if (result.question_type === 'coding') {
+        const cleanExpectedCode = postProcessLatex(parsed.expected_code);
+        result.expected_code = cleanExpectedCode;
+        result.correct_answer = cleanExpectedCode;
+      }
+
+      // 生成配套图片（可选，失败不影响题目返回）
+      if (!options.skip_image) {
+        try {
+          const imageClient = new ImageClient();
+          const imageResult = await imageClient.generateImage({
+            question: cleanQuestion,
+            kpName: kp.kp_name,
+            difficulty,
+            subject: options.subject || 'math'
+          });
+          if (imageResult) {
+            result.image_url = imageResult.imageUrl;
+            result.image_prompt = imageResult.prompt;
+            console.log('[generateQuestion] Image generated:', imageResult.imageUrl);
+          }
+        } catch (imgError) {
+          console.log('[generateQuestion] Image generation failed (non-critical):', imgError.message);
+        }
+      } else {
+        console.log('[generateQuestion] Skipping image generation (skip_image=true)');
+      }
+
+      return result;
+
+    } catch (e) {
+      lastError = e;
+      console.error(`[generateQuestion] Attempt ${attempt + 1} failed:`, e.message);
+
+      // 429速率限制错误需要指数退避
+      const isRateLimit = e.message && e.message.includes('429');
+      let delay;
+      if (isRateLimit) {
+        // 指数退避: 2秒、4秒、8秒
+        delay = 2000 * Math.pow(2, attempt);
+        console.log(`[generateQuestion] Rate limit detected, using exponential backoff: ${delay}ms`);
+      } else {
+        // 其他错误: 线性延迟
+        delay = 1000 * (attempt + 1);
+        console.log(`[generateQuestion] Retrying after ${delay}ms...`);
+      }
+
+      if (attempt < maxRetries) {
+        await new Promise(resolve => setTimeout(resolve, delay));
+      } else {
+        console.error('[generateQuestion] All retries exhausted, final error:', e.message);
+      }
+    }
+  }
+
+  console.error('[generateQuestion] Throwing last error:', lastError?.message);
+  throw lastError;
+}
+
+/**
+ * 云函数入口
+ */
+exports.main = async (event, context) => {
+  console.log('[ENTRY] generateAiQuestion called');
+  console.log('[ENTRY] event:', JSON.stringify(event));
+  console.log('[ENTRY] MINIMAX_API_KEY:', process.env.MINIMAX_API_KEY ? 'SET' : 'NOT SET');
+
+  // 兼容多种 event 格式：event.data, event, 或解析后的 event
+  let eventData = event;
+  if (event.data && typeof event.data === 'object') {
+    eventData = event.data;
+  } else if (typeof event === 'string') {
+    try {
+      eventData = JSON.parse(event);
+    } catch (e) {
+      console.log('[ENTRY] Failed to parse event string');
+    }
+  }
+
+  const { kp_id, difficulty = 'medium', kp_name, chapter, subject, skip_image, questions, batch_mode } = eventData;
+
+  // 批量模式：支持传入questions数组
+  if (questions && Array.isArray(questions) && questions.length > 0) {
+    console.log('[ENTRY] BATCH MODE detected, processing', questions.length, 'questions');
+
+    const batchSkipImage = skip_image !== undefined ? skip_image : true;
+    const tasks = questions.map((q, idx) => ({
+      kp: {
+        kp_id: q.kp_id || q.kp_name || `batch_${idx}`,
+        kp_name: q.kp_name || '未知知识点',
+        chapter: q.chapter || ''
+      },
+      difficulty: q.difficulty || difficulty,
+      question_type: q.question_type || 'choice'
+    }));
+
+    try {
+      const results = await generateQuestionBatch(tasks, { skip_image: batchSkipImage });
+      console.log('[ENTRY] BATCH MODE completed, generated', results.length, 'questions');
+
+      return {
+        success: true,
+        data: results,
+        count: results.length
+      };
+    } catch (e) {
+      console.error('[ENTRY] BATCH MODE error:', e.message);
+      return { success: false, error: e.message };
+    }
+  }
+
+  // 如果没有提供kp信息，从数据库查询
+  const database = getDb();
+  let kp;
+  if (kp_name) {
+    kp = { kp_id: kp_id || 'unknown', kp_name, chapter: chapter || '' };
+  } else if (kp_id) {
+    // 从数据库查询知识点信息
+    if (database) {
+      try {
+        const kpRes = await database.collection('knowledge_points').doc(kp_id).get();
+        kp = kpRes.data;
+      } catch (e) {
+        console.log('[ENTRY] Failed to fetch kp from db, using defaults');
+        kp = { kp_id, kp_name: '未知知识点', chapter: '' };
+      }
+    } else {
+      kp = { kp_id, kp_name: '未知知识点', chapter: '' };
+    }
+  } else {
+    return { success: false, error: 'kp_id or kp_name is required' };
+  }
+
+  console.log('[ENTRY] kp:', kp, 'difficulty:', difficulty);
+
+  try {
+    // 获取RAG知识上下文（用于生成更准确的题目）
+    const kc = await getKnowledgeContext(kp.kp_id);
+
+    // 获取已有题目（用于防重复）
+    const existingQuestions = kp.kp_id && kp.kp_id !== 'unknown'
+      ? await getExistingQuestions(kp.kp_id, 10)
+      : [];
+
+    console.log('[ENTRY] RAG context:', kc.knowledge_context ? 'present' : 'empty');
+    console.log('[ENTRY] Existing questions:', existingQuestions.length);
+
+    // 确定题型
+    const questionType = eventData.question_type || 'choice';
+    // 确定是否跳过图片生成（用于快速批量生成场景）
+    const skipImage = skip_image || false;
+
+    console.log('[ENTRY] Calling generateQuestion..., skipImage:', skipImage);
+    const question = await generateQuestion(kp, difficulty, {
+      question_type: questionType,
+      knowledge_context: kc.knowledge_context,
+      exclude_questions: existingQuestions,
+      skip_image: skipImage
+    });
+    console.log('[ENTRY] Question generated:', !!question);
+
+    // 写入ai_question_pool
+    if (database) {
+      try {
+        const now = new Date().toISOString();
+        const record = {
+          ...question,
+          kp_id: kp.kp_id,
+          kp_name: kp.kp_name,
+          chapter: kp.chapter || '',
+          difficulty,
+          question_type: question.question_type,
+          verified: false,
+          usage_count: 0,
+          correct_count: 0,
+          created_at: now,
+          updated_at: now
+        };
+        const result = await database.collection('ai_question_pool').add({ data: record });
+        console.log('[ENTRY] Question saved to ai_question_pool, id:', result._id);
+        question.pool_id = result._id;
+        question.saved = true;
+      } catch (e) {
+        console.error('[ENTRY] Failed to save to ai_question_pool:', e.message);
+        question.saved = false;
+      }
+    } else {
+      console.log('[ENTRY] DB not available, skipping save');
+      question.saved = false;
+    }
+
+    return {
+      success: true,
+      data: question
+    };
+
+  } catch (e) {
+    console.error('[ERROR] generateAiQuestion error:', e.message);
+    console.error('[ERROR] Stack:', e.stack);
+    return {
+      success: false,
+      error: e.message
+    };
+  }
+};
+
+/**
+ * 批量生成题目
+ * @param {Array<Object>} tasks - 生成任务列表
+ * @param {Object} options - 选项 { skip_image: boolean }
+ * @returns {Promise<Array>} 生成的题目列表
+ */
+async function generateQuestionBatch(tasks, options = {}) {
+  const { skip_image = true } = options;
+  const llm = new LlmClient();
+  const results = [];
+
+  for (const task of tasks) {
+    try {
+      const question = await generateQuestion(task.kp, task.difficulty, {
+        question_type: task.question_type || 'choice',
+        skip_image: skip_image
+      });
+      results.push(question);
+    } catch (e) {
+      console.error('[generateQuestionBatch] Failed to generate question for', task.kp?.kp_name, ':', e.message);
+      results.push(null);
+    }
+  }
+
+  return results.filter(Boolean);
+}
+
+// 导出供测试使用（保留main）
+module.exports.generateQuestion = generateQuestion;
+module.exports.generateQuestionBatch = generateQuestionBatch;
+module.exports.parseLlmResponse = parseLlmResponse;
+module.exports.validateQuestion = validateQuestion;

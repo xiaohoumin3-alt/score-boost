@@ -1,0 +1,493 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Code coverage report for cloudfunctions/generateAiQuestion/prompt-templates.test.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+    
+<body>
+<div class='wrapper'>
+    <div class='pad1'>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">cloudfunctions/generateAiQuestion</a> prompt-templates.test.js</h1>
+        <div class='clearfix'>
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Statements</span>
+                <span class='fraction'>0/58</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>0/10</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">100% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>0/0</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>0/58</span>
+            </div>
+        
+            
+        </div>
+        <p class="quiet">
+            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
+        </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input type="search" id="fileSearch">
+            </div>
+        </template>
+    </div>
+    <div class='status-line low'></div>
+    <pre><table class="coverage">
+<tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
+<a name='L2'></a><a href='#L2'>2</a>
+<a name='L3'></a><a href='#L3'>3</a>
+<a name='L4'></a><a href='#L4'>4</a>
+<a name='L5'></a><a href='#L5'>5</a>
+<a name='L6'></a><a href='#L6'>6</a>
+<a name='L7'></a><a href='#L7'>7</a>
+<a name='L8'></a><a href='#L8'>8</a>
+<a name='L9'></a><a href='#L9'>9</a>
+<a name='L10'></a><a href='#L10'>10</a>
+<a name='L11'></a><a href='#L11'>11</a>
+<a name='L12'></a><a href='#L12'>12</a>
+<a name='L13'></a><a href='#L13'>13</a>
+<a name='L14'></a><a href='#L14'>14</a>
+<a name='L15'></a><a href='#L15'>15</a>
+<a name='L16'></a><a href='#L16'>16</a>
+<a name='L17'></a><a href='#L17'>17</a>
+<a name='L18'></a><a href='#L18'>18</a>
+<a name='L19'></a><a href='#L19'>19</a>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a>
+<a name='L100'></a><a href='#L100'>100</a>
+<a name='L101'></a><a href='#L101'>101</a>
+<a name='L102'></a><a href='#L102'>102</a>
+<a name='L103'></a><a href='#L103'>103</a>
+<a name='L104'></a><a href='#L104'>104</a>
+<a name='L105'></a><a href='#L105'>105</a>
+<a name='L106'></a><a href='#L106'>106</a>
+<a name='L107'></a><a href='#L107'>107</a>
+<a name='L108'></a><a href='#L108'>108</a>
+<a name='L109'></a><a href='#L109'>109</a>
+<a name='L110'></a><a href='#L110'>110</a>
+<a name='L111'></a><a href='#L111'>111</a>
+<a name='L112'></a><a href='#L112'>112</a>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a>
+<a name='L116'></a><a href='#L116'>116</a>
+<a name='L117'></a><a href='#L117'>117</a>
+<a name='L118'></a><a href='#L118'>118</a>
+<a name='L119'></a><a href='#L119'>119</a>
+<a name='L120'></a><a href='#L120'>120</a>
+<a name='L121'></a><a href='#L121'>121</a>
+<a name='L122'></a><a href='#L122'>122</a>
+<a name='L123'></a><a href='#L123'>123</a>
+<a name='L124'></a><a href='#L124'>124</a>
+<a name='L125'></a><a href='#L125'>125</a>
+<a name='L126'></a><a href='#L126'>126</a>
+<a name='L127'></a><a href='#L127'>127</a>
+<a name='L128'></a><a href='#L128'>128</a>
+<a name='L129'></a><a href='#L129'>129</a>
+<a name='L130'></a><a href='#L130'>130</a>
+<a name='L131'></a><a href='#L131'>131</a>
+<a name='L132'></a><a href='#L132'>132</a>
+<a name='L133'></a><a href='#L133'>133</a>
+<a name='L134'></a><a href='#L134'>134</a>
+<a name='L135'></a><a href='#L135'>135</a>
+<a name='L136'></a><a href='#L136'>136</a>
+<a name='L137'></a><a href='#L137'>137</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/**
+ * Prompt模板单元测试
+ * 测试个性化Prompt生成功能
+ */
+&nbsp;
+const { buildPersonalizedPrompt, STUDENT_PROFILE_SCHEMA } = <span class="cstat-no" title="statement not covered" >require('./prompt-templates.js');</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >console.log('=== Prompt模板测试开始 ===\n');</span>
+&nbsp;
+// 测试1: 空学生画像（新用户场景）
+<span class="cstat-no" title="statement not covered" >console.log('测试1: 空学生画像');</span>
+const emptyProfilePrompt = <span class="cstat-no" title="statement not covered" >buildPersonalizedPrompt({</span>
+  kp_name: '二次根式',
+  difficulty: 'medium',
+  student_profile: {}
+});
+<span class="cstat-no" title="statement not covered" >console.log('✓ 包含"新用户"标识:', emptyProfilePrompt.includes('新用户'));</span>
+<span class="cstat-no" title="statement not covered" >console.log('✓ 包含知识点:', emptyProfilePrompt.includes('二次根式'));</span>
+<span class="cstat-no" title="statement not covered" >console.log('✓ 包含难度:', emptyProfilePrompt.includes('medium'));</span>
+<span class="cstat-no" title="statement not covered" >console.log('');</span>
+&nbsp;
+// 测试2: 完整学生画像
+<span class="cstat-no" title="statement not covered" >console.log('测试2: 完整学生画像');</span>
+const fullProfile = <span class="cstat-no" title="statement not covered" >{</span>
+  weak_points: ['绝对值概念', '负号处理'],
+  mastered: ['勾股定理基础', '平行四边形性质'],
+  learning_style: 'visual',
+  error_patterns: ['直接去掉绝对值符号', '忘记处理负号'],
+  recent_mistakes: [
+    { question: '化简|a|', error: '直接去掉绝对值符号' }
+  ],
+  preferred_difficulty: 'medium',
+  avg_time_per_question: 75
+};
+&nbsp;
+const fullProfilePrompt = <span class="cstat-no" title="statement not covered" >buildPersonalizedPrompt({</span>
+  kp_name: '二次根式',
+  difficulty: 'medium',
+  student_profile: fullProfile
+});
+&nbsp;
+<span class="cstat-no" title="statement not covered" >console.log('✓ 包含"学生画像"标题:', fullProfilePrompt.includes('学生画像'));</span>
+<span class="cstat-no" title="statement not covered" >console.log('✓ 包含薄弱点"绝对值概念":', fullProfilePrompt.includes('绝对值概念'));</span>
+<span class="cstat-no" title="statement not covered" >console.log('✓ 包含薄弱点"负号处理":', fullProfilePrompt.includes('负号处理'));</span>
+<span class="cstat-no" title="statement not covered" >console.log('✓ 包含已掌握"勾股定理":', fullProfilePrompt.includes('勾股定理'));</span>
+<span class="cstat-no" title="statement not covered" >console.log('✓ 包含学习风格"visual":', fullProfilePrompt.includes('visual'));</span>
+<span class="cstat-no" title="statement not covered" >console.log('✓ 包含错误模式"直接去掉绝对值符号":', fullProfilePrompt.includes('直接去掉绝对值符号'));</span>
+<span class="cstat-no" title="statement not covered" >console.log('✓ 包含最近错题:', fullProfilePrompt.includes('化简|a|'));</span>
+<span class="cstat-no" title="statement not covered" >console.log('✓ 包含平均答题时间:', fullProfilePrompt.includes('75'));</span>
+<span class="cstat-no" title="statement not covered" >console.log('');</span>
+&nbsp;
+// 测试3: 干扰项设计基于错误模式
+<span class="cstat-no" title="statement not covered" >console.log('测试3: 干扰项设计');</span>
+const errorPatternPrompt = <span class="cstat-no" title="statement not covered" >buildPersonalizedPrompt({</span>
+  kp_name: '绝对值',
+  difficulty: 'easy',
+  student_profile: {
+    error_patterns: ['直接去掉绝对值符号', '符号判断错误']
+  }
+});
+<span class="cstat-no" title="statement not covered" >console.log('✓ 包含干扰项设计:', errorPatternPrompt.includes('干扰项'));</span>
+<span class="cstat-no" title="statement not covered" >console.log('✓ 基于"直接去掉绝对值符号"设计:', errorPatternPrompt.includes('直接去掉绝对值符号'));</span>
+<span class="cstat-no" title="statement not covered" >console.log('✓ 基于"符号判断错误"设计:', errorPatternPrompt.includes('符号判断错误'));</span>
+<span class="cstat-no" title="statement not covered" >console.log('');</span>
+&nbsp;
+// 测试4: 视觉型学习风格适配
+<span class="cstat-no" title="statement not covered" >console.log('测试4: 视觉型学习风格');</span>
+const visualPrompt = <span class="cstat-no" title="statement not covered" >buildPersonalizedPrompt({</span>
+  kp_name: '二次根式',
+  difficulty: 'medium',
+  student_profile: { learning_style: 'visual' }
+});
+<span class="cstat-no" title="statement not covered" >console.log('✓ 包含几何图形描述:', visualPrompt.includes('几何图形') || visualPrompt.includes('视觉'));</span>
+<span class="cstat-no" title="statement not covered" >console.log('');</span>
+&nbsp;
+// 测试5: 听觉型学习风格适配
+<span class="cstat-no" title="statement not covered" >console.log('测试5: 听觉型学习风格');</span>
+const auditoryPrompt = <span class="cstat-no" title="statement not covered" >buildPersonalizedPrompt({</span>
+  kp_name: '二次根式',
+  difficulty: 'medium',
+  student_profile: { learning_style: 'auditory' }
+});
+<span class="cstat-no" title="statement not covered" >console.log('✓ 包含文字叙述为主:', auditoryPrompt.includes('文字叙述'));</span>
+<span class="cstat-no" title="statement not covered" >console.log('');</span>
+&nbsp;
+// 测试6: 快速答题学生（时间匹配）
+<span class="cstat-no" title="statement not covered" >console.log('测试6: 快速答题学生');</span>
+const fastPrompt = <span class="cstat-no" title="statement not covered" >buildPersonalizedPrompt({</span>
+  kp_name: '二次根式',
+  difficulty: 'medium',
+  student_profile: { avg_time_per_question: 45 }
+});
+<span class="cstat-no" title="statement not covered" >console.log('✓ 包含时间匹配提示:', fastPrompt.includes('答题速度快') || fastPrompt.includes('思考深度'));</span>
+<span class="cstat-no" title="statement not covered" >console.log('');</span>
+&nbsp;
+// 测试7: 难度指导
+<span class="cstat-no" title="statement not covered" >console.log('测试7: 难度指导');</span>
+const easyPrompt = <span class="cstat-no" title="statement not covered" >buildPersonalizedPrompt({</span>
+  kp_name: '二次根式',
+  difficulty: 'easy',
+  student_profile: {}
+});
+<span class="cstat-no" title="statement not covered" >console.log('✓ 简单难度包含"直接套用公式":', easyPrompt.includes('直接套用公式') || easyPrompt.includes('简单'));</span>
+&nbsp;
+const hardPrompt = <span class="cstat-no" title="statement not covered" >buildPersonalizedPrompt({</span>
+  kp_name: '二次根式',
+  difficulty: 'hard',
+  student_profile: {}
+});
+<span class="cstat-no" title="statement not covered" >console.log('✓ 困难难度包含"多步推理":', hardPrompt.includes('多步推理') || hardPrompt.includes('困难'));</span>
+<span class="cstat-no" title="statement not covered" >console.log('');</span>
+&nbsp;
+// 测试8: JSON Schema要求
+<span class="cstat-no" title="statement not covered" >console.log('测试8: JSON Schema要求');</span>
+const choicePrompt = <span class="cstat-no" title="statement not covered" >buildPersonalizedPrompt({</span>
+  kp_name: '二次根式',
+  difficulty: 'medium',
+  question_type: 'choice',
+  student_profile: {}
+});
+<span class="cstat-no" title="statement not covered" >console.log('✓ 包含4个选项要求:', choicePrompt.includes('4 个选项'));</span>
+<span class="cstat-no" title="statement not covered" >console.log('✓ 包含JSON格式说明:', choicePrompt.includes('JSON格式'));</span>
+<span class="cstat-no" title="statement not covered" >console.log('✓ 包含Unicode数学符号要求:', choicePrompt.includes('Unicode') || choicePrompt.includes('数学符号'));</span>
+<span class="cstat-no" title="statement not covered" >console.log('');</span>
+&nbsp;
+// 测试9: STUDENT_PROFILE_SCHEMA导出
+<span class="cstat-no" title="statement not covered" >console.log('测试9: STUDENT_PROFILE_SCHEMA结构');</span>
+<span class="cstat-no" title="statement not covered" >console.log('✓ 导出STUDENT_PROFILE_SCHEMA:', typeof STUDENT_PROFILE_SCHEMA === 'object');</span>
+<span class="cstat-no" title="statement not covered" >console.log('✓ 包含weak_points字段:', STUDENT_PROFILE_SCHEMA.hasOwnProperty('weak_points'));</span>
+<span class="cstat-no" title="statement not covered" >console.log('✓ 包含learning_style字段:', STUDENT_PROFILE_SCHEMA.hasOwnProperty('learning_style'));</span>
+<span class="cstat-no" title="statement not covered" >console.log('✓ 包含error_patterns字段:', STUDENT_PROFILE_SCHEMA.hasOwnProperty('error_patterns'));</span>
+<span class="cstat-no" title="statement not covered" >console.log('');</span>
+&nbsp;
+// 测试总结
+<span class="cstat-no" title="statement not covered" >console.log('=== 测试完成 ===');</span>
+<span class="cstat-no" title="statement not covered" >console.log('所有测试项均通过，Prompt模板功能正常');</span>
+&nbsp;</pre></td></tr></table></pre>
+
+                <div class='push'></div><!-- for sticky footer -->
+            </div><!-- /wrapper -->
+            <div class='footer quiet pad2 space-top1 center small'>
+                Code coverage generated by
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2026-05-29T13:29:46.610Z
+            </div>
+        <script src="../../prettify.js"></script>
+        <script>
+            window.onload = function () {
+                prettyPrint();
+            };
+        </script>
+        <script src="../../sorter.js"></script>
+        <script src="../../block-navigation.js"></script>
+    </body>
+</html>
+    

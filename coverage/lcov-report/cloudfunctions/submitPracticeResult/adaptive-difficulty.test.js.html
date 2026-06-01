@@ -1,0 +1,427 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Code coverage report for cloudfunctions/submitPracticeResult/adaptive-difficulty.test.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+    
+<body>
+<div class='wrapper'>
+    <div class='pad1'>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">cloudfunctions/submitPracticeResult</a> adaptive-difficulty.test.js</h1>
+        <div class='clearfix'>
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Statements</span>
+                <span class='fraction'>0/71</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">100% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>0/0</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>0/2</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>0/71</span>
+            </div>
+        
+            
+        </div>
+        <p class="quiet">
+            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
+        </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input type="search" id="fileSearch">
+            </div>
+        </template>
+    </div>
+    <div class='status-line low'></div>
+    <pre><table class="coverage">
+<tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
+<a name='L2'></a><a href='#L2'>2</a>
+<a name='L3'></a><a href='#L3'>3</a>
+<a name='L4'></a><a href='#L4'>4</a>
+<a name='L5'></a><a href='#L5'>5</a>
+<a name='L6'></a><a href='#L6'>6</a>
+<a name='L7'></a><a href='#L7'>7</a>
+<a name='L8'></a><a href='#L8'>8</a>
+<a name='L9'></a><a href='#L9'>9</a>
+<a name='L10'></a><a href='#L10'>10</a>
+<a name='L11'></a><a href='#L11'>11</a>
+<a name='L12'></a><a href='#L12'>12</a>
+<a name='L13'></a><a href='#L13'>13</a>
+<a name='L14'></a><a href='#L14'>14</a>
+<a name='L15'></a><a href='#L15'>15</a>
+<a name='L16'></a><a href='#L16'>16</a>
+<a name='L17'></a><a href='#L17'>17</a>
+<a name='L18'></a><a href='#L18'>18</a>
+<a name='L19'></a><a href='#L19'>19</a>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a>
+<a name='L100'></a><a href='#L100'>100</a>
+<a name='L101'></a><a href='#L101'>101</a>
+<a name='L102'></a><a href='#L102'>102</a>
+<a name='L103'></a><a href='#L103'>103</a>
+<a name='L104'></a><a href='#L104'>104</a>
+<a name='L105'></a><a href='#L105'>105</a>
+<a name='L106'></a><a href='#L106'>106</a>
+<a name='L107'></a><a href='#L107'>107</a>
+<a name='L108'></a><a href='#L108'>108</a>
+<a name='L109'></a><a href='#L109'>109</a>
+<a name='L110'></a><a href='#L110'>110</a>
+<a name='L111'></a><a href='#L111'>111</a>
+<a name='L112'></a><a href='#L112'>112</a>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/**
+ * 自适应难度调整系统测试
+ * Phase 3: Adaptive Difficulty
+ *
+ * 测试规则：
+ * - 连续3题正确 → 降难度 (hard→medium→easy)
+ * - 连续2题错误 → 升难度 (easy→medium→hard)
+ * - 达到easy且连续3题正确 → 标记为"已掌握"
+ */
+&nbsp;
+const assert = <span class="cstat-no" title="statement not covered" >require('assert');</span>
+&nbsp;
+// 导入被测试的模块
+const { calculateNewDifficulty } = <span class="cstat-no" title="statement not covered" >require('./adaptive-difficulty.js');</span>
+&nbsp;
+// ============ 测试用例 ============
+&nbsp;
+async function <span class="fstat-no" title="function not covered" >runTests(</span>) {
+<span class="cstat-no" title="statement not covered" >  console.log('=== 自适应难度调整测试开始 ===\n');</span>
+&nbsp;
+  // 测试1: 连续3题正确，从hard降到medium
+<span class="cstat-no" title="statement not covered" >  console.log('测试1: 连续3题正确，hard → medium');</span>
+  const result1 = <span class="cstat-no" title="statement not covered" >calculateNewDifficulty('hard', 3, 0);</span>
+<span class="cstat-no" title="statement not covered" >  assert.strictEqual(result1.newDifficulty, 'medium', '难度应降为medium');</span>
+<span class="cstat-no" title="statement not covered" >  assert.strictEqual(result1.isMastered, false, '未标记为已掌握');</span>
+<span class="cstat-no" title="statement not covered" >  assert.ok(result1.reason.includes('连续3题正确'), '理由应包含连续正确');</span>
+<span class="cstat-no" title="statement not covered" >  console.log('✓ 通过:', result1.reason);</span>
+<span class="cstat-no" title="statement not covered" >  console.log('');</span>
+&nbsp;
+  // 测试2: 连续3题正确，从medium降到easy
+<span class="cstat-no" title="statement not covered" >  console.log('测试2: 连续3题正确，medium → easy');</span>
+  const result2 = <span class="cstat-no" title="statement not covered" >calculateNewDifficulty('medium', 3, 0);</span>
+<span class="cstat-no" title="statement not covered" >  assert.strictEqual(result2.newDifficulty, 'easy', '难度应降为easy');</span>
+<span class="cstat-no" title="statement not covered" >  assert.strictEqual(result2.isMastered, false, '尚未标记为已掌握');</span>
+<span class="cstat-no" title="statement not covered" >  console.log('✓ 通过:', result2.reason);</span>
+<span class="cstat-no" title="statement not covered" >  console.log('');</span>
+&nbsp;
+  // 测试3: 连续3题正确，已在easy，标记为已掌握
+<span class="cstat-no" title="statement not covered" >  console.log('测试3: 连续3题正确，easy → 已掌握');</span>
+  const result3 = <span class="cstat-no" title="statement not covered" >calculateNewDifficulty('easy', 3, 0);</span>
+<span class="cstat-no" title="statement not covered" >  assert.strictEqual(result3.newDifficulty, 'easy', '难度保持easy');</span>
+<span class="cstat-no" title="statement not covered" >  assert.strictEqual(result3.isMastered, true, '应标记为已掌握');</span>
+<span class="cstat-no" title="statement not covered" >  assert.ok(result3.reason.includes('已掌握'), '理由应包含已掌握');</span>
+<span class="cstat-no" title="statement not covered" >  console.log('✓ 通过:', result3.reason);</span>
+<span class="cstat-no" title="statement not covered" >  console.log('');</span>
+&nbsp;
+  // 测试4: 连续2题错误，从easy升到medium
+<span class="cstat-no" title="statement not covered" >  console.log('测试4: 连续2题错误，easy → medium');</span>
+  const result4 = <span class="cstat-no" title="statement not covered" >calculateNewDifficulty('easy', 0, 2);</span>
+<span class="cstat-no" title="statement not covered" >  assert.strictEqual(result4.newDifficulty, 'medium', '难度应升为medium');</span>
+<span class="cstat-no" title="statement not covered" >  assert.strictEqual(result4.isMastered, false, '未标记为已掌握');</span>
+<span class="cstat-no" title="statement not covered" >  assert.ok(result4.reason.includes('连续2题错误'), '理由应包含连续错误');</span>
+<span class="cstat-no" title="statement not covered" >  console.log('✓ 通过:', result4.reason);</span>
+<span class="cstat-no" title="statement not covered" >  console.log('');</span>
+&nbsp;
+  // 测试5: 连续2题错误，从medium升到hard
+<span class="cstat-no" title="statement not covered" >  console.log('测试5: 连续2题错误，medium → hard');</span>
+  const result5 = <span class="cstat-no" title="statement not covered" >calculateNewDifficulty('medium', 0, 2);</span>
+<span class="cstat-no" title="statement not covered" >  assert.strictEqual(result5.newDifficulty, 'hard', '难度应升为hard');</span>
+<span class="cstat-no" title="statement not covered" >  assert.strictEqual(result5.isMastered, false, '未标记为已掌握');</span>
+<span class="cstat-no" title="statement not covered" >  console.log('✓ 通过:', result5.reason);</span>
+<span class="cstat-no" title="statement not covered" >  console.log('');</span>
+&nbsp;
+  // 测试6: 连续2题错误，已在hard，保持不变
+<span class="cstat-no" title="statement not covered" >  console.log('测试6: 连续2题错误，hard → hard（最高难度）');</span>
+  const result6 = <span class="cstat-no" title="statement not covered" >calculateNewDifficulty('hard', 0, 2);</span>
+<span class="cstat-no" title="statement not covered" >  assert.strictEqual(result6.newDifficulty, 'hard', '难度保持hard');</span>
+<span class="cstat-no" title="statement not covered" >  assert.strictEqual(result6.isMastered, false, '未标记为已掌握');</span>
+<span class="cstat-no" title="statement not covered" >  assert.ok(result6.reason.includes('最高难度'), '理由应说明已在最高难度');</span>
+<span class="cstat-no" title="statement not covered" >  console.log('✓ 通过:', result6.reason);</span>
+<span class="cstat-no" title="statement not covered" >  console.log('');</span>
+&nbsp;
+  // 测试7: 不满足调整条件，保持当前难度
+<span class="cstat-no" title="statement not covered" >  console.log('测试7: 不满足调整条件，保持当前难度');</span>
+  const result7a = <span class="cstat-no" title="statement not covered" >calculateNewDifficulty('medium', 1, 0);</span> // 仅1题正确
+<span class="cstat-no" title="statement not covered" >  assert.strictEqual(result7a.newDifficulty, 'medium', '1题正确，难度不变');</span>
+  const result7b = <span class="cstat-no" title="statement not covered" >calculateNewDifficulty('medium', 0, 1);</span> // 仅1题错误
+<span class="cstat-no" title="statement not covered" >  assert.strictEqual(result7b.newDifficulty, 'medium', '1题错误，难度不变');</span>
+  const result7c = <span class="cstat-no" title="statement not covered" >calculateNewDifficulty('medium', 2, 1);</span> // 2正确1错误
+<span class="cstat-no" title="statement not covered" >  assert.strictEqual(result7c.newDifficulty, 'medium', '混合情况，难度不变');</span>
+<span class="cstat-no" title="statement not covered" >  console.log('✓ 通过: 不满足条件时难度保持不变');</span>
+<span class="cstat-no" title="statement not covered" >  console.log('');</span>
+&nbsp;
+  // 测试8: 边界情况 - 连续正确和错误同时存在（应优先处理正确）
+<span class="cstat-no" title="statement not covered" >  console.log('测试8: 同时满足升降条件，优先处理降难度');</span>
+  const result8 = <span class="cstat-no" title="statement not covered" >calculateNewDifficulty('medium', 3, 2);</span>
+<span class="cstat-no" title="statement not covered" >  assert.strictEqual(result8.newDifficulty, 'easy', '优先降难度');</span>
+<span class="cstat-no" title="statement not covered" >  console.log('✓ 通过: 优先处理降难度（对学生更有利）');</span>
+<span class="cstat-no" title="statement not covered" >  console.log('');</span>
+&nbsp;
+  // 测试9: 已掌握后，难度不再变化
+<span class="cstat-no" title="statement not covered" >  console.log('测试9: 已掌握状态不受连续错误影响');</span>
+  const result9 = <span class="cstat-no" title="statement not covered" >calculateNewDifficulty('easy', 5, 2);</span> // 假设已掌握
+  // 注意：这里测试的是calculateNewDifficulty函数，实际状态需要额外字段
+  // 在实际实现中，"已掌握"是独立状态
+<span class="cstat-no" title="statement not covered" >  console.log('✓ 通过: 已掌握是独立状态，需要额外字段维护');</span>
+<span class="cstat-no" title="statement not covered" >  console.log('');</span>
+&nbsp;
+  // 测试10: 连续4题、5题正确，与3题结果相同
+<span class="cstat-no" title="statement not covered" >  console.log('测试10: 连续更多题目正确，结果与3题相同');</span>
+  const result10 = <span class="cstat-no" title="statement not covered" >calculateNewDifficulty('hard', 5, 0);</span>
+<span class="cstat-no" title="statement not covered" >  assert.strictEqual(result10.newDifficulty, 'medium', '5题正确也降为medium');</span>
+<span class="cstat-no" title="statement not covered" >  console.log('✓ 通过: &gt;=3题正确效果相同');</span>
+<span class="cstat-no" title="statement not covered" >  console.log('');</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  console.log('=== 所有测试通过 ===');</span>
+<span class="cstat-no" title="statement not covered" >  console.log('自适应难度调整系统测试完成');</span>
+}
+&nbsp;
+// 运行测试
+<span class="cstat-no" title="statement not covered" >runTests().catch(<span class="fstat-no" title="function not covered" >er</span>r =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >  console.error('测试失败:', err.message);</span>
+<span class="cstat-no" title="statement not covered" >  process.exit(1);</span>
+});
+&nbsp;</pre></td></tr></table></pre>
+
+                <div class='push'></div><!-- for sticky footer -->
+            </div><!-- /wrapper -->
+            <div class='footer quiet pad2 space-top1 center small'>
+                Code coverage generated by
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2026-05-29T13:29:46.610Z
+            </div>
+        <script src="../../prettify.js"></script>
+        <script>
+            window.onload = function () {
+                prettyPrint();
+            };
+        </script>
+        <script src="../../sorter.js"></script>
+        <script src="../../block-navigation.js"></script>
+    </body>
+</html>
+    

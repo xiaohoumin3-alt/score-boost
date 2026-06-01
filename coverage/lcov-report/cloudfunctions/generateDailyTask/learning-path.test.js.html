@@ -1,0 +1,424 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Code coverage report for cloudfunctions/generateDailyTask/learning-path.test.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+    
+<body>
+<div class='wrapper'>
+    <div class='pad1'>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">cloudfunctions/generateDailyTask</a> learning-path.test.js</h1>
+        <div class='clearfix'>
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Statements</span>
+                <span class='fraction'>0/69</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>0/10</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>0/6</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>0/64</span>
+            </div>
+        
+            
+        </div>
+        <p class="quiet">
+            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
+        </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input type="search" id="fileSearch">
+            </div>
+        </template>
+    </div>
+    <div class='status-line low'></div>
+    <pre><table class="coverage">
+<tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
+<a name='L2'></a><a href='#L2'>2</a>
+<a name='L3'></a><a href='#L3'>3</a>
+<a name='L4'></a><a href='#L4'>4</a>
+<a name='L5'></a><a href='#L5'>5</a>
+<a name='L6'></a><a href='#L6'>6</a>
+<a name='L7'></a><a href='#L7'>7</a>
+<a name='L8'></a><a href='#L8'>8</a>
+<a name='L9'></a><a href='#L9'>9</a>
+<a name='L10'></a><a href='#L10'>10</a>
+<a name='L11'></a><a href='#L11'>11</a>
+<a name='L12'></a><a href='#L12'>12</a>
+<a name='L13'></a><a href='#L13'>13</a>
+<a name='L14'></a><a href='#L14'>14</a>
+<a name='L15'></a><a href='#L15'>15</a>
+<a name='L16'></a><a href='#L16'>16</a>
+<a name='L17'></a><a href='#L17'>17</a>
+<a name='L18'></a><a href='#L18'>18</a>
+<a name='L19'></a><a href='#L19'>19</a>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a>
+<a name='L100'></a><a href='#L100'>100</a>
+<a name='L101'></a><a href='#L101'>101</a>
+<a name='L102'></a><a href='#L102'>102</a>
+<a name='L103'></a><a href='#L103'>103</a>
+<a name='L104'></a><a href='#L104'>104</a>
+<a name='L105'></a><a href='#L105'>105</a>
+<a name='L106'></a><a href='#L106'>106</a>
+<a name='L107'></a><a href='#L107'>107</a>
+<a name='L108'></a><a href='#L108'>108</a>
+<a name='L109'></a><a href='#L109'>109</a>
+<a name='L110'></a><a href='#L110'>110</a>
+<a name='L111'></a><a href='#L111'>111</a>
+<a name='L112'></a><a href='#L112'>112</a>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/**
+ * 学习路径推荐系统测试
+ * Phase 5: Learning Path
+ */
+&nbsp;
+const assert = <span class="cstat-no" title="statement not covered" >require('assert');</span>
+const { generateLearningPath, calculateKpPriority, sortPathByPriority } = <span class="cstat-no" title="statement not covered" >require('./learning-path.js');</span>
+&nbsp;
+// 模拟知识点数据
+const mockKnowledgePoints = <span class="cstat-no" title="statement not covered" >[</span>
+  { kp_id: 'kp_001', kp_name: '绝对值', difficulty: 'easy', foundation: true, priority: 8 },
+  { kp_id: 'kp_002', kp_name: '二次根式', difficulty: 'easy', foundation: true, priority: 9, depends_on: ['kp_001'] },
+  { kp_id: 'kp_003', kp_name: '勾股定理', difficulty: 'medium', foundation: false, priority: 7 },
+  { kp_id: 'kp_004', kp_name: '平行四边形', difficulty: 'medium', foundation: false, priority: 6 },
+  { kp_id: 'kp_005', kp_name: '一次函数', difficulty: 'hard', foundation: false, priority: 8 },
+];
+&nbsp;
+// 模拟学生进度数据
+const mockStudentProgress = <span class="cstat-no" title="statement not covered" >{</span>
+  'kp_001': { mastered: true, score: 90 },
+  'kp_002': { mastered: false, score: 65 },
+  'kp_003': { mastered: false, score: 45 },
+  'kp_004': { mastered: false, score: 70 },
+  'kp_005': { mastered: false, score: 30 },
+};
+&nbsp;
+async function <span class="fstat-no" title="function not covered" >runTests(</span>) {
+<span class="cstat-no" title="statement not covered" >  console.log('=== 学习路径推荐系统测试开始 ===\n');</span>
+&nbsp;
+  // 测试1: 分数 &lt; 60，优先基础知识点
+<span class="cstat-no" title="statement not covered" >  console.log('测试1: 低分段路径规划（分数 &lt; 60）');</span>
+  const path1 = <span class="cstat-no" title="statement not covered" >generateLearningPath(45, 85, mockKnowledgePoints, mockStudentProgress);</span>
+<span class="cstat-no" title="statement not covered" >  assert.ok(path1.length &gt; 0, '应生成学习路径');</span>
+<span class="cstat-no" title="statement not covered" >  assert.ok(path1[0].foundation === true, '低分段应优先基础知识点');</span>
+<span class="cstat-no" title="statement not covered" >  console.log('✓ 通过: 首个知识点 =', path1[0].kp_name, '（基础:', path1[0].foundation + '）');</span>
+<span class="cstat-no" title="statement not covered" >  console.log('');</span>
+&nbsp;
+  // 测试2: 分数 60-80，针对性补强
+<span class="cstat-no" title="statement not covered" >  console.log('测试2: 中分段路径规划（60-80分）');</span>
+  const path2 = <span class="cstat-no" title="statement not covered" >generateLearningPath(72, 85, mockKnowledgePoints, mockStudentProgress);</span>
+<span class="cstat-no" title="statement not covered" >  assert.ok(path2.length &gt; 0, '应生成学习路径');</span>
+  // 中分段应优先推荐薄弱且重要的知识点
+  const weakAndImportant = <span class="cstat-no" title="statement not covered" >path2.find(<span class="fstat-no" title="function not covered" >kp</span> =&gt; <span class="cstat-no" title="statement not covered" >mockStudentProgress[kp.kp_id]?.score &lt; 70)</span>;</span>
+<span class="cstat-no" title="statement not covered" >  assert.ok(weakAndImportant, '中分段应优先推荐薄弱知识点');</span>
+<span class="cstat-no" title="statement not covered" >  console.log('✓ 通过: 包含薄弱知识点推荐');</span>
+<span class="cstat-no" title="statement not covered" >  console.log('');</span>
+&nbsp;
+  // 测试3: 分数 &gt; 80，拓展提升
+<span class="cstat-no" title="statement not covered" >  console.log('测试3: 高分段路径规划（分数 &gt; 80）');</span>
+  const path3 = <span class="cstat-no" title="statement not covered" >generateLearningPath(85, 90, mockKnowledgePoints, mockStudentProgress);</span>
+<span class="cstat-no" title="statement not covered" >  assert.ok(path3.length &gt; 0, '应生成学习路径');</span>
+  // 高分段应推荐未掌握的高价值知识点
+  const hasUnmasteredHighValue = <span class="cstat-no" title="statement not covered" >path3.some(<span class="fstat-no" title="function not covered" >kp</span> =&gt; <span class="cstat-no" title="statement not covered" >!mockStudentProgress[kp.kp_id]?.mastered &amp;&amp; kp.priority &gt;= 7)</span>;</span>
+<span class="cstat-no" title="statement not covered" >  assert.ok(hasUnmasteredHighValue, '高分段应推荐高价值未掌握知识点');</span>
+<span class="cstat-no" title="statement not covered" >  console.log('✓ 通过: 包含高价值未掌握知识点');</span>
+<span class="cstat-no" title="statement not covered" >  console.log('');</span>
+&nbsp;
+  // 测试4: 知识点优先级计算
+<span class="cstat-no" title="statement not covered" >  console.log('测试4: 知识点优先级计算');</span>
+  const priority1 = <span class="cstat-no" title="statement not covered" >calculateKpPriority(mockKnowledgePoints[0], mockStudentProgress['kp_001']);</span>
+<span class="cstat-no" title="statement not covered" >  assert.ok(priority1 &gt;= 0 &amp;&amp; priority1 &lt;= 100, '优先级应在0-100范围内');</span>
+<span class="cstat-no" title="statement not covered" >  console.log('✓ 通过: 绝对值优先级 =', priority1);</span>
+<span class="cstat-no" title="statement not covered" >  console.log('');</span>
+&nbsp;
+  // 测试5: 薄弱知识点优先级更高
+<span class="cstat-no" title="statement not covered" >  console.log('测试5: 薄弱知识点优先级更高');</span>
+  const priorityStrong = <span class="cstat-no" title="statement not covered" >calculateKpPriority(mockKnowledgePoints[1], { mastered: true, score: 90 });</span>
+  const priorityWeak = <span class="cstat-no" title="statement not covered" >calculateKpPriority(mockKnowledgePoints[1], { mastered: false, score: 45 });</span>
+<span class="cstat-no" title="statement not covered" >  assert.ok(priorityWeak &gt; priorityStrong, '薄弱知识点优先级应更高');</span>
+<span class="cstat-no" title="statement not covered" >  console.log('✓ 通过: 强势(' + priorityStrong + ') &lt; 薄弱(' + priorityWeak + ')');</span>
+<span class="cstat-no" title="statement not covered" >  console.log('');</span>
+&nbsp;
+  // 测试6: 路径排序
+<span class="cstat-no" title="statement not covered" >  console.log('测试6: 路径按优先级排序');</span>
+  const unsortedPath = <span class="cstat-no" title="statement not covered" >[mockKnowledgePoints[2], mockKnowledgePoints[0], mockKnowledgePoints[4]];</span>
+  const sortedPath = <span class="cstat-no" title="statement not covered" >sortPathByPriority(unsortedPath, mockStudentProgress);</span>
+<span class="cstat-no" title="statement not covered" >  for (let i = <span class="cstat-no" title="statement not covered" >0;</span> i &lt; sortedPath.length - 1; i++) {</span>
+    const p1 = <span class="cstat-no" title="statement not covered" >calculateKpPriority(sortedPath[i], mockStudentProgress[sortedPath[i].kp_id]);</span>
+    const p2 = <span class="cstat-no" title="statement not covered" >calculateKpPriority(sortedPath[i + 1], mockStudentProgress[sortedPath[i + 1].kp_id]);</span>
+<span class="cstat-no" title="statement not covered" >    assert.ok(p1 &gt;= p2, '路径应按优先级降序排列');</span>
+  }
+<span class="cstat-no" title="statement not covered" >  console.log('✓ 通过: 路径已按优先级降序排列');</span>
+<span class="cstat-no" title="statement not covered" >  console.log('');</span>
+&nbsp;
+  // 测试7: 依赖关系处理
+<span class="cstat-no" title="statement not covered" >  console.log('测试7: 依赖关系处理');</span>
+  const path7 = <span class="cstat-no" title="statement not covered" >generateLearningPath(50, 85, mockKnowledgePoints, {});</span>
+  // 如果kp_002依赖kp_001，且两者都未掌握，kp_001应在kp_002之前
+  const idx1 = <span class="cstat-no" title="statement not covered" >path7.findIndex(<span class="fstat-no" title="function not covered" >kp</span> =&gt; <span class="cstat-no" title="statement not covered" >kp.kp_id === 'kp_001')</span>;</span>
+  const idx2 = <span class="cstat-no" title="statement not covered" >path7.findIndex(<span class="fstat-no" title="function not covered" >kp</span> =&gt; <span class="cstat-no" title="statement not covered" >kp.kp_id === 'kp_002')</span>;</span>
+<span class="cstat-no" title="statement not covered" >  if (idx1 &gt;= 0 &amp;&amp; idx2 &gt;= 0) {</span>
+<span class="cstat-no" title="statement not covered" >    assert.ok(idx1 &lt; idx2, '依赖的知识点应先出现');</span>
+<span class="cstat-no" title="statement not covered" >    console.log('✓ 通过: 依赖关系正确（kp_001在kp_002之前）');</span>
+  } else {
+<span class="cstat-no" title="statement not covered" >    console.log('⊘ 跳过: 不包含依赖的知识点');</span>
+  }
+<span class="cstat-no" title="statement not covered" >  console.log('');</span>
+&nbsp;
+  // 测试8: 空数据处理
+<span class="cstat-no" title="statement not covered" >  console.log('测试8: 空数据处理');</span>
+  const path8 = <span class="cstat-no" title="statement not covered" >generateLearningPath(60, 85, [], {});</span>
+<span class="cstat-no" title="statement not covered" >  assert.ok(Array.isArray(path8) &amp;&amp; path8.length === 0, '空数据应返回空数组');</span>
+<span class="cstat-no" title="statement not covered" >  console.log('✓ 通过: 空数据返回空数组');</span>
+<span class="cstat-no" title="statement not covered" >  console.log('');</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  console.log('=== 所有测试通过 ===');</span>
+<span class="cstat-no" title="statement not covered" >  console.log('学习路径推荐系统测试完成');</span>
+}
+&nbsp;
+<span class="cstat-no" title="statement not covered" >runTests().catch(<span class="fstat-no" title="function not covered" >er</span>r =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >  console.error('测试失败:', err.message);</span>
+<span class="cstat-no" title="statement not covered" >  process.exit(1);</span>
+});
+&nbsp;</pre></td></tr></table></pre>
+
+                <div class='push'></div><!-- for sticky footer -->
+            </div><!-- /wrapper -->
+            <div class='footer quiet pad2 space-top1 center small'>
+                Code coverage generated by
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2026-05-29T13:29:46.610Z
+            </div>
+        <script src="../../prettify.js"></script>
+        <script>
+            window.onload = function () {
+                prettyPrint();
+            };
+        </script>
+        <script src="../../sorter.js"></script>
+        <script src="../../block-navigation.js"></script>
+    </body>
+</html>
+    

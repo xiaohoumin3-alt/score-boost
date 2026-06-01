@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "cloudDb": {
+      "COLLECTION": ["ai_question_pool", "kp_heat", "knowledge_points"]
+    }
+  }
+}
