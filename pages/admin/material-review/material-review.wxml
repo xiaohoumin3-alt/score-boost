@@ -1,0 +1,27 @@
+<view class="container">
+  <view class="header">
+    <text class="title">资料审核</text>
+    <picker bindchange="onStatusChange" range="{{statusOptions}}" range-key="label">
+      <view class="filter-btn">{{statusFilter === 'pending' ? '待审核' : statusFilter === 'approved' ? '已通过' : '已拒绝'}}</view>
+    </picker>
+  </view>
+
+  <view class="loading" wx:if="{{loading}}"><text>加载中...</text></view>
+
+  <view class="empty" wx:if="{{!loading && reviews.length === 0}}">
+    <text>暂无{{statusFilter === 'pending' ? '待审核' : ''}}资料</text>
+  </view>
+
+  <view class="review-list">
+    <view class="review-item" wx:for="{{reviews}}" wx:key="_id" bindtap="goToDetail" data-id="{{item._id}}">
+      <view class="review-header">
+        <text class="review-name">{{item.file_name}}</text>
+        <text class="review-status {{item.status}}">{{item.status === 'pending' ? '待审核' : item.status === 'approved' ? '已通过' : '已拒绝'}}</text>
+      </view>
+      <view class="review-meta">
+        <text>{{item.subject}} · {{item.grade}}</text>
+        <text>知识点：{{item.extracted_kp_count}} 个</text>
+      </view>
+    </view>
+  </view>
+</view>

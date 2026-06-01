@@ -26,10 +26,11 @@ class TaskWorkflow {
    * 执行工作流
    * @param {Object} task - 队列任务
    * @param {Object} db - 数据库实例
+   * @param {Object} _ - 数据库命令对象（可选，Phase 7: RAG 上下文支持）
    * @returns {Promise<WorkflowResult>} 执行结果
    */
-  async execute(task, db) {
-    const ctx = createContext(task, db);
+  async execute(task, db, _ = null) {
+    const ctx = createContext(task, db, _);
     const completedSteps = [];
 
     try {

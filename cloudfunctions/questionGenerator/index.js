@@ -171,8 +171,9 @@ async function processTask(db, task, options = {}) {
     console.log(`[processTask] START task:${task._id} student:${task.student_id} subject:${task.subject} num:${task.num_questions}`);
 
     // 使用工作流引擎执行
+    // Phase 7: 传递 db.command 用于 RAG 上下文查询
     const workflow = new TaskWorkflow(getDefaultSteps({ generateAi }));
-    const result = await workflow.execute(task, db);
+    const result = await workflow.execute(task, db, db.command);
 
     if (result.success) {
       const { STEP_OUTPUT_KEYS } = require('./workflow/constants');

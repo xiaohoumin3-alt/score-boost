@@ -391,4 +391,32 @@ async function searchUserMaterial(openid, material_ids, query) {
 
 ---
 
+## 实施计划修复记录
+
+### 遗漏1: startExclusiveExam超时配置
+**位置**: Phase 7.2后插入
+```markdown
+| Phase 7 | 7.2a | 配置startExclusiveExam超时90s | `tcb fn detail startExclusiveExam \| grep "timeout.*90"` → 匹配 |
+```
+
+### 遗漏2: AI类型验证
+**位置**: Phase 2后插入
+```markdown
+| Phase 2 | 2.8 | 实现AI类型验证模块 | `grep -rn "aiTypeVerify\|validateTypeMatch" cloudfunctions/uploadMaterial/` → 存在代码 |
+```
+
+### 遗漏3: 知识点提取重试与降级
+**位置**: Phase 2.5修改
+```markdown
+| Phase 2 | 2.5 | 实现知识点提取模块（重试3次+降级） | `grep -rn "retry.*3\|fixedChunkFallback" cloudfunctions/uploadMaterial/kp-extractor.js` → 存在代码 |
+```
+
+### 遗漏4: 配额具体数值
+**位置**: Phase 5.1修改
+```markdown
+| Phase 5 | 5.1 | 实现配额验证（普通5/2, VIP 20/10） | `grep -rn "QUOTA.*5.*2\|VIP.*20.*10" cloudfunctions/uploadMaterial/quota.js` → 存在代码 |
+```
+
+---
+
 ## 12. 后续优化

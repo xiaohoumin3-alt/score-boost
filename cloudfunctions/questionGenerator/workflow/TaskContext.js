@@ -6,6 +6,7 @@
  * - 数据库连接
  * - 步骤间数据传递（state）
  * - 执行元数据
+ * Phase 7: 添加数据库命令对象支持 RAG 上下文构建
  */
 
 const { STEP_OUTPUT_KEYS } = require('./constants');
@@ -14,14 +15,16 @@ const { STEP_OUTPUT_KEYS } = require('./constants');
  * 创建任务上下文
  * @param {Object} task - 队列任务
  * @param {Object} db - 数据库实例
+ * @param {Object} _ - 数据库命令对象（可选）
  * @returns {TaskContext} 任务上下文
  */
-function createContext(task, db) {
+function createContext(task, db, _ = null) {
   const state = new Map();
 
   return {
     task,
     db,
+    _,  // Phase 7: 数据库命令对象，用于 RAG 上下文查询
     state,
     metadata: {
       startTime: Date.now(),

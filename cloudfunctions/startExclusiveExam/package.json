@@ -1,0 +1,25 @@
+{
+  "name": "startExclusiveExam",
+  "version": "1.0.0",
+  "description": "专属测评云函数（基于用户上传资料的RAG检索）",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
+  },
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  },
+  "devDependencies": {
+    "jest": "^29.0.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coverageDirectory": "coverage",
+    "collectCoverageFrom": [
+      "index.js",
+      "!**/node_modules/**"
+    ]
+  }
+}

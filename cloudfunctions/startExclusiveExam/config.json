@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "cloudDb": {
+      "COLLECTION": ["users", "user_exams", "user_materials", "user_materials_vectors", "question_queue"]
+    }
+  },
+  "timeout": 90,
+  "memorySize": 512
+}

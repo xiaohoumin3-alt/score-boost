@@ -3,10 +3,12 @@
  *
  * 提供题目生成的核心逻辑，支持中断检测和进度更新
  * 支持 AI 生成失败时题库回退
+ * Phase 7: 支持 RAG 上下文注入（专属测评）
  */
 
 const { checkTaskCancelled } = require('./checkTaskCancelled');
 const { updateQueueStatus } = require('./updateQueueStatus');
+const { isExclusiveMode, getRagChunkIds, buildUserMaterialContext } = require('./context-builder');
 
 /**
  * 从题库获取备用题目（当 AI 生成失败时）
@@ -311,16 +313,42 @@ function generateDefaultQuestions(subject, difficulty, count) {
  * @param {Object} task - 队列任务
  * @param {Function} generateAi - AI生成函数
  * @param {Object} db - 数据库实例（用于中断检测）
+ * @param {Object} _ - 数据库命令对象（可选，用于 RAG 上下文）
  * @returns {Promise<Array>} 生成的题目列表
  */
-async function generateQuestionsForTask(task, generateAi, db = null) {
+async function generateQuestionsForTask(task, generateAi, db = null, _ = null) {
   console.log(`[generateQuestionsForTask] === START ===`);
   console.log(`[generateQuestionsForTask] task._id: ${task._id}`);
   console.log(`[generateQuestionsForTask] task.subject: ${task.subject}`);
   console.log(`[generateQuestionsForTask] task.grade: ${task.grade}`);
   console.log(`[generateQuestionsForTask] task.num_questions: ${task.num_questions}`);
+  console.log(`[generateQuestionsForTask] task.mode: ${task.mode}`);
 
   const { num_questions, difficulty_distribution, subject, grade, semester, _id } = task;
+
+  // Phase 7: 检查是否为专属测评模式
+  const exclusiveMode = isExclusiveMode(task);
+  let ragContext = { hasContext: false, chunks: [], summary: '' };
+
+  if (exclusiveMode && db && _) {
+    console.log(`[generateQuestionsForTask] Exclusive mode detected, building RAG context...`);
+    const chunkIds = getRagChunkIds(task);
+
+    if (chunkIds.length > 0) {
+      try {
+        ragContext = await buildUserMaterialContext(db, _, task.openid || task.student_id, chunkIds, 50);
+        console.log(`[generateQuestionsForTask] RAG context built: ${ragContext.chunkCount} chunks`);
+      } catch (error) {
+        console.warn(`[generateQuestionsForTask] RAG context build failed:`, error.message);
+      }
+    }
+  }
+
+  // 将 RAG 上下文注入到任务中，供 generateAi 使用
+  const enrichedTask = {
+    ...task,
+    ragContext: ragContext.hasContext ? ragContext : undefined
+  };
 
   // 断点续跑：检查已有进度
   const existingProgress = (task.progress && task.progress.generated) || 0;
@@ -388,7 +416,7 @@ async function generateQuestionsForTask(task, generateAi, db = null) {
 
     try {
       console.log(`[generateQuestionsForTask] Calling AI generate for ${level} (need ${actualCount})...`);
-      const questions = await generateAi(task, level, actualCount);
+      const questions = await generateAi(enrichedTask, level, actualCount);
       console.log(`[generateQuestionsForTask] AI returned ${questions?.length || 0} questions for ${level}`);
 
       // 检查 AI 生成结果

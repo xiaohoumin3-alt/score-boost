@@ -40,7 +40,8 @@ class GenerateStep extends BaseStep {
       // 调用 generateQuestionsForTask 生成题目
       const { generateQuestionsForTask } = require('../utils/generateQuestions');
       console.log('[GenerateStep] Calling generateQuestionsForTask...');
-      const questions = await generateQuestionsForTask(task, this.generateAi, ctx.db);
+      // Phase 7: 传递 ctx._ 用于 RAG 上下文构建
+      const questions = await generateQuestionsForTask(task, this.generateAi, ctx.db, ctx._);
 
       console.log('[GenerateStep] generateQuestionsForTask returned, count:', questions?.length || 0);
 

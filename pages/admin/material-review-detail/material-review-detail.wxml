@@ -1,0 +1,51 @@
+<view class="container">
+  <view class="loading" wx:if="{{loading}}"><text>加载中...</text></view>
+
+  <view wx:if="{{review}}">
+    <!-- 基本信息 -->
+    <view class="section">
+      <text class="section-title">{{review.file_name}}</text>
+      <view class="meta-row">
+        <text>{{review.subject}} · {{review.grade}}</text>
+        <text class="kp-count">知识点：{{knowledgePoints.length}} 个</text>
+      </view>
+    </view>
+
+    <!-- 知识点列表 -->
+    <view class="section">
+      <text class="section-title">提取的知识点（可编辑）</text>
+      <view class="kp-list">
+        <view class="kp-item" wx:for="{{knowledgePoints}}" wx:key="title">
+          <view class="kp-header">
+            <text class="kp-idx">#{{index + 1}}</text>
+            <text class="kp-delete" bindtap="onDeleteKP" data-idx="{{index}}">删除</text>
+          </view>
+          <input class="kp-input" value="{{item.title}}" bindinput="onEditKP" data-idx="{{index}}" data-field="title" placeholder="知识点标题" />
+          <textarea class="kp-textarea" value="{{item.description}}" bindinput="onEditKP" data-idx="{{index}}" data-field="description" placeholder="知识点描述" />
+        </view>
+      </view>
+    </view>
+
+    <!-- 审核意见 -->
+    <view class="section">
+      <text class="section-title">审核意见</text>
+      <textarea class="notes-input" placeholder="填写审核意见（拒绝时必填）" bindinput="onNotesInput" value="{{reviewNotes}}" />
+    </view>
+
+    <!-- 操作按钮 -->
+    <view class="actions" wx:if="{{review.status === 'pending'}}">
+      <button class="approve-btn" bindtap="onApprove" disabled="{{processing}}">通过</button>
+      <button class="reject-btn" bindtap="onReject" disabled="{{processing}}">拒绝</button>
+    </view>
+
+    <!-- 已审核状态 -->
+    <view class="reviewed-info" wx:if="{{review.status !== 'pending'}}">
+      <text>状态：{{review.status === 'approved' ? '已通过' : '已拒绝'}}</text>
+      <text wx:if="{{review.review_notes}}">审核意见：{{review.review_notes}}</text>
+    </view>
+  </view>
+
+  <view class="error-msg" wx:if="{{error}}">
+    <text>{{error}}</text>
+  </view>
+</view>

@@ -1,0 +1,76 @@
+<view class="container">
+  <view class="header">
+    <text class="title">上传学习资料</text>
+    <text class="subtitle">支持 PDF、DOCX、TXT 格式</text>
+  </view>
+
+  <!-- 文件选择 -->
+  <view class="section" bindtap="onChooseFile">
+    <view class="file-picker">
+      <view class="file-icon">📄</view>
+      <view class="file-info" wx:if="{{fileName}}">
+        <text class="file-name">{{fileName}}</text>
+        <text class="file-size">{{(fileSize / 1024).toFixed(1)}} KB</text>
+      </view>
+      <view class="file-placeholder" wx:else>
+        <text>点击选择文件</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 资料类型 -->
+  <view class="section">
+    <text class="label">资料类型</text>
+    <radio-group bindchange="onMaterialTypeChange" class="radio-group">
+      <label class="radio-item {{materialType === 'personal' ? 'active' : ''}}">
+        <radio value="personal" checked="{{materialType === 'personal'}}" />
+        <text>个人资料（仅自己可用）</text>
+      </label>
+      <label class="radio-item {{materialType === 'textbook' ? 'active' : ''}}">
+        <radio value="textbook" checked="{{materialType === 'textbook'}}" />
+        <text>教材资料（审核后公共可用）</text>
+      </label>
+    </radio-group>
+  </view>
+
+  <!-- 学科选择 -->
+  <view class="section">
+    <text class="label">学科</text>
+    <picker bindchange="onSubjectChange" range="{{subjects}}" range-key="label">
+      <view class="picker-value">{{subject || '请选择学科'}}</view>
+    </picker>
+  </view>
+
+  <!-- 年级选择 -->
+  <view class="section">
+    <text class="label">年级</text>
+    <picker bindchange="onGradeChange" range="{{grades}}" range-key="label">
+      <view class="picker-value">{{grade || '请选择年级'}}</view>
+    </picker>
+  </view>
+
+  <!-- 上传按钮 -->
+  <button class="upload-btn" bindtap="onUpload" disabled="{{uploading || !fileName}}">
+    {{uploading ? '上传中 ' + uploadProgress + '%' : '开始上传'}}
+  </button>
+
+  <!-- 进度条 -->
+  <view class="progress-bar" wx:if="{{uploading}}">
+    <view class="progress-fill" style="width: {{uploadProgress}}%"></view>
+  </view>
+
+  <!-- 错误提示 -->
+  <view class="error-msg" wx:if="{{error}}">
+    <text>{{error}}</text>
+  </view>
+
+  <!-- 上传结果 -->
+  <view class="result-card" wx:if="{{result}}">
+    <view class="result-icon">{{result.success ? '✅' : '❌'}}</view>
+    <text class="result-msg">{{result.message}}</text>
+    <text class="result-kp" wx:if="{{result.kp_count > 0}}">提取知识点：{{result.kp_count}} 个</text>
+    <button class="exam-btn" wx:if="{{result.success && materialType === 'personal'}}" bindtap="goToExclusiveExam">
+      开始专属测评
+    </button>
+  </view>
+</view>

@@ -16,7 +16,11 @@
     "pages/test-admin/test-admin",
     "pages/progress/progress",
     "pages/waiting/waiting",
-    "pages/debug-tools/debug-tools"
+    "pages/debug-tools/debug-tools",
+    "pages/material-upload/material-upload",
+    "pages/exclusive-exam-start/exclusive-exam-start",
+    "pages/admin/material-review/material-review",
+    "pages/admin/material-review-detail/material-review-detail"
   ],
   "window": {
     "navigationBarTitleText": "日日守护",

@@ -66,11 +66,33 @@
       "memorySize": 512
     },
     {
-      "name": "fixPoolSubjects",
-      "runtime": "Nodejs18.15",
+      "name": "startExclusiveExam",
+      "runtime": "Nodejs16.13",
       "handler": "index.main",
-      "timeout": 300,
+      "timeout": 60,
+      "memorySize": 256
+    },
+    {
+      "name": "uploadMaterial",
+      "runtime": "Nodejs16.13",
+      "handler": "index.main",
+      "timeout": 60,
+      "memorySize": 256
+    },
+    {
+      "name": "adminReviewMaterial",
+      "runtime": "Nodejs16.13",
+      "handler": "index.main",
+      "timeout": 60,
       "memorySize": 256
     }
-  ]
+  ],
+  "envVariables": {
+    "VECTOR_REGION": "ap-shanghai",
+    "VECTOR_COLLECTION_NAME": "user_materials_vectors",
+    "EMBEDDING_PROVIDER": "wenxin",
+    "EMBEDDING_FALLBACK_PROVIDER": "qianwen",
+    "LLM_BASE_URL": "https://api.deepseek.com",
+    "LLM_MODEL": "deepseek-chat"
+  }
 }
