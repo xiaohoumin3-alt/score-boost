@@ -1,8 +1,7 @@
 /**
- * LLM 客户端 (OpenAI 兼容格式)
+ * MiniMax LLM 客户端
  *
- * 支持 Gemma (Google Generative AI) 等 OpenAI 兼容 API。
- * 包含：
+ * 实现对 MiniMax API 的调用，包含：
  * - OpenAI 兼容格式的请求
  * - 内置重试和错误映射
  * - 超时控制
@@ -15,9 +14,9 @@ const { retryWithBackoff } = require('./retry')
 const { LLMConfigError } = require('./exceptions')
 
 /**
- * LLM 客户端类
+ * MiniMax 客户端类
  */
-class LLMClient {
+class MiniMaxClient {
   /**
    * @param {Object} options - 配置选项
    * @param {string} options.apiKey - API 密钥
@@ -53,12 +52,12 @@ class LLMClient {
     this.baseUrl = options.baseUrl || config.baseUrl
     this.model = options.model || config.model
     this.maxRetries = options.maxRetries ?? config.maxRetries ?? 3
-    this.timeout = options.timeout ?? config.timeout ?? 120000
+    this.timeout = options.timeout ?? config.timeout ?? 30000
     this.retryDelay = options.retryDelay ?? config.retryDelay ?? 1000
     this.maxDelay = options.maxDelay ?? config.maxDelay ?? 60000
 
     if (!this.apiKey) {
-      throw new LLMConfigError('LLM API Key 未设置')
+      throw new LLMConfigError('MiniMax API Key 未设置')
     }
   }
 
@@ -112,7 +111,7 @@ class LLMClient {
       throw error
     }
 
-    // OpenAI 兼容格式
+    // MiniMax 兼容 OpenAI 格式
     if (!data.choices || !data.choices[0]) {
       throw new Error(`无效的响应格式: ${JSON.stringify(data).slice(0, 200)}`)
     }
@@ -166,8 +165,9 @@ class LLMClient {
         retryAfter = errorData?.retry_after || null
       } catch (parseError) {
         // JSON 解析失败，记录但不影响后续处理
+        // retryAfter 保持为 null，将使用默认退避策略
         if (this.logger && this.logger.debug) {
-          this.logger.debug(`[LLMClient] 错误响应解析失败: ${parseError.message}`)
+          this.logger.debug(`[MiniMaxClient] 错误响应解析失败: ${parseError.message}`)
         }
       }
 
@@ -207,7 +207,7 @@ class LLMClient {
         maxDelay: this.maxDelay,
         onRetry: (attempt, error, delay) => {
           // 使用配置的日志记录器，默认为 console.warn
-          const logMessage = `[LLMClient] 重试 ${attempt}/${this.maxRetries}, 等待 ${delay}ms, 错误: ${error.message}`
+          const logMessage = `[MiniMaxClient] 重试 ${attempt}/${this.maxRetries}, 等待 ${delay}ms, 错误: ${error.message}`
           if (this.logger && typeof this.logger.warn === 'function') {
             this.logger.warn(logMessage)
           } else {
@@ -219,10 +219,6 @@ class LLMClient {
   }
 }
 
-// 保持向后兼容的别名
-const MiniMaxClient = LLMClient
-
 module.exports = {
-  LLMClient,
-  MiniMaxClient  // 向后兼容
+  MiniMaxClient
 }

@@ -87,7 +87,7 @@ function mapError(error, context = {}) {
       `请求频率受限: ${errorMessage}`,
       429,
       true,
-      retryAfter || 2  // 默认 2 秒等待
+      retryAfter || 1
     )
   }
 

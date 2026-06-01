@@ -1,99 +1,67 @@
 /**
- * LLM客户端 - 内嵌到practice_v2，避免云函数间调用超时
- * 集成 SubjectLoader 和 GenerationState 实现配置驱动的多样化生成
+ * LLM客户端 - practice_v2 薄包装层
+ * 基于 llm-core 统一 LLM 调用层
+ * 保留状态跟踪、场景检测等业务逻辑
  */
 
-const http = require('http');
+const { createLLMClient } = require('./llm-core');
 const SubjectLoader = require('./subject_loader');
 const GenerationState = require('./generation_state');
 const QuestionValidator = require('./question_validator');
 
+/**
+ * LlmClient 类 - llm-core 的薄包装
+ * 保留原有业务逻辑（状态跟踪、场景检测）
+ */
 class LlmClient {
   constructor(apiKey) {
     this.apiKey = apiKey || process.env.MINIMAX_API_KEY;
-    this.baseUrl = 'https://api.minimax.chat/v1';
-    this.model = 'MiniMax-M2.7';
+    this.baseUrl = process.env.MINIMAX_BASE_URL || 'https://api.minimax.chat/v1';
+    this.model = process.env.MINIMAX_MODEL || 'mimo-v2-flash';
     this.timeout = 30000;
+
+    // 创建 llm-core 客户端
+    this._client = createLLMClient({
+      apiKey: this.apiKey,
+      baseUrl: this.baseUrl,
+      model: this.model,
+      timeout: this.timeout,
+      maxRetries: 3
+    });
+
+    // 业务逻辑组件
     this.loader = new SubjectLoader();
     this.state = new GenerationState();
     this.validator = new QuestionValidator();
   }
 
+  /**
+   * 生成题目（底层 LLM 调用）
+   * @param {Object} params - 参数
+   * @returns {Promise<{content: string, usage?: Object}>}
+   */
   async generate(params) {
     if (!this.apiKey) {
       throw new Error('MINIMAX_API_KEY not configured');
     }
 
     const prompt = this._buildPrompt(params);
-    console.log('[LLM] Starting request to MiniMax API...');
-    console.log('[LLM] API Key present:', !!this.apiKey, 'Length:', this.apiKey?.length);
+    console.log('[LLM] Starting request via llm-core...');
 
-    return new Promise((resolve, reject) => {
-      const postData = JSON.stringify({
-        model: this.model,
-        stream: false,
-        tokens_to_generate: 500,
-        temperature: 0.9,
-        top_p: 0.95,
-        messages: [
-          { role: 'system', content: '你是一个专业的题目生成助手。请严格按照用户要求的JSON格式返回题目。' },
-          { role: 'user', content: prompt }
-        ]
-      });
-
-      const options = {
-        hostname: 'api.minimax.chat',
-        path: '/v1/text/chatcompletion_v2',
-        method: 'POST',
-        timeout: 30000,
-        headers: {
-          'Authorization': `Bearer ${this.apiKey}`,
-          'Content-Type': 'application/json',
-          'Content-Length': Buffer.byteLength(postData)
-        }
-      };
-
-      console.log('[LLM] Sending HTTP request...');
-      const startTime = Date.now();
-
-      const req = http.request(options, (res) => {
-        console.log('[LLM] Response received, status:', res.statusCode);
-        let data = '';
-        res.on('data', (chunk) => { data += chunk; });
-        res.on('end', () => {
-          const elapsed = Date.now() - startTime;
-          console.log('[LLM] Response complete, elapsed:', elapsed, 'ms, data length:', data.length);
-          try {
-            const result = JSON.parse(data);
-            console.log('[LLM] Parsed result, keys:', Object.keys(result));
-            if (result.error) throw new Error(result.error.message || JSON.stringify(result.error));
-            if (result.base_resp?.status_code !== 0) throw new Error(result.base_resp?.status_msg);
-            const content = result.choices?.[0]?.message?.content;
-            console.log('[LLM] Content length:', content?.length);
-            if (!content) throw new Error('Empty response from LLM');
-            resolve({ content, usage: result.usage });
-          } catch (e) {
-            console.log('[LLM] Error parsing response:', e.message);
-            reject(e);
-          }
-        });
-      });
-
-      req.on('error', (e) => {
-        console.log('[LLM] Request error:', e.message);
-        reject(e);
-      });
-      req.on('timeout', () => {
-        console.log('[LLM] Request timeout after 30s');
-        req.destroy();
-        reject(new Error('Request timeout'));
-      });
-      req.write(postData);
-      req.end();
-      console.log('[LLM] Request sent, waiting for response...');
+    const result = await this._client.complete({
+      systemPrompt: '你是一个专业的题目生成助手。请严格按照用户要求的JSON格式返回题目。',
+      userPrompt: prompt,
+      temperature: 0.9,
+      maxTokens: 500
     });
+
+    console.log('[LLM] Request completed via llm-core');
+    return result;
   }
 
+  /**
+   * 构建提示词（业务逻辑）
+   */
   _buildPrompt(params) {
     const {
       kp_name,
@@ -153,7 +121,7 @@ class LlmClient {
     prompt += `\n2. 避免模板化表达`;
     prompt += `\n3. 问法多样化，避免连续使用相同的问句模式`;
     prompt += `\n4. 【重要】禁止生成需要图片/图形/数轴的题目！所有几何信息必须用文字描述`;
-    prompt += `\n   - 错误示例："已知实数a在数轴上的对应点如图所示"`
+    prompt += `\n   - 错误示例："已知实数a在数轴上的对应点如图所示"`;
     prompt += `\n   - 正确示例："已知实数a满足-3<a<2，化简:|a+3|+|a-2|"`;
 
     if (question_type === 'choice') {
@@ -173,50 +141,43 @@ class LlmClient {
   async generateQuestion(params) {
     const { subject = 'math', knowledge_point = 'kp2_3' } = params;
 
-    // 减少重试次数，避免超时
-    const maxAttempts = 1;
+    // llm-core 已内置重试，这里只需调用一次
+    try {
+      const response = await this.generate(params);
+      const question = parseLlmResponse(response.content);
 
-    for (let attempt = 0; attempt < maxAttempts; attempt++) {
-      try {
-        const response = await this.generate(params);
-        const question = parseLlmResponse(response.content);
-
-        if (!question || !validateQuestion(question, params.question_type)) {
-          throw new Error('Invalid question structure');
-        }
-
-        // 质量验证
-        const validationResult = this.validator.validate(question, {});
-
-        if (!validationResult.pass) {
-          console.log(`Question validation failed:`, validationResult.errors);
-          throw new Error('Question validation failed');
-        }
-
-        // 记录状态
-        question.scenario_used = this._detectScenario(question.question);
-        question.triple_used = this._detectTriple(question.question);
-        question.question_pattern = this._detectPattern(question.question);
-
-        this.state.recordQuestion(question);
-
-        return question;
-      } catch (e) {
-        console.error(`AI generation attempt ${attempt + 1} failed:`, e.message);
-        if (attempt === maxAttempts - 1) throw e;
+      if (!question || !validateQuestion(question, params.question_type)) {
+        throw new Error('Invalid question structure');
       }
-    }
 
-    throw new Error('Failed to generate valid question');
+      // 质量验证
+      const validationResult = this.validator.validate(question, {});
+
+      if (!validationResult.pass) {
+        console.log(`Question validation failed:`, validationResult.errors);
+        throw new Error('Question validation failed');
+      }
+
+      // 记录状态（业务逻辑）
+      question.scenario_used = this._detectScenario(question.question);
+      question.triple_used = this._detectTriple(question.question);
+      question.question_pattern = this._detectPattern(question.question);
+
+      this.state.recordQuestion(question);
+
+      return question;
+    } catch (e) {
+      console.error(`AI generation failed:`, e.message);
+      throw e;
+    }
   }
 
   /**
-   * 检测题目使用的场景
+   * 检测题目使用的场景（业务逻辑）
    * @param {string} questionText - 题目文本
    * @returns {string} 场景ID
    */
   _detectScenario(questionText) {
-    // 场景ID到检测关键词的映射
     const scenarioPatterns = [
       { id: 'ladder', keywords: ['梯子', '斜靠'] },
       { id: 'sailing', keywords: ['航行', '海里'] },
@@ -235,7 +196,7 @@ class LlmClient {
   }
 
   /**
-   * 检测题目使用的勾股数
+   * 检测题目使用的勾股数（业务逻辑）
    * @param {string} questionText - 题目文本
    * @returns {Array<number>} 勾股数或null
    */
@@ -246,20 +207,17 @@ class LlmClient {
       [9, 12, 15], [10, 24, 26], [12, 16, 20], [12, 35, 37], [15, 20, 25]
     ];
 
-    // 长度单位/几何关键词 - 用于验证数字确实是长度而非其他量
     const lengthUnits = ['米', '海里', 'cm', '厘米', 'mm', '毫米', '英寸', 'km', '千米'];
     const geometryKeywords = ['边', '长', '宽', '高', '斜', '直角', '梯形', '三角形'];
     const hasGeometryContext = geometryKeywords.some(kw => questionText.includes(kw));
     const hasLengthUnit = lengthUnits.some(unit => questionText.includes(unit));
 
-    // 完全匹配：所有三个数字都在题目中
     for (const triple of triples) {
       if (triple.every(n => numbers.includes(n))) {
         return triple;
       }
     }
 
-    // 部分匹配：要求有几何上下文或长度单位，避免误报
     if (hasGeometryContext || hasLengthUnit) {
       for (const triple of triples) {
         const matchedCount = triple.filter(n => numbers.includes(n)).length;
@@ -273,7 +231,7 @@ class LlmClient {
   }
 
   /**
-   * 检测题目使用的问法类型
+   * 检测题目使用的问法类型（业务逻辑）
    * @param {string} questionText - 题目文本
    * @returns {string} 问法类型
    */
@@ -305,6 +263,9 @@ class LlmClient {
   }
 }
 
+/**
+ * 解析LLM响应（业务逻辑）
+ */
 function parseLlmResponse(content) {
   if (!content || typeof content !== 'string') return null;
   const codeBlockMatch = content.match(/```(?:json)?\s*\n?([\s\S]*?)\n?```/);
@@ -315,6 +276,9 @@ function parseLlmResponse(content) {
   } catch { return null; }
 }
 
+/**
+ * 验证题目结构（业务逻辑）
+ */
 function validateQuestion(q, question_type = 'choice') {
   if (!q || typeof q !== 'object') return false;
   if (!q.question) return false;
