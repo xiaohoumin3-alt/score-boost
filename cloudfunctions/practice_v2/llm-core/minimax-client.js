@@ -57,7 +57,7 @@ class MiniMaxClient {
     this.maxDelay = options.maxDelay ?? config.maxDelay ?? 60000
 
     if (!this.apiKey) {
-      throw new LLMConfigError('MiniMax API Key 未设置')
+      throw new LLMConfigError('LLM API Key 未设置')
     }
   }
 
@@ -137,49 +137,74 @@ class MiniMaxClient {
 
   /**
    * 执行单次 API 调用
+   * 使用 Node.js https 模块（兼容 Node 16，无 fetch 环境）
    * @param {Object} requestBody - 请求体
    * @param {AbortSignal} signal - 中止信号
    * @returns {Promise<Object>} 解析后的结果
    */
   async _call(requestBody, signal) {
+    const https = require('https')
+    const http = require('http')
     const url = `${this.baseUrl.replace(/\/$/, '')}/chat/completions`
+    const urlObj = new URL(url)
+    const lib = urlObj.protocol === 'https:' ? https : http
 
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${this.apiKey}`
-      },
-      body: JSON.stringify(requestBody),
-      signal
-    })
+    return new Promise((resolve, reject) => {
+      const req = lib.request({
+        hostname: urlObj.hostname,
+        port: urlObj.port,
+        path: urlObj.pathname + urlObj.search,
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${this.apiKey}`
+        },
+        timeout: this.timeout
+      }, (res) => {
+        let body = ''
+        res.on('data', chunk => body += chunk)
+        res.on('end', () => {
+          if (!res.statusCode || res.statusCode >= 400) {
+            let retryAfter = null
+            try {
+              const errorData = JSON.parse(body)
+              retryAfter = errorData?.retry_after || null
+            } catch (e) {}
 
-    const body = await response.text()
+            const error = mapError(new Error(body || `HTTP ${res.statusCode}`), {
+              status: res.statusCode,
+              body,
+              retryAfter
+            })
+            reject(error)
+          } else {
+            try {
+              const result = this._parseResponse({ ok: true, status: res.statusCode }, body)
+              resolve(result)
+            } catch (e) {
+              reject(e)
+            }
+          }
+        })
+      })
 
-    // 处理非 200 响应
-    if (!response.ok) {
-      // 尝试解析错误响应获取 retry-after
-      let retryAfter = null
-      try {
-        const errorData = JSON.parse(body)
-        retryAfter = errorData?.retry_after || null
-      } catch (parseError) {
-        // JSON 解析失败，记录但不影响后续处理
-        // retryAfter 保持为 null，将使用默认退避策略
-        if (this.logger && this.logger.debug) {
-          this.logger.debug(`[MiniMaxClient] 错误响应解析失败: ${parseError.message}`)
-        }
+      req.on('error', reject)
+      req.on('timeout', () => {
+        req.destroy()
+        reject(new Error('Request timeout'))
+      })
+
+      // 支持 AbortSignal
+      if (signal) {
+        signal.addEventListener('abort', () => {
+          req.destroy()
+          reject(new Error('Request aborted'))
+        })
       }
 
-      const error = mapError(new Error(body || `HTTP ${response.status}`), {
-        status: response.status,
-        body,
-        retryAfter
-      })
-      throw error
-    }
-
-    return this._parseResponse(response, body)
+      req.write(JSON.stringify(requestBody))
+      req.end()
+    })
   }
 
   /**

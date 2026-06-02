@@ -6,7 +6,7 @@
  * - 错误映射
  * - 重试逻辑
  * - 配置管理
- * - MiniMax 客户端
+ * - LLM 客户端（支持 OpenAI 兼容 API，包括 DeepSeek、MiniMax 等）
  */
 
 // 异常类
@@ -38,14 +38,13 @@ const {
   createTimeoutController
 } = require('./config')
 
-// MiniMax 客户端
+// LLM 客户端（OpenAI 兼容格式，支持 DeepSeek、MiniMax 等）
 const { MiniMaxClient } = require('./minimax-client')
 
 /**
  * 创建 LLM 客户端实例
  *
  * @param {Object} options - 配置选项
- * @param {string} options.provider - Provider 类型（目前仅支持 minimax）
  * @param {string} options.apiKey - API 密钥
  * @param {string} options.baseUrl - API 端点
  * @param {string} options.model - 模型名称
@@ -56,19 +55,12 @@ const { MiniMaxClient } = require('./minimax-client')
  */
 function createLLMClient(options = {}) {
   // 仅在需要默认值时读取配置
-  const needsDefaults = !options.provider || !options.apiKey || !options.baseUrl ||
+  const needsDefaults = !options.apiKey || !options.baseUrl ||
     !options.model || options.maxRetries === undefined ||
     options.timeout === undefined || options.retryDelay === undefined ||
     options.maxDelay === undefined
 
   const config = needsDefaults ? getConfig() : {}
-
-  // 目前仅支持 MiniMax
-  const provider = options.provider || config.provider || 'minimax'
-
-  if (provider !== 'minimax') {
-    throw new Error(`不支持的 Provider: ${provider}，目前仅支持 minimax`)
-  }
 
   return new MiniMaxClient({
     apiKey: options.apiKey || config.apiKey,

@@ -2,250 +2,94 @@
   "subject": "地理",
   "grade": "7",
   "semester": "下",
-  "version": "2024人教版",
+  "version": "人教版",
+  "source": "教材PDF提取",
   "chapters": [
     {
-      "id": "ch1",
-      "name": "我们临近的国家和地区",
+      "id": "ch5",
+      "name": "我们邻近的国家和地区",
       "knowledge_points": [
         {
-          "id": "kp1_1",
-          "name": "多火山",
-          "sub_topics": [
-            "概念理解",
-            "读图分析"
-          ],
-          "typical_questions": [
-            "选择题",
-            "填空题",
-            "读图题"
-          ],
-          "difficulty_weight": {
-            "easy": 0.4,
-            "medium": 0.4,
-            "hard": 0.2
-          }
+          "id": "geo_kp5_1",
+          "name": "日本",
+          "sub_topics": ["日本的自然环境", "日本的经济", "日本的文化"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
         },
         {
-          "id": "kp1_2",
-          "name": "与世界联系密切的工业",
-          "sub_topics": [
-            "概念理解",
-            "读图分析"
-          ],
-          "typical_questions": [
-            "选择题",
-            "填空题",
-            "读图题"
-          ],
-          "difficulty_weight": {
-            "easy": 0.4,
-            "medium": 0.4,
-            "hard": 0.2
-          }
+          "id": "geo_kp5_2",
+          "name": "东南亚",
+          "sub_topics": ["东南亚的位置", "东南亚的气候", "东南亚的农作物", "东南亚的旅游业"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
         },
         {
-          "id": "kp1_3",
-          "name": "东西方兼容的文化",
-          "sub_topics": [
-            "概念理解",
-            "读图分析"
-          ],
-          "typical_questions": [
-            "选择题",
-            "填空题",
-            "读图题"
-          ],
-          "difficulty_weight": {
-            "easy": 0.4,
-            "medium": 0.4,
-            "hard": 0.2
-          }
+          "id": "geo_kp5_3",
+          "name": "印度",
+          "sub_topics": ["印度的自然环境", "印度的人口", "印度的经济", "印度的服务业"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
         },
         {
-          "id": "kp1_4",
-          "name": "十字路口的位置位置和范围：(",
-          "sub_topics": [
-            "概念理解",
-            "读图分析"
-          ],
-          "typical_questions": [
-            "选择题",
-            "填空题",
-            "读图题"
-          ],
-          "difficulty_weight": {
-            "easy": 0.4,
-            "medium": 0.4,
-            "hard": 0.2
-          }
-        },
-        {
-          "id": "kp1_5",
-          "name": "热带气候与农业生产",
-          "sub_topics": [
-            "概念理解",
-            "读图分析"
-          ],
-          "typical_questions": [
-            "选择题",
-            "填空题",
-            "读图题"
-          ],
-          "difficulty_weight": {
-            "easy": 0.4,
-            "medium": 0.4,
-            "hard": 0.2
-          }
-        },
-        {
-          "id": "kp1_6",
-          "name": "山河相间与城市分布",
-          "sub_topics": [
-            "概念理解",
-            "读图分析"
-          ],
-          "typical_questions": [
-            "选择题",
-            "填空题",
-            "读图题"
-          ],
-          "difficulty_weight": {
-            "easy": 0.4,
-            "medium": 0.4,
-            "hard": 0.2
-          }
-        },
-        {
-          "id": "kp1_7",
-          "name": "世界第二人口大国",
-          "sub_topics": [
-            "概念理解",
-            "读图分析"
-          ],
-          "typical_questions": [
-            "选择题",
-            "填空题",
-            "读图题"
-          ],
-          "difficulty_weight": {
-            "easy": 0.4,
-            "medium": 0.4,
-            "hard": 0.2
-          }
-        },
-        {
-          "id": "kp1_8",
-          "name": "水旱灾害频繁",
-          "sub_topics": [
-            "概念理解",
-            "读图分析"
-          ],
-          "typical_questions": [
-            "选择题",
-            "填空题",
-            "读图题"
-          ],
-          "difficulty_weight": {
-            "easy": 0.4,
-            "medium": 0.4,
-            "hard": 0.2
-          }
-        },
-        {
-          "id": "kp1_9",
-          "name": "迅速发展的服务外包产业",
-          "sub_topics": [
-            "概念理解",
-            "读图分析"
-          ],
-          "typical_questions": [
-            "选择题",
-            "填空题",
-            "读图题"
-          ],
-          "difficulty_weight": {
-            "easy": 0.4,
-            "medium": 0.4,
-            "hard": 0.2
-          }
-        },
-        {
-          "id": "kp1_10",
-          "name": "横跨亚欧大陆北部",
-          "sub_topics": [
-            "概念理解",
-            "读图分析"
-          ],
-          "typical_questions": [
-            "选择题",
-            "填空题",
-            "读图题"
-          ],
-          "difficulty_weight": {
-            "easy": 0.4,
-            "medium": 0.4,
-            "hard": 0.2
-          }
-        },
-        {
-          "id": "kp1_11",
-          "name": "自然资源丰富，重工业发达p",
-          "sub_topics": [
-            "概念理解",
-            "读图分析"
-          ],
-          "typical_questions": [
-            "选择题",
-            "填空题",
-            "读图题"
-          ],
-          "difficulty_weight": {
-            "easy": 0.4,
-            "medium": 0.4,
-            "hard": 0.2
-          }
-        },
-        {
-          "id": "kp1_12",
-          "name": "发达的交通：",
-          "sub_topics": [
-            "概念理解",
-            "读图分析"
-          ],
-          "typical_questions": [
-            "选择题",
-            "填空题",
-            "读图题"
-          ],
-          "difficulty_weight": {
-            "easy": 0.4,
-            "medium": 0.4,
-            "hard": 0.2
-          }
+          "id": "geo_kp5_4",
+          "name": "俄罗斯",
+          "sub_topics": ["俄罗斯的自然环境", "俄罗斯的资源", "俄罗斯的工业", "俄罗斯的交通"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
         }
       ]
     },
     {
-      "id": "ch2",
-      "name": "东半球的其他国家和地区",
+      "id": "ch6",
+      "name": "东半球其他的国家和地区",
       "knowledge_points": [
         {
-          "id": "kp2_1",
-          "name": "东半球的其他国家和地区",
-          "sub_topics": [
-            "全章概览",
-            "读图分析"
-          ],
-          "typical_questions": [
-            "选择题",
-            "填空题"
-          ],
-          "difficulty_weight": {
-            "easy": 0.5,
-            "medium": 0.3,
-            "hard": 0.2
-          }
+          "id": "geo_kp6_1",
+          "name": "中东",
+          "sub_topics": ["中东的位置", "中东的石油资源", "中东的水资源", "中东的文化"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
+        },
+        {
+          "id": "geo_kp6_2",
+          "name": "欧洲西部",
+          "sub_topics": ["欧洲西部的自然环境", "欧洲西部的经济", "欧洲西部的旅游业", "欧洲西部的畜牧业"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
+        },
+        {
+          "id": "geo_kp6_3",
+          "name": "撒哈拉以南的非洲",
+          "sub_topics": ["撒哈拉以南非洲的自然环境", "撒哈拉以南非洲的人口", "撒哈拉以南非洲的经济", "黑种人的故乡"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
+        },
+        {
+          "id": "geo_kp6_4",
+          "name": "澳大利亚",
+          "sub_topics": ["澳大利亚的自然环境", "澳大利亚的特有动物", "澳大利亚的畜牧业", "澳大利亚的矿业"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
+        }
+      ]
+    },
+    {
+      "id": "ch7",
+      "name": "西半球的国家",
+      "knowledge_points": [
+        {
+          "id": "geo_kp7_1",
+          "name": "美国",
+          "sub_topics": ["美国的自然环境", "美国的人口和民族", "美国的农业", "美国的工业"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
+        },
+        {
+          "id": "geo_kp7_2",
+          "name": "巴西",
+          "sub_topics": ["巴西的自然环境", "巴西的人口", "巴西的农业", "巴西的工业", "巴西的足球文化"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
         }
       ]
     }

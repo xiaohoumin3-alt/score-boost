@@ -1,0 +1,194 @@
+{
+  "subject": "语文",
+  "grade": 6,
+  "semester": "下册",
+  "version": "人教版",
+  "chapters": [
+    {
+      "chapter_name": "第一单元",
+      "knowledge_points": [
+        {
+          "id": "chinese-grade6-down-1-1",
+          "name": "识字与写字",
+          "sub_topics": [
+            "深度理解",
+            "写作技巧",
+            "综合应用"
+          ],
+          "typical_questions": [
+            "填空题",
+            "选择题",
+            "问答题"
+          ],
+          "difficulty_weight": {
+            "easy": 1,
+            "medium": -5.551115123125783e-17,
+            "hard": 0
+          }
+        },
+        {
+          "id": "chinese-grade6-down-1-2",
+          "name": "汉语拼音",
+          "sub_topics": [
+            "深度理解",
+            "写作技巧",
+            "综合应用"
+          ],
+          "typical_questions": [
+            "填空题",
+            "选择题",
+            "问答题"
+          ],
+          "difficulty_weight": {
+            "easy": 1,
+            "medium": -5.551115123125783e-17,
+            "hard": 0
+          }
+        },
+        {
+          "id": "chinese-grade6-down-1-3",
+          "name": "课文阅读",
+          "sub_topics": [
+            "深度理解",
+            "写作技巧",
+            "综合应用"
+          ],
+          "typical_questions": [
+            "填空题",
+            "选择题",
+            "问答题"
+          ],
+          "difficulty_weight": {
+            "easy": 1,
+            "medium": -5.551115123125783e-17,
+            "hard": 0
+          }
+        }
+      ]
+    },
+    {
+      "chapter_name": "第二单元",
+      "knowledge_points": [
+        {
+          "id": "chinese-grade6-down-2-4",
+          "name": "口语交际",
+          "sub_topics": [
+            "深度理解",
+            "写作技巧",
+            "综合应用"
+          ],
+          "typical_questions": [
+            "填空题",
+            "选择题",
+            "问答题"
+          ],
+          "difficulty_weight": {
+            "easy": 1,
+            "medium": -5.551115123125783e-17,
+            "hard": 0
+          }
+        },
+        {
+          "id": "chinese-grade6-down-2-5",
+          "name": "看图说话",
+          "sub_topics": [
+            "深度理解",
+            "写作技巧",
+            "综合应用"
+          ],
+          "typical_questions": [
+            "填空题",
+            "选择题",
+            "问答题"
+          ],
+          "difficulty_weight": {
+            "easy": 1,
+            "medium": -5.551115123125783e-17,
+            "hard": 0
+          }
+        },
+        {
+          "id": "chinese-grade6-down-2-6",
+          "name": "阅读理解",
+          "sub_topics": [
+            "深度理解",
+            "写作技巧",
+            "综合应用"
+          ],
+          "typical_questions": [
+            "填空题",
+            "选择题",
+            "问答题"
+          ],
+          "difficulty_weight": {
+            "easy": 1,
+            "medium": -5.551115123125783e-17,
+            "hard": 0
+          }
+        }
+      ]
+    },
+    {
+      "chapter_name": "第三单元",
+      "knowledge_points": [
+        {
+          "id": "chinese-grade6-down-3-7",
+          "name": "古诗诵读",
+          "sub_topics": [
+            "深度理解",
+            "写作技巧",
+            "综合应用"
+          ],
+          "typical_questions": [
+            "填空题",
+            "选择题",
+            "问答题"
+          ],
+          "difficulty_weight": {
+            "easy": 1,
+            "medium": -5.551115123125783e-17,
+            "hard": 0
+          }
+        },
+        {
+          "id": "chinese-grade6-down-3-8",
+          "name": "日积月累",
+          "sub_topics": [
+            "深度理解",
+            "写作技巧",
+            "综合应用"
+          ],
+          "typical_questions": [
+            "填空题",
+            "选择题",
+            "问答题"
+          ],
+          "difficulty_weight": {
+            "easy": 1,
+            "medium": -5.551115123125783e-17,
+            "hard": 0
+          }
+        },
+        {
+          "id": "chinese-grade6-down-3-9",
+          "name": "写话练习",
+          "sub_topics": [
+            "深度理解",
+            "写作技巧",
+            "综合应用"
+          ],
+          "typical_questions": [
+            "填空题",
+            "选择题",
+            "问答题"
+          ],
+          "difficulty_weight": {
+            "easy": 1,
+            "medium": -5.551115123125783e-17,
+            "hard": 0
+          }
+        }
+      ]
+    }
+  ]
+}

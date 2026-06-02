@@ -851,7 +851,7 @@ exports.main = async (event, context) => {
     }
   }
 
-  const { kp_id, difficulty = 'medium', kp_name, chapter, subject, skip_image, questions, batch_mode } = eventData;
+  const { kp_id, difficulty = 'medium', kp_name, chapter, subject, grade, skip_image, questions, batch_mode } = eventData;
 
   // 批量模式：支持传入questions数组
   if (questions && Array.isArray(questions) && questions.length > 0) {
@@ -945,6 +945,7 @@ exports.main = async (event, context) => {
           difficulty,
           question_type: question.question_type,
           subject: subject,  // 必须保存科目
+          grade: grade,  // 保存年级，用于按年级筛选题目
           verified: false,
           usage_count: 0,
           correct_count: 0,

@@ -2,28 +2,33 @@
   "subject": "生物",
   "grade": "8",
   "semester": "上",
-  "version": "2024人教版",
+  "version": "人教版",
+  "source": "教材PDF提取",
   "chapters": [
     {
       "id": "ch1",
-      "name": "动物的主要类群一、无脊椎动物——体内没有由脊椎骨组成的脊柱",
+      "name": "动物的主要类群",
       "knowledge_points": [
         {
-          "id": "kp1_1",
-          "name": "脊椎动物",
-          "sub_topics": [
-            "概念理解",
-            "重点记忆"
-          ],
-          "typical_questions": [
-            "选择题",
-            "填空题"
-          ],
-          "difficulty_weight": {
-            "easy": 0.4,
-            "medium": 0.4,
-            "hard": 0.2
-          }
+          "id": "bio_kp1_1",
+          "name": "腔肠动物",
+          "sub_topics": ["腔肠动物的主要特征", "腔肠动物与人类的关系"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
+        },
+        {
+          "id": "bio_kp1_2",
+          "name": "扁形动物",
+          "sub_topics": ["扁形动物的主要特征", "扁形动物与人类的关系"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
+        },
+        {
+          "id": "bio_kp1_3",
+          "name": "线形动物和环节动物",
+          "sub_topics": ["线形动物的主要特征", "环节动物的主要特征"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
         }
       ]
     },
@@ -32,193 +37,38 @@
       "name": "动物的运动和行为",
       "knowledge_points": [
         {
-          "id": "kp2_1",
+          "id": "bio_kp2_1",
           "name": "动物的运动",
-          "sub_topics": [
-            "概念理解",
-            "重点记忆"
-          ],
-          "typical_questions": [
-            "选择题",
-            "填空题"
-          ],
-          "difficulty_weight": {
-            "easy": 0.4,
-            "medium": 0.4,
-            "hard": 0.2
-          }
+          "sub_topics": ["运动系统的组成", "骨、关节和肌肉的协调配合", "动物的运动依赖于一定的结构"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
         },
         {
-          "id": "kp2_2",
-          "name": "先天性行为和学习行为",
-          "sub_topics": [
-            "概念理解",
-            "重点记忆"
-          ],
-          "typical_questions": [
-            "选择题",
-            "填空题"
-          ],
-          "difficulty_weight": {
-            "easy": 0.4,
-            "medium": 0.4,
-            "hard": 0.2
-          }
-        },
-        {
-          "id": "kp2_3",
-          "name": "社会行为",
-          "sub_topics": [
-            "概念理解",
-            "重点记忆"
-          ],
-          "typical_questions": [
-            "选择题",
-            "填空题"
-          ],
-          "difficulty_weight": {
-            "easy": 0.4,
-            "medium": 0.4,
-            "hard": 0.2
-          }
+          "id": "bio_kp2_2",
+          "name": "动物的行为",
+          "sub_topics": ["先天性行为和学习行为", "社会行为"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
         }
       ]
     },
     {
       "id": "ch3",
-      "name": "动物在生物圈中的作用1．",
-      "knowledge_points": [
-        {
-          "id": "kp3_1",
-          "name": "动物在生物圈中的作用1．",
-          "sub_topics": [
-            "全章概览",
-            "重点知识"
-          ],
-          "typical_questions": [
-            "选择题",
-            "填空题"
-          ],
-          "difficulty_weight": {
-            "easy": 0.5,
-            "medium": 0.3,
-            "hard": 0.2
-          }
-        }
-      ]
-    },
-    {
-      "id": "ch4",
       "name": "细菌和真菌",
       "knowledge_points": [
         {
-          "id": "kp4_1",
-          "name": "细菌和真菌",
-          "sub_topics": [
-            "全章概览",
-            "重点知识"
-          ],
-          "typical_questions": [
-            "选择题",
-            "填空题"
-          ],
-          "difficulty_weight": {
-            "easy": 0.5,
-            "medium": 0.3,
-            "hard": 0.2
-          }
-        }
-      ]
-    },
-    {
-      "id": "ch5",
-      "name": "第1章",
-      "knowledge_points": [
+          "id": "bio_kp3_1",
+          "name": "细菌",
+          "sub_topics": ["细菌的发现", "细菌的形态和结构", "细菌的营养方式", "细菌的生殖"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        },
         {
-          "id": "kp5_1",
-          "name": "第1章",
-          "sub_topics": [
-            "全章概览",
-            "重点知识"
-          ],
-          "typical_questions": [
-            "选择题",
-            "填空题"
-          ],
-          "difficulty_weight": {
-            "easy": 0.5,
-            "medium": 0.3,
-            "hard": 0.2
-          }
-        }
-      ]
-    },
-    {
-      "id": "ch6",
-      "name": "根据生物的特征进行分类第一节",
-      "knowledge_points": [
-        {
-          "id": "kp6_1",
-          "name": "根据生物的特征进行分类第一节",
-          "sub_topics": [
-            "全章概览",
-            "重点知识"
-          ],
-          "typical_questions": [
-            "选择题",
-            "填空题"
-          ],
-          "difficulty_weight": {
-            "easy": 0.5,
-            "medium": 0.3,
-            "hard": 0.2
-          }
-        }
-      ]
-    },
-    {
-      "id": "ch7",
-      "name": "认识生物的多样性1、生物多样性的内涵：",
-      "knowledge_points": [
-        {
-          "id": "kp7_1",
-          "name": "认识生物的多样性1、生物多样性的内涵：",
-          "sub_topics": [
-            "全章概览",
-            "重点知识"
-          ],
-          "typical_questions": [
-            "选择题",
-            "填空题"
-          ],
-          "difficulty_weight": {
-            "easy": 0.5,
-            "medium": 0.3,
-            "hard": 0.2
-          }
-        }
-      ]
-    },
-    {
-      "id": "ch8",
-      "name": "保护生物的多样性1.",
-      "knowledge_points": [
-        {
-          "id": "kp8_1",
-          "name": "保护生物的多样性1.",
-          "sub_topics": [
-            "全章概览",
-            "重点知识"
-          ],
-          "typical_questions": [
-            "选择题",
-            "填空题"
-          ],
-          "difficulty_weight": {
-            "easy": 0.5,
-            "medium": 0.3,
-            "hard": 0.2
-          }
+          "id": "bio_kp3_2",
+          "name": "真菌",
+          "sub_topics": ["真菌的形态结构", "真菌的营养方式", "真菌的生殖"],
+          "typical_questions": ["选择题", "填空题", "实验题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
         }
       ]
     }

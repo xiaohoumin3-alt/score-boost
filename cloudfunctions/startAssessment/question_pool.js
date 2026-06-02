@@ -13,9 +13,10 @@ const { logPoolHit, logPoolMiss } = require('./monitoring');
  * @param {string} difficulty - 难度: 'easy' | 'medium' | 'hard' (可选，不传则不过滤)
  * @param {boolean} verified - 是否验证过的题目
  * @param {Array} excludeIds - 排除的题目ID
+ * @param {Object} options - 额外筛选条件: { grade, subject }
  * @returns {Promise<Object>} { kp_id -> questions } 映射
  */
-async function fetchQuestionsBatch(db, kpIds, difficulty, verified, excludeIds = []) {
+async function fetchQuestionsBatch(db, kpIds, difficulty, verified, excludeIds = [], options = {}) {
   const startTime = Date.now();
 
   if (!kpIds || kpIds.length === 0) return {};
@@ -33,6 +34,14 @@ async function fetchQuestionsBatch(db, kpIds, difficulty, verified, excludeIds =
 
   if (excludeIds.length > 0) {
     where._id = db.command.nin(excludeIds);
+  }
+
+  // 添加年级和科目筛选（关键修复）
+  if (options.grade) {
+    where.grade = options.grade;
+  }
+  if (options.subject) {
+    where.subject = options.subject;
   }
 
   try {

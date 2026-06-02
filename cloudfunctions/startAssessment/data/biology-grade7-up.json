@@ -1,0 +1,83 @@
+{
+  "subject": "生物",
+  "grade": "7",
+  "semester": "上",
+  "version": "人教版",
+  "source": "教材PDF提取",
+  "chapters": [
+    {
+      "id": "ch1",
+      "name": "生物与环境",
+      "knowledge_points": [
+        {
+          "id": "bio_kp1_1",
+          "name": "生物的特征",
+          "sub_topics": ["生物的生活需要营养", "生物能进行呼吸", "生物能排出身体内产生的废物", "生物能对外界刺激作出反应", "生物能生长和繁殖", "生物都有遗传和变异的特性", "除病毒外，生物都由细胞构成"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
+        },
+        {
+          "id": "bio_kp1_2",
+          "name": "环境对生物的影响",
+          "sub_topics": ["非生物因素对生物的影响", "生物因素对生物的影响", "探究实验"],
+          "typical_questions": ["选择题", "填空题", "实验题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "name": "细胞是生命活动的基本单位",
+      "knowledge_points": [
+        {
+          "id": "bio_kp2_1",
+          "name": "练习使用显微镜",
+          "sub_topics": ["显微镜的结构", "显微镜的使用方法", "显微镜的成像特点"],
+          "typical_questions": ["选择题", "填空题", "实验题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        },
+        {
+          "id": "bio_kp2_2",
+          "name": "植物细胞",
+          "sub_topics": ["玻片标本", "植物细胞的基本结构", "细胞各结构的功能"],
+          "typical_questions": ["选择题", "填空题", "实验题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        },
+        {
+          "id": "bio_kp2_3",
+          "name": "动物细胞",
+          "sub_topics": ["动物细胞的基本结构", "植物细胞与动物细胞的区别"],
+          "typical_questions": ["选择题", "填空题", "实验题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        },
+        {
+          "id": "bio_kp2_4",
+          "name": "细胞的生活",
+          "sub_topics": ["细胞的生活需要物质和能量", "细胞核是控制中心"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        }
+      ]
+    },
+    {
+      "id": "ch3",
+      "name": "细胞怎样构成生物体",
+      "knowledge_points": [
+        {
+          "id": "bio_kp3_1",
+          "name": "动物体的结构层次",
+          "sub_topics": ["细胞分裂", "细胞生长", "细胞分化", "组织", "器官", "系统"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        },
+        {
+          "id": "bio_kp3_2",
+          "name": "植物体的结构层次",
+          "sub_topics": ["植物的器官", "植物的几种主要组织"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        }
+      ]
+    }
+  ]
+}

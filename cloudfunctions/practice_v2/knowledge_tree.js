@@ -8,12 +8,15 @@ const path = require('path');
 function loadKnowledgeTree(subject, grade, semester = '下') {
   // 微信云函数环境：从云存储或本地打包文件读取
   const subjectMap = {
-    'math': 'math',
-    'biology': 'biology',
-    'geography': 'geography',
-    '数学': 'math',
-    '生物': 'biology',
-    '地理': 'geography'
+    'math': 'math', '数学': 'math',
+    'biology': 'biology', '生物': 'biology',
+    'geography': 'geography', '地理': 'geography',
+    'chinese': 'chinese', '语文': 'chinese',
+    'english': 'english', '英语': 'english',
+    'physics': 'physics', '物理': 'physics',
+    'chemistry': 'chemistry', '化学': 'chemistry',
+    'history': 'history', '历史': 'history',
+    'politics': 'politics', '政治': 'politics'
   };
   const dbSubject = subjectMap[subject] || subject || 'math';
 
@@ -28,9 +31,69 @@ function loadKnowledgeTree(subject, grade, semester = '下') {
     }
 
     // 回退到内嵌数据，根据科目返回不同知识树
-    return getEmbeddedData(dbSubject, grade);
+    const embedded = getEmbeddedData(dbSubject, grade);
+    if (embedded && embedded.chapters && embedded.chapters.length > 0) {
+      return embedded;
+    }
+
+    // 内嵌数据也没有，返回空树（调用方会处理）
+    return { subject: dbSubject, grade, semester, chapters: [] };
   } catch (e) {
-    return getEmbeddedData(dbSubject, grade);
+    return getEmbeddedData(dbSubject, grade) || { subject: dbSubject, grade, semester, chapters: [] };
+  }
+}
+
+/**
+ * 从数据库动态加载知识树（异步版本）
+ * 用于没有内嵌数据的科目
+ */
+async function loadKnowledgeTreeFromDb(db, subject, grade) {
+  try {
+    const subjectMap = {
+      'math': 'math', '数学': 'math',
+      'biology': 'biology', '生物': 'biology',
+      'geography': 'geography', '地理': 'geography',
+      'chinese': 'chinese', '语文': 'chinese',
+      'english': 'english', '英语': 'english',
+      'physics': 'physics', '物理': 'physics',
+      'chemistry': 'chemistry', '化学': 'chemistry',
+      'history': 'history', '历史': 'history',
+      'politics': 'politics', '政治': 'politics'
+    };
+    const dbSubject = subjectMap[subject] || subject;
+
+    const result = await db.collection('knowledge_points')
+      .where({ subject: dbSubject })
+      .limit(100)
+      .get();
+
+    if (!result.data || result.data.length === 0) {
+      return null;
+    }
+
+    // 按 chapter 分组
+    const chapterMap = {};
+    for (const kp of result.data) {
+      const chId = kp.chapter_id || kp.chapter || 'default';
+      const chName = kp.chapter || kp.chapter_name || '未分类';
+      if (!chapterMap[chId]) {
+        chapterMap[chId] = { id: chId, name: chName, knowledge_points: [] };
+      }
+      chapterMap[chId].knowledge_points.push({
+        id: kp.kp_id,
+        name: kp.kp_name,
+        difficulty_weight: kp.difficulty_weight || { easy: 0.5, medium: 0.3, hard: 0.2 }
+      });
+    }
+
+    return {
+      subject: dbSubject,
+      grade: grade,
+      chapters: Object.values(chapterMap)
+    };
+  } catch (e) {
+    console.error('[loadKnowledgeTreeFromDb] Error:', e.message);
+    return null;
   }
 }
 
@@ -238,6 +301,7 @@ function generateHuikaoPlan(tree, numQuestions) {
 
 module.exports = {
   loadKnowledgeTree,
+  loadKnowledgeTreeFromDb,
   loadHuikaoTree,
   generateQuestionPlan,
   generateHuikaoPlan,

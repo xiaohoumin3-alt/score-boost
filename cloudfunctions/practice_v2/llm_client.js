@@ -15,18 +15,20 @@ const QuestionValidator = require('./question_validator');
  */
 class LlmClient {
   constructor(apiKey) {
-    this.apiKey = apiKey || process.env.MINIMAX_API_KEY;
-    this.baseUrl = process.env.MINIMAX_BASE_URL || 'https://api.minimax.chat/v1';
-    this.model = process.env.MINIMAX_MODEL || 'mimo-v2-flash';
-    this.timeout = 30000;
+    this.apiKey = apiKey || process.env.LLM_API_KEY;
+    this.baseUrl = process.env.LLM_BASE_URL || 'https://api.deepseek.com';
+    this.model = process.env.LLM_MODEL || 'deepseek-chat';
+    this.timeout = 45000;
 
-    // 创建 llm-core 客户端
+    console.log('[LlmClient] Using', this.baseUrl, 'model:', this.model);
+
+    // 创建 llm-core 客户端（OpenAI 兼容格式，支持 DeepSeek 等）
     this._client = createLLMClient({
       apiKey: this.apiKey,
       baseUrl: this.baseUrl,
       model: this.model,
       timeout: this.timeout,
-      maxRetries: 3
+      maxRetries: 2
     });
 
     // 业务逻辑组件
@@ -42,20 +44,20 @@ class LlmClient {
    */
   async generate(params) {
     if (!this.apiKey) {
-      throw new Error('MINIMAX_API_KEY not configured');
+      throw new Error('LLM_API_KEY not configured');
     }
 
     const prompt = this._buildPrompt(params);
-    console.log('[LLM] Starting request via llm-core...');
+    console.log('[LLM] Starting request...');
 
     const result = await this._client.complete({
       systemPrompt: '你是一个专业的题目生成助手。请严格按照用户要求的JSON格式返回题目。',
       userPrompt: prompt,
       temperature: 0.9,
-      maxTokens: 500
+      maxTokens: 800
     });
 
-    console.log('[LLM] Request completed via llm-core');
+    console.log('[LLM] Request completed');
     return result;
   }
 
@@ -81,18 +83,42 @@ class LlmClient {
     const subjectConfig = {
       math: {
         systemPrompt: '你是一个专业的数学题目生成助手。请严格按照用户要求的JSON格式返回题目。',
-        guidance: '题目应符合初中数学水平，涉及二次根式、勾股定理、一次函数等知识点',
+        guidance: '题目应符合对应年级数学水平，涉及相应知识点',
         fallback: { scenarios: ['梯子靠墙', '航海航行', '建筑施工', '测量距离', '运动路径', '矩形对角线'], triples: [[3, 4, 5], [5, 12, 13], [6, 8, 10]] }
       },
       biology: {
-        systemPrompt: '你是一个专业的初中生物题目生成助手。请严格按照用户要求的JSON格式返回题目。',
-        guidance: '题目应符合初中生物水平，涉及动物的主要类群、动物的运动和行为、动物在生物圈中的作用等知识点',
+        systemPrompt: '你是一个专业的生物题目生成助手。请严格按照用户要求的JSON格式返回题目。',
+        guidance: '题目应符合对应年级生物水平，涉及相应知识点',
         fallback: { topics: ['腔肠动物', '扁形动物', '线形动物', '环节动物', '软体动物', '节肢动物', '鱼类', '两栖类', '爬行类', '鸟类', '哺乳类'] }
       },
       geography: {
-        systemPrompt: '你是一个专业的初中地理题目生成助手。请严格按照用户要求的JSON格式返回题目。',
-        guidance: '题目应符合初中地理水平，涉及中国的疆域与行政区划、中国的人口与民族、中国的地形和气候等知识点',
+        systemPrompt: '你是一个专业的地理题目生成助手。请严格按照用户要求的JSON格式返回题目。',
+        guidance: '题目应符合对应年级地理水平，涉及相应知识点',
         fallback: { topics: ['中国的地理位置', '中国的疆域', '中国的行政区划', '中国的人口与民族', '中国的地形', '中国的气候', '中国的河流与湖泊'] }
+      },
+      chinese: {
+        systemPrompt: '你是一个专业的语文题目生成助手。请严格按照用户要求的JSON格式返回题目。',
+        guidance: '题目应符合对应年级语文水平，涉及字词、阅读理解、古诗文等知识点'
+      },
+      english: {
+        systemPrompt: '你是一个专业的英语题目生成助手。请严格按照用户要求的JSON格式返回题目。',
+        guidance: '题目应符合对应年级英语水平，涉及词汇、语法、阅读等知识点'
+      },
+      physics: {
+        systemPrompt: '你是一个专业的物理题目生成助手。请严格按照用户要求的JSON格式返回题目。',
+        guidance: '题目应符合对应年级物理水平，涉及力学、光学、电学等知识点'
+      },
+      chemistry: {
+        systemPrompt: '你是一个专业的化学题目生成助手。请严格按照用户要求的JSON格式返回题目。',
+        guidance: '题目应符合对应年级化学水平，涉及化学方程式、物质性质等知识点'
+      },
+      history: {
+        systemPrompt: '你是一个专业的历史题目生成助手。请严格按照用户要求的JSON格式返回题目。',
+        guidance: '题目应符合对应年级历史水平，涉及历史事件、人物、年代等知识点'
+      },
+      politics: {
+        systemPrompt: '你是一个专业的道德与法治题目生成助手。请严格按照用户要求的JSON格式返回题目。',
+        guidance: '题目应符合对应年级道德与法治水平，涉及法律常识、公民素养等知识点'
       }
     };
 

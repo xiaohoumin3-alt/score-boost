@@ -3,20 +3,13 @@
  *
  * 从环境变量读取配置，提供默认值和验证。
  *
- * 环境变量（支持两种命名方式）：
- * 标准命名：
- * - LLM_PROVIDER: Provider 类型（目前仅支持 minimax）
- * - LLM_API_KEY: API 密钥（必需）
- * - LLM_BASE_URL: API 端点（可选）
+ * 环境变量：
+ * - LLM_API_KEY: DeepSeek API 密钥（必需）
+ * - LLM_BASE_URL: API 端点
  * - LLM_MODEL: 模型名称
  * - LLM_MAX_RETRIES: 最大重试次数
  * - LLM_TIMEOUT_MS: 超时时间（毫秒）
  * - LLM_RETRY_DELAY_MS: 基础重试延迟（毫秒）
- *
- * MiniMax 专用命名（兼容现有配置）：
- * - MINIMAX_API_KEY: API 密钥
- * - MINIMAX_MODEL: 模型名称
- * - MINIMAX_BASE_URL: API 端点（可选）
  */
 
 const { LLMConfigError } = require('./exceptions')

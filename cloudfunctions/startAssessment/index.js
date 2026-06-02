@@ -61,12 +61,15 @@ exports.main = async (event, context) => {
 
     // 科目映射：支持中文和英文
     const subjectMap = {
-      '数学': 'math',
-      'math': 'math',
-      '生物': 'biology',
-      'biology': 'biology',
-      '地理': 'geography',
-      'geography': 'geography'
+      '语文': 'chinese', 'chinese': 'chinese',
+      '数学': 'math', 'math': 'math',
+      '英语': 'english', 'english': 'english',
+      '物理': 'physics', 'physics': 'physics',
+      '化学': 'chemistry', 'chemistry': 'chemistry',
+      '生物': 'biology', 'biology': 'biology',
+      '历史': 'history', 'history': 'history',
+      '地理': 'geography', 'geography': 'geography',
+      '政治': 'politics', 'politics': 'politics'
     };
 
     const rawSubject = params.subject || 'math';
@@ -182,10 +185,10 @@ exports.main = async (event, context) => {
     const excludeIds = [];
 
     // 初始化LLM客户端
-    const apiKey = process.env.MINIMAX_API_KEY;
+    const apiKey = process.env.LLM_API_KEY;
     const llm = apiKey ? new LlmClient(apiKey) : null;
     if (!apiKey) {
-      console.warn('[startAssessment] MINIMAX_API_KEY not configured, AI fallback disabled');
+      console.warn('[startAssessment] LLM_API_KEY not configured, AI fallback disabled');
     }
 
     // 收集所有知识点ID
@@ -197,12 +200,12 @@ exports.main = async (event, context) => {
 
     // 1. 先尝试获取 verified 题目
     console.log('[startAssessment] 批量查询 verified 题目，知识点数:', uniqueKpIds.length);
-    const verifiedPool = await fetchQuestionsBatch(db, uniqueKpIds, null, true, excludeIds);
+    const verifiedPool = await fetchQuestionsBatch(db, uniqueKpIds, null, true, excludeIds, { grade, subject });
     allPoolQuestions = { ...allPoolQuestions, ...verifiedPool };
 
     // 2. 回退到 unverified 题目
     console.log('[startAssessment] 批量查询 unverified 题目');
-    const unverifiedPool = await fetchQuestionsBatch(db, uniqueKpIds, null, false, excludeIds);
+    const unverifiedPool = await fetchQuestionsBatch(db, uniqueKpIds, null, false, excludeIds, { grade, subject });
 
     // 合并结果（verified 优先）
     for (const [kpId, qs] of Object.entries(unverifiedPool)) {

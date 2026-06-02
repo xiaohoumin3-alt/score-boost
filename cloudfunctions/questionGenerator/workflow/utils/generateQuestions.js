@@ -275,6 +275,294 @@ function generateDefaultQuestions(subject, difficulty, count) {
           knowledge_point: '秦岭淮河'
         }
       ]
+    },
+    chinese: {
+      easy: [
+        {
+          content: "下列词语中，没有错别字的一项是？",
+          options: ["水平如织", "争先恐后", "穿流不息", "轻而易举"],
+          correct_answer: 1,
+          explanation: "A应为'水平如镜'，C应为'川流不息'，D正确无误",
+          type: 'choice',
+          difficulty: 'easy',
+          subject: 'chinese',
+          knowledge_point: '字形辨析'
+        },
+        {
+          content: '"落霞与孤鹜齐飞"这一名句出自？',
+          options: ["《岳阳楼记》", "《滕王阁序》", "《醉翁亭记》", "《赤壁赋》"],
+          correct_answer: 1,
+          explanation: "出自王勃的《滕王阁序》",
+          type: 'choice',
+          difficulty: 'easy',
+          subject: 'chinese',
+          knowledge_point: '古诗文背诵'
+        }
+      ],
+      medium: [
+        {
+          content: "下列各句中，加点的成语使用不恰当的一项是？",
+          options: ["这篇论文观点新颖，论据充分，值得借鉴", "他处事圆滑，善于见风使舵", "这个问题值得我们深思", "他的文章行云流水，一气呵成"],
+          correct_answer: 1,
+          explanation: "'见风使舵'含贬义，不符合语境，其他选项使用正确",
+          type: 'choice',
+          difficulty: 'medium',
+          subject: 'chinese',
+          knowledge_point: '成语运用'
+        }
+      ],
+      hard: [
+        {
+          content: '《红楼梦》中"金陵十二钗"的正册包括？',
+          options: ["林黛玉、薛宝钗、贾元春等十二位", "王熙凤、李纨等十二位", "秦可卿、妙玉等十二位", "史湘云、巧姐等十二位"],
+          correct_answer: 0,
+          explanation: "正册包括林黛玉、薛宝钗、贾元春、贾探春、史湘云、妙玉、贾迎春、贾惜春、王熙凤、巧姐、李纨、秦可卿",
+          type: 'choice',
+          difficulty: 'hard',
+          subject: 'chinese',
+          knowledge_point: '文学常识'
+        }
+      ]
+    },
+    english: {
+      easy: [
+        {
+          content: "Choose the correct word: I have ___ apple.",
+          options: ["a", "an", "the", "no article"],
+          correct_answer: 1,
+          explanation: "Use 'an' before vowel sounds. 'apple' starts with a vowel sound.",
+          type: 'choice',
+          difficulty: 'easy',
+          subject: 'english',
+          knowledge_point: 'Articles'
+        },
+        {
+          content: "What is the past tense of 'go'?",
+          options: ["goed", "went", "gone", "going"],
+          correct_answer: 1,
+          explanation: "The past tense of 'go' is 'went'.",
+          type: 'choice',
+          difficulty: 'easy',
+          subject: 'english',
+          knowledge_point: 'Verb Tenses'
+        }
+      ],
+      medium: [
+        {
+          content: "Choose the correct sentence:",
+          options: ["He don't like playing football.", "He doesn't likes playing football.", "He doesn't like playing football.", "He not like playing football."],
+          correct_answer: 2,
+          explanation: "Use 'doesn't' with third person singular, followed by base form 'like'.",
+          type: 'choice',
+          difficulty: 'medium',
+          subject: 'english',
+          knowledge_point: 'Grammar'
+        }
+      ],
+      hard: [
+        {
+          content: "Which word is a synonym of 'ephemeral'?",
+          options: ["permanent", "eternal", "transient", "lasting"],
+          correct_answer: 2,
+          explanation: "'Ephemeral' means lasting for a very short time, similar to 'transient'.",
+          type: 'choice',
+          difficulty: 'hard',
+          subject: 'english',
+          knowledge_point: 'Vocabulary'
+        }
+      ]
+    },
+    physics: {
+      easy: [
+        {
+          content: "下列物理量中，是矢量的是？",
+          options: ["质量", "时间", "温度", "力"],
+          correct_answer: 3,
+          explanation: "力既有大小又有方向，是矢量；质量、时间、温度只有大小，是标量",
+          type: 'choice',
+          difficulty: 'easy',
+          subject: 'physics',
+          knowledge_point: '矢量与标量'
+        },
+        {
+          content: "在国际单位制中，功率的单位是？",
+          options: ["焦耳", "瓦特", "牛顿", "帕斯卡"],
+          correct_answer: 1,
+          explanation: "功率的国际单位是瓦特(W)，焦耳是能量单位，牛顿是力单位，帕斯卡是压强单位",
+          type: 'choice',
+          difficulty: 'easy',
+          subject: 'physics',
+          knowledge_point: '单位'
+        }
+      ],
+      medium: [
+        {
+          content: "一个物体做匀速直线运动，关于它的受力情况，下列说法正确的是？",
+          options: ["一定不受力", "一定受平衡力作用", "可能受非平衡力作用", "无法判断"],
+          correct_answer: 1,
+          explanation: "物体做匀速直线运动时，合力为零，受平衡力作用",
+          type: 'choice',
+          difficulty: 'medium',
+          subject: 'physics',
+          knowledge_point: '牛顿运动定律'
+        }
+      ],
+      hard: [
+        {
+          content: "关于电场强度和电势，下列说法正确的是？",
+          options: ["电场强度为零的地方，电势一定为零", "电势为零的地方，电场强度一定为零", "电场强度越大的地方，电势一定越高", "电场强度和电势没有必然联系"],
+          correct_answer: 3,
+          explanation: "电场强度反映电场的力的性质，电势反映能的性质，二者没有必然联系",
+          type: 'choice',
+          difficulty: 'hard',
+          subject: 'physics',
+          knowledge_point: '电场与电势'
+        }
+      ]
+    },
+    chemistry: {
+      easy: [
+        {
+          content: "下列变化中，属于化学变化的是？",
+          options: ["冰雪融化", "玻璃破碎", "铁钉生锈", "酒精挥发"],
+          correct_answer: 2,
+          explanation: "铁钉生锈有新物质生成，是化学变化；其他都是物理变化",
+          type: 'choice',
+          difficulty: 'easy',
+          subject: 'chemistry',
+          knowledge_point: '化学变化与物理变化'
+        },
+        {
+          content: "空气的成分按体积计算，含量最多的是？",
+          options: ["氧气", "氮气", "二氧化碳", "稀有气体"],
+          correct_answer: 1,
+          explanation: "空气中氮气约占78%，是含量最多的气体",
+          type: 'choice',
+          difficulty: 'easy',
+          subject: 'chemistry',
+          knowledge_point: '空气'
+        }
+      ],
+      medium: [
+        {
+          content: "下列物质中，属于纯净物的是？",
+          options: ["空气", "海水", "蒸馏水", "石灰水"],
+          correct_answer: 2,
+          explanation: "蒸馏水由一种物质组成，是纯净物；空气、海水、石灰水都是混合物",
+          type: 'choice',
+          difficulty: 'medium',
+          subject: 'chemistry',
+          knowledge_point: '物质分类'
+        }
+      ],
+      hard: [
+        {
+          content: "关于原子的结构，下列说法正确的是？",
+          options: ["原子核由质子和电子构成", "质子数决定元素的化学性质", "中子数决定元素的种类", "电子的质量约等于质子的质量"],
+          correct_answer: 1,
+          explanation: "质子数决定元素的种类和化学性质；原子核由质子和中子构成；电子质量远小于质子",
+          type: 'choice',
+          difficulty: 'hard',
+          subject: 'chemistry',
+          knowledge_point: '原子结构'
+        }
+      ]
+    },
+    history: {
+      easy: [
+        {
+          content: "中国历史上第一个统一的中央集权的封建国家是？",
+          options: ["夏朝", "商朝", "秦朝", "汉朝"],
+          correct_answer: 2,
+          explanation: "公元前221年，秦始皇统一六国，建立秦朝",
+          type: 'choice',
+          difficulty: 'easy',
+          subject: 'history',
+          knowledge_point: '秦朝统一'
+        },
+        {
+          content: '"丝绸之路"的开辟者是？',
+          options: ["张骞", "班超", "甘英", "卫青"],
+          correct_answer: 0,
+          explanation: "西汉时期，张骞出使西域，开辟了丝绸之路",
+          type: 'choice',
+          difficulty: 'easy',
+          subject: 'history',
+          knowledge_point: '丝绸之路'
+        }
+      ],
+      medium: [
+        {
+          content: "下列哪一项不是辛亥革命的历史意义？",
+          options: ["推翻了清王朝的统治", "结束了中国两千多年的封建制度", "建立了中华民国", "完成了反帝反封建的任务"],
+          correct_answer: 3,
+          explanation: "辛亥革命没有完成反帝反封建的任务，中国仍是半殖民地半封建社会",
+          type: 'choice',
+          difficulty: 'medium',
+          subject: 'history',
+          knowledge_point: '辛亥革命'
+        }
+      ],
+      hard: [
+        {
+          content: '关于"百家争鸣"，下列说法正确的是？',
+          options: ["出现于春秋时期", "法家思想成为主流", "是中国历史上第一次思想解放运动", "只涉及儒家和道家"],
+          correct_answer: 2,
+          explanation: "百家争鸣出现于战国时期，是中国历史上第一次思想解放运动，涉及儒、道、法、墨等多家思想",
+          type: 'choice',
+          difficulty: 'hard',
+          subject: 'history',
+          knowledge_point: '百家争鸣'
+        }
+      ]
+    },
+    politics: {
+      easy: [
+        {
+          content: "我国的国家性质是？",
+          options: ["封建主义国家", "资本主义国家", "社会主义国家", "帝国主义国家"],
+          correct_answer: 2,
+          explanation: "中华人民共和国是工人阶级领导的、以工农联盟为基础的人民民主专政的社会主义国家",
+          type: 'choice',
+          difficulty: 'easy',
+          subject: 'politics',
+          knowledge_point: '国家性质'
+        },
+        {
+          content: "我国的根本政治制度是？",
+          options: ["人民代表大会制度", "政治协商制度", "民族区域自治制度", "基层群众自治制度"],
+          correct_answer: 0,
+          explanation: "人民代表大会制度是我国的根本政治制度",
+          type: 'choice',
+          difficulty: 'easy',
+          subject: 'politics',
+          knowledge_point: '政治制度'
+        }
+      ],
+      medium: [
+        {
+          content: "公民最基本的政治权利是？",
+          options: ["受教育权", "选举权和被选举权", "劳动权", "休息权"],
+          correct_answer: 1,
+          explanation: "选举权和被选举权是公民最基本的政治权利",
+          type: 'choice',
+          difficulty: 'medium',
+          subject: 'politics',
+          knowledge_point: '公民权利'
+        }
+      ],
+      hard: [
+        {
+          content: "关于我国的经济制度，下列说法正确的是？",
+          options: ["坚持公有制为主体", "不允许非公有制经济发展", "实行单一公有制", "完全市场化经济"],
+          correct_answer: 0,
+          explanation: "我国坚持公有制为主体、多种所有制经济共同发展的基本经济制度",
+          type: 'choice',
+          difficulty: 'hard',
+          subject: 'politics',
+          knowledge_point: '经济制度'
+        }
+      ]
     }
   };
 

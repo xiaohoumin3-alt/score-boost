@@ -6,12 +6,15 @@ const fs = require('fs');
 const path = require('path');
 
 function loadKnowledgeTree(subject, grade, semester = '下') {
+  console.log('[loadKnowledgeTree] ========== 开始加载知识树 ==========');
   console.log('[loadKnowledgeTree] 输入参数:', { subject, grade, semester });
 
-  // 微信云函数环境：从云存储或本地打包文件读取
+  // 微信云函数环境：data 目录已复制到 cloudfunctions/startAssessment/data/
   try {
-    // data目录在项目根目录，需要从cloudfunctions/startAssessment向上两级
-    const dataDir = path.join(__dirname, '..', '..');
+    // 云函数环境：data 目录在云函数目录内
+    const dataDir = __dirname;
+    console.log('[loadKnowledgeTree] __dirname:', dataDir);
+
     // 科目映射
     const subjectMap = {
       'math': 'math',
@@ -32,26 +35,38 @@ function loadKnowledgeTree(subject, grade, semester = '下') {
     const semesterKey = semesterMap[semester] || semester;
     const dataFile = path.join(dataDir, 'data', `${subjectKey}-grade${grade}-${semesterKey}.json`);
 
-    console.log('[loadKnowledgeTree] 文件路径:', dataFile);
+    console.log('[loadKnowledgeTree] 构建路径组件:', { subjectKey, grade, semesterKey });
+    console.log('[loadKnowledgeTree] 目标文件路径:', dataFile);
     console.log('[loadKnowledgeTree] 文件是否存在:', fs.existsSync(dataFile));
 
     if (fs.existsSync(dataFile)) {
       const content = fs.readFileSync(dataFile, 'utf-8');
       const tree = JSON.parse(content);
-      console.log('[loadKnowledgeTree] 从文件加载成功:', { subject: tree.subject, grade: tree.grade, chapters: tree.chapters?.length });
+      console.log('[loadKnowledgeTree] ✅ 从文件加载成功');
+      console.log('[loadKnowledgeTree] tree信息:', {
+        subject: tree.subject,
+        grade: tree.grade,
+        semester: tree.semester,
+        chapters: tree.chapters?.length || 0,
+        firstChapter: tree.chapters?.[0] ? {
+          name: tree.chapters[0].name || tree.chapters[0].chapter_name,
+          kpCount: tree.chapters[0].knowledge_points?.length || 0
+        } : null
+      });
       return tree;
     }
 
-    console.log('[loadKnowledgeTree] 文件不存在，使用默认数据');
+    console.log('[loadKnowledgeTree] ❌ 文件不存在，将使用默认数据');
     return getEmbeddedData(grade, subjectKey);
   } catch (e) {
-    console.log('[loadKnowledgeTree] 加载失败，使用默认数据:', e.message);
+    console.log('[loadKnowledgeTree] ❌ 加载失败，错误:', e.message);
+    console.log('[loadKnowledgeTree] 将使用默认数据');
     return getEmbeddedData(grade, subject);
   }
 }
 
 function getEmbeddedData(grade, subject = 'math') {
-  // 根据科目返回默认数据
+  // 根据科目和年级返回默认数据
   console.log('[knowledge_tree] getEmbeddedData called with subject:', subject, 'grade:', grade);
 
   const subjectNames = {
@@ -60,56 +75,167 @@ function getEmbeddedData(grade, subject = 'math') {
     'geography': '地理'
   };
 
-  const chaptersBySubject = {
-    'math': [
-      { id: 'ch1', name: '二次根式', knowledge_points: [
-        { id: 'kp1_1', name: '二次根式的概念', difficulty_weight: { easy: 0.5, medium: 0.3, hard: 0.2 } },
-        { id: 'kp1_2', name: '二次根式的性质', difficulty_weight: { easy: 0.4, medium: 0.4, hard: 0.2 } },
-        { id: 'kp1_3', name: '二次根式的运算', difficulty_weight: { easy: 0.3, medium: 0.5, hard: 0.2 } },
-      ]},
-      { id: 'ch2', name: '勾股定理', knowledge_points: [
-        { id: 'kp2_1', name: '勾股定理', difficulty_weight: { easy: 0.4, medium: 0.4, hard: 0.2 } },
-        { id: 'kp2_2', name: '勾股定理的逆定理', difficulty_weight: { easy: 0.3, medium: 0.5, hard: 0.2 } },
-        { id: 'kp2_3', name: '勾股定理的应用', difficulty_weight: { easy: 0.3, medium: 0.4, hard: 0.3 } },
-      ]},
-    ],
-    'biology': [
-      { id: 'bio_ch1', name: '动物的主要类群', knowledge_points: [
-        { id: 'bio_kp1_1', name: '腔肠动物', difficulty_weight: { easy: 0.5, medium: 0.3, hard: 0.2 } },
-        { id: 'bio_kp1_2', name: '扁形动物', difficulty_weight: { easy: 0.5, medium: 0.3, hard: 0.2 } },
-        { id: 'bio_kp1_3', name: '线形动物', difficulty_weight: { easy: 0.5, medium: 0.3, hard: 0.2 } },
-        { id: 'bio_kp1_4', name: '环节动物', difficulty_weight: { easy: 0.5, medium: 0.3, hard: 0.2 } },
-        { id: 'bio_kp2_1', name: '鱼类', difficulty_weight: { easy: 0.5, medium: 0.3, hard: 0.2 } },
-        { id: 'bio_kp2_2', name: '两栖类', difficulty_weight: { easy: 0.5, medium: 0.3, hard: 0.2 } },
-        { id: 'bio_kp2_3', name: '爬行类', difficulty_weight: { easy: 0.5, medium: 0.3, hard: 0.2 } },
-        { id: 'bio_kp2_4', name: '鸟类', difficulty_weight: { easy: 0.5, medium: 0.3, hard: 0.2 } },
-        { id: 'bio_kp2_5', name: '哺乳类', difficulty_weight: { easy: 0.5, medium: 0.3, hard: 0.2 } },
-      ]},
-      { id: 'bio_ch2', name: '动物的运动和行为', knowledge_points: [
-        { id: 'bio_kp3_1', name: '动物的运动', difficulty_weight: { easy: 0.5, medium: 0.3, hard: 0.2 } },
-        { id: 'bio_kp3_2', name: '动物的行为', difficulty_weight: { easy: 0.5, medium: 0.3, hard: 0.2 } },
-      ]},
-    ],
-    'geography': [
-      { id: 'geo_ch1', name: '中国的疆域与行政区划', knowledge_points: [
-        { id: 'geo_kp1_1', name: '中国的地理位置', difficulty_weight: { easy: 0.5, medium: 0.3, hard: 0.2 } },
-        { id: 'geo_kp1_2', name: '中国的疆域', difficulty_weight: { easy: 0.5, medium: 0.3, hard: 0.2 } },
-        { id: 'geo_kp1_3', name: '中国的行政区划', difficulty_weight: { easy: 0.5, medium: 0.3, hard: 0.2 } },
-        { id: 'geo_kp1_4', name: '中国的人口与民族', difficulty_weight: { easy: 0.5, medium: 0.3, hard: 0.2 } },
-      ]},
-      { id: 'geo_ch2', name: '中国的自然环境', knowledge_points: [
-        { id: 'geo_kp2_1', name: '中国的地形', difficulty_weight: { easy: 0.5, medium: 0.3, hard: 0.2 } },
-        { id: 'geo_kp2_2', name: '中国的气候', difficulty_weight: { easy: 0.5, medium: 0.3, hard: 0.2 } },
-        { id: 'geo_kp2_3', name: '中国的河流与湖泊', difficulty_weight: { easy: 0.5, medium: 0.3, hard: 0.2 } },
-      ]},
-    ]
+  // 按年级组织的知识点数据
+  const knowledgeByGrade = {
+    math: {
+      '1': [
+        { id: 'ch1', name: '20以内加减法', knowledge_points: [
+          { id: 'kp1_1', name: '10以内加减法', difficulty_weight: { easy: 0.6, medium: 0.3, hard: 0.1 } },
+          { id: 'kp1_2', name: '20以内加减法', difficulty_weight: { easy: 0.5, medium: 0.3, hard: 0.2 } },
+        ]},
+        { id: 'ch2', name: '认识图形', knowledge_points: [
+          { id: 'kp2_1', name: '认识长方体', difficulty_weight: { easy: 0.6, medium: 0.3, hard: 0.1 } },
+          { id: 'kp2_2', name: '认识正方体', difficulty_weight: { easy: 0.6, medium: 0.3, hard: 0.1 } },
+        ]},
+      ],
+      '2': [
+        { id: 'ch1', name: '100以内加减法', knowledge_points: [
+          { id: 'kp1_1', name: '100以内加减法', difficulty_weight: { easy: 0.5, medium: 0.3, hard: 0.2 } },
+          { id: 'kp1_2', name: '进位加法', difficulty_weight: { easy: 0.4, medium: 0.4, hard: 0.2 } },
+        ]},
+        { id: 'ch2', name: '乘法口诀', knowledge_points: [
+          { id: 'kp2_1', name: '乘法口诀', difficulty_weight: { easy: 0.5, medium: 0.3, hard: 0.2 } },
+          { id: 'kp2_2', name: '乘法应用', difficulty_weight: { easy: 0.4, medium: 0.4, hard: 0.2 } },
+        ]},
+        { id: 'ch3', name: '除法初步', knowledge_points: [
+          { id: 'kp3_1', name: '除法的初步认识', difficulty_weight: { easy: 0.5, medium: 0.3, hard: 0.2 } },
+          { id: 'kp3_2', name: '表内除法', difficulty_weight: { easy: 0.4, medium: 0.4, hard: 0.2 } },
+        ]},
+        { id: 'ch4', name: '长度单位', knowledge_points: [
+          { id: 'kp4_1', name: '厘米和米', difficulty_weight: { easy: 0.6, medium: 0.3, hard: 0.1 } },
+          { id: 'kp4_2', name: '长度单位换算', difficulty_weight: { easy: 0.4, medium: 0.4, hard: 0.2 } },
+        ]},
+        { id: 'ch5', name: '认识角', knowledge_points: [
+          { id: 'kp5_1', name: '角的初步认识', difficulty_weight: { easy: 0.6, medium: 0.3, hard: 0.1 } },
+          { id: 'kp5_2', name: '直角锐角钝角', difficulty_weight: { easy: 0.5, medium: 0.3, hard: 0.2 } },
+        ]},
+      ],
+      '3': [
+        { id: 'ch1', name: '万以内加减法', knowledge_points: [
+          { id: 'kp1_1', name: '万以内加减法', difficulty_weight: { easy: 0.5, medium: 0.3, hard: 0.2 } },
+        ]},
+        { id: 'ch2', name: '多位数乘一位数', knowledge_points: [
+          { id: 'kp2_1', name: '口算乘法', difficulty_weight: { easy: 0.5, medium: 0.3, hard: 0.2 } },
+          { id: 'kp2_2', name: '笔算乘法', difficulty_weight: { easy: 0.4, medium: 0.4, hard: 0.2 } },
+        ]},
+      ],
+      '4': [
+        { id: 'ch1', name: '大数的认识', knowledge_points: [
+          { id: 'kp1_1', name: '亿以内数的认识', difficulty_weight: { easy: 0.5, medium: 0.3, hard: 0.2 } },
+        ]},
+        { id: 'ch2', name: '三位数乘两位数', knowledge_points: [
+          { id: 'kp2_1', name: '三位数乘两位数', difficulty_weight: { easy: 0.4, medium: 0.4, hard: 0.2 } },
+        ]},
+      ],
+      '5': [
+        { id: 'ch1', name: '小数的意义和性质', knowledge_points: [
+          { id: 'kp1_1', name: '小数的意义', difficulty_weight: { easy: 0.5, medium: 0.3, hard: 0.2 } },
+        ]},
+        { id: 'ch2', name: '小数加减法', knowledge_points: [
+          { id: 'kp2_1', name: '小数加减法', difficulty_weight: { easy: 0.4, medium: 0.4, hard: 0.2 } },
+        ]},
+      ],
+      '6': [
+        { id: 'ch1', name: '分数乘法', knowledge_points: [
+          { id: 'kp1_1', name: '分数乘法', difficulty_weight: { easy: 0.4, medium: 0.4, hard: 0.2 } },
+        ]},
+        { id: 'ch2', name: '分数除法', knowledge_points: [
+          { id: 'kp2_1', name: '分数除法', difficulty_weight: { easy: 0.4, medium: 0.4, hard: 0.2 } },
+        ]},
+      ],
+      '7': [
+        { id: 'ch1', name: '有理数', knowledge_points: [
+          { id: 'kp1_1', name: '正数和负数', difficulty_weight: { easy: 0.5, medium: 0.3, hard: 0.2 } },
+          { id: 'kp1_2', name: '有理数', difficulty_weight: { easy: 0.4, medium: 0.4, hard: 0.2 } },
+        ]},
+        { id: 'ch2', name: '整式的加减', knowledge_points: [
+          { id: 'kp2_1', name: '整式', difficulty_weight: { easy: 0.5, medium: 0.3, hard: 0.2 } },
+          { id: 'kp2_2', name: '整式的加减', difficulty_weight: { easy: 0.4, medium: 0.4, hard: 0.2 } },
+        ]},
+      ],
+      '8': [
+        { id: 'ch1', name: '二次根式', knowledge_points: [
+          { id: 'kp1_1', name: '二次根式的概念', difficulty_weight: { easy: 0.5, medium: 0.3, hard: 0.2 } },
+          { id: 'kp1_2', name: '二次根式的性质', difficulty_weight: { easy: 0.4, medium: 0.4, hard: 0.2 } },
+          { id: 'kp1_3', name: '二次根式的运算', difficulty_weight: { easy: 0.3, medium: 0.5, hard: 0.2 } },
+        ]},
+        { id: 'ch2', name: '勾股定理', knowledge_points: [
+          { id: 'kp2_1', name: '勾股定理', difficulty_weight: { easy: 0.4, medium: 0.4, hard: 0.2 } },
+          { id: 'kp2_2', name: '勾股定理的逆定理', difficulty_weight: { easy: 0.3, medium: 0.5, hard: 0.2 } },
+          { id: 'kp2_3', name: '勾股定理的应用', difficulty_weight: { easy: 0.3, medium: 0.4, hard: 0.3 } },
+        ]},
+        { id: 'ch3', name: '一次函数', knowledge_points: [
+          { id: 'kp3_1', name: '一次函数', difficulty_weight: { easy: 0.4, medium: 0.4, hard: 0.2 } },
+        ]},
+        { id: 'ch4', name: '平行四边形', knowledge_points: [
+          { id: 'kp4_1', name: '平行四边形的性质', difficulty_weight: { easy: 0.4, medium: 0.4, hard: 0.2 } },
+        ]},
+        { id: 'ch5', name: '全等三角形', knowledge_points: [
+          { id: 'kp5_1', name: '全等三角形的判定', difficulty_weight: { easy: 0.3, medium: 0.5, hard: 0.2 } },
+        ]},
+      ],
+      '9': [
+        { id: 'ch1', name: '一元二次方程', knowledge_points: [
+          { id: 'kp1_1', name: '一元二次方程的解法', difficulty_weight: { easy: 0.3, medium: 0.5, hard: 0.2 } },
+        ]},
+        { id: 'ch2', name: '二次函数', knowledge_points: [
+          { id: 'kp2_1', name: '二次函数', difficulty_weight: { easy: 0.3, medium: 0.5, hard: 0.2 } },
+        ]},
+        { id: 'ch3', name: '圆', knowledge_points: [
+          { id: 'kp3_1', name: '圆的性质', difficulty_weight: { easy: 0.4, medium: 0.4, hard: 0.2 } },
+        ]},
+      ],
+    },
+    biology: {
+      '7': [
+        { id: 'bio_ch1', name: '认识生物', knowledge_points: [
+          { id: 'bio_kp1_1', name: '生物的特征', difficulty_weight: { easy: 0.6, medium: 0.3, hard: 0.1 } },
+        ]},
+        { id: 'bio_ch2', name: '生物圈是绿色植物', knowledge_points: [
+          { id: 'bio_kp2_1', name: '藻类植物', difficulty_weight: { easy: 0.5, medium: 0.3, hard: 0.2 } },
+        ]},
+      ],
+      '8': [
+        { id: 'bio_ch1', name: '动物的主要类群', knowledge_points: [
+          { id: 'bio_kp1_1', name: '腔肠动物', difficulty_weight: { easy: 0.5, medium: 0.3, hard: 0.2 } },
+          { id: 'bio_kp1_2', name: '扁形动物', difficulty_weight: { easy: 0.5, medium: 0.3, hard: 0.2 } },
+          { id: 'bio_kp1_3', name: '线形动物', difficulty_weight: { easy: 0.5, medium: 0.3, hard: 0.2 } },
+          { id: 'bio_kp1_4', name: '环节动物', difficulty_weight: { easy: 0.5, medium: 0.3, hard: 0.2 } },
+        ]},
+      ],
+      '9': [
+        { id: 'bio_ch1', name: '生物圈中的人', knowledge_points: [
+          { id: 'bio_kp1_1', name: '人的营养', difficulty_weight: { easy: 0.5, medium: 0.3, hard: 0.2 } },
+        ]},
+      ],
+    },
+    geography: {
+      '7': [
+        { id: 'geo_ch1', name: '地球和地图', knowledge_points: [
+          { id: 'geo_kp1_1', name: '地球的形状和大小', difficulty_weight: { easy: 0.5, medium: 0.3, hard: 0.2 } },
+        ]},
+      ],
+      '8': [
+        { id: 'geo_ch1', name: '从世界看中国', knowledge_points: [
+          { id: 'geo_kp1_1', name: '中国的地理位置', difficulty_weight: { easy: 0.5, medium: 0.3, hard: 0.2 } },
+        ]},
+      ],
+      '9': [
+        { id: 'geo_ch1', name: '世界地理', knowledge_points: [
+          { id: 'geo_kp1_1', name: '世界地理概述', difficulty_weight: { easy: 0.5, medium: 0.3, hard: 0.2 } },
+        ]},
+      ],
+    },
   };
+
+  // 获取对应年级的知识点，回退到8年级
+  const chapters = knowledgeByGrade[subject]?.[grade] || knowledgeByGrade[subject]?.['8'] || knowledgeByGrade.math['8'];
 
   return {
     subject: subjectNames[subject] || '数学',
     grade: grade,
     semester: '下',
-    chapters: chaptersBySubject[subject] || chaptersBySubject['math']
+    chapters: chapters
   };
 }
 

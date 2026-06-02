@@ -163,7 +163,8 @@ async function generateQuestions(plan, numQuestions, callAiGenerate, options = {
             image_url: result.image_url || null,
           });
         } catch (e) {
-          console.error(`[Generator] AI failed for ${item.kp.kp_id}:`, e.message);
+          console.error(`[Generator] AI generation failed for kp_id=${item.kp.kp_id}, kp_name=${item.kp.kp_name}, difficulty=${item.difficulty}:`, e.message);
+          console.error(`[Generator] AI error stack:`, e.stack);
         }
       }
     }

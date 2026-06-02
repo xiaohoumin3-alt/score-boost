@@ -41,8 +41,9 @@ async function fetchQuestionsFromPool(db, kpId, difficulty, verified, userId, ex
   };
 
   // correct_rate 阈值过滤（质量过滤）
+  // 注意：新题默认 correct_rate=0.5，必须用 gte 而非 gt
   if (verified === false) {
-    where.correct_rate = db.command.gt(0.5);
+    where.correct_rate = db.command.gte(0.5);
   }
 
   // 添加排除条件
