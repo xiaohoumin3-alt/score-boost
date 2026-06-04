@@ -7,6 +7,93 @@ const cloud = require('wx-server-sdk');
 cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV });
 const db = cloud.database();
 
+const http = require('http');
+const https = require('https');
+
+// Fetch polyfill for Node.js environment (微信云函数可能没有全局fetch)
+let fetchPolyfill = null;
+try {
+  // 尝试使用内置的 fetch（Node 18+）
+  if (typeof fetch !== 'undefined') {
+    fetchPolyfill = fetch;
+    console.log('[Fetch] Using native fetch');
+  } else {
+    // 使用 node-fetch 或 undici
+    fetchPolyfill = require('node-fetch');
+    console.log('[Fetch] Using node-fetch polyfill');
+  }
+} catch (e) {
+  console.error('[Fetch] Failed to load fetch:', e.message);
+  console.error('[Fetch] Will use https module as fallback');
+}
+
+// 统一的fetch接口（带超时控制）
+function safeFetch(url, options) {
+  if (fetchPolyfill) {
+    // 为原生fetch添加AbortController超时控制
+    const controller = new AbortController();
+    const timeout = options.timeout || 60000;
+
+    // 设置超时
+    const timeoutId = setTimeout(() => {
+      controller.abort();
+      console.error('[safeFetch] Request timeout after', timeout, 'ms');
+    }, timeout);
+
+    return fetchPolyfill(url, {
+      ...options,
+      signal: controller.signal
+    }).finally(() => {
+      clearTimeout(timeoutId);
+    });
+  }
+  // Fallback to https module
+  return new Promise((resolve, reject) => {
+    const urlObj = new URL(url);
+    const protocol = urlObj.protocol === 'https:' ? https : http;
+
+    const headers = {};
+    if (options.headers) {
+      if (options.headers instanceof Headers) {
+        options.headers.forEach((value, key) => {
+          headers[key] = value;
+        });
+      } else {
+        Object.assign(headers, options.headers);
+      }
+    }
+
+    const reqOptions = {
+      hostname: urlObj.hostname,
+      port: urlObj.port || (protocol === https ? 443 : 80),
+      path: urlObj.pathname + urlObj.search,
+      method: options.method || 'GET',
+      headers: headers
+    };
+
+    const req = protocol.request(reqOptions, (res) => {
+      let data = '';
+      res.on('data', chunk => data += chunk);
+      res.on('end', () => {
+        resolve({
+          ok: res.statusCode >= 200 && res.statusCode < 300,
+          status: res.statusCode,
+          json: () => Promise.resolve(JSON.parse(data)),
+          text: () => Promise.resolve(data)
+        });
+      });
+    });
+
+    req.on('error', reject);
+
+    if (options.body) {
+      req.write(options.body);
+    }
+
+    req.end();
+  });
+}
+
 // 知识点数据（按年级组织）
 const knowledgePoints = {
   math: {
@@ -95,7 +182,9 @@ async function generateQuestionsWithAI(db, grade, subject, count) {
 ]`;
 
   try {
-    const response = await fetch(`${baseUrl}/chat/completions`, {
+    console.log(`[generateQuestionsWithAI] Calling DeepSeek API for ${count} questions...`);
+
+    const response = await safeFetch(`${baseUrl}/chat/completions`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -110,7 +199,8 @@ async function generateQuestionsWithAI(db, grade, subject, count) {
         max_tokens: 8000,
         temperature: 0.8,
         thinking: { type: 'disabled' }
-      })
+      }),
+      timeout: 45000
     });
 
     if (!response.ok) {
@@ -126,6 +216,8 @@ async function generateQuestionsWithAI(db, grade, subject, count) {
       console.error('[generateQuestionsWithAI] Empty response from API');
       return [];
     }
+
+    console.log(`[generateQuestionsWithAI] Response length: ${content.length} chars`);
 
     // 解析 JSON 数组
     const jsonMatch = content.match(/\[[\s\S]*\]/);
@@ -167,15 +259,18 @@ async function startParentAssessment(event) {
 
   // 1. 先从题库中获取题目
   let questions = await fetchQuestionsFromPool(db, grade, subject, 5);
+  console.log(`[startParentAssessment] Pool has ${questions.length} questions`);
 
   // 2. 如果题库不足，使用AI生成
   if (questions.length < 5) {
     console.log(`[startParentAssessment] Pool has ${questions.length} questions, generating with AI`);
     const aiQuestions = await generateQuestionsWithAI(db, grade, subject, 5 - questions.length);
+    console.log(`[startParentAssessment] AI generated ${aiQuestions.length} questions`);
     questions = [...questions, ...aiQuestions];
   }
 
   if (questions.length === 0) {
+    console.error('[startParentAssessment] No questions available');
     return { success: false, error: '无法生成题目，请稍后重试' };
   }
 
@@ -201,6 +296,8 @@ async function startParentAssessment(event) {
         created_at: new Date().toISOString()
       }
     });
+
+    console.log(`[startParentAssessment] Assessment created: ${assessmentId}`);
 
     return {
       success: true,
@@ -259,6 +356,17 @@ async function submitParentAnswers(event) {
 
     const score = Math.round((correctCount / parentQuestions.length) * 100);
 
+    // 生成孩子的题目（同一年级，不同题目）
+    let childQuestions = await fetchQuestionsFromPool(db, assessment.grade, assessment.subject, 5);
+    console.log(`[submitParentAnswers] Child pool has ${childQuestions.length} questions`);
+
+    // 如果题库不足，使用AI生成
+    if (childQuestions.length < 5) {
+      const aiQuestions = await generateQuestionsWithAI(db, assessment.grade, assessment.subject, 5 - childQuestions.length);
+      console.log(`[submitParentAnswers] AI generated ${aiQuestions.length} questions for child`);
+      childQuestions = [...childQuestions, ...aiQuestions];
+    }
+
     // 更新测评记录
     await db.collection('parent_assessments').doc(assessment._id).update({
       data: {
@@ -267,25 +375,12 @@ async function submitParentAnswers(event) {
         parent_score: score,
         parent_duration: duration || 0,
         parent_correct_count: correctCount,
-        parent_completed_at: new Date().toISOString()
-      }
-    });
-
-    // 生成孩子的题目（同一年级，不同题目）
-    let childQuestions = await fetchQuestionsFromPool(db, assessment.grade, assessment.subject, 5);
-
-    // 如果题库不足，使用AI生成
-    if (childQuestions.length < 5) {
-      const aiQuestions = await generateQuestionsWithAI(db, assessment.grade, assessment.subject, 5 - childQuestions.length);
-      childQuestions = [...childQuestions, ...aiQuestions];
-    }
-
-    // 更新孩子的题目
-    await db.collection('parent_assessments').doc(assessment._id).update({
-      data: {
+        parent_completed_at: new Date().toISOString(),
         child_questions: childQuestions
       }
     });
+
+    console.log(`[submitParentAnswers] Parent score: ${score}, child questions: ${childQuestions.length}`);
 
     return {
       success: true,
@@ -391,6 +486,8 @@ async function submitChildAnswers(event) {
     } else {
       parentGradeLevel = `小学`;
     }
+
+    console.log(`[submitChildAnswers] Child score: ${score}, comparison: ${comparison.winner}`);
 
     return {
       success: true,
