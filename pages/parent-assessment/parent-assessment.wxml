@@ -1,0 +1,198 @@
+<!--
+  家长测评页面
+  功能：让家长先做题，再让孩子做题，最后对比结果
+-->
+
+<view class="container">
+  <!-- 加载状态 -->
+  <view class="loading-container" wx:if="{{loading}}">
+    <view class="loading-spinner"></view>
+    <text class="loading-text">加载中...</text>
+  </view>
+
+  <!-- 错误提示 -->
+  <view class="error-container" wx:if="{{error && !loading}}">
+    <text class="error-text">{{error}}</text>
+    <button class="btn-retry" bindtap="restart">重试</button>
+  </view>
+
+  <!-- 开始页面 -->
+  <view class="start-page" wx:if="{{status === 'start' && !loading && !error}}">
+    <view class="start-header">
+      <text class="start-title">家长测评</text>
+      <text class="start-subtitle">你真的了解你孩子的学习水平吗？</text>
+    </view>
+
+    <view class="start-content">
+      <view class="start-desc">
+        <text class="desc-text">先做5道题（孩子年级的），再让孩子做5道题</text>
+        <text class="desc-text">看看你们的对比结果</text>
+      </view>
+
+      <view class="grade-selector">
+        <text class="grade-label">选择孩子年级：</text>
+        <picker mode="selector" range="{{grades}}" range-key="label" value="{{grade}}" bindchange="onGradeChange">
+          <view class="grade-picker">
+            <text class="grade-value">{{grade ? grades[grade - 1].label : '请选择年级'}}</text>
+            <text class="grade-arrow">▼</text>
+          </view>
+        </picker>
+      </view>
+
+      <button class="btn-start" bindtap="startAssessment" disabled="{{!grade}}">
+        开始测评
+      </button>
+    </view>
+
+    <view class="start-footer">
+      <text class="footer-text">测评时间约3分钟</text>
+    </view>
+  </view>
+
+  <!-- 答题页面（家长/孩子共用） -->
+  <view class="quiz-page" wx:if="{{status === 'parent_quiz' || status === 'child_quiz'}}">
+    <view class="quiz-header">
+      <text class="quiz-role">{{status === 'parent_quiz' ? '家长答题' : '孩子答题'}}</text>
+      <text class="quiz-progress">{{currentQuestionIndex + 1}} / {{questions.length}}</text>
+    </view>
+
+    <view class="quiz-content">
+      <view class="question-card">
+        <text class="question-text">{{currentQuestion.content}}</text>
+      </view>
+
+      <view class="options-list">
+        <view
+          class="option-item {{selectedAnswer === item ? 'selected' : ''}}"
+          wx:for="{{currentQuestion.options}}"
+          wx:key="index"
+          data-answer="{{item}}"
+          bindtap="onSelectAnswer"
+        >
+          <text class="option-label">{{index === 0 ? 'A' : index === 1 ? 'B' : index === 2 ? 'C' : 'D'}}</text>
+          <text class="option-text">{{item}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="quiz-footer">
+      <button class="btn-next" bindtap="nextQuestion" disabled="{{!selectedAnswer}}">
+        {{currentQuestionIndex < questions.length - 1 ? '下一题' : '提交'}}
+      </button>
+    </view>
+  </view>
+
+  <!-- 家长结果页面 -->
+  <view class="result-page" wx:if="{{status === 'parent_result'}}">
+    <view class="result-header">
+      <text class="result-title">家长测评完成！</text>
+    </view>
+
+    <view class="result-content">
+      <view class="result-card">
+        <view class="score-circle">
+          <text class="score-number">{{parentResult.parent_score}}</text>
+          <text class="score-unit">分</text>
+        </view>
+        <text class="score-desc">您的得分</text>
+      </view>
+
+      <view class="result-stats">
+        <view class="stat-item">
+          <text class="stat-value">{{parentResult.parent_correct_count}}</text>
+          <text class="stat-label">答对题数</text>
+        </view>
+        <view class="stat-item">
+          <text class="stat-value">{{parentResult.total_questions}}</text>
+          <text class="stat-label">总题数</text>
+        </view>
+      </view>
+
+      <view class="result-message">
+        <text class="message-text">现在让孩子来试试吧！</text>
+      </view>
+    </view>
+
+    <view class="result-footer">
+      <button class="btn-child" bindtap="startChildAssessment">
+        开始孩子测评
+      </button>
+    </view>
+  </view>
+
+  <!-- 对比结果页面 -->
+  <view class="comparison-page" wx:if="{{status === 'comparison'}}">
+    <view class="comparison-header">
+      <text class="comparison-title">对比结果</text>
+    </view>
+
+    <view class="comparison-content">
+      <!-- 分数对比 -->
+      <view class="score-comparison">
+        <view class="score-card parent">
+          <text class="score-role">家长</text>
+          <text class="score-number">{{comparisonResult.parent.score}}</text>
+          <text class="score-unit">分</text>
+          <text class="score-level">相当于{{comparisonResult.parent.grade_level}}</text>
+        </view>
+
+        <view class="vs-badge">
+          <text class="vs-text">VS</text>
+        </view>
+
+        <view class="score-card child">
+          <text class="score-role">孩子</text>
+          <text class="score-number">{{comparisonResult.child.score}}</text>
+          <text class="score-unit">分</text>
+        </view>
+      </view>
+
+      <!-- 对比消息 -->
+      <view class="comparison-message">
+        <text class="message-text">{{comparisonResult.message}}</text>
+      </view>
+
+      <!-- 详细数据 -->
+      <view class="comparison-details">
+        <view class="detail-item">
+          <text class="detail-label">家长答对</text>
+          <text class="detail-value">{{comparisonResult.parent.correct_count}}/{{comparisonResult.parent.total_questions}}</text>
+        </view>
+        <view class="detail-item">
+          <text class="detail-label">孩子答对</text>
+          <text class="detail-value">{{comparisonResult.child.correct_count}}/{{comparisonResult.child.total_questions}}</text>
+        </view>
+        <view class="detail-item">
+          <text class="detail-label">家长用时</text>
+          <text class="detail-value">{{comparisonResult.parent.duration}}秒</text>
+        </view>
+        <view class="detail-item">
+          <text class="detail-label">孩子用时</text>
+          <text class="detail-value">{{comparisonResult.child.duration}}秒</text>
+        </view>
+      </view>
+
+      <!-- 结论 -->
+      <view class="comparison-conclusion">
+        <text class="conclusion-text" wx:if="{{comparisonResult.comparison.winner === 'child'}}">
+          恭喜！您的孩子比您更厉害！🎉
+        </text>
+        <text class="conclusion-text" wx:elif="{{comparisonResult.comparison.winner === 'parent'}}">
+          您比孩子高{{comparisonResult.comparison.diff}}分，但孩子在某些题上可能更快
+        </text>
+        <text class="conclusion-text" wx:else>
+          你们不相上下！
+        </text>
+      </view>
+    </view>
+
+    <view class="comparison-footer">
+      <button class="btn-share" open-type="share">
+        分享结果
+      </button>
+      <button class="btn-restart" bindtap="restart">
+        重新测评
+      </button>
+    </view>
+  </view>
+</view>

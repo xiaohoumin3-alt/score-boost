@@ -85,6 +85,10 @@
         <text class="quick-icon">🎯</text>
         <text class="quick-text">专属测评</text>
       </view>
+      <view class="quick-btn" bindtap="goToParentAssessment">
+        <text class="quick-icon">👨‍👩‍👧</text>
+        <text class="quick-text">家长测评</text>
+      </view>
       <view class="quick-btn" bindtap="viewPath">
         <text class="quick-icon">🛤️</text>
         <text class="quick-text">查看路径</text>

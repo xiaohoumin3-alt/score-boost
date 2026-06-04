@@ -1,5 +1,6 @@
 const app = getApp();
 const api = require('../../utils/cloudApi.js');
+const { resolveKpNames, resolveKpName } = require('../../utils/knowledgeMap.js');
 
 Page({
   data: {
@@ -17,15 +18,24 @@ Page({
     hasPendingReviews: false,
     pendingReviews: [],
     todayTask: null,  // AI原生Phase 2: 今日任务
-    showTopics: false  // 是否显示知识点选择
+    showTopics: false,  // 是否显示知识点选择
+    homeLoaded: false  // 防止重复加载
   },
 
   onLoad() {
+    console.log('[home] onLoad - 首次加载');
+    this.setData({ homeLoaded: false });
     this.loadHome();
   },
 
   onShow() {
-    this.loadHome();
+    // 只在首次加载或数据可能变化时加载
+    if (!this.data.homeLoaded) {
+      console.log('[home] onShow - 首次加载');
+      this.loadHome();
+    } else {
+      console.log('[home] onShow - 跳过重复加载');
+    }
   },
 
   async loadHome() {
@@ -83,6 +93,9 @@ Page({
       await this.loadPendingReviews();
       // AI原生Phase 2: 加载今日任务
       await this.loadTodayTask();
+
+      // 标记为已加载
+      this.setData({ homeLoaded: true });
     } catch (e) {
       console.error('[home] load error:', e);
       this.setData({ loading: false });
@@ -164,6 +177,9 @@ Page({
           return aOrder - bOrder;
         });
 
+        // 解析 kp_name（数据库可能为空）
+        pendingReviews = resolveKpNames(pendingReviews);
+
         if (pendingReviews.length > 0) {
           this.setData({
             pendingReviews,
@@ -235,6 +251,10 @@ Page({
     wx.navigateTo({ url: '/pages/exclusive-exam-start/exclusive-exam-start' });
   },
 
+  goToParentAssessment() {
+    wx.navigateTo({ url: '/pages/parent-assessment/parent-assessment' });
+  },
+
   viewProgress() {
     wx.navigateTo({ url: '/pages/progress/progress' });
   },
@@ -242,7 +262,7 @@ Page({
   goReview(e) {
     const kp = e.currentTarget.dataset.kp;
     app.targetKpId = kp.kp_id;
-    app.targetKpName = kp.kp_name || kp.kp_id;
+    app.targetKpName = kp.kp_name || resolveKpName(kp.kp_id);
     wx.switchTab({ url: '/pages/practice/practice' });
   },
 

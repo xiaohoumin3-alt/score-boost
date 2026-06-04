@@ -20,7 +20,9 @@
     "pages/material-upload/material-upload",
     "pages/exclusive-exam-start/exclusive-exam-start",
     "pages/admin/material-review/material-review",
-    "pages/admin/material-review-detail/material-review-detail"
+    "pages/admin/material-review-detail/material-review-detail",
+    "pages/test-cleanup/test-cleanup",
+    "pages/parent-assessment/parent-assessment"
   ],
   "window": {
     "navigationBarTitleText": "日日守护",
