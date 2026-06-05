@@ -1,0 +1,118 @@
+<view class="page">
+  <view class="loading" wx:if="{{loading}}">
+    <text class="loading-text">加载中...</text>
+  </view>
+
+  <block wx:else>
+    <!-- 统计总览 -->
+    <view class="stats-row">
+      <view class="stat-item">
+        <text class="stat-value">{{score_percent}}</text>
+        <text class="stat-label">分数</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-value">{{points}}</text>
+        <text class="stat-label">积分</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-value">{{streak}}</text>
+        <text class="stat-label">连续正确</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-value">{{achievementCount}}</text>
+        <text class="stat-label">成就数</text>
+      </view>
+    </view>
+
+    <!-- 签到卡片 -->
+    <view class="signin-card">
+      <view class="signin-left">
+        <text class="signin-streak-num">{{signin_streak}}</text>
+        <text class="signin-streak-label">连续签到天数</text>
+      </view>
+      <view class="signin-right">
+        <view class="signin-btn {{can_signin ? '' : 'signed'}}" bindtap="signin">
+          <text class="signin-btn-text">{{can_signin ? '签到' : '已签到'}}</text>
+        </view>
+        <text class="signin-tip">连续7天额外+100积分</text>
+      </view>
+    </view>
+
+    <!-- 成就横向滚动 -->
+    <view class="section-block" wx:if="{{achievementCount > 0}}">
+      <text class="section-title">成就</text>
+      <scroll-view class="achievement-scroll" scroll-x="true" show-scrollbar="{{false}}">
+        <view class="achievement-list">
+          <block wx:for="{{achievements}}" wx:key="id">
+            <view class="achievement-badge {{item.unlocked ? 'unlocked' : ''}}">
+              <text class="badge-icon">{{item.unlocked ? item.icon : '🔒'}}</text>
+              <text class="badge-name">{{item.name}}</text>
+            </view>
+          </block>
+        </view>
+      </scroll-view>
+    </view>
+
+    <!-- 亲子互动入口 -->
+    <view class="menu-card parent-card" bindtap="goToParentAssessment">
+      <view class="menu-icon-wrap parent-icon-bg">
+        <text class="menu-icon">👨‍👩‍👧</text>
+      </view>
+      <view class="menu-info">
+        <text class="menu-name">亲子互动</text>
+        <text class="menu-desc">家长测评了解孩子学习状态</text>
+      </view>
+      <text class="menu-arrow">›</text>
+    </view>
+
+    <!-- 更多菜单 -->
+    <view class="section-block">
+      <text class="section-title">更多</text>
+      <view class="menu-card" bindtap="goToProgress">
+        <view class="menu-icon-wrap">
+          <text class="menu-icon">📊</text>
+        </view>
+        <view class="menu-info">
+          <text class="menu-name">学习进度</text>
+          <text class="menu-desc">{{achievementCount}}个知识点</text>
+        </view>
+        <text class="menu-arrow">›</text>
+      </view>
+      <view class="menu-card" bindtap="goToPoints">
+        <view class="menu-icon-wrap">
+          <text class="menu-icon">💰</text>
+        </view>
+        <view class="menu-info">
+          <text class="menu-name">积分中心</text>
+          <text class="menu-desc">{{points}}积分</text>
+        </view>
+        <text class="menu-arrow">›</text>
+      </view>
+      <view class="menu-card" bindtap="goToFeedback">
+        <view class="menu-icon-wrap">
+          <text class="menu-icon">💬</text>
+        </view>
+        <view class="menu-info">
+          <text class="menu-name">反馈</text>
+          <text class="menu-desc">帮助我们做得更好</text>
+        </view>
+        <text class="menu-arrow">›</text>
+      </view>
+    </view>
+
+    <!-- 邀请好友 -->
+    <view class="section-block">
+      <text class="section-title">邀请好友</text>
+      <view class="invite-card">
+        <view class="invite-row">
+          <text class="invite-code-label">邀请码</text>
+          <text class="invite-code-value">{{invite_code || '---'}}</text>
+        </view>
+        <view class="invite-actions">
+          <button class="invite-btn share-btn" open-type="share">分享给好友</button>
+        </view>
+        <text class="invite-reward">好友注册得50积分，好友完成测评额外得30积分</text>
+      </view>
+    </view>
+  </block>
+</view>

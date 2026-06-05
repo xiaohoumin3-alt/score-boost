@@ -23,7 +23,8 @@
     "pages/admin/material-review-detail/material-review-detail",
     "pages/test-cleanup/test-cleanup",
     "pages/parent-assessment/parent-assessment",
-    "pages/points/points"
+    "pages/points/points",
+    "pages/mine/mine"
   ],
   "window": {
     "navigationBarTitleText": "日日守护",
@@ -40,7 +41,8 @@
     "list": [
       { "pagePath": "pages/home/home", "text": "首页", "iconPath": "components/icons/home.png" },
       { "pagePath": "pages/path/path", "text": "路径", "iconPath": "components/icons/path.png" },
-      { "pagePath": "pages/practice/practice", "text": "练习", "iconPath": "components/icons/practice.png" }
+      { "pagePath": "pages/practice/practice", "text": "练习", "iconPath": "components/icons/practice.png" },
+      { "pagePath": "pages/mine/mine", "text": "我的", "iconPath": "components/icons/mine.png", "selectedIconPath": "components/icons/mine-active.png" }
     ]
   },
   "style": "v2",

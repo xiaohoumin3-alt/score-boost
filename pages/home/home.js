@@ -227,9 +227,6 @@ Page({
     }
   },
 
-  viewPath() {
-    wx.switchTab({ url: '/pages/path/path' });
-  },
 
   viewHistory() {
     wx.navigateTo({ url: '/pages/result/result' });
@@ -239,9 +236,6 @@ Page({
     wx.navigateTo({ url: '/pages/onboarding/onboarding' });
   },
 
-  goToFeedback() {
-    wx.navigateTo({ url: '/pages/feedback/feedback' });
-  },
 
   goToUpload() {
     wx.navigateTo({ url: '/pages/material-upload/material-upload' });
@@ -251,17 +245,6 @@ Page({
     wx.navigateTo({ url: '/pages/exclusive-exam-start/exclusive-exam-start' });
   },
 
-  goToParentAssessment() {
-    wx.navigateTo({ url: '/pages/parent-assessment/parent-assessment' });
-  },
-
-  goToPoints() {
-    wx.navigateTo({ url: '/pages/points/points' });
-  },
-
-  viewProgress() {
-    wx.navigateTo({ url: '/pages/progress/progress' });
-  },
 
   goReview(e) {
     const kp = e.currentTarget.dataset.kp;

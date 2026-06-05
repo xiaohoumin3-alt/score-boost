@@ -1,0 +1,281 @@
+.page {
+  min-height: 100vh;
+  background: var(--bg-base);
+  padding-bottom: 180rpx;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+}
+
+.loading-text {
+  font-size: 28rpx;
+  color: var(--text-secondary);
+}
+
+/* 统计总览 */
+.stats-row {
+  display: flex;
+  padding: 80rpx 40rpx 32rpx;
+  gap: 16rpx;
+}
+
+.stat-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8rpx;
+  padding: 24rpx 0;
+  background: var(--bg-surface);
+  border-radius: var(--radius-md);
+}
+
+.stat-value {
+  font-size: 40rpx;
+  font-weight: bold;
+  color: var(--accent);
+}
+
+.stat-label {
+  font-size: 22rpx;
+  color: var(--text-secondary);
+}
+
+/* 签到卡片 */
+.signin-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 40rpx 32rpx;
+  padding: 32rpx;
+  background: var(--bg-surface-raised);
+  border-radius: var(--radius-lg);
+  border: 2rpx solid var(--border-accent);
+}
+
+.signin-left {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.signin-streak-num {
+  font-size: 56rpx;
+  font-weight: bold;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.signin-streak-label {
+  font-size: 22rpx;
+  color: var(--text-secondary);
+}
+
+.signin-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12rpx;
+}
+
+.signin-btn {
+  padding: 16rpx 48rpx;
+  background: var(--accent);
+  border-radius: var(--radius-full);
+}
+
+.signin-btn.signed {
+  background: var(--bg-surface);
+  opacity: 0.5;
+}
+
+.signin-btn-text {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: var(--bg-base);
+}
+
+.signin-btn.signed .signin-btn-text {
+  color: var(--text-secondary);
+}
+
+.signin-tip {
+  font-size: 22rpx;
+  color: var(--warning);
+}
+
+/* 区块 */
+.section-block {
+  padding: 0 40rpx;
+  margin-bottom: 32rpx;
+}
+
+.section-title {
+  font-size: 28rpx;
+  color: var(--text-secondary);
+  margin-bottom: 20rpx;
+  display: block;
+}
+
+/* 成就滚动 */
+.achievement-scroll {
+  white-space: nowrap;
+}
+
+.achievement-list {
+  display: inline-flex;
+  gap: 16rpx;
+}
+
+.achievement-badge {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8rpx;
+  padding: 20rpx 24rpx;
+  background: var(--bg-surface);
+  border-radius: var(--radius-md);
+  border: 2rpx solid var(--border-subtle);
+  min-width: 120rpx;
+}
+
+.achievement-badge.unlocked {
+  border-color: var(--border-accent);
+}
+
+.badge-icon {
+  font-size: 48rpx;
+}
+
+.badge-name {
+  font-size: 22rpx;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.achievement-badge.unlocked .badge-name {
+  color: var(--accent);
+  font-weight: bold;
+}
+
+/* 菜单卡片 */
+.menu-card {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  padding: 28rpx 24rpx;
+  background: var(--bg-surface);
+  border-radius: var(--radius-md);
+  margin-bottom: 12rpx;
+}
+
+.parent-card {
+  margin: 0 40rpx 32rpx;
+  padding: 32rpx 24rpx;
+  border: 2rpx solid var(--purple);
+}
+
+.menu-icon-wrap {
+  width: 72rpx;
+  height: 72rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  background: var(--accent-dim);
+}
+
+.parent-icon-bg {
+  background: rgba(139, 92, 246, 0.12);
+}
+
+.menu-icon {
+  font-size: 36rpx;
+}
+
+.menu-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4rpx;
+}
+
+.menu-name {
+  font-size: 30rpx;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.menu-desc {
+  font-size: 22rpx;
+  color: var(--text-secondary);
+}
+
+.menu-arrow {
+  font-size: 36rpx;
+  color: var(--text-tertiary);
+  font-weight: bold;
+}
+
+/* 邀请好友 */
+.invite-card {
+  background: var(--bg-surface);
+  border-radius: var(--radius-md);
+  padding: 32rpx;
+}
+
+.invite-row {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  margin-bottom: 24rpx;
+}
+
+.invite-code-label {
+  font-size: 26rpx;
+  color: var(--text-secondary);
+}
+
+.invite-code-value {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: var(--accent);
+  letter-spacing: 4rpx;
+}
+
+.invite-actions {
+  display: flex;
+  gap: 16rpx;
+  margin-bottom: 16rpx;
+}
+
+.invite-btn {
+  flex: 1;
+  height: 72rpx;
+  line-height: 72rpx;
+  font-size: 26rpx;
+  border-radius: var(--radius-full);
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  border: none;
+}
+
+.share-btn {
+  background: var(--accent);
+  color: var(--bg-base);
+}
+
+.share-btn::after {
+  border: none;
+}
+
+.invite-reward {
+  font-size: 22rpx;
+  color: var(--text-tertiary);
+  display: block;
+}

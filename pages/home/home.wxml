@@ -85,18 +85,6 @@
         <text class="quick-icon">🎯</text>
         <text class="quick-text">专属测评</text>
       </view>
-      <view class="quick-btn" bindtap="goToParentAssessment">
-        <text class="quick-icon">👨‍👩‍👧</text>
-        <text class="quick-text">家长测评</text>
-      </view>
-      <view class="quick-btn" bindtap="goToPoints">
-        <text class="quick-icon">💰</text>
-        <text class="quick-text">积分中心</text>
-      </view>
-      <view class="quick-btn" bindtap="viewPath">
-        <text class="quick-icon">🛤️</text>
-        <text class="quick-text">查看路径</text>
-      </view>
       <view class="quick-btn" bindtap="startAssessment">
         <text class="quick-icon">🔄</text>
         <text class="quick-text">重新测评</text>
@@ -120,41 +108,6 @@
       </view>
     </view>
 
-    <!-- 成就展示 -->
-    <view class="achievement-row" wx:if="{{achievements.length > 0}}">
-      <text class="section-title">🏆 近期成就</text>
-      <scroll-view class="achievement-scroll" scroll-x="true" show-scrollbar="{{false}}">
-        <view class="achievement-list">
-          <block wx:for="{{achievements}}" wx:key="id">
-            <view class="achievement-badge {{item.unlocked ? 'unlocked' : ''}}">
-              <text class="badge-icon">{{item.unlocked ? item.icon : '🔒'}}</text>
-              <text class="badge-name">{{item.name}}</text>
-            </view>
-          </block>
-        </view>
-      </scroll-view>
-    </view>
-
-    <!-- 连续正确题数 -->
-    <view class="streak-card" wx:if="{{streak > 0}}">
-      <text class="streak-icon">🔥</text>
-      <text class="streak-num">{{streak}}</text>
-      <text class="streak-label">最大连续正确</text>
-    </view>
-
-    <!-- Progress Entry -->
-    <view class="progress-entry" bindtap="viewProgress">
-      <text class="entry-icon">📊</text>
-      <text class="entry-text">查看学习进度</text>
-      <text class="entry-arrow">›</text>
-    </view>
-
-    <!-- Feedback Entry -->
-    <view class="feedback-entry" bindtap="goToFeedback">
-      <text class="feedback-icon">💬</text>
-      <text class="feedback-text">意见反馈</text>
-      <text class="feedback-arrow">›</text>
-    </view>
 
     <!-- Recent History -->
     <view class="history-section" wx:if="{{recentAssessments.length > 0}}">
