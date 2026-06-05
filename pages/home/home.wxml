@@ -61,6 +61,16 @@
       <text class="other-arrow">›</text>
     </view>
 
+    <!-- 重新测评 -->
+    <view class="loop-card" bindtap="startAssessment">
+      <text class="loop-icon">↻</text>
+      <view class="loop-body">
+        <text class="loop-title">重新测评</text>
+        <text class="loop-desc">检验最新学习效果</text>
+      </view>
+      <text class="loop-arrow">›</text>
+    </view>
+
     <!-- Main Action Card -->
     <view class="action-card" bindtap="handleAction" wx:if="{{!todayTask}}">
       <view class="action-icon">
@@ -73,14 +83,6 @@
         <text class="action-desc">{{nextAction.desc}}</text>
       </view>
       <view class="action-arrow">⇢</view>
-    </view>
-
-    <!-- Quick Actions -->
-    <view class="quick-actions">
-      <view class="quick-btn" bindtap="startAssessment">
-        <text class="quick-icon">🔄</text>
-        <text class="quick-text">重新测评</text>
-      </view>
     </view>
 
     <!-- 今日复习卡片 -->

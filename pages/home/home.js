@@ -294,7 +294,6 @@ Page({
    * 显示所有知识点（次要入口）
    */
   showAllTopics() {
-    this.setData({ showTopics: true });
     wx.switchTab({ url: '/pages/path/path' });
   }
 });
