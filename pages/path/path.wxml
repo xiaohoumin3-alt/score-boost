@@ -92,4 +92,22 @@
         <text class="progress-label">分差距</text>
       </view>
     </view>
+
+    <!-- 个性化学习 -->
+    <view class="personalized-section" wx:if="{{!loading}}">
+      <text class="section-title">个性化学习</text>
+      <view class="chain-card">
+        <view class="chain-item" bindtap="goToUpload">
+          <text class="chain-icon">📤</text>
+          <text class="chain-name">上传资料</text>
+          <text class="chain-desc">PDF/文档</text>
+        </view>
+        <text class="chain-arrow">›</text>
+        <view class="chain-item" bindtap="goToExclusiveExam">
+          <text class="chain-icon">🎯</text>
+          <text class="chain-name">专属测评</text>
+          <text class="chain-desc">基于你的资料</text>
+        </view>
+      </view>
+    </view>
 </view>

@@ -237,15 +237,6 @@ Page({
   },
 
 
-  goToUpload() {
-    wx.navigateTo({ url: '/pages/material-upload/material-upload' });
-  },
-
-  goToExclusiveExam() {
-    wx.navigateTo({ url: '/pages/exclusive-exam-start/exclusive-exam-start' });
-  },
-
-
   goReview(e) {
     const kp = e.currentTarget.dataset.kp;
     app.targetKpId = kp.kp_id;

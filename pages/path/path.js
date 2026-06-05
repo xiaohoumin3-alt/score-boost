@@ -1,5 +1,6 @@
 const app = getApp();
 const api = require('../../utils/cloudApi.js');
+const { resolveKpName, resolveKpNames } = require('../../utils/knowledgeMap.js');
 
 Page({
   data: {
@@ -60,7 +61,7 @@ Page({
       // 用真实薄弱点生成路径
       const steps = weakPoints.map((wp, index) => ({
         id: wp.kp_id,
-        name: wp.kp_name,
+        name: wp.kp_name || resolveKpName(wp.kp_id),
         score: 5,
         status: index === 0 ? 'current' : index < 0 ? 'completed' : 'pending',
         icon: this.getIconForKp(wp.kp_id),
@@ -119,5 +120,13 @@ Page({
 
   viewDetail() {
     wx.navigateTo({ url: '/pages/result/result' });
+  },
+
+  goToUpload() {
+    wx.navigateTo({ url: '/pages/material-upload/material-upload' });
+  },
+
+  goToExclusiveExam() {
+    wx.navigateTo({ url: '/pages/exclusive-exam-start/exclusive-exam-start' });
   }
 });
