@@ -1,0 +1,41 @@
+/* 设计 token — 全局变量 */
+page {
+  /* 背景层次 */
+  --bg-base: #0A0F14;
+  --bg-surface: rgba(255, 255, 255, 0.04);
+  --bg-surface-raised: rgba(255, 255, 255, 0.07);
+
+  /* 主色调 */
+  --accent: #00E5A0;
+  --accent-dim: rgba(0, 229, 160, 0.12);
+  --accent-glow: rgba(0, 229, 160, 0.2);
+
+  /* 文字层次 */
+  --text-primary: rgba(255, 255, 255, 0.92);
+  --text-secondary: rgba(255, 255, 255, 0.5);
+  --text-tertiary: rgba(255, 255, 255, 0.25);
+
+  /* 语义色 */
+  --danger: #FF6B6B;
+  --warning: #FFB84D;
+  --purple: #8B5CF6;
+  --info: #5BA3F5;
+
+  /* 边框 */
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border-accent: rgba(0, 229, 160, 0.3);
+
+  /* 圆角 */
+  --radius-sm: 12rpx;
+  --radius-md: 20rpx;
+  --radius-lg: 28rpx;
+  --radius-full: 9999rpx;
+
+  /* 间距 */
+  --space-xs: 8rpx;
+  --space-sm: 16rpx;
+  --space-md: 24rpx;
+  --space-lg: 32rpx;
+  --space-xl: 40rpx;
+  --page-padding: 40rpx;
+}

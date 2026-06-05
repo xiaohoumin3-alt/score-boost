@@ -29,13 +29,13 @@
     "navigationBarTitleText": "日日守护",
     "navigationBarBackgroundColor": "#0f0f23",
     "navigationBarTextStyle": "white",
-    "backgroundColor": "#0f0f23",
+    "backgroundColor": "#0A0F14",
     "backgroundTextStyle": "dark"
   },
   "tabBar": {
     "color": "#666",
     "selectedColor": "#00D9A5",
-    "backgroundColor": "#0f0f23",
+    "backgroundColor": "#0A0F14",
     "borderStyle": "black",
     "list": [
       { "pagePath": "pages/home/home", "text": "首页", "iconPath": "components/icons/home.png" },
