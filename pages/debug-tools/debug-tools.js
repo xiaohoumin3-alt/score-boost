@@ -78,5 +78,10 @@ Page({
   // 跳转到引导页
   goTOnboarding() {
     wx.navigateTo({ url: '/pages/onboarding/onboarding' });
+  },
+
+  // 跳转到清理页面
+  goToCleanup() {
+    wx.navigateTo({ url: '/pages/test-cleanup/test-cleanup' });
   }
 });

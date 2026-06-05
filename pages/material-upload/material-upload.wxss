@@ -11,7 +11,7 @@
 .title {
   font-size: 40rpx;
   font-weight: bold;
-  color: #333;
+  color: var(--border-subtle, rgba(255, 255, 255, 0.06));
   display: block;
 }
 
@@ -31,7 +31,7 @@
 
 .label {
   font-size: 28rpx;
-  color: #666;
+  color: var(--text-tertiary, rgba(255, 255, 255, 0.25));
   margin-bottom: 16rpx;
   display: block;
 }
@@ -51,7 +51,7 @@
 
 .file-name {
   font-size: 28rpx;
-  color: #333;
+  color: var(--border-subtle, rgba(255, 255, 255, 0.06));
   display: block;
 }
 
@@ -86,20 +86,20 @@
 
 .picker-value {
   font-size: 28rpx;
-  color: #333;
+  color: var(--border-subtle, rgba(255, 255, 255, 0.06));
   padding: 16rpx 0;
 }
 
 .upload-btn {
   background: #4a90d9;
-  color: #fff;
+  color: var(--text-primary, rgba(255, 255, 255, 0.92));
   border-radius: 12rpx;
   margin-top: 30rpx;
   font-size: 30rpx;
 }
 
 .upload-btn[disabled] {
-  background: #ccc;
+  background: var(--text-secondary, rgba(255, 255, 255, 0.5));
 }
 
 .progress-bar {
@@ -140,7 +140,7 @@
 
 .result-msg {
   font-size: 28rpx;
-  color: #333;
+  color: var(--border-subtle, rgba(255, 255, 255, 0.06));
   display: block;
   margin-bottom: 16rpx;
 }
@@ -153,7 +153,7 @@
 
 .exam-btn {
   background: #27ae60;
-  color: #fff;
+  color: var(--text-primary, rgba(255, 255, 255, 0.92));
   border-radius: 12rpx;
   margin-top: 30rpx;
   font-size: 28rpx;

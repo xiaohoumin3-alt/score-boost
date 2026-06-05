@@ -68,7 +68,13 @@ Page({
   },
 
   redirectAfterLogin() {
-    if (app.globalData.grade && app.globalData.subject) {
+    // 如果有指定的登录后跳转目标，优先使用
+    const redirectTo = app.loginRedirectTo;
+    app.loginRedirectTo = null;
+
+    if (redirectTo) {
+      wx.reLaunch({ url: redirectTo });
+    } else if (app.globalData.grade && app.globalData.subject) {
       wx.reLaunch({ url: '/pages/home/home' });
     } else {
       wx.reLaunch({ url: '/pages/onboarding/onboarding' });

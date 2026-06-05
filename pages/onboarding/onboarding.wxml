@@ -5,6 +5,7 @@
   </view>
 
   <view class="form">
+    <!-- 考试模式 -->
     <view class="form-item">
       <text class="label">考试模式</text>
       <view class="mode-selector">
@@ -14,33 +15,40 @@
         </view>
         <view class="mode-option {{examMode === 'huikao' ? 'active' : ''}}" bindtap="selectExamMode" data-mode="huikao">
           <text class="mode-name">会考模拟</text>
-          <text class="mode-desc">七、八年级全部内容</text>
+          <text class="mode-desc">跨年级综合测评</text>
         </view>
       </view>
     </view>
 
+    <!-- 年级选择（网格标签） -->
     <view class="form-item" wx:if="{{examMode === 'grade'}}">
-      <text class="label">年级</text>
-      <picker mode="selector" range="{{grades}}" value="{{gradeIndex}}" bindchange="selectGrade">
-        <view class="picker">
-          <text class="{{gradeIndex >= 0 ? 'value' : 'placeholder'}}">
-            {{gradeIndex >= 0 ? grades[gradeIndex] : '请选择年级'}}
-          </text>
-          <text class="arrow">→</text>
+      <text class="label">选择年级</text>
+      <view class="chip-grid">
+        <view
+          class="chip {{selectedGrade === item ? 'active' : ''}}"
+          wx:for="{{grades}}"
+          wx:key="*this"
+          bindtap="selectGrade"
+          data-grade="{{item}}">
+          <text>{{item}}</text>
         </view>
-      </picker>
+      </view>
     </view>
 
+    <!-- 科目选择（网格标签） -->
     <view class="form-item">
-      <text class="label">科目</text>
-      <picker mode="selector" range="{{examMode === 'huikao' ? huikaoSubjects : subjects}}" value="{{subjectIndex}}" bindchange="selectSubject">
-        <view class="picker">
-          <text class="{{subjectIndex >= 0 ? 'value' : 'placeholder'}}">
-            {{subjectIndex >= 0 ? (examMode === 'huikao' ? huikaoSubjects[subjectIndex] : subjects[subjectIndex]) : '请选择科目'}}
-          </text>
-          <text class="arrow">→</text>
+      <text class="label">选择科目</text>
+      <view class="chip-grid">
+        <view
+          class="chip {{selectedSubject === item.name ? 'active' : ''}}"
+          wx:for="{{examMode === 'huikao' ? huikaoSubjects : subjectList}}"
+          wx:key="name"
+          bindtap="selectSubject"
+          data-subject="{{item.name}}">
+          <text class="chip-icon">{{item.icon}}</text>
+          <text>{{item.name}}</text>
         </view>
-      </picker>
+      </view>
     </view>
   </view>
 

@@ -33,7 +33,7 @@
 }
 
 .loading-text {
-  color: #fff;
+  color: var(--text-primary, rgba(255, 255, 255, 0.92));
   font-size: 28rpx;
   margin-top: 20rpx;
 }
@@ -48,7 +48,7 @@
 }
 
 .error-text {
-  color: #fff;
+  color: var(--text-primary, rgba(255, 255, 255, 0.92));
   font-size: 28rpx;
   margin-bottom: 40rpx;
 }
@@ -78,7 +78,7 @@
   display: block;
   font-size: 64rpx;
   font-weight: bold;
-  color: #fff;
+  color: var(--text-primary, rgba(255, 255, 255, 0.92));
   margin-bottom: 20rpx;
 }
 
@@ -101,7 +101,7 @@
 
 .desc-text {
   display: block;
-  color: #fff;
+  color: var(--text-primary, rgba(255, 255, 255, 0.92));
   font-size: 28rpx;
   line-height: 1.6;
   text-align: center;
@@ -113,7 +113,7 @@
 
 .grade-label {
   display: block;
-  color: #fff;
+  color: var(--text-primary, rgba(255, 255, 255, 0.92));
   font-size: 28rpx;
   margin-bottom: 20rpx;
 }
@@ -129,7 +129,7 @@
 
 .grade-value {
   font-size: 28rpx;
-  color: #333;
+  color: var(--border-subtle, rgba(255, 255, 255, 0.06));
 }
 
 .grade-arrow {
@@ -179,7 +179,7 @@
 }
 
 .quiz-role {
-  color: #fff;
+  color: var(--text-primary, rgba(255, 255, 255, 0.92));
   font-size: 32rpx;
   font-weight: bold;
 }
@@ -202,7 +202,7 @@
 
 .question-text {
   font-size: 32rpx;
-  color: #333;
+  color: var(--border-subtle, rgba(255, 255, 255, 0.06));
   line-height: 1.6;
 }
 
@@ -229,7 +229,7 @@
   width: 60rpx;
   height: 60rpx;
   background: #764ba2;
-  color: #fff;
+  color: var(--text-primary, rgba(255, 255, 255, 0.92));
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -246,7 +246,7 @@
 
 .option-text {
   font-size: 28rpx;
-  color: #333;
+  color: var(--border-subtle, rgba(255, 255, 255, 0.06));
   flex: 1;
 }
 
@@ -286,7 +286,7 @@
 .result-title {
   font-size: 48rpx;
   font-weight: bold;
-  color: #fff;
+  color: var(--text-primary, rgba(255, 255, 255, 0.92));
 }
 
 .result-content {
@@ -326,7 +326,7 @@
 
 .score-desc {
   font-size: 28rpx;
-  color: #fff;
+  color: var(--text-primary, rgba(255, 255, 255, 0.92));
 }
 
 .result-stats {
@@ -343,7 +343,7 @@
   display: block;
   font-size: 48rpx;
   font-weight: bold;
-  color: #fff;
+  color: var(--text-primary, rgba(255, 255, 255, 0.92));
 }
 
 .stat-label {
@@ -360,7 +360,7 @@
 }
 
 .message-text {
-  color: #fff;
+  color: var(--text-primary, rgba(255, 255, 255, 0.92));
   font-size: 28rpx;
 }
 
@@ -395,7 +395,7 @@
 .comparison-title {
   font-size: 48rpx;
   font-weight: bold;
-  color: #fff;
+  color: var(--text-primary, rgba(255, 255, 255, 0.92));
 }
 
 .comparison-content {
@@ -427,7 +427,7 @@
 .score-card .score-number {
   font-size: 64rpx;
   font-weight: bold;
-  color: #fff;
+  color: var(--text-primary, rgba(255, 255, 255, 0.92));
 }
 
 .score-card .score-unit {
@@ -467,7 +467,7 @@
 }
 
 .comparison-message .message-text {
-  color: #fff;
+  color: var(--text-primary, rgba(255, 255, 255, 0.92));
   font-size: 28rpx;
 }
 
@@ -495,7 +495,7 @@
 }
 
 .detail-value {
-  color: #fff;
+  color: var(--text-primary, rgba(255, 255, 255, 0.92));
   font-size: 28rpx;
   font-weight: bold;
 }
@@ -532,7 +532,7 @@
 .btn-restart {
   flex: 1;
   background: rgba(255, 255, 255, 0.2);
-  color: #fff;
+  color: var(--text-primary, rgba(255, 255, 255, 0.92));
   padding: 30rpx;
   border-radius: 50rpx;
   font-size: 28rpx;

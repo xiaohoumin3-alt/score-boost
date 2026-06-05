@@ -27,6 +27,7 @@
     <text class="section-title">跳转</text>
     <button class="btn" bindtap="goTOnboarding">重新选择科目</button>
     <button class="btn success" bindtap="goToAssessment">开始测评</button>
+    <button class="btn warning" bindtap="goToCleanup">题池清理工具</button>
   </view>
 
   <view class="section">

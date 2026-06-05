@@ -1,6 +1,6 @@
 .page {
   min-height: 100vh;
-  background: #0f0f23;
+  background: var(--bg-base, #0A0F14);
   padding-bottom: 180rpx;
 }
 
@@ -18,13 +18,13 @@
 .title {
   font-size: 48rpx;
   font-weight: bold;
-  color: #fff;
+  color: var(--text-primary, rgba(255, 255, 255, 0.92));
 }
 
 /* Score Section */
 .score-section {
   padding: 40rpx;
-  background: #1a1a35;
+  background: var(--bg-surface, rgba(255, 255, 255, 0.04));
   border-radius: 20rpx;
   margin: 20rpx;
 }
@@ -47,7 +47,7 @@
   width: 200rpx;
   height: 200rpx;
   border-radius: 50%;
-  background: conic-gradient(from 0deg, #00D9A5 {{currentScore * 3.6}}deg, #222 {{currentScore * 3.6}}deg);
+  background: conic-gradient(from 0deg, var(--accent, #00E5A0) {{currentScore * 3.6}}deg, var(--border-subtle, rgba(255, 255, 255, 0.06)) {{currentScore * 3.6}}deg);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -57,7 +57,7 @@
   width: 160rpx;
   height: 160rpx;
   border-radius: 50%;
-  background: #0f0f23;
+  background: var(--bg-base, #0A0F14);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -67,12 +67,12 @@
 .score-value {
   font-size: 56rpx;
   font-weight: bold;
-  color: #00D9A5;
+  color: var(--accent, #00E5A0);
 }
 
 .score-label {
   font-size: 22rpx;
-  color: #666;
+  color: var(--text-tertiary, rgba(255, 255, 255, 0.25));
 }
 
 .score-arrow {
@@ -83,7 +83,7 @@
 
 .arrow-icon {
   font-size: 40rpx;
-  color: #00D9A5;
+  color: var(--accent, #00E5A0);
 }
 
 .score-target {
@@ -95,17 +95,17 @@
 .target-value {
   font-size: 44rpx;
   font-weight: bold;
-  color: #fff;
+  color: var(--text-primary, rgba(255, 255, 255, 0.92));
 }
 
 .target-label {
   font-size: 24rpx;
-  color: #666;
+  color: var(--text-tertiary, rgba(255, 255, 255, 0.25));
 }
 
 .gap-badge {
   font-size: 22rpx;
-  color: #FF6B6B;
+  color: var(--danger, #FF6B6B);
   background: rgba(255, 107, 107, 0.1);
   padding: 8rpx 16rpx;
   border-radius: 20rpx;
@@ -122,12 +122,12 @@
 .score-status.achieved .status-text {
   font-size: 32rpx;
   font-weight: bold;
-  color: #00D9A5;
+  color: var(--accent, #00E5A0);
 }
 
 .score-status.achieved .status-detail {
   font-size: 24rpx;
-  color: #666;
+  color: var(--text-tertiary, rgba(255, 255, 255, 0.25));
 }
 
 /* Path Section */
@@ -137,7 +137,7 @@
 
 .section-title {
   font-size: 30rpx;
-  color: #888;
+  color: var(--text-secondary, rgba(255, 255, 255, 0.5));
   display: block;
   margin-bottom: 30rpx;
 }
@@ -154,25 +154,25 @@
   gap: 24rpx;
   position: relative;
   padding: 24rpx;
-  background: #1a1a35;
+  background: var(--bg-surface, rgba(255, 255, 255, 0.04));
   border-radius: 16rpx;
   margin-bottom: 20rpx;
   border-left: 4rpx solid transparent;
 }
 
 .path-step.step-completed {
-  border-left-color: #00D9A5;
+  border-left-color: var(--accent, #00E5A0);
   opacity: 0.7;
 }
 
 .path-step.step-current {
-  border-left-color: #00D9A5;
-  background: linear-gradient(90deg, rgba(0, 217, 165, 0.15) 0%, #1a1a35 100%);
+  border-left-color: var(--accent, #00E5A0);
+  background: linear-gradient(90deg, rgba(0, 217, 165, 0.15) 0%, var(--bg-surface, rgba(255, 255, 255, 0.04)) 100%);
 }
 
 .path-step.step-locked {
   opacity: 0.4;
-  border-left-color: #444;
+  border-left-color: var(--border-subtle, rgba(255, 255, 255, 0.06));
 }
 
 .connector {
@@ -181,14 +181,14 @@
   top: -20rpx;
   width: 4rpx;
   height: 20rpx;
-  background: #333;
+  background: var(--border-subtle, rgba(255, 255, 255, 0.06));
 }
 
 .step-icon {
   width: 56rpx;
   height: 56rpx;
   border-radius: 50%;
-  background: #222;
+  background: var(--border-subtle, rgba(255, 255, 255, 0.06));
   display: flex;
   align-items: center;
   justify-content: center;
@@ -197,19 +197,19 @@
 }
 
 .step-current .step-icon {
-  background: #00D9A5;
-  color: #0f0f23;
+  background: var(--accent, #00E5A0);
+  color: var(--bg-base, #0A0F14);
   font-weight: bold;
 }
 
 .step-completed .step-icon {
-  background: #00D9A5;
-  color: #0f0f23;
+  background: var(--accent, #00E5A0);
+  color: var(--bg-base, #0A0F14);
 }
 
 .step-locked .step-icon {
-  background: #333;
-  color: #666;
+  background: var(--border-subtle, rgba(255, 255, 255, 0.06));
+  color: var(--text-tertiary, rgba(255, 255, 255, 0.25));
 }
 
 .step-content {
@@ -225,23 +225,23 @@
 
 .step-name {
   font-size: 30rpx;
-  color: #fff;
+  color: var(--text-primary, rgba(255, 255, 255, 0.92));
   font-weight: 500;
 }
 
 .step-score {
   font-size: 26rpx;
-  color: #00D9A5;
+  color: var(--accent, #00E5A0);
   font-weight: bold;
 }
 
 .step-locked .step-score {
-  color: #666;
+  color: var(--text-tertiary, rgba(255, 255, 255, 0.25));
 }
 
 .step-bar {
   height: 8rpx;
-  background: #222;
+  background: var(--border-subtle, rgba(255, 255, 255, 0.06));
   border-radius: 4rpx;
   overflow: hidden;
 }
@@ -253,11 +253,11 @@
 }
 
 .bar-completed {
-  background: #00D9A5;
+  background: var(--accent, #00E5A0);
 }
 
 .bar-current {
-  background: linear-gradient(90deg, #00D9A5 0%, #00B894 100%);
+  background: linear-gradient(90deg, var(--accent, #00E5A0) 0%, var(--accent, #00E5A0) 100%);
 }
 
 .bar-locked {
@@ -270,10 +270,10 @@
 }
 
 .current-card {
-  background: linear-gradient(135deg, #1a3a2e 0%, #1a1a35 100%);
+  background: linear-gradient(135deg, #1a3a2e 0%, var(--bg-surface, rgba(255, 255, 255, 0.04)) 100%);
   border-radius: 20rpx;
   padding: 30rpx;
-  border: 2rpx solid #00D9A5;
+  border: 2rpx solid var(--accent, #00E5A0);
 }
 
 .card-header {
@@ -285,13 +285,13 @@
 
 .card-label {
   font-size: 24rpx;
-  color: #00D9A5;
+  color: var(--accent, #00E5A0);
 }
 
 .card-badge {
   font-size: 20rpx;
-  background: #00D9A5;
-  color: #0f0f23;
+  background: var(--accent, #00E5A0);
+  color: var(--bg-base, #0A0F14);
   padding: 4rpx 16rpx;
   border-radius: 20rpx;
   font-weight: bold;
@@ -299,7 +299,7 @@
 
 .card-title {
   font-size: 36rpx;
-  color: #fff;
+  color: var(--text-primary, rgba(255, 255, 255, 0.92));
   font-weight: bold;
   display: block;
   margin-bottom: 8rpx;
@@ -307,14 +307,14 @@
 
 .card-desc {
   font-size: 24rpx;
-  color: #888;
+  color: var(--text-secondary, rgba(255, 255, 255, 0.5));
   display: block;
   margin-bottom: 24rpx;
 }
 
 .card-action {
-  background: #00D9A5;
-  color: #0f0f23;
+  background: var(--accent, #00E5A0);
+  color: var(--bg-base, #0A0F14);
   font-size: 30rpx;
   font-weight: bold;
   text-align: center;
@@ -327,7 +327,7 @@
   display: flex;
   justify-content: space-around;
   padding: 40rpx;
-  background: #1a1a35;
+  background: var(--bg-surface, rgba(255, 255, 255, 0.04));
   margin: 0 40rpx;
   border-radius: 16rpx;
 }
@@ -342,18 +342,18 @@
 .progress-value {
   font-size: 48rpx;
   font-weight: bold;
-  color: #00D9A5;
+  color: var(--accent, #00E5A0);
 }
 
 .progress-label {
   font-size: 22rpx;
-  color: #666;
+  color: var(--text-tertiary, rgba(255, 255, 255, 0.25));
 }
 
 .progress-divider {
   width: 2rpx;
   height: 60rpx;
-  background: #333;
+  background: var(--border-subtle, rgba(255, 255, 255, 0.06));
 }
 
 /* Loading */
@@ -366,7 +366,7 @@
 
 .loading-text {
   font-size: 28rpx;
-  color: #666;
+  color: var(--text-tertiary, rgba(255, 255, 255, 0.25));
 }
 
 /* 个性化学习链路卡片 */

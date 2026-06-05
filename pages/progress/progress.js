@@ -1,5 +1,6 @@
 const app = getApp();
 const api = require('../../utils/cloudApi.js');
+const { resolveKpNames, resolveKpName } = require('../../utils/knowledgeMap.js');
 
 Page({
   data: {
@@ -25,6 +26,8 @@ Page({
       let kpList = [];
       if (res.success && res.data) {
         kpList = Array.isArray(res.data) ? res.data : [res.data];
+        // 解析 kp_name（数据库可能为空）
+        kpList = resolveKpNames(kpList);
       }
 
       const masteredKp = kpList.filter(kp => kp.current_difficulty === 'easy').length;
@@ -66,7 +69,7 @@ Page({
   goPractice(e) {
     const kp = e.currentTarget.dataset.kp;
     app.targetKpId = kp.kp_id;
-    app.targetKpName = kp.kp_name || kp.kp_id;
+    app.targetKpName = kp.kp_name || resolveKpName(kp.kp_id);
     wx.switchTab({ url: '/pages/practice/practice' });
   }
 });

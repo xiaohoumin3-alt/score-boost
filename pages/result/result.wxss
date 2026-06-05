@@ -1,6 +1,6 @@
 .page {
   min-height: 100vh;
-  background: #0f0f23;
+  background: var(--bg-base, #0A0F14);
   padding: 120rpx 40rpx 80rpx;
   box-sizing: border-box;
 }
@@ -57,7 +57,7 @@
 
 .badge-desc {
   font-size: 28rpx;
-  color: #00D9A5;
+  color: var(--accent, #00E5A0);
 }
 
 .header {
@@ -67,7 +67,7 @@
 
 .label {
   font-size: 32rpx;
-  color: #888;
+  color: var(--text-secondary, rgba(255, 255, 255, 0.5));
 }
 
 /* Score Ring */
@@ -111,7 +111,7 @@
   width: 200rpx;
   height: 200rpx;
   border-radius: 50%;
-  background: #0f0f23;
+  background: var(--bg-base, #0A0F14);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -121,17 +121,17 @@
 .score-value {
   font-size: 72rpx;
   font-weight: bold;
-  color: #00D9A5;
+  color: var(--accent, #00E5A0);
 }
 
 .score-total {
   font-size: 32rpx;
-  color: #666;
+  color: var(--text-tertiary, rgba(255, 255, 255, 0.25));
 }
 
 .accuracy-text {
   font-size: 28rpx;
-  color: #888;
+  color: var(--text-secondary, rgba(255, 255, 255, 0.5));
   margin-top: 20rpx;
 }
 
@@ -144,12 +144,12 @@
   background: linear-gradient(135deg, #1a3a2e 0%, #1a2a3e 100%);
   border-radius: 24rpx;
   margin-bottom: 50rpx;
-  border: 2rpx solid #00D9A5;
+  border: 2rpx solid var(--accent, #00E5A0);
 }
 
 .action-card.retest-card {
   background: linear-gradient(135deg, #1a2a3e 0%, #2a1a3e 100%);
-  border: 2rpx solid #8B5CF6;
+  border: 2rpx solid var(--purple, #8B5CF6);
 }
 
 .action-icon {
@@ -163,7 +163,7 @@
 .action-label {
   display: block;
   font-size: 34rpx;
-  color: #fff;
+  color: var(--text-primary, rgba(255, 255, 255, 0.92));
   font-weight: bold;
   margin-bottom: 8rpx;
 }
@@ -171,7 +171,7 @@
 .action-desc {
   display: block;
   font-size: 26rpx;
-  color: #888;
+  color: var(--text-secondary, rgba(255, 255, 255, 0.5));
 }
 
 /* Buttons */
@@ -188,8 +188,8 @@
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #00D9A5 0%, #00B894 100%);
-  color: #0f0f23;
+  background: linear-gradient(135deg, var(--accent, #00E5A0) 0%, var(--accent, #00E5A0) 100%);
+  color: var(--bg-base, #0A0F14);
   font-size: 34rpx;
   font-weight: bold;
   border-radius: 50rpx;
@@ -204,12 +204,12 @@
 }
 
 .btn-secondary {
-  background: #1a1a35;
-  color: #888;
+  background: var(--bg-surface, rgba(255, 255, 255, 0.04));
+  color: var(--text-secondary, rgba(255, 255, 255, 0.5));
   font-size: 30rpx;
   border-radius: 50rpx;
   padding: 24rpx;
-  border: 2rpx solid #333;
+  border: 2rpx solid var(--border-subtle, rgba(255, 255, 255, 0.06));
 }
 
 .btn-secondary:active {
@@ -217,24 +217,24 @@
 }
 
 .btn-secondary.retest-btn {
-  background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%);
-  color: #fff;
+  background: linear-gradient(135deg, var(--purple, #8B5CF6) 0%, #7C3AED 100%);
+  color: var(--text-primary, rgba(255, 255, 255, 0.92));
   border: none;
 }
 
 /* Knowledge Points Stats */
 .kp-stats {
-  background: linear-gradient(135deg, #1a1a35 0%, #1a2a35 100%);
+  background: linear-gradient(135deg, var(--bg-surface, rgba(255, 255, 255, 0.04)) 0%, #1a2a35 100%);
   border-radius: 24rpx;
   padding: 32rpx;
   margin-bottom: 40rpx;
-  border: 2rpx solid #333;
+  border: 2rpx solid var(--border-subtle, rgba(255, 255, 255, 0.06));
 }
 
 .kp-stats-title {
   display: block;
   font-size: 30rpx;
-  color: #888;
+  color: var(--text-secondary, rgba(255, 255, 255, 0.5));
   margin-bottom: 24rpx;
 }
 
@@ -252,7 +252,7 @@
 
 .kp-stat-name {
   font-size: 28rpx;
-  color: #ccc;
+  color: var(--text-secondary, rgba(255, 255, 255, 0.5));
   min-width: 200rpx;
 }
 
@@ -273,7 +273,7 @@
 
 .kp-stat-score {
   font-size: 26rpx;
-  color: #888;
+  color: var(--text-secondary, rgba(255, 255, 255, 0.5));
   min-width: 80rpx;
   text-align: right;
 }
@@ -287,7 +287,7 @@
   background: linear-gradient(135deg, #1a2a3e 0%, #2a1a3e 100%);
   border-radius: 20rpx;
   margin-bottom: 40rpx;
-  border: 2rpx solid #8B5CF6;
+  border: 2rpx solid var(--purple, #8B5CF6);
 }
 
 .review-icon {
@@ -303,11 +303,11 @@
 
 .review-label {
   font-size: 24rpx;
-  color: #888;
+  color: var(--text-secondary, rgba(255, 255, 255, 0.5));
 }
 
 .review-time {
   font-size: 30rpx;
-  color: #8B5CF6;
+  color: var(--purple, #8B5CF6);
   font-weight: bold;
 }

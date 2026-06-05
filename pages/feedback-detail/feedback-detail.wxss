@@ -1,6 +1,6 @@
 .page {
   min-height: 100vh;
-  background: #0f0f23;
+  background: var(--bg-base, #0A0F14);
   padding-bottom: 40rpx;
 }
 
@@ -11,7 +11,7 @@
 .title {
   font-size: 48rpx;
   font-weight: bold;
-  color: #fff;
+  color: var(--text-primary, rgba(255, 255, 255, 0.92));
   display: block;
 }
 
@@ -25,7 +25,7 @@
 
 .loading-text {
   font-size: 28rpx;
-  color: #666;
+  color: var(--text-tertiary, rgba(255, 255, 255, 0.25));
 }
 
 /* Error */
@@ -40,16 +40,16 @@
 
 .error-text {
   font-size: 28rpx;
-  color: #666;
+  color: var(--text-tertiary, rgba(255, 255, 255, 0.25));
   margin-bottom: 40rpx;
 }
 
 .error-btn {
   padding: 24rpx 48rpx;
-  background: #1a1a35;
+  background: var(--bg-surface, rgba(255, 255, 255, 0.04));
   border-radius: 40rpx;
   font-size: 28rpx;
-  color: #888;
+  color: var(--text-secondary, rgba(255, 255, 255, 0.5));
 }
 
 /* Detail */
@@ -71,12 +71,12 @@
 
 .category-tag.category-bug {
   background: rgba(255, 107, 107, 0.15);
-  color: #FF6B6B;
+  color: var(--danger, #FF6B6B);
 }
 
 .category-tag.category-suggestion {
   background: rgba(0, 217, 165, 0.15);
-  color: #00D9A5;
+  color: var(--accent, #00E5A0);
 }
 
 .category-tag.category-other {
@@ -97,7 +97,7 @@
 
 .status-tag.status-replied {
   background: rgba(0, 217, 165, 0.15);
-  color: #00D9A5;
+  color: var(--accent, #00E5A0);
 }
 
 /* Section */
@@ -107,7 +107,7 @@
 
 .section-title {
   font-size: 26rpx;
-  color: #888;
+  color: var(--text-secondary, rgba(255, 255, 255, 0.5));
   display: block;
   margin-bottom: 16rpx;
 }
@@ -122,7 +122,7 @@
 }
 
 .user-content {
-  background: #1a1a35;
+  background: var(--bg-surface, rgba(255, 255, 255, 0.04));
 }
 
 .admin-reply {
@@ -132,19 +132,19 @@
 
 .content-text {
   font-size: 28rpx;
-  color: #ccc;
+  color: var(--text-secondary, rgba(255, 255, 255, 0.5));
   line-height: 1.8;
 }
 
 .content-time {
   font-size: 24rpx;
-  color: #444;
+  color: var(--border-subtle, rgba(255, 255, 255, 0.06));
 }
 
 /* Contact */
 .contact-text {
   font-size: 28rpx;
-  color: #00D9A5;
+  color: var(--accent, #00E5A0);
 }
 
 /* Replies */
@@ -168,28 +168,28 @@
 
 .reply-label {
   font-size: 24rpx;
-  color: #666;
+  color: var(--text-tertiary, rgba(255, 255, 255, 0.25));
 }
 
 .reply-text {
   font-size: 28rpx;
-  color: #ccc;
+  color: var(--text-secondary, rgba(255, 255, 255, 0.5));
   line-height: 1.6;
 }
 
 .reply-time {
   font-size: 24rpx;
-  color: #444;
+  color: var(--border-subtle, rgba(255, 255, 255, 0.06));
 }
 
 .admin-reply .reply-label {
-  color: #00D9A5;
+  color: var(--accent, #00E5A0);
 }
 
 /* No Reply */
 .no-reply {
   padding: 60rpx 28rpx;
-  background: #1a1a35;
+  background: var(--bg-surface, rgba(255, 255, 255, 0.04));
   border-radius: 20rpx;
   display: flex;
   flex-direction: column;
@@ -199,10 +199,10 @@
 
 .no-reply-text {
   font-size: 28rpx;
-  color: #666;
+  color: var(--text-tertiary, rgba(255, 255, 255, 0.25));
 }
 
 .no-reply-hint {
   font-size: 24rpx;
-  color: #444;
+  color: var(--border-subtle, rgba(255, 255, 255, 0.06));
 }

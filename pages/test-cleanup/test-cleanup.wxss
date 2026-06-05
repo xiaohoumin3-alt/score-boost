@@ -1,0 +1,106 @@
+/* test-cleanup styles - 分批处理 */
+.container {
+  padding: 40rpx;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  margin-bottom: 40rpx;
+  text-align: center;
+}
+
+.title {
+  display: block;
+  font-size: 40rpx;
+  font-weight: bold;
+  margin-bottom: 16rpx;
+}
+
+.subtitle {
+  display: block;
+  font-size: 28rpx;
+  color: #888;
+}
+
+.status-bar {
+  display: flex;
+  align-items: center;
+  margin: 30rpx 0;
+  padding: 20rpx;
+  background: #f5f5f5;
+  border-radius: 8rpx;
+}
+
+.status-label {
+  font-size: 28rpx;
+  margin-right: 16rpx;
+}
+
+.status-value {
+  font-size: 28rpx;
+  font-weight: bold;
+}
+
+.status-ready { color: #666; }
+.status-running { color: #1989fa; }
+.status-complete { color: #07c160; }
+.status-error { color: #e64340; }
+
+.progress {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 30rpx 0;
+  padding: 20rpx;
+  background: #fff8f0;
+  border-radius: 8rpx;
+}
+
+.progress-item {
+  width: 50%;
+  font-size: 26rpx;
+  margin: 8rpx 0;
+  color: #666;
+}
+
+.btn-run {
+  height: 88rpx;
+  background: #07c160;
+  color: white;
+  border-radius: 8rpx;
+  font-size: 32rpx;
+  margin-bottom: 30rpx;
+}
+
+.btn-run[disabled] {
+  background: #ccc;
+}
+
+.logs {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.logs-title {
+  font-size: 28rpx;
+  font-weight: bold;
+  margin-bottom: 16rpx;
+}
+
+.logs-list {
+  flex: 1;
+  background: #1a1a1a;
+  border-radius: 8rpx;
+  padding: 20rpx;
+}
+
+.log-item {
+  display: block;
+  font-size: 24rpx;
+  color: #00ff00;
+  line-height: 1.6;
+  font-family: monospace;
+}

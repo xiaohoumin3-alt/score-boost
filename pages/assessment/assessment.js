@@ -25,6 +25,8 @@ Page({
   onLoad(options) {
     // 检查登录状态
     if (!app.checkLogin()) {
+      // 记录登录后应返回的页面
+      app.loginRedirectTo = '/pages/assessment/assessment';
       app.requireLogin();
       return;
     }
@@ -155,7 +157,11 @@ Page({
         mode,
         null
       );
-      console.log('[assessment] startAssessment 返回:', res);
+      console.log('[assessment] startAssessment 返回:', JSON.stringify(res));
+      console.log('[assessment] startAssessment res.status:', res?.status);
+      console.log('[assessment] startAssessment res.assessment_id:', res?.assessment_id);
+      console.log('[assessment] startAssessment res.questions length:', (res?.questions || []).length);
+      console.log('[assessment] startAssessment res keys:', Object.keys(res || {}));
 
       // 处理队列模式响应
       if (res.status === 'queued') {
@@ -180,7 +186,16 @@ Page({
       var assessmentId = res.assessment_id;
       var questions = res.questions || [];
 
-      // 解析 options: "A. 5" → {key:"A", value:"5"}; "60°" → {key:"A", value:"60°"}
+      console.log('[assessment] assessmentId:', assessmentId, '(type:', typeof assessmentId + ')');
+      console.log('[assessment] questions:', questions, '(length:', questions.length + ')');
+
+      if (!assessmentId || questions.length === 0) {
+        console.error('[assessment] 题目生成失败 - assessmentId:', assessmentId, 'questions.length:', questions.length);
+        console.error('[assessment] 完整响应:', JSON.stringify(res));
+        wx.showToast({ title: '题目生成失败', icon: 'none' });
+        setTimeout(function() { wx.navigateBack(); }, 1500);
+        return;
+      }
       questions.forEach(function(q) {
         if (q.options && typeof q.options[0] === 'string') {
           var keys = ['A', 'B', 'C', 'D', 'E', 'F'];

@@ -1,5 +1,6 @@
 const app = getApp();
 const api = require('../../utils/cloudApi.js');
+const { resolveKpNames } = require('../../utils/knowledgeMap.js');
 
 Page({
   data: {
@@ -33,6 +34,7 @@ Page({
       if (query.kpStats) {
         try {
           kpStats = JSON.parse(decodeURIComponent(query.kpStats));
+          kpStats = resolveKpNames(kpStats);
         } catch (e) {
           // ignore parse error
         }

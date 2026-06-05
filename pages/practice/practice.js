@@ -1,5 +1,6 @@
 var app = getApp();
 var api = require('../../utils/cloudApi.js');
+var { resolveKpName } = require('../../utils/knowledgeMap.js');
 
 Page({
   data: {
@@ -23,6 +24,7 @@ Page({
   onLoad: function(query) {
     // 检查登录状态
     if (!app.checkLogin()) {
+      app.loginRedirectTo = '/pages/practice/practice';
       app.requireLogin();
       return;
     }
@@ -54,7 +56,7 @@ Page({
     }
 
     if (!kpName) {
-      kpName = weakPoints && weakPoints[0] ? weakPoints[0].kp_name : '专项练习';
+      kpName = weakPoints && weakPoints[0] ? (weakPoints[0].kp_name || resolveKpName(weakPoints[0].kp_id)) : '专项练习';
     }
 
     this.setData({ kpName, kpId, weakPoints, assessmentId }, function() {
@@ -399,7 +401,7 @@ Page({
         if (!question) continue;
 
         var kpId = question.knowledge_point_id || 'unknown';
-        var kpName = question.knowledge_point || '未知知识点';
+        var kpName = question.knowledge_point || resolveKpName(kpId) || '未知知识点';
 
         if (!kpStats[kpId]) {
           kpStats[kpId] = { kp_id: kpId, kp_name: kpName, correct: 0, total: 0 };

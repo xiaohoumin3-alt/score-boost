@@ -1,6 +1,6 @@
 .page {
   min-height: 100vh;
-  background: #0f0f23;
+  background: var(--bg-base, #0A0F14);
   padding-bottom: 40rpx;
 }
 
@@ -11,13 +11,13 @@
 .title {
   font-size: 48rpx;
   font-weight: bold;
-  color: #fff;
+  color: var(--text-primary, rgba(255, 255, 255, 0.92));
   display: block;
 }
 
 .subtitle {
   font-size: 26rpx;
-  color: #666;
+  color: var(--text-tertiary, rgba(255, 255, 255, 0.25));
   display: block;
   margin-top: 10rpx;
 }
@@ -32,18 +32,18 @@
 
 .label {
   font-size: 28rpx;
-  color: #888;
+  color: var(--text-secondary, rgba(255, 255, 255, 0.5));
   display: block;
   margin-bottom: 20rpx;
 }
 
 .required {
-  color: #FF6B6B;
+  color: var(--danger, #FF6B6B);
 }
 
 .optional {
   font-size: 24rpx;
-  color: #444;
+  color: var(--border-subtle, rgba(255, 255, 255, 0.06));
 }
 
 /* 分类选择 */
@@ -55,7 +55,7 @@
 .category-item {
   flex: 1;
   padding: 24rpx 16rpx;
-  background: #1a1a35;
+  background: var(--bg-surface, rgba(255, 255, 255, 0.04));
   border-radius: 16rpx;
   display: flex;
   flex-direction: column;
@@ -67,7 +67,7 @@
 
 .category-item.active {
   background: rgba(0, 217, 165, 0.1);
-  border-color: #00D9A5;
+  border-color: var(--accent, #00E5A0);
 }
 
 .category-icon {
@@ -76,11 +76,11 @@
 
 .category-name {
   font-size: 24rpx;
-  color: #888;
+  color: var(--text-secondary, rgba(255, 255, 255, 0.5));
 }
 
 .category-item.active .category-name {
-  color: #00D9A5;
+  color: var(--accent, #00E5A0);
 }
 
 /* 内容输入 */
@@ -88,21 +88,21 @@
   width: 100%;
   min-height: 200rpx;
   padding: 24rpx;
-  background: #1a1a35;
+  background: var(--bg-surface, rgba(255, 255, 255, 0.04));
   border-radius: 16rpx;
-  color: #fff;
+  color: var(--text-primary, rgba(255, 255, 255, 0.92));
   font-size: 28rpx;
   line-height: 1.6;
   box-sizing: border-box;
 }
 
 .textarea-placeholder {
-  color: #444;
+  color: var(--border-subtle, rgba(255, 255, 255, 0.06));
 }
 
 .char-count {
   font-size: 24rpx;
-  color: #444;
+  color: var(--border-subtle, rgba(255, 255, 255, 0.06));
   text-align: right;
   display: block;
   margin-top: 12rpx;
@@ -112,26 +112,26 @@
 .input {
   width: 100%;
   padding: 24rpx;
-  background: #1a1a35;
+  background: var(--bg-surface, rgba(255, 255, 255, 0.04));
   border-radius: 16rpx;
-  color: #fff;
+  color: var(--text-primary, rgba(255, 255, 255, 0.92));
   font-size: 28rpx;
   box-sizing: border-box;
 }
 
 .input-placeholder {
-  color: #444;
+  color: var(--border-subtle, rgba(255, 255, 255, 0.06));
 }
 
 /* 提交按钮 */
 .submit-btn {
   width: 100%;
   padding: 32rpx;
-  background: linear-gradient(135deg, #00D9A5 0%, #00B894 100%);
+  background: linear-gradient(135deg, var(--accent, #00E5A0) 0%, var(--accent, #00E5A0) 100%);
   border-radius: 16rpx;
   text-align: center;
   font-size: 32rpx;
-  color: #0f0f23;
+  color: var(--bg-base, #0A0F14);
   font-weight: bold;
   margin-top: 40rpx;
 }

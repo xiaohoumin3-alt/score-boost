@@ -1,6 +1,6 @@
 .container {
   min-height: 100vh;
-  background: #0f0f23;
+  background: var(--bg-base, #0A0F14);
   padding: 40rpx 30rpx;
 }
 

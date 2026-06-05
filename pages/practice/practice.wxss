@@ -1,6 +1,6 @@
 .page {
   min-height: 100vh;
-  background: #0f0f23;
+  background: var(--bg-base, #0A0F14);
   padding: 120rpx 40rpx 80rpx;
   box-sizing: border-box;
 }
@@ -14,7 +14,7 @@
 
 .loading-text {
   font-size: 28rpx;
-  color: #666;
+  color: var(--text-tertiary, rgba(255, 255, 255, 0.25));
 }
 
 /* Header */
@@ -40,13 +40,13 @@
 
 .kp-name {
   font-size: 24rpx;
-  color: #00D9A5;
+  color: var(--accent, #00E5A0);
   font-weight: 500;
 }
 
 .question-num {
   font-size: 26rpx;
-  color: #666;
+  color: var(--text-tertiary, rgba(255, 255, 255, 0.25));
 }
 
 /* Progress Card */
@@ -56,7 +56,7 @@
 
 .progress-bar {
   height: 8rpx;
-  background: #222;
+  background: var(--border-subtle, rgba(255, 255, 255, 0.06));
   border-radius: 4rpx;
   overflow: hidden;
   margin-bottom: 8rpx;
@@ -64,19 +64,19 @@
 
 .bar-fill {
   height: 100%;
-  background: linear-gradient(90deg, #00D9A5 0%, #00B894 100%);
+  background: linear-gradient(90deg, var(--accent, #00E5A0) 0%, var(--accent, #00E5A0) 100%);
   border-radius: 4rpx;
   transition: width 0.3s;
 }
 
 .progress-hint {
   font-size: 22rpx;
-  color: #666;
+  color: var(--text-tertiary, rgba(255, 255, 255, 0.25));
 }
 
 /* Question */
 .question-content {
-  background: #1a1a35;
+  background: var(--bg-surface, rgba(255, 255, 255, 0.04));
   border-radius: 20rpx;
   padding: 40rpx 30rpx;
   margin-bottom: 40rpx;
@@ -84,7 +84,7 @@
 
 .question-text {
   font-size: 34rpx;
-  color: #fff;
+  color: var(--text-primary, rgba(255, 255, 255, 0.92));
   line-height: 1.6;
 }
 
@@ -100,13 +100,13 @@
 }
 
 .option {
-  background: #1a1a35;
+  background: var(--bg-surface, rgba(255, 255, 255, 0.04));
   border-radius: 16rpx;
   padding: 30rpx;
   margin-bottom: 20rpx;
   display: flex;
   align-items: center;
-  border: 2rpx solid #333;
+  border: 2rpx solid var(--border-subtle, rgba(255, 255, 255, 0.06));
   transition: all 0.2s;
 }
 
@@ -115,13 +115,13 @@
 }
 
 .option.selected {
-  border-color: #00D9A5;
+  border-color: var(--accent, #00E5A0);
   background: rgba(0, 217, 165, 0.1);
 }
 
 .option-key {
   font-size: 28rpx;
-  color: #00D9A5;
+  color: var(--accent, #00E5A0);
   font-weight: bold;
   width: 50rpx;
   flex-shrink: 0;
@@ -153,9 +153,9 @@
 }
 
 .nav-prev {
-  background: #1a1a35;
-  color: #888;
-  border: 2rpx solid #333;
+  background: var(--bg-surface, rgba(255, 255, 255, 0.04));
+  color: var(--text-secondary, rgba(255, 255, 255, 0.5));
+  border: 2rpx solid var(--border-subtle, rgba(255, 255, 255, 0.06));
 }
 
 .nav-prev.disabled {
@@ -163,22 +163,22 @@
 }
 
 .nav-next {
-  background: linear-gradient(135deg, #00D9A5 0%, #00B894 100%);
-  color: #0f0f23;
+  background: linear-gradient(135deg, var(--accent, #00E5A0) 0%, var(--accent, #00E5A0) 100%);
+  color: var(--bg-base, #0A0F14);
 }
 
 .nav-next.submit {
-  background: linear-gradient(135deg, #FF6B6B 0%, #FF5252 100%);
-  color: #fff;
+  background: linear-gradient(135deg, var(--danger, #FF6B6B) 0%, #FF5252 100%);
+  color: var(--text-primary, rgba(255, 255, 255, 0.92));
 }
 
 /* Correct/Incorrect States */
 .option.correct {
-  border-color: #00D9A5 !important;
+  border-color: var(--accent, #00E5A0) !important;
   background: rgba(0, 217, 165, 0.2) !important;
 }
 
 .option.incorrect {
-  border-color: #FF6B6B !important;
+  border-color: var(--danger, #FF6B6B) !important;
   background: rgba(255, 107, 107, 0.2) !important;
 }

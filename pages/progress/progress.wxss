@@ -16,7 +16,7 @@
 
 .subtitle {
   font-size: 28rpx;
-  color: #666;
+  color: var(--text-tertiary, rgba(255, 255, 255, 0.25));
 }
 
 .score-card {
@@ -46,7 +46,7 @@
 
 .stat-label {
   font-size: 24rpx;
-  color: #666;
+  color: var(--text-tertiary, rgba(255, 255, 255, 0.25));
 }
 
 .kp-list {
@@ -78,7 +78,7 @@
 
 .kp-detail {
   font-size: 24rpx;
-  color: #666;
+  color: var(--text-tertiary, rgba(255, 255, 255, 0.25));
 }
 
 .empty-state {

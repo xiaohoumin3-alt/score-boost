@@ -21,7 +21,7 @@
   width: 20rpx;
   height: 20rpx;
   margin: 0 10rpx;
-  background-color: #fff;
+  background-color: var(--text-primary, rgba(255, 255, 255, 0.92));
   border-radius: 50%;
   animation: bounce 1.4s infinite ease-in-out both;
 }
@@ -46,7 +46,7 @@
 /* 状态文字 */
 .status-text {
   font-size: 36rpx;
-  color: #fff;
+  color: var(--text-primary, rgba(255, 255, 255, 0.92));
   font-weight: 500;
   margin-bottom: 40rpx;
   text-align: center;
@@ -70,7 +70,7 @@
 
 .progress-fill {
   height: 100%;
-  background-color: #fff;
+  background-color: var(--text-primary, rgba(255, 255, 255, 0.92));
   border-radius: 4rpx;
   transition: width 0.3s ease;
 }
@@ -97,7 +97,7 @@
   line-height: 80rpx;
   border-radius: 40rpx;
   background-color: rgba(255, 255, 255, 0.2);
-  color: #fff;
+  color: var(--text-primary, rgba(255, 255, 255, 0.92));
   font-size: 28rpx;
   border: 2rpx solid rgba(255, 255, 255, 0.5);
 }

@@ -1,0 +1,28 @@
+<!--测试清理页面 - 增量处理-->
+<view class="container">
+  <view class="header">
+    <text class="title">题池清理工具</text>
+    <text class="subtitle">每批200条，增量删除重复</text>
+  </view>
+
+  <view class="status-bar">
+    <text class="status-label">状态:</text>
+    <text class="status-value status-{{status}}">{{status}}</text>
+  </view>
+
+  <view class="progress" wx:if="{{status !== 'ready'}}">
+    <text class="progress-item">总计删除: {{totalDeleted}} 条</text>
+    <text class="progress-item">状态: {{status === 'running' ? '清理中...' : (status === 'complete' ? '完成' : '错误')}}</text>
+  </view>
+
+  <button class="btn-run" bindtap="startCleanup" disabled="{{status === 'running'}}">
+    {{status === 'running' ? '清理中...' : (status === 'complete' ? '清理已完成' : '开始清理')}}
+  </button>
+
+  <view class="logs">
+    <text class="logs-title">处理日志:</text>
+    <scroll-view class="logs-list" scroll-y scroll-into-view="{{logs.length > 0 ? 'log-' + (logs.length - 1) : ''}}">
+      <text class="log-item" id="log-{{index}}" wx:for="{{logs}}" wx:key="*this">{{item}}</text>
+    </scroll-view>
+  </view>
+</view>
