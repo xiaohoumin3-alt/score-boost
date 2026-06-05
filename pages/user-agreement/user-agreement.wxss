@@ -32,7 +32,7 @@
 .section-title {
   font-size: 32rpx;
   font-weight: 600;
-  color: #00D9A5;
+  color: var(--accent, #00E5A0);
   display: block;
   margin-bottom: 20rpx;
 }
