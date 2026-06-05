@@ -1,6 +1,7 @@
 /**
  * 积分管理云函数
  * 功能：积分获取、消耗、邀请码管理
+ * 修复：并发安全、邀请码唯一性
  */
 
 const cloud = require('wx-server-sdk');
@@ -23,6 +24,31 @@ function generateInviteCode(length = 6) {
 }
 
 /**
+ * 生成唯一邀请码（检查是否已存在）
+ */
+async function generateUniqueInviteCode() {
+  let inviteCode = generateInviteCode();
+  let attempts = 0;
+  const maxAttempts = 10;
+
+  while (attempts < maxAttempts) {
+    const exists = await db.collection('user_points')
+      .where({ invite_code: inviteCode })
+      .count();
+
+    if (exists.total === 0) {
+      return inviteCode;
+    }
+
+    inviteCode = generateInviteCode();
+    attempts++;
+  }
+
+  // 如果10次都重复，使用时间戳后缀
+  return generateInviteCode(4) + Date.now().toString(36).slice(-2).toUpperCase();
+}
+
+/**
  * 获取或创建用户积分记录
  */
 async function getOrCreateUserPoints(openid) {
@@ -35,8 +61,8 @@ async function getOrCreateUserPoints(openid) {
       return result.data[0];
     }
 
-    // 创建新用户积分记录
-    const inviteCode = generateInviteCode();
+    // 创建新用户积分记录（使用唯一邀请码）
+    const inviteCode = await generateUniqueInviteCode();
     const newUser = {
       openid,
       points: 100, // 注册送100积分
@@ -102,7 +128,7 @@ async function getPoints(event) {
 }
 
 /**
- * 每日签到
+ * 每日签到（并发安全）
  */
 async function signin(event) {
   const { openid } = event;
@@ -129,16 +155,27 @@ async function signin(event) {
       streak = 0; // 重置连续签到
     }
 
-    // 更新用户积分
-    await db.collection('user_points').doc(user._id).update({
-      data: {
-        points: _.inc(points),
-        total_earned: _.inc(points),
-        last_signin: today,
-        signin_streak: streak,
-        updated_at: now.toISOString()
-      }
-    });
+    // 原子更新用户积分（并发安全）
+    // 使用 where + update 确保只更新 last_signin 不是今天的记录
+    const updateResult = await db.collection('user_points')
+      .where({
+        openid,
+        last_signin: _.neq(today) // 确保今天没签到过
+      })
+      .update({
+        data: {
+          points: _.inc(points),
+          total_earned: _.inc(points),
+          last_signin: today,
+          signin_streak: streak,
+          updated_at: now.toISOString()
+        }
+      });
+
+    // 如果更新了0条记录，说明已经签到过（并发情况）
+    if (updateResult.stats.updated === 0) {
+      return { success: false, error: '今天已经签到过了' };
+    }
 
     // 记录积分获取
     await db.collection('point_records').add({
@@ -168,7 +205,7 @@ async function signin(event) {
 }
 
 /**
- * 增加积分
+ * 增加积分（原子操作）
  */
 async function earnPoints(event) {
   const { openid, amount, source, description, related_user_id } = event;
@@ -180,7 +217,7 @@ async function earnPoints(event) {
   try {
     const user = await getOrCreateUserPoints(openid);
 
-    // 更新用户积分
+    // 原子更新用户积分
     await db.collection('user_points').doc(user._id).update({
       data: {
         points: _.inc(amount),
@@ -217,7 +254,7 @@ async function earnPoints(event) {
 }
 
 /**
- * 消耗积分
+ * 消耗积分（并发安全）
  */
 async function spendPoints(event) {
   const { openid, amount, source, description } = event;
@@ -242,14 +279,35 @@ async function spendPoints(event) {
       };
     }
 
-    // 扣除积分
-    await db.collection('user_points').doc(user._id).update({
-      data: {
-        points: _.inc(-amount),
-        total_spent: _.inc(amount),
-        updated_at: new Date().toISOString()
-      }
-    });
+    // 原子扣除积分（并发安全）
+    // 使用 where 条件确保积分足够才扣除
+    const updateResult = await db.collection('user_points')
+      .where({
+        _id: user._id,
+        points: _.gte(amount) // 确保积分足够
+      })
+      .update({
+        data: {
+          points: _.inc(-amount),
+          total_spent: _.inc(amount),
+          updated_at: new Date().toISOString()
+        }
+      });
+
+    // 如果更新了0条记录，说明积分不足（并发情况）
+    if (updateResult.stats.updated === 0) {
+      // 重新查询积分
+      const updatedUser = await db.collection('user_points').doc(user._id).get();
+      return {
+        success: false,
+        error: '积分不足（可能被其他操作消耗）',
+        data: {
+          current_points: updatedUser.data.points,
+          required_points: amount,
+          shortage: amount - updatedUser.data.points
+        }
+      };
+    }
 
     // 记录积分消耗
     await db.collection('point_records').add({
@@ -280,7 +338,7 @@ async function spendPoints(event) {
 /**
  * 生成邀请码
  */
-async function generateInviteCode(event) {
+async function getInviteCode(event) {
   const { openid } = event;
 
   try {
@@ -293,13 +351,13 @@ async function generateInviteCode(event) {
       }
     };
   } catch (e) {
-    console.error('[generateInviteCode] Error:', e);
-    return { success: false, error: '生成邀请码失败' };
+    console.error('[getInviteCode] Error:', e);
+    return { success: false, error: '获取邀请码失败' };
   }
 }
 
 /**
- * 使用邀请码
+ * 使用邀请码（并发安全）
  */
 async function useInviteCode(event) {
   const { openid, invite_code } = event;
@@ -332,17 +390,28 @@ async function useInviteCode(event) {
       return { success: false, error: '不能使用自己的邀请码' };
     }
 
-    // 更新被邀请人
-    await db.collection('user_points').doc(invitee._id).update({
-      data: {
-        invited_by: inviter._id,
-        points: _.inc(30),
-        total_earned: _.inc(30),
-        updated_at: new Date().toISOString()
-      }
-    });
+    // 原子更新被邀请人（并发安全）
+    // 使用 where 条件确保还没使用过邀请码
+    const updateInviteeResult = await db.collection('user_points')
+      .where({
+        _id: invitee._id,
+        invited_by: null // 确保还没使用过邀请码
+      })
+      .update({
+        data: {
+          invited_by: inviter._id,
+          points: _.inc(30),
+          total_earned: _.inc(30),
+          updated_at: new Date().toISOString()
+        }
+      });
 
-    // 更新邀请人
+    // 如果更新了0条记录，说明已经使用过邀请码（并发情况）
+    if (updateInviteeResult.stats.updated === 0) {
+      return { success: false, error: '您已经使用过邀请码' };
+    }
+
+    // 原子更新邀请人
     await db.collection('user_points').doc(inviter._id).update({
       data: {
         invite_count: _.inc(1),
@@ -455,7 +524,8 @@ exports.main = async (event, context) => {
       case 'spendPoints':
         return await spendPoints({ ...event, openid });
       case 'generateInviteCode':
-        return await generateInviteCode({ ...event, openid });
+      case 'getInviteCode':
+        return await getInviteCode({ ...event, openid });
       case 'useInviteCode':
         return await useInviteCode({ ...event, openid });
       case 'getPointRecords':
