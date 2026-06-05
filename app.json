@@ -22,7 +22,8 @@
     "pages/admin/material-review/material-review",
     "pages/admin/material-review-detail/material-review-detail",
     "pages/test-cleanup/test-cleanup",
-    "pages/parent-assessment/parent-assessment"
+    "pages/parent-assessment/parent-assessment",
+    "pages/points/points"
   ],
   "window": {
     "navigationBarTitleText": "日日守护",

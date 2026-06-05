@@ -137,6 +137,13 @@
         "LLM_MAX_RETRIES": "2",
         "LLM_RETRY_DELAY_MS": "1000"
       }
+    },
+    {
+      "name": "pointsManager",
+      "runtime": "Nodejs16.13",
+      "handler": "index.main",
+      "timeout": 30,
+      "memorySize": 256
     }
   ],
   "envVariables": {

@@ -255,6 +255,10 @@ Page({
     wx.navigateTo({ url: '/pages/parent-assessment/parent-assessment' });
   },
 
+  goToPoints() {
+    wx.navigateTo({ url: '/pages/points/points' });
+  },
+
   viewProgress() {
     wx.navigateTo({ url: '/pages/progress/progress' });
   },

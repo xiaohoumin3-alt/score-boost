@@ -1,0 +1,125 @@
+<!--
+  积分中心页面
+  功能：查看积分、签到、邀请好友、积分记录
+-->
+
+<view class="container">
+  <!-- 加载状态 -->
+  <view class="loading-container" wx:if="{{loading}}">
+    <view class="loading-spinner"></view>
+    <text class="loading-text">加载中...</text>
+  </view>
+
+  <block wx:else>
+    <!-- 积分卡片 -->
+    <view class="points-card">
+      <view class="points-header">
+        <text class="points-label">我的积分</text>
+        <text class="points-guide" bindtap="goToPointsGuide">积分说明</text>
+      </view>
+      <view class="points-value">{{points}}</view>
+      <view class="points-stats">
+        <view class="stat-item">
+          <text class="stat-value">+{{total_earned}}</text>
+          <text class="stat-label">累计获得</text>
+        </view>
+        <view class="stat-item">
+          <text class="stat-value">-{{total_spent}}</text>
+          <text class="stat-label">累计消耗</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 签到区域 -->
+    <view class="signin-section">
+      <view class="signin-header">
+        <text class="signin-title">每日签到</text>
+        <text class="signin-streak">连续{{signin_streak}}天</text>
+      </view>
+      <button class="btn-signin {{can_signin ? '' : 'disabled'}}" bindtap="signin">
+        {{can_signin ? '签到 +10积分' : '今日已签到'}}
+      </button>
+      <text class="signin-tip">连续签到7天额外获得100积分</text>
+    </view>
+
+    <!-- 邀请好友区域 -->
+    <view class="invite-section">
+      <view class="invite-header">
+        <text class="invite-title">邀请好友</text>
+        <text class="invite-count">已邀请{{invite_count}}人</text>
+      </view>
+
+      <view class="invite-code-box">
+        <text class="invite-code-label">我的邀请码</text>
+        <view class="invite-code-value" bindtap="copyInviteCode">
+          <text class="code-text">{{invite_code}}</text>
+          <text class="code-copy">复制</text>
+        </view>
+      </view>
+
+      <view class="invite-actions">
+        <button class="btn-invite" open-type="share">
+          分享邀请码
+        </button>
+        <button class="btn-use-code" bindtap="showInviteInput">
+          输入邀请码
+        </button>
+      </view>
+
+      <view class="invite-rewards">
+        <view class="reward-item">
+          <text class="reward-icon">🎁</text>
+          <text class="reward-text">邀请人 +50积分</text>
+        </view>
+        <view class="reward-item">
+          <text class="reward-icon">🎉</text>
+          <text class="reward-text">被邀请人 +30积分</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 积分消耗说明 -->
+    <view class="cost-section">
+      <view class="cost-header">
+        <text class="cost-title">积分消耗</text>
+      </view>
+      <view class="cost-list">
+        <view class="cost-item">
+          <text class="cost-name">AI测评</text>
+          <text class="cost-value">-30积分</text>
+        </view>
+        <view class="cost-item">
+          <text class="cost-name">AI练习</text>
+          <text class="cost-value">-20积分</text>
+        </view>
+        <view class="cost-item">
+          <text class="cost-name">家长测评</text>
+          <text class="cost-value">-50积分</text>
+        </view>
+      </view>
+    </view>
+  </block>
+
+  <!-- 邀请码输入弹窗 -->
+  <view class="modal-mask" wx:if="{{showInviteInput}}" bindtap="hideInviteInput">
+    <view class="modal-content" catchtap>
+      <view class="modal-header">
+        <text class="modal-title">输入邀请码</text>
+        <text class="modal-close" bindtap="hideInviteInput">×</text>
+      </view>
+      <view class="modal-body">
+        <input
+          class="invite-input"
+          placeholder="请输入6位邀请码"
+          maxlength="6"
+          value="{{invite_code_input}}"
+          bindinput="onInviteCodeInput"
+        />
+      </view>
+      <view class="modal-footer">
+        <button class="btn-cancel" bindtap="hideInviteInput">取消</button>
+        <button class="btn-confirm" bindtap="useInviteCode">确认</button>
+      </view>
+    </view>
+  </view>
+</view>
