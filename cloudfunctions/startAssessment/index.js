@@ -5,10 +5,11 @@
 const cloud = require('wx-server-sdk');
 cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV });
 
-const { loadKnowledgeTree, loadHuikaoTree, generateQuestionPlan, generateHuikaoPlan } = require('./knowledge_tree');
+const { loadKnowledgeTree, loadHuikaoTree, generateQuestionPlan, generateHuikaoPlan } = require('./shared/knowledge_tree');
 const { fetchQuestionsFromPool, fetchQuestionsBatch } = require('./question_pool');
 const { LlmClient, parseLlmResponse, validateQuestion } = require('./llm_client');
 const { logKpRequest } = require('./kp-request-logger');
+const { formatQuestionForApi, normalizeQuestion } = require('./shared/question-normalizer');
 const { startAsyncGeneration } = require('./async-generator');
 
 function generateUUID() {
@@ -75,10 +76,12 @@ exports.main = async (event, context) => {
     const rawSubject = params.subject || 'math';
     const subject = subjectMap[rawSubject] || rawSubject;
     const grade = String(params.grade || '8');
-    const semester = params.semester || '下';
+    const semesterMap = { '上': 'up', '下': 'down', up: 'up', down: 'down' };
+    const semester = semesterMap[params.semester] || params.semester || 'down';
     const mode = params.mode || 'pre_test';
-    const numQuestions = parseInt(params.num_questions || params.numQuestions || 5);
-    const studentId = params.student_id || params.studentId;
+    const numQuestions = parseInt(params.num_questions || params.numQuestions || 20);
+    const forceSync = params.force_sync === true;
+    const studentId = wxContext.OPENID;
 
     // 会考模式默认50题
     const finalNumQuestions = mode === 'huikao' ? parseInt(params.num_questions || 50) : numQuestions;
@@ -234,18 +237,7 @@ exports.main = async (event, context) => {
 
         for (const pq of poolQuestions) {
           if (questions.length >= finalNumQuestions) break;
-          questions.push({
-            id: pq._id || pq.id || `ai_${Date.now()}`,
-            type: 'choice',
-            content: pq.question || pq.content,
-            options: pq.options || [],
-            correct_answer: typeof pq.correct_answer === 'number'
-              ? String.fromCharCode(65 + pq.correct_answer)
-              : String(pq.correct_answer || ''),
-            knowledge_point: pq.kp_name || kpName,
-            knowledge_point_id: pq.kp_id || kpId,
-            difficulty: pq.difficulty || difficulty,
-          });
+          questions.push(formatQuestionForApi(pq));
           excludeIds.push(pq._id || pq.id);
         }
       } catch (e) {
@@ -253,15 +245,36 @@ exports.main = async (event, context) => {
       }
     }
 
-    console.log('[startAssessment] Generated questions:', {
+    console.log('[startAssessment] Pool questions:', {
       count: questions.length,
-      sampleQuestions: questions.slice(0, 2).map(q => ({ id: q.id, kp_id: q.knowledge_point_id, kp: q.knowledge_point, difficulty: q.difficulty }))
+      needed: finalNumQuestions
     });
 
-    // ========== 队列模式检查 ==========
+    // 题库不足时不在 startAssessment 内同步调用 AI。
+    // startAssessment 是队列入口，必须快速返回，避免前端 15 秒超时。
+    if (questions.length < finalNumQuestions) {
+      console.log('[startAssessment] Pool insufficient, will create queue task:', {
+        count: questions.length,
+        needed: finalNumQuestions
+      });
+    }
+
+    console.log('[startAssessment] Final questions:', {
+      count: questions.length,
+      needed: finalNumQuestions
+    });
+
+    // ========== 题目充足时直接创建评估，跳过队列 ==========
+    if (questions.length >= finalNumQuestions) {
+      console.log('[startAssessment] Questions sufficient (' + questions.length + '), creating assessment directly');
+      // 跳到创建评估的逻辑
+      // 注意：下面会检查 questions.length < finalNumQuestions 来决定是否走队列
+    }
+
+    // ========== 队列模式检查（仅作为兜底，正常流程不再走队列） ==========
     // 1. 检查学生是否有活跃的队列任务
     const { checkQueueForStudent, createQueueTask } = require('./queue_manager');
-    const queueCheck = await checkQueueForStudent(db, studentId);
+    const queueCheck = await checkQueueForStudent(db, studentId, { subject, grade, semester, mode });
     let assessmentResult = null;  // 预声明，供后续判断使用
 
     if (queueCheck.found) {
@@ -324,22 +337,50 @@ exports.main = async (event, context) => {
       } else if (queueCheck.status === 'completed' && !assessmentResult) {
         // 脏数据已清理，assessmentResult为null，继续正常流程（不返回queued）
       } else if (queueCheck.status !== 'completed') {
-        // 任务还在进行中，返回queued
-        return {
-          success: true,
-          data: {
-            status: 'queued',
-            queue_id: queueCheck.queue_id,
-            message: queueCheck.status === 'pending'
-              ? '题目正在排队生成中...'
-              : '题目正在生成中...'
-          }
-        };
+        // 检查 pending 任务是否超时（超过2分钟视为漏处理）
+        const STALE_PENDING_THRESHOLD = 2 * 60 * 1000;
+        const taskAge = queueCheck.created_at ? Date.now() - new Date(queueCheck.created_at).getTime() : 0;
+        const isStalePending = queueCheck.status === 'pending' && taskAge > STALE_PENDING_THRESHOLD;
+
+        if (isStalePending) {
+          // 标记旧任务为 failed，创建新任务（不走队列，直接生成）
+          console.warn('[startAssessment] Stale pending task detected, queue_id:', queueCheck.queue_id, 'age:', Math.floor(taskAge / 1000) + 's');
+          await db.collection('question_queue').doc(queueCheck.queue_id).update({
+            data: { status: 'failed', error: 'Stale pending task, superseded by new request', updated_at: new Date().toISOString() }
+          });
+          // 不返回 queued，继续往下走创建新任务
+        } else if (forceSync) {
+          // 前端请求强制同步模式，不走队列
+          console.log('[startAssessment] force_sync=true, skipping queue for task:', queueCheck.queue_id);
+          await db.collection('question_queue').doc(queueCheck.queue_id).update({
+            data: { status: 'cancelled', error: 'Cancelled by force_sync request', updated_at: new Date().toISOString() }
+          });
+          // 继续往下走直接生成
+        } else if (questions.length >= finalNumQuestions) {
+          // 已有足够题目，取消旧队列任务，直接返回
+          console.log('[startAssessment] Questions sufficient, cancelling stale queue task:', queueCheck.queue_id);
+          await db.collection('question_queue').doc(queueCheck.queue_id).update({
+            data: { status: 'cancelled', error: 'Cancelled: questions already generated synchronously', updated_at: new Date().toISOString() }
+          }).catch(function(e) { console.warn('[startAssessment] Failed to cancel queue:', e.message); });
+          // 继续往下走创建评估
+        } else {
+          // 任务还在进行中且题目不足，返回queued
+          return {
+            success: true,
+            data: {
+              status: 'queued',
+              queue_id: queueCheck.queue_id,
+              message: queueCheck.status === 'pending'
+                ? '题目正在排队生成中...'
+                : '题目正在生成中...'
+            }
+          };
+        }
       }
     }
 
-    // 3. 题目不足且无队列时，创建新队列任务
-    if (questions.length < finalNumQuestions) {
+    // 3. force_sync 或题目不足且无活跃队列时，创建新队列任务
+    if (questions.length < finalNumQuestions && !forceSync) {
       console.log('[startAssessment] Questions insufficient, creating queue task');
 
       const queueResult = await createQueueTask(db, {
@@ -354,6 +395,10 @@ exports.main = async (event, context) => {
 
       if (queueResult.success) {
         console.log('[startAssessment] Queue task created:', queueResult.queue_id);
+
+        // 不在 startAssessment 内同步触发 questionGenerator。
+        // 后台定时触发器负责处理队列，前端通过 waiting 页轮询。
+
         return {
           success: true,
           data: {
@@ -368,71 +413,42 @@ exports.main = async (event, context) => {
       }
     }
 
-    // 如果题目数量不足，调用异步生成
-    if (questions.length < finalNumQuestions) {
-      console.log('[startAssessment] Questions insufficient, calling async generation');
+    // force_sync 模式下题目不足时：创建队列任务（统一走 path A）
+    if (questions.length < finalNumQuestions && forceSync) {
+      console.log('[startAssessment] force_sync mode, creating queue task for remaining questions');
+      const queueResult = await createQueueTask(db, {
+        student_id: studentId,
+        subject,
+        grade,
+        semester,
+        mode,
+        num_questions: finalNumQuestions,
+        difficulty_distribution: difficultyDistribution
+      });
 
-      // 收集缺失题目的知识点
-      const missingKpItems = [];
-      for (const item of plan) {
-        if (questions.length >= finalNumQuestions) break;
-        const kpId = item.kp?.kp_id || 'unknown';
-        const kpName = item.kp?.kp_name || '';
-        const difficulty = item.difficulty || 'medium';
-
-        // 检查是否已有该知识点的题目
-        const hasKpQuestion = questions.some(q => q.knowledge_point_id === kpId);
-        if (!hasKpQuestion) {
-          missingKpItems.push({ kp_id: kpId, kp_name: kpName, difficulty });
-        }
-      }
-
-      // 调用异步生成（取第一个缺失知识点作为生成目标）
-      let taskId = null;
-      if (missingKpItems.length > 0) {
-        const firstKp = missingKpItems[0];
-        const genResult = await startAsyncGeneration({
-          kp_id: firstKp.kp_id,
-          kp_name: firstKp.kp_name,
-          difficulty: firstKp.difficulty,
-          count: finalNumQuestions - questions.length
-        });
-
-        if (genResult.success) {
-          taskId = genResult.task_id;
-          console.log('[startAssessment] 异步生成任务已创建:', taskId);
-        }
-      }
-
-      // 题池完全为空时，需要检查异步生成是否成功
-      if (questions.length === 0) {
-        if (!taskId) {
-          // 异步生成失败且无题目，返回错误
-          return {
-            success: false,
-            error: '题库无题目且异步生成失败，请稍后重试'
-          };
-        }
+      if (queueResult.success) {
         return {
           success: true,
           data: {
-            task_id: taskId,
-            status: 'generating',
-            message: '题目生成中，请稍后刷新'
+            status: 'queued',
+            queue_id: queueResult.queue_id,
+            message: '题目已加入生成队列，请稍候...'
           }
         };
       }
+    }
 
-      // 返回已有题目 + 生成状态
+    // 所有路径都无法获取足够题目时，返回已有题目或错误
+    if (questions.length === 0) {
       return {
-        success: true,
-        data: {
-          task_id: taskId,
-          status: 'generating',
-          questions: questions,
-          message: `${questions.length} 道题目已就绪，剩余题目生成中`
-        }
+        success: false,
+        error: '题库暂无题目，请稍后重试'
       };
+    }
+
+    // 题目数量不足但有部分题目，直接返回已有的
+    if (questions.length < finalNumQuestions) {
+      console.log('[startAssessment] Partial questions available:', questions.length, '/', finalNumQuestions);
     }
 
     // 题目数量足够，直接返回
@@ -448,6 +464,8 @@ exports.main = async (event, context) => {
         knowledge_point: q.knowledge_point,
         knowledge_point_id: q.knowledge_point_id,
         difficulty: q.difficulty,
+        correct_answer: q.correct_answer,
+        explanation: q.explanation,
       })),
       time_limit_minutes: mode === 'huikao' ? 60 : (mode === 'pre_test' ? 45 : 30),
     };
@@ -492,21 +510,16 @@ async function generateQuestionWithAI(kpId, kpName, difficulty, subject, llm) {
       throw new Error('Invalid question structure from LLM');
     }
 
-    return {
+    return normalizeQuestion({
       _id: `ai_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
       question: parsed.question || parsed.content,
-      options: (parsed.options || []).map((opt, idx) => ({
-        key: String.fromCharCode(65 + idx),
-        value: typeof opt === 'string' ? opt.replace(/^[A-D]\.\s*/, '') : (opt.value || opt)
-      })),
-      correct_answer: typeof parsed.correct_answer === 'number'
-        ? String.fromCharCode(65 + parsed.correct_answer)
-        : String(parsed.correct_answer),
+      options: parsed.options,
+      correct_answer: parsed.correct_answer,
       kp_id: kpId,
       kp_name: kpName,
       difficulty,
       source: 'ai'
-    };
+    });
   } catch (e) {
     console.error(`[startAssessment] AI generation failed for ${kpId}:`, e.message);
     return null;

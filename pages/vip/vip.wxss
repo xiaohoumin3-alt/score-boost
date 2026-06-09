@@ -1,0 +1,190 @@
+@import '../../styles/tokens.wxss';
+
+.page {
+  min-height: 100vh;
+  background: var(--bg-base);
+  padding: 0 var(--page-padding) 120rpx;
+}
+
+.nav-safe-area {
+  padding: 40rpx 0 24rpx;
+}
+
+.nav-title {
+  color: var(--text-primary);
+  font-size: 36rpx;
+  font-weight: 600;
+}
+
+.loading {
+  padding-top: 200rpx;
+  text-align: center;
+}
+
+.loading-text {
+  color: var(--text-secondary);
+}
+
+/* Balance Card */
+.balance-card {
+  background: linear-gradient(135deg, rgba(0, 229, 160, 0.15), rgba(0, 229, 160, 0.05));
+  border: 1px solid var(--border-accent);
+  border-radius: var(--radius-lg);
+  padding: 40rpx;
+  margin-bottom: 32rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.balance-label {
+  color: var(--text-secondary);
+  font-size: 26rpx;
+}
+
+.balance-value {
+  color: var(--accent);
+  font-size: 72rpx;
+  font-weight: 700;
+  margin: 8rpx 0;
+}
+
+.vip-badge {
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  border-radius: var(--radius-full);
+  padding: 4rpx 20rpx;
+  margin-top: 8rpx;
+}
+
+.vip-badge-text {
+  color: #1a1a1a;
+  font-size: 22rpx;
+  font-weight: 700;
+}
+
+/* Section Labels */
+.sec-label {
+  color: var(--text-primary);
+  font-size: 28rpx;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 16rpx;
+}
+
+.sec-label--dim {
+  color: var(--text-secondary);
+}
+
+/* Plans */
+.plans {
+  display: flex;
+  gap: 16rpx;
+  margin-bottom: 32rpx;
+}
+
+.plan-card {
+  flex: 1;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 24rpx 16rpx;
+  text-align: center;
+  position: relative;
+  transition: all 0.2s;
+}
+
+.plan-card--active {
+  border-color: var(--accent);
+  background: var(--accent-dim);
+}
+
+.plan-card--popular {
+  border-color: rgba(139, 92, 246, 0.3);
+}
+
+.plan-popular {
+  position: absolute;
+  top: -16rpx;
+  right: 12rpx;
+  background: var(--purple);
+  border-radius: var(--radius-full);
+  padding: 4rpx 16rpx;
+}
+
+.plan-popular-text {
+  color: white;
+  font-size: 20rpx;
+}
+
+.plan-name {
+  color: var(--text-primary);
+  font-size: 26rpx;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 8rpx;
+}
+
+.plan-price {
+  color: var(--accent);
+  font-size: 36rpx;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 8rpx;
+}
+
+.plan-desc {
+  color: var(--text-secondary);
+  font-size: 22rpx;
+  display: block;
+}
+
+/* Redeem */
+.redeem-section {
+  display: flex;
+  gap: 16rpx;
+  margin-bottom: 32rpx;
+}
+
+.redeem-input {
+  flex: 1;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 16rpx 24rpx;
+  color: var(--text-primary);
+  font-size: 28rpx;
+}
+
+.redeem-btn {
+  background: var(--accent);
+  color: var(--bg-base);
+  border-radius: var(--radius-md);
+  padding: 16rpx 32rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+  border: none;
+  line-height: 1.2;
+}
+
+.redeem-btn[disabled] {
+  opacity: 0.4;
+}
+
+/* Rules */
+.rules-card {
+  background: var(--bg-surface);
+  border-radius: var(--radius-md);
+  padding: 24rpx;
+}
+
+.rule-item {
+  color: var(--text-secondary);
+  font-size: 24rpx;
+  display: block;
+  padding: 8rpx 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.rule-item:last-child {
+  border-bottom: none;
+}

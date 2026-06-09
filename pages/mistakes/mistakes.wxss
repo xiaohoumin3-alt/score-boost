@@ -1,0 +1,152 @@
+@import '../../styles/tokens.wxss';
+
+.page {
+  min-height: 100vh;
+  background: var(--bg-base);
+  padding: 0 var(--page-padding) 120rpx;
+}
+
+.nav-safe-area {
+  padding: 40rpx 0 24rpx;
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.nav-back {
+  width: 56rpx;
+  height: 56rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-back-text {
+  color: var(--text-primary);
+  font-size: 36rpx;
+}
+
+.nav-title {
+  color: var(--text-primary);
+  font-size: 36rpx;
+  font-weight: 600;
+}
+
+.loading {
+  padding-top: 200rpx;
+  text-align: center;
+}
+
+.loading-text {
+  color: var(--text-secondary);
+}
+
+.empty {
+  padding-top: 200rpx;
+  text-align: center;
+}
+
+.empty-icon {
+  font-size: 64rpx;
+  display: block;
+  margin-bottom: 16rpx;
+}
+
+.empty-text {
+  color: var(--text-secondary);
+  font-size: 28rpx;
+}
+
+.summary {
+  padding: 16rpx 0;
+}
+
+.summary-text {
+  color: var(--text-secondary);
+  font-size: 24rpx;
+}
+
+/* Group */
+.group {
+  margin-bottom: 24rpx;
+}
+
+.group-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16rpx 0 8rpx;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.group-kp {
+  color: var(--text-primary);
+  font-size: 28rpx;
+  font-weight: 600;
+}
+
+.group-count {
+  color: var(--accent);
+  font-size: 24rpx;
+}
+
+/* Mistake Item */
+.mistake-item {
+  padding: 16rpx 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.mistake-question {
+  margin-bottom: 8rpx;
+}
+
+.mistake-text {
+  color: var(--text-primary);
+  font-size: 26rpx;
+  line-height: 1.6;
+}
+
+.mistake-options {
+  display: flex;
+  flex-direction: column;
+  gap: 4rpx;
+  margin: 8rpx 0;
+}
+
+.mistake-option {
+  color: var(--text-secondary);
+  font-size: 24rpx;
+  padding: 4rpx 8rpx;
+  border-radius: var(--radius-sm);
+}
+
+.mistake-option.correct {
+  color: var(--accent);
+  background: var(--accent-dim);
+}
+
+.mistake-option.wrong {
+  color: var(--danger);
+  background: rgba(255, 107, 107, 0.1);
+}
+
+.mistake-meta {
+  margin-top: 4rpx;
+}
+
+.mistake-date {
+  color: var(--text-tertiary);
+  font-size: 22rpx;
+}
+
+/* Retry */
+.retry-btn {
+  padding: 16rpx 0;
+  text-align: center;
+}
+
+.retry-btn-text {
+  color: var(--accent);
+  font-size: 26rpx;
+  font-weight: 500;
+}

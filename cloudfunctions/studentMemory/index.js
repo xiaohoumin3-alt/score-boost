@@ -8,6 +8,39 @@ cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV });
 const db = cloud.database();
 const _ = db.command;
 
+// 知识点→年级/科目映射（用于 kp_id 前缀解析）
+const kpGradeSubjectMap = {
+  'kp': 'kp',
+  'bio': 'bio',
+  'geo': 'geo',
+  'ch': 'ch',
+  'en': 'en',
+  'phy': 'phy',
+  'chem': 'chem',
+  'hist': 'hist',
+  'pol': 'pol'
+};
+
+// 科目中文→英文映射
+const SUBJECT_NAME_MAP = {
+  '语文': 'chinese',
+  '数学': 'math',
+  '英语': 'english',
+  '物理': 'physics',
+  '化学': 'chemistry',
+  '生物': 'biology',
+  '历史': 'history',
+  '地理': 'geography',
+  '政治': 'politics'
+};
+
+// 年级中文→数字映射
+const GRADE_NAME_MAP = {
+  '一年级': '1', '二年级': '2', '三年级': '3',
+  '四年级': '4', '五年级': '5', '六年级': '6',
+  '七年级': '7', '八年级': '8', '九年级': '9'
+};
+
 /**
  * 获取默认记忆模板
  */
@@ -48,7 +81,30 @@ async function getMemory(studentId) {
       .get();
 
     if (result.data && result.data.length > 0) {
-      return { success: true, data: result.data[0] };
+      const memory = result.data[0];
+      const weakPoints = memory.summary?.weak_points || [];
+      if (weakPoints.length > 0) {
+        const kpIds = weakPoints.map(wp => wp.kp_id || wp.id).filter(Boolean);
+        // 使用 db.command.in 批量查询
+        if (kpIds.length > 0) {
+          try {
+            const kpResult = await db.collection('knowledge_points')
+              .where({ kp_id: _.in(kpIds) })
+              .limit(kpIds.length)
+              .get();
+            if (kpResult.data && kpResult.data.length > 0) {
+              const kpMap = {};
+              kpResult.data.forEach(kp => {
+                kpMap[kp.kp_id] = { grade: kp.grade, subject: kp.subject };
+              });
+              memory._kpInfo = kpMap;
+            }
+          } catch (e) {
+            console.warn('[getMemory] knowledge_points query failed:', e.message);
+          }
+        }
+      }
+      return { success: true, data: memory };
     }
 
     // 新用户：返回默认记忆模板

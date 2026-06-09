@@ -4,7 +4,7 @@
  * 保留状态跟踪、场景检测等业务逻辑
  */
 
-const { createLLMClient } = require('./llm-core');
+const { createLLMClient } = require('../shared/llm-core');
 const SubjectLoader = require('./subject_loader');
 const GenerationState = require('./generation_state');
 const QuestionValidator = require('./question_validator');

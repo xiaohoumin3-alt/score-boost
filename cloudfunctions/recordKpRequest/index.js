@@ -7,8 +7,8 @@
 const {
   calculateHeatScore,
   updateDailyLog
-} = require('../shared/heat-calculator');
-const { shouldPreGenerate, createPreGenTask } = require('../shared/pregen-trigger');
+} = require('./shared/heat-calculator');
+const { shouldPreGenerate, createPreGenTask } = require('./shared/pregen-trigger');
 
 /**
  * 处理知识点请求（纯逻辑函数，便于测试）

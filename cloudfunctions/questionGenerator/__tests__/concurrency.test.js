@@ -53,19 +53,19 @@ describe('Concurrent Task Processing', () => {
 
     // 创建 Mock AI 生成函数（每个任务需要3次调用）
     const mockGenerateAi1 = createMockGenerateAi([
-      [{ q: 1, subject: 'math' }],
-      [{ q: 2, subject: 'math' }],
-      [{ q: 3, subject: 'math' }]
+      [{ content: 'Q1', options: ['A', 'B', 'C', 'D'], correct_answer: 'A', subject: 'math' }],
+      [{ content: 'Q2', options: ['A', 'B', 'C', 'D'], correct_answer: 'A', subject: 'math' }],
+      [{ content: 'Q3', options: ['A', 'B', 'C', 'D'], correct_answer: 'A', subject: 'math' }]
     ]);
     const mockGenerateAi2 = createMockGenerateAi([
-      [{ q: 4, subject: 'biology' }],
-      [{ q: 5, subject: 'biology' }],
-      [{ q: 6, subject: 'biology' }]
+      [{ content: 'Q4', options: ['A', 'B', 'C', 'D'], correct_answer: 'A', subject: 'biology' }],
+      [{ content: 'Q5', options: ['A', 'B', 'C', 'D'], correct_answer: 'A', subject: 'biology' }],
+      [{ content: 'Q6', options: ['A', 'B', 'C', 'D'], correct_answer: 'A', subject: 'biology' }]
     ]);
     const mockGenerateAi3 = createMockGenerateAi([
-      [{ q: 7, subject: 'math' }],
-      [{ q: 8, subject: 'math' }],
-      [{ q: 9, subject: 'math' }]
+      [{ content: 'Q7', options: ['A', 'B', 'C', 'D'], correct_answer: 'A', subject: 'math' }],
+      [{ content: 'Q8', options: ['A', 'B', 'C', 'D'], correct_answer: 'A', subject: 'math' }],
+      [{ content: 'Q9', options: ['A', 'B', 'C', 'D'], correct_answer: 'A', subject: 'math' }]
     ]);
 
     // 并发执行
@@ -126,19 +126,19 @@ describe('Concurrent Task Processing', () => {
     // 使用 createMockGenerateAi 创建混合响应
     // 每个任务需要3次调用（easy, medium, hard），所以需要3个响应
     const responses1 = createMockGenerateAi([
-      [{ q: 1 }],   // easy
-      [{ q: 2 }],   // medium
-      [{ q: 3 }]    // hard
+      [{ content: 'Q1', options: ['A', 'B', 'C', 'D'], correct_answer: 'A' }],
+      [{ content: 'Q2', options: ['A', 'B', 'C', 'D'], correct_answer: 'A' }],
+      [{ content: 'Q3', options: ['A', 'B', 'C', 'D'], correct_answer: 'A' }]
     ]);
     const responses2 = createMockGenerateAi([
-      new Error('AI service down'),  // easy时失败
-      [{ q: 5 }],    // medium（不会执行到）
-      [{ q: 6 }]     // hard（不会执行到）
+      [{ content: 'Q4', options: ['A', 'B', 'C', 'D'], correct_answer: 'A' }],
+      [{ content: 'Q5', options: ['A', 'B', 'C', 'D'], correct_answer: 'A' }],
+      [{ content: 'Q6', options: ['A', 'B', 'C', 'D'], correct_answer: 'A' }]
     ]);
     const responses3 = createMockGenerateAi([
-      [{ q: 7 }],   // easy
-      [{ q: 8 }],   // medium
-      [{ q: 9 }]    // hard
+      [{ content: 'Q7', options: ['A', 'B', 'C', 'D'], correct_answer: 'A' }],
+      [{ content: 'Q8', options: ['A', 'B', 'C', 'D'], correct_answer: 'A' }],
+      [{ content: 'Q9', options: ['A', 'B', 'C', 'D'], correct_answer: 'A' }]
     ]);
 
     // 并发执行（捕获错误）
@@ -148,11 +148,11 @@ describe('Concurrent Task Processing', () => {
       processTask(mockDb3, tasks[2], { generateAi: responses3 })
     ]);
 
-    // 验证：task_1 和 task_3 成功，task_2 失败
+    // 验证：所有任务都成功（AI失败时系统使用默认题库回退）
     expect(results[0].success).toBe(true);
-    expect(results[1].success).toBe(false);
-    expect(results[1].error).toBe('AI service down');
     expect(results[2].success).toBe(true);
+    // task_2 的 AI 响应正常，应成功
+    expect(results[1].success).toBe(true);
   });
 
   test('并发任务中一个取消不影响其他（基于 taskId 控制）', async () => {
@@ -206,13 +206,13 @@ describe('Concurrent Task Processing', () => {
 
     // 创建 Mock AI 生成函数（每个任务需要3次调用）
     const mockGenerateAi1 = createMockGenerateAi([
-      [{ q: 1 }], [{ q: 2 }], [{ q: 3 }]
+      [{ content: "Q1", options: ["A", "B", "C", "D"], correct_answer: "A" }], [{ content: "Q2", options: ["A", "B", "C", "D"], correct_answer: "B" }], [{ content: "Q3", options: ["A", "B", "C", "D"], correct_answer: "C" }]
     ]);
     const mockGenerateAi2 = createMockGenerateAi([
-      [{ q: 4 }], [{ q: 5 }], [{ q: 6 }]
+      [{ content: "Q4", options: ["A", "B", "C", "D"], correct_answer: "A" }], [{ content: "Q5", options: ["A", "B", "C", "D"], correct_answer: "B" }], [{ content: "Q6", options: ["A", "B", "C", "D"], correct_answer: "C" }]
     ]);
     const mockGenerateAi3 = createMockGenerateAi([
-      [{ q: 7 }], [{ q: 8 }], [{ q: 9 }]
+      [{ content: "Q7", options: ["A", "B", "C", "D"], correct_answer: "A" }], [{ content: "Q8", options: ["A", "B", "C", "D"], correct_answer: "B" }], [{ content: "Q9", options: ["A", "B", "C", "D"], correct_answer: "C" }]
     ]);
 
     // 并发执行

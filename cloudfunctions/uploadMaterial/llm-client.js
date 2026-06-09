@@ -1,8 +1,9 @@
 /**
  * LLM 调用模块 - DeepSeek API 集成
+ * 基于 shared/llm-core 统一 LLM 调用层
  */
 
-const axios = require('axios');
+const { createLLMClient } = require('../shared/llm-core');
 
 const DEFAULT_CONFIG = {
   baseUrl: process.env.LLM_BASE_URL || 'https://api.deepseek.com',
@@ -33,48 +34,37 @@ async function generateCompletion(prompt, options = {}) {
     throw new Error('LLM_API_KEY 未配置');
   }
 
-  const messages = [
-    { role: 'system', content: systemPrompt },
-    { role: 'user', content: prompt }
-  ];
+  const client = createLLMClient({
+    apiKey: DEFAULT_CONFIG.apiKey,
+    baseUrl: DEFAULT_CONFIG.baseUrl,
+    model: DEFAULT_CONFIG.model,
+    timeout: DEFAULT_CONFIG.timeout,
+    maxRetries: DEFAULT_CONFIG.maxRetries,
+    retryDelay: DEFAULT_CONFIG.retryDelay
+  });
 
-  let lastError;
+  try {
+    const result = await client.complete({
+      systemPrompt,
+      userPrompt: prompt,
+      temperature,
+      maxTokens
+    });
 
-  for (let attempt = 0; attempt <= DEFAULT_CONFIG.maxRetries; attempt++) {
-    try {
-      const response = await axios.post(
-        `${DEFAULT_CONFIG.baseUrl}/v1/chat/completions`,
-        {
-          model: DEFAULT_CONFIG.model,
-          messages,
-          max_tokens: maxTokens,
-          temperature
-        },
-        {
-          headers: {
-            'Authorization': `Bearer ${DEFAULT_CONFIG.apiKey}`,
-            'Content-Type': 'application/json'
-          },
-          timeout: DEFAULT_CONFIG.timeout
-        }
-      );
-
-      if (response.data?.choices?.[0]?.message?.content) {
-        return response.data.choices[0].message.content;
-      }
-
-      throw new Error('LLM 响应格式错误');
-    } catch (error) {
-      lastError = error;
-
-      if (attempt < DEFAULT_CONFIG.maxRetries) {
-        const delay = DEFAULT_CONFIG.retryDelay * Math.pow(2, attempt);
-        await new Promise(resolve => setTimeout(resolve, delay));
-      }
+    if (result && result.content) {
+      return result.content;
     }
-  }
 
-  throw lastError;
+    // llm-core 也返回纯文本的情况
+    if (typeof result === 'string') {
+      return result;
+    }
+
+    throw new Error('LLM 响应格式错误');
+  } catch (error) {
+    console.error('[llm-client] generateCompletion error:', error.message);
+    throw error;
+  }
 }
 
 /**

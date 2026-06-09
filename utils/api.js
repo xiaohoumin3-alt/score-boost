@@ -1,7 +1,11 @@
+/**
+ * @deprecated 此文件已废弃，请使用 cloudApi.js
+ * 所有 API 调用统一通过云函数直连
+ */
 console.log('=== [FIXED] api.js LOADED - NEW VERSION ===');
 const app = getApp();
 
-const BASE = app.globalData.backendUrl; // http://192.168.1.7:8002
+const BASE = app.globalData.backendUrl;
 
 function request(path, method = 'GET', data = null, timeoutMs = 10000) {
   return new Promise((resolve, reject) => {
@@ -30,7 +34,7 @@ function request(path, method = 'GET', data = null, timeoutMs = 10000) {
 }
 
 // ========== 测评 ==========
-var GRADE_MAP = { '七年级': '7', '八年级': '8', '九年级': '9' };
+var GRADE_MAP = { '一年级': '1', '二年级': '2', '三年级': '3', '四年级': '4', '五年级': '5', '六年级': '6', '七年级': '7', '八年级': '8', '九年级': '9' };
 
 function startAssessment(grade, subject, mode) {
   console.log('[api] startAssessment called with grade:', grade, 'subject:', subject);

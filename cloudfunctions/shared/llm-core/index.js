@@ -35,6 +35,8 @@ const {
 // 配置管理
 const {
   getConfig,
+  loadConfig,
+  loadFromEnv,
   createTimeoutController
 } = require('./config')
 
@@ -94,6 +96,8 @@ module.exports = {
 
   // 配置管理
   getConfig,
+  loadConfig,
+  loadFromEnv,
   createTimeoutController,
 
   // MiniMax 客户端

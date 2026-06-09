@@ -190,7 +190,7 @@
 }
 
 .parent-icon-bg {
-  background: rgba(139, 92, 246, 0.12);
+  background: rgba(139, 92, 246, 0.12); /* purple dim */
 }
 
 .menu-icon {
@@ -274,8 +274,45 @@
   border: none;
 }
 
+.input-btn {
+  background: var(--bg-surface-raised);
+  color: var(--text-secondary);
+  border: 1rpx solid var(--border-subtle);
+}
+
+.input-btn::after {
+  border: none;
+}
+
 .invite-reward {
   font-size: 22rpx;
   color: var(--text-tertiary);
   display: block;
+}
+
+/* 积分消耗表 */
+.cost-table {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.cost-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx 24rpx;
+  background: var(--bg-surface);
+  border-radius: var(--radius-sm);
+}
+
+.cost-name {
+  font-size: 26rpx;
+  color: var(--text-secondary);
+}
+
+.cost-value {
+  font-size: 26rpx;
+  color: var(--danger);
+  font-weight: 600;
 }

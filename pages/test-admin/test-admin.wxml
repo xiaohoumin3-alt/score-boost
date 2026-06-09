@@ -5,11 +5,11 @@
   <view class="form">
     <view class="form-item">
       <text class="label">账号：</text>
-      <input class="input" value="admin" disabled/>
+      <input class="input" bindinput="onUsernameInput" placeholder="请输入账号"/>
     </view>
     <view class="form-item">
       <text class="label">密码：</text>
-      <input class="input" value="admin" disabled/>
+      <input class="input" password bindinput="onPasswordInput" placeholder="请输入密码"/>
     </view>
     <button class="btn" bindtap="testLogin">测试登录</button>
   </view>

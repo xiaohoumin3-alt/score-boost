@@ -5,6 +5,8 @@
  */
 
 const { BaseStep } = require('../BaseStep');
+const { normalizeQuestion } = require('../../shared/question-normalizer');
+const { checkDuplicate } = require('../../shared/dedup');
 const { STEP_OUTPUT_KEYS } = require('../constants');
 
 /**
@@ -44,9 +46,19 @@ class SaveQuestionsStep extends BaseStep {
       };
     }
 
+    let skippedCount = 0;
+    let skippedReasons = { noContent: 0, noOptions: 0, duplicate: 0, other: 0 };
     const questionIds = [];
     try {
-      for (const q of questions) {
+      for (let i = 0; i < questions.length; i++) {
+        const q = questions[i];
+        console.log(`[SaveQuestionsStep] Processing question ${i + 1}/${questions.length}:`, JSON.stringify({
+          hasContent: !!(q.content || q.question),
+          hasOptions: !!(q.options && Array.isArray(q.options) && q.options.length >= 2),
+          subject: q.subject,
+          source: q.source
+        }));
+
         // 移除可能的重复键字段，让数据库自动生成_id
         const { _id, pool_id, id, ...questionData } = q;
 
@@ -66,26 +78,45 @@ class SaveQuestionsStep extends BaseStep {
 
         // 如果仍然没有 content 或选项不足，跳过此题
         if (!questionData.content) {
-          console.warn('[SaveQuestionsStep] Skipping question without content:', JSON.stringify(q).substring(0, 100));
+          console.warn(`[SaveQuestionsStep] [${i}] Skipping - no content. Original:`, JSON.stringify(q).substring(0, 100));
+          skippedCount++;
+          skippedReasons.noContent++;
           continue;
         }
         if (!questionData.options || !Array.isArray(questionData.options) || questionData.options.length < 2) {
-          console.warn('[SaveQuestionsStep] Skipping question without enough options:', questionData.content?.substring(0, 50));
+          console.warn(`[SaveQuestionsStep] [${i}] Skipping - insufficient options. Has ${questionData.options?.length || 0} options`);
+          skippedCount++;
+          skippedReasons.noOptions++;
           continue;
         }
 
-        const result = await db.collection('ai_question_pool').add({
-          data: {
-            ...questionData,
-            subject: task.subject || questionData.subject || 'math',  // 强制从任务继承科目
-            verified: false,
-            temp_task_id: task._id,
-            created_at: new Date().toISOString()
-          }
+        const normalizedQ = normalizeQuestion({
+          ...questionData,
+          subject: task.subject || questionData.subject || 'math',
+          temp_task_id: task._id,
         });
+
+        // Dedup check
+        const isDup = await checkDuplicate(db, normalizedQ.question, normalizedQ.kp_id);
+        if (isDup) {
+          console.log(`[SaveQuestionsStep] [${i}] Skipping - duplicate:`, normalizedQ.question.substring(0, 30));
+          skippedCount++;
+          skippedReasons.duplicate++;
+          continue;
+        }
+
+        console.log(`[SaveQuestionsStep] [${i}] PASS all checks, saving question:`, normalizedQ.question.substring(0, 30));
+
+        const result = await db.collection('ai_question_pool').add({ data: normalizedQ });
         questionIds.push(result._id);
       }
-      console.log('[SaveQuestionsStep] Saved', questionIds.length, 'questions, IDs:', JSON.stringify(questionIds));
+
+      console.log('[SaveQuestionsStep] === SUMMARY ===');
+      console.log('[SaveQuestionsStep] Total processed:', questions.length);
+      console.log('[SaveQuestionsStep] Total saved:', questionIds.length);
+      console.log('[SaveQuestionsStep] Total skipped:', skippedCount);
+      console.log('[SaveQuestionsStep] Skip reasons:', JSON.stringify(skippedReasons));
+      console.log('[SaveQuestionsStep] Question IDs:', JSON.stringify(questionIds));
     } catch (error) {
       // 数据保存失败，需要回滚已保存的数据
       return {

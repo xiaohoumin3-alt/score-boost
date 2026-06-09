@@ -82,10 +82,11 @@ function classifyError(params) {
 
 // ============ 主逻辑 ============
 exports.main = async (event, context) => {
+  const wxContext = cloud.getWXContext();
+  const userId = wxContext.OPENID;
   try {
     const params = event.data || event || {};
     const {
-      student_id,
       kp_id,
       kp_name = '',
       difficulty,
@@ -100,9 +101,27 @@ exports.main = async (event, context) => {
       return { success: false, error: '缺少必要参数' };
     }
 
+    // 0. 查询 knowledge_points 获取 grade/subject
+    let kpGrade = null;
+    let kpSubject = null;
+    try {
+      const kpResult = await db.collection('knowledge_points')
+        .where({ kp_id: kp_id })
+        .limit(1)
+        .get();
+      if (kpResult.data && kpResult.data.length > 0) {
+        const kpInfo = kpResult.data[0];
+        kpGrade = kpInfo.grade || null;
+        kpSubject = kpInfo.subject || null;
+        // Record kpInfo data for progress
+      }
+    } catch (e) {
+      console.warn('[submitPracticeResult] knowledge_points query failed:', e.message);
+    }
+
     // 1. 查询当前进度
     const progressRes = await db.collection('kp_progress')
-      .where({ student_id, kp_id })
+      .where({ student_id: userId, kp_id })
       .get();
 
     const currentProgress = progressRes.data && progressRes.data.length > 0
@@ -111,10 +130,12 @@ exports.main = async (event, context) => {
 
     // 2. 构建新进度
     let newProgress = currentProgress ? { ...currentProgress } : {
-      student_id,
+      student_id: userId,
       kp_id,
       kp_name,
       assessment_id: assessment_id || '',
+      grade: kpGrade,
+      subject: kpSubject,
       easy: { consecutive_correct: 0, consecutive_wrong: 0, mastered: false },
       medium: { consecutive_correct: 0, consecutive_wrong: 0, mastered: false },
       hard: { consecutive_correct: 0, consecutive_wrong: 0, mastered: false },
@@ -213,7 +234,7 @@ exports.main = async (event, context) => {
     }
 
     // 8. 更新Memory（异步）
-    updateStudentMemory(student_id, kp_id, difficulty, is_correct, errorClassification).catch(err => {
+    updateStudentMemory(userId, kp_id, difficulty, is_correct, errorClassification).catch(err => {
       console.log('[submitPracticeResult] Memory update failed:', err.message);
     });
 

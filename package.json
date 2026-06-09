@@ -5,7 +5,8 @@
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "test:integration": "jest --testNamePattern=@integration"
   },
   "devDependencies": {
     "@playwright/test": "^1.60.0",
@@ -16,6 +17,7 @@
   },
   "dependencies": {
     "@cloudbase/js-sdk": "^3.3.10",
-    "@cloudbase/node-sdk": "^3.18.1"
+    "@cloudbase/node-sdk": "^3.18.1",
+    "wx-server-sdk": "^3.0.4"
   }
 }

@@ -1,6 +1,6 @@
 /**
  * 调试工具页面
- * 用于快速清除缓存和设置科目
+ * 仅在开发和体验版可用，正式版自动禁用
  */
 
 const app = getApp();
@@ -10,10 +10,21 @@ Page({
     currentSubject: '',
     currentGrade: '',
     currentExamMode: '',
-    storageData: ''
+    storageData: '',
+    disabled: false
   },
 
   onLoad() {
+    // 正式版禁用调试功能
+    try {
+      const accountInfo = wx.getAccountInfoSync();
+      const envVersion = accountInfo.miniProgram.envVersion;
+      if (envVersion === 'release') {
+        this.setData({ disabled: true });
+        wx.showToast({ title: '调试工具不可用', icon: 'none' });
+        return;
+      }
+    } catch (e) { /* ignore */ }
     this.loadCurrentData();
   },
 
@@ -28,6 +39,7 @@ Page({
 
   // 清除所有缓存
   clearAll() {
+    if (this.data.disabled) return;
     wx.clearStorageSync();
     app.globalData.subject = null;
     app.globalData.grade = null;
@@ -40,6 +52,7 @@ Page({
 
   // 设置为7年地理
   set7Geo() {
+    if (this.data.disabled) return;
     app.globalData.subject = '地理';
     app.globalData.grade = '七年级';
     app.globalData.examMode = 'grade';
@@ -56,6 +69,7 @@ Page({
 
   // 设置为8年生物
   set8Bio() {
+    if (this.data.disabled) return;
     app.globalData.subject = '生物';
     app.globalData.grade = '八年级';
     app.globalData.examMode = 'grade';

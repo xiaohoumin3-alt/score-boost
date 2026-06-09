@@ -42,13 +42,12 @@ describe('cloudbaserc.json 配置测试', () => {
 
   test('questionGenerator timeout 配置', () => {
     const questionGenerator = config.functions.find(fn => fn.name === 'questionGenerator');
-    // 注意：当前实际配置值为 300 秒
+    // 注意：当前实际配置值为 90 秒
     expect(questionGenerator.timeout).toBeDefined();
     expect(typeof questionGenerator.timeout).toBe('number');
 
-    // 如果预期值是 600，此测试会失败
     // 根据实际需求调整预期值
-    const expectedTimeout = 300; // 或改为 600 如果需要验证不同的值
+    const expectedTimeout = 90;
     expect(questionGenerator.timeout).toBe(expectedTimeout);
   });
 
@@ -60,13 +59,13 @@ describe('cloudbaserc.json 配置测试', () => {
     const timerTrigger = questionGenerator.triggers.find(t => t.type === 'timer');
     expect(timerTrigger).toBeDefined();
     expect(timerTrigger.name).toBe('processQueueTimer');
-    expect(timerTrigger.config).toBe('0 */1 * * * * *'); // 每分钟执行
+    expect(timerTrigger.config).toBe('0 */15 * * * * *'); // 每15秒执行
   });
 
-  test('generateAiQuestion timeout 应为 90', () => {
+  test('generateAiQuestion timeout 应为 60', () => {
     const generateAiQuestion = config.functions.find(fn => fn.name === 'generateAiQuestion');
     expect(generateAiQuestion).toBeDefined();
-    expect(generateAiQuestion.timeout).toBe(90);
+    expect(generateAiQuestion.timeout).toBe(60);
   });
 
   test('practice_v2 timeout 应为 60', () => {

@@ -1,7 +1,7 @@
 const app = getApp();
 
-const USE_CLOUD = true;
-const api = USE_CLOUD ? require('../../utils/cloudApi.js') : require('../../utils/api.js');
+// 使用云函数API（统一使用cloudApi.js）
+const api = require('../../utils/cloudApi.js');
 
 Page({
   data: {

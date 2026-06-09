@@ -16,8 +16,8 @@
         {
           "name": "processQueueTimer",
           "type": "timer",
-          "config": "0 */1 * * * * *",
-          "description": "每分钟执行一次队列处理"
+          "config": "*/15 * * * * * *",
+          "description": "每15秒执行一次队列处理"
         }
       ]
     }

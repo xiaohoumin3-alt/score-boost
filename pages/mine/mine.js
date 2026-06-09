@@ -31,10 +31,24 @@ Page({
    */
   async loadMineData() {
     this.setData({ loading: true });
+    api.track('page_view', { page: 'mine' });
+
+    // 获取当前科目年级（与首页、路径页保持一致，添加默认值处理null情况）
+    const app = getApp();
+    const currentSubject = app.globalData.subject || '数学';
+    const currentGrade = app.globalData.grade || '八年级';
+
+    // 诊断日志：追踪globalData状态
+    console.log('[mine] loadMineData - globalData:', {
+      subject: app.globalData.subject,
+      grade: app.globalData.grade,
+      fallbackSubject: currentSubject,
+      fallbackGrade: currentGrade
+    });
 
     try {
       const [diagRes, kpRes, pointsRes] = await Promise.allSettled([
-        api.getLatestDiagnosis(),
+        api.getLatestDiagnosis(currentSubject, currentGrade),
         api.getKpProgress(),
         api.callCloudFunction('pointsManager', { action: 'getPoints' })
       ]);
@@ -97,11 +111,37 @@ Page({
       } else {
         wx.showToast({ title: '签到成功', icon: 'success' });
         this.loadMineData();
+        api.track('signin', { points_earned: res.points_earned });
       }
     } catch (e) {
       console.error('[mine] signin error:', e);
       wx.showToast({ title: '签到失败', icon: 'none' });
     }
+  },
+
+  /**
+   * 输入邀请码
+   */
+  inputInviteCode() {
+    wx.showModal({
+      title: '输入邀请码',
+      editable: true,
+      placeholderText: '请输入好友邀请码',
+      success: async (res) => {
+        if (res.confirm && res.content) {
+          try {
+            await api.callCloudFunction('pointsManager', {
+              action: 'useInviteCode',
+              code: res.content.trim()
+            });
+            wx.showToast({ title: '邀请码使用成功', icon: 'success' });
+            this.loadMineData();
+          } catch (e) {
+            wx.showToast({ title: e.message || '邀请码无效', icon: 'none' });
+          }
+        }
+      }
+    });
   },
 
   /**
@@ -118,11 +158,19 @@ Page({
     wx.navigateTo({ url: '/pages/progress/progress' });
   },
 
+  goToMistakes() {
+    wx.navigateTo({ url: '/pages/mistakes/mistakes' });
+  },
+
   /**
    * 跳转到积分中心
    */
   goToPoints() {
     wx.navigateTo({ url: '/pages/points/points' });
+  },
+
+  goToVip() {
+    wx.navigateTo({ url: '/pages/vip/vip' });
   },
 
   /**
@@ -136,9 +184,11 @@ Page({
    * 分享邀请码
    */
   onShareAppMessage() {
+    const { invite_code } = this.data;
+    const path = invite_code ? `/pages/home/home?invited_by=${invite_code}` : '/pages/home/home';
     return {
-      title: '我在用提分神器，邀请你一起学习！',
-      path: '/pages/home/home'
+      title: invite_code ? `我在用提分神器，邀请你一起学习！邀请码：${invite_code}` : '我在用提分神器，邀请你一起学习！',
+      path: path
     };
   }
 });

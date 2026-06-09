@@ -1,4 +1,5 @@
 const app = getApp();
+const api = require('../../utils/cloudApi.js');
 
 Page({
   data: {
@@ -44,9 +45,12 @@ Page({
 
           app.saveSession({
             openid: user.openid,
+            studentId: user.student_id,  // 保存 studentId
             grade: user.grade,
             subject: user.subject,
           });
+
+          api.track('login', { is_new: !user.grade || !user.subject });
 
           wx.showToast({ title: '登录成功', icon: 'success' });
 

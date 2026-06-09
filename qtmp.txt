@@ -1,0 +1,333 @@
+     1	/**
+     2	 * 事务性和竞态条件修复测试
+     3	 * 测试 CRITICAL 问题的修复
+     4	 */
+     5	
+     6	const {
+     7	  cleanupPartialQuestionsByTask,
+     8	  generateQuestionsForTask,
+     9	  processTask
+    10	} = require('../index');
+    11	
+    12	describe('questionGenerator - Transaction & Race Fix Tests', () => {
+    13	
+    14	  describe('cleanupPartialQuestionsByTask - 事务性清理', () => {
+    15	    test('应清理指定任务的未验证题目', async () => {
+    16	      const taskId = 'task_cleanup_test';
+    17	      const deletedIds = [];
+    18	
+    19	      const mockDb = {
+    20	        collection: jest.fn(() => ({
+    21	          where: jest.fn(() => ({
+    22	            remove: jest.fn().mockImplementation(() => {
+    23	              deletedIds.push(taskId);
+    24	              return Promise.resolve({ stats: { removed: 5 } });
+    25	            })
+    26	          }))
+    27	        }))
+    28	      };
+    29	
+    30	      await cleanupPartialQuestionsByTask(mockDb, taskId);
+    31	
+    32	      expect(mockDb.collection).toHaveBeenCalledWith('ai_question_pool');
+    33	      expect(deletedIds).toContain(taskId);
+    34	    });
+    35	
+    36	    test('应处理清理失败', async () => {
+    37	      const mockDb = {
+    38	        collection: jest.fn(() => ({
+    39	          where: jest.fn(() => ({
+    40	            remove: jest.fn().mockRejectedValue(new Error('Database connection lost'))
+    41	          }))
+    42	        }))
+    43	      };
+    44	
+    45	      // 不应该抛出错误
+    46	      await expect(cleanupPartialQuestionsByTask(mockDb, 'task_1')).resolves.toBeUndefined();
+    47	    });
+    48	  });
+    49	
+    50	  describe('processTask - 事务性保存', () => {
+    51	    test('保存题目失败时应清理已保存的数据', async () => {
+    52	      const task = {
+    53	        _id: 'task_save_fail',
+    54	        student_id: 'student_1',
+    55	        subject: 'math',
+    56	        grade: '7',
+    57	        semester: '上',
+    58	        mode: 'practice',
+    59	        num_questions: 3,
+    60	        difficulty_distribution: { easy: 1, medium: 0, hard: 0 }
+    61	      };
+    62	
+    63	      let addCallCount = 0;
+    64	      const mockDb = {
+    65	        collection: jest.fn((name) => {
+    66	          if (name === 'question_queue') {
+    67	            return {
+    68	              doc: jest.fn(() => ({
+    69	                get: jest.fn().mockResolvedValue({
+    70	                  data: { _id: task._id, status: 'processing' }
+    71	                }),
+    72	                update: jest.fn().mockResolvedValue({}),
+    73	                set: jest.fn().mockResolvedValue({ stats: { updated: 1 } })
+    74	              }))
+    75	            };
+    76	          } else if (name === 'ai_question_pool') {
+    77	            return {
+    78	              add: jest.fn().mockImplementation(() => {
+    79	                addCallCount++;
+    80	                if (addCallCount === 2) {
+    81	                  return Promise.reject(new Error('Storage quota exceeded'));
+    82	                }
+    83	                return Promise.resolve({ _id: `q_${addCallCount}` });
+    84	              }),
+    85	              where: jest.fn(() => ({
+    86	                remove: jest.fn().mockResolvedValue({ stats: { removed: 1 } })
+    87	              }))
+    88	            };
+    89	          }
+    90	          return {};
+    91	        })
+    92	      };
+    93	
+    94	      const mockGenerateAi = jest.fn().mockResolvedValue([
+    95	        { content: 'Q1', options: ['A', 'B', 'C', 'D'], correct_answer: 'A' },
+    96	        { content: 'Q2', options: ['A', 'B', 'C', 'D'], correct_answer: 'B' },
+    97	        { content: 'Q3', options: ['A', 'B', 'C', 'D'], correct_answer: 'C' }
+    98	      ]);
+    99	
+   100	      const result = await processTask(mockDb, task, { generateAi: mockGenerateAi });
+   101	
+   102	      expect(result.success).toBe(false);
+   103	      expect(result.error).toBe('Storage quota exceeded');
+   104	      // 验证调用了清理
+   105	      expect(mockDb.collection).toHaveBeenCalledWith('ai_question_pool');
+   106	    });
+   107	
+   108	    test('创建assessment失败时应清理已保存的题目', async () => {
+   109	      const task = {
+   110	        _id: 'task_assessment_fail',
+   111	        student_id: 'student_1',
+   112	        subject: 'math',
+   113	        grade: '7',
+   114	        semester: '上',
+   115	        mode: 'practice',
+   116	        num_questions: 3,
+   117	        difficulty_distribution: { easy: 1, medium: 0, hard: 0 }
+   118	      };
+   119	
+   120	      const mockDb = {
+   121	        collection: jest.fn((name) => {
+   122	          if (name === 'question_queue') {
+   123	            return {
+   124	              doc: jest.fn(() => ({
+   125	                get: jest.fn().mockResolvedValue({
+   126	                  data: { _id: task._id, status: 'processing' }
+   127	                }),
+   128	                update: jest.fn().mockResolvedValue({}),
+   129	                set: jest.fn().mockResolvedValue({ stats: { updated: 1 } })
+   130	              }))
+   131	            };
+   132	          } else if (name === 'ai_question_pool') {
+   133	            return {
+   134	              add: jest.fn().mockResolvedValue({ _id: 'q_1' }),
+   135	              where: jest.fn(() => ({
+   136	                remove: jest.fn().mockResolvedValue({ stats: { removed: 1 } })
+   137	              }))
+   138	            };
+   139	          } else if (name === 'assessments') {
+   140	            return {
+   141	              add: jest.fn().mockRejectedValue(new Error('Assessment creation failed'))
+   142	            };
+   143	          }
+   144	          return {};
+   145	        })
+   146	      };
+   147	
+   148	      const mockGenerateAi = jest.fn().mockResolvedValue([
+   149	        { content: 'Q1', options: ['A', 'B', 'C', 'D'], correct_answer: 'A' }
+   150	      ]);
+   151	
+   152	      const result = await processTask(mockDb, task, { generateAi: mockGenerateAi });
+   153	
+   154	      expect(result.success).toBe(false);
+   155	      expect(result.error).toBe('Assessment creation failed');
+   156	      // 验证调用了清理
+   157	      expect(mockDb.collection).toHaveBeenCalledWith('ai_question_pool');
+   158	    });
+   159	  });
+   160	
+   161	  describe('generateQuestionsForTask - 竞态条件修复', () => {
+   162	    test('进度更新前应检查取消状态', async () => {
+   163	      const task = {
+   164	        _id: 'task_race_condition',
+   165	        num_questions: 10,
+   166	        difficulty_distribution: { easy: 1, medium: 0, hard: 0 }
+   167	      };
+   168	
+   169	      let checkCount = 0;
+   170	      const progressUpdates = [];
+   171	      const mockDb = {
+   172	        collection: jest.fn(() => ({
+   173	          doc: jest.fn(() => ({
+   174	            get: jest.fn().mockImplementation(() => {
+   175	              checkCount++;
+   176	              // 第一次检查（生成前）返回 processing
+   177	              // 第二次检查（进度更新前）返回 cancelled
+   178	              if (checkCount === 1) {
+   179	                return { data: { _id: task._id, status: 'processing' } };
+   180	              }
+   181	              return { data: { _id: task._id, status: 'cancelled' } };
+   182	            }),
+   183	            update: jest.fn().mockImplementation((data) => {
+   184	              if (data.data && data.data.progress) {
+   185	                progressUpdates.push(data.data.progress);
+   186	              }
+   187	              return Promise.resolve({});
+   188	            }),
+   189	            set: jest.fn().mockResolvedValue({ stats: { updated: 1 } })
+   190	          })),
+   191	          where: jest.fn().mockReturnValue({
+   192	            remove: jest.fn().mockResolvedValue({})
+   193	          })
+   194	        }))
+   195	      };
+   196	
+   197	      const mockGenerateAi = jest.fn().mockResolvedValue([
+   198	        { q: 1 }, { q: 2 }, { q: 3 }, { q: 4 }, { q: 5 }
+   199	      ]);
+   200	
+   201	      await expect(generateQuestionsForTask(task, mockGenerateAi, mockDb))
+   202	        .rejects.toThrow('TASK_CANCELLED');
+   203	
+   204	      // 进度更新应该被阻止
+   205	      expect(progressUpdates).toHaveLength(0);
+   206	    });
+   207	
+   208	    test('正常情况应更新进度', async () => {
+   209	      const task = {
+   210	        _id: 'task_progress_normal',
+   211	        num_questions: 10,
+   212	        difficulty_distribution: { easy: 1, medium: 0, hard: 0 }
+   213	      };
+   214	
+   215	      const progressUpdates = [];
+   216	      const mockDb = {
+   217	        collection: jest.fn(() => ({
+   218	          doc: jest.fn(() => ({
+   219	            get: jest.fn().mockResolvedValue({
+   220	              data: { _id: task._id, status: 'processing' }
+   221	            }),
+   222	            update: jest.fn().mockImplementation(({ data }) => {
+   223	              if (data && data.progress) {
+   224	                progressUpdates.push(data.progress);
+   225	              }
+   226	              return Promise.resolve({});
+   227	            }),
+   228	            set: jest.fn().mockResolvedValue({ stats: { updated: 1 } })
+   229	          })),
+   230	          add: jest.fn().mockResolvedValue({ _id: 'q_1' }),
+   231	          where: jest.fn(() => ({
+   232	            limit: jest.fn().mockReturnThis(),
+   233	            orderBy: jest.fn().mockReturnThis(),
+   234	            get: jest.fn().mockResolvedValue({ data: [] }),
+   235	            remove: jest.fn().mockResolvedValue({ stats: { removed: 0 } })
+   236	          })),
+   237	          limit: jest.fn().mockReturnThis(),
+   238	          orderBy: jest.fn().mockReturnThis(),
+   239	          get: jest.fn().mockResolvedValue({ data: [] })
+   240	        }))
+   241	      };
+   242	
+   243	      const mockGenerateAi = jest.fn().mockResolvedValue([
+   244	        { content: 'Q1', options: ['A', 'B', 'C', 'D'], correct_answer: 'A' },
+   245	        { content: 'Q2', options: ['A', 'B', 'C', 'D'], correct_answer: 'B' },
+   246	        { content: 'Q3', options: ['A', 'B', 'C', 'D'], correct_answer: 'C' },
+   247	        { content: 'Q4', options: ['A', 'B', 'C', 'D'], correct_answer: 'D' },
+   248	        { content: 'Q5', options: ['A', 'B', 'C', 'D'], correct_answer: 'A' }
+   249	      ]);
+   250	
+   251	      const result = await generateQuestionsForTask(task, mockGenerateAi, mockDb);
+   252	
+   253	      expect(result).toHaveLength(5);
+   254	      expect(progressUpdates).toHaveLength(1);
+   255	      expect(progressUpdates[0]).toEqual({
+   256	        generated: 5,
+   257	        total: 10,
+   258	        percent: 50
+   259	      });
+   260	    });
+   261	  });
+   262	
+   263	  describe('错误处理完整性', () => {
+   264	    test('catch块应清理部分数据（非取消情况）', async () => {
+   265	      const task = {
+   266	        _id: 'task_catch_cleanup',
+   267	        student_id: 'student_1',
+   268	        subject: 'math',
+   269	        grade: '7',
+   270	        semester: '上',
+   271	        mode: 'practice',
+   272	        num_questions: 10,
+   273	        difficulty_distribution: { easy: 1, medium: 0, hard: 0 }
+   274	      };
+   275	
+   276	      let cleanupCalled = false;
+   277	      const mockDb = {
+   278	        collection: jest.fn((name) => {
+   279	          if (name === 'question_queue') {
+   280	            return {
+   281	              doc: jest.fn(() => ({
+   282	                get: jest.fn().mockResolvedValue({
+   283	                  data: { _id: task._id, status: 'processing' }
+   284	                }),
+   285	                update: jest.fn().mockResolvedValue({}),
+   286	                set: jest.fn().mockResolvedValue({ stats: { updated: 1 } })
+   287	              }))
+   288	            };
+   289	          } else if (name === 'ai_question_pool') {
+   290	            return {
+   291	              add: jest.fn().mockResolvedValue({ _id: 'q_1' }),
+   292	              where: jest.fn(() => ({
+   293	                limit: jest.fn().mockReturnThis(),
+   294	                orderBy: jest.fn().mockReturnThis(),
+   295	                get: jest.fn().mockResolvedValue({ data: [] }),
+   296	                remove: jest.fn().mockImplementation(() => {
+   297	                  cleanupCalled = true;
+   298	                  return Promise.resolve({ stats: { removed: 0 } });
+   299	                })
+   300	              })),
+   301	              limit: jest.fn().mockReturnThis(),
+   302	              orderBy: jest.fn().mockReturnThis(),
+   303	              get: jest.fn().mockResolvedValue({ data: [] })
+   304	            };
+   305	          } else if (name === 'assessments') {
+   306	            return {
+   307	              add: jest.fn().mockResolvedValue({ _id: 'assessment_1' }),
+   308	              where: jest.fn(() => ({
+   309	                get: jest.fn().mockResolvedValue({ data: [] }),
+   310	                update: jest.fn().mockResolvedValue({}),
+   311	                remove: jest.fn().mockResolvedValue({ stats: { removed: 0 } })
+   312	              }))
+   313	            };
+   314	          }
+   315	          return {};
+   316	        })
+   317	      };
+   318	
+   319	      // generateQuestionsForTask has strong fallback - when AI returns empty,
+   320	      // it falls back to default questions, so the workflow should succeed.
+   321	      const mockGenerateAi = jest.fn().mockResolvedValue([]);
+   322	
+   323	      const result = await processTask(mockDb, task, { generateAi: mockGenerateAi });
+   324	
+   325	      // With fallback, the task should complete successfully
+   326	      expect(result.success).toBe(true);
+   327	      expect(result.assessment_id).toBeDefined();
+   328	      // AI返回空时没有数据被保存，不需要cleanup
+   329	      // cleanupCalled应为false
+   330	      expect(cleanupCalled).toBe(false);
+   331	    });
+   332	  });
+   333	});

@@ -7,7 +7,8 @@ cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV });
 
 const { generateQuestions: generateMixedQuestions } = require('./question_generator');
 const { LlmClient, parseLlmResponse, validateQuestion } = require('./llm_client');
-const { loadKnowledgeTree, loadKnowledgeTreeFromDb, generateQuestionPlan } = require('./knowledge_tree');
+const { loadKnowledgeTree, loadKnowledgeTreeFromDb, generateQuestionPlan } = require('./shared/knowledge_tree');
+const { normalizeQuestion } = require('./shared/question-normalizer');
 
 function generateUUID() {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -152,12 +153,15 @@ exports.main = async (event, context) => {
           name: 'getKpProgress',
           data: { student_id: studentId }
         });
-        if (progressRes.result?.success && progressRes.result.data) {
+        if (progressRes.result && progressRes.result.success && progressRes.result.data) {
           const progressList = Array.isArray(progressRes.result.data)
             ? progressRes.result.data
             : [progressRes.result.data];
           progressList.forEach(p => {
-            kpCurrentDifficulty[p.kp_id] = p.current_difficulty;
+            // 防御：确保 p 存在且有 kp_id
+            if (p && p.kp_id) {
+              kpCurrentDifficulty[p.kp_id] = p.current_difficulty;
+            }
           });
         }
       } catch (e) {
@@ -167,6 +171,9 @@ exports.main = async (event, context) => {
 
     // 决定练习的知识点了
     let plan = [];
+
+    // 初始化数据库（需要在 knowledge tree fallback 之前）
+    const db = cloud.database();
 
     // 根据目标难度生成难度分布
     function getDifficultyDistribution(targetDifficulty) {
@@ -269,7 +276,6 @@ exports.main = async (event, context) => {
     console.log('[Practice] Generated plan:', JSON.stringify(plan));
 
     // 生成题目（题池优先，Practice模式：10% verified + 60% unverified + 30% AI）
-    const db = cloud.database();
     const questions = await generateMixedQuestions(plan, numQuestions, callAiGenerate, {
       db,
       userId: studentId || 'anonymous',
@@ -327,7 +333,7 @@ exports.main = async (event, context) => {
                 });
             } else {
               // 新题目，添加到批量保存列表
-              poolRecords.push({
+              poolRecords.push(normalizeQuestion({
                 question: questionText,
                 options: q.options || [],
                 correct_answer: q.correct_answer,
@@ -342,7 +348,7 @@ exports.main = async (event, context) => {
                 usage_count: 1,
                 created_at: new Date().toISOString(),
                 updated_at: new Date().toISOString()
-              });
+              }));
             }
           } catch (e) {
             console.error('[Practice] Error checking question existence:', e.message);

@@ -1,0 +1,7 @@
+{
+  "name": "cleanOldQuestions",
+  "runtime": "Nodejs16.13",
+  "handler": "index.main",
+  "timeout": 60,
+  "envVariables": {}
+}

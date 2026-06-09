@@ -1,0 +1,29459 @@
+const ALL_KP_DATA = [
+  {
+    "kp_id": "bio_kp4_1",
+    "kp_name": "种子的萌发",
+    "chapter": "被子植物的一生",
+    "subject": "生物",
+    "grade": 7,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "种子萌发的条件",
+      "种子萌发的过程"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "实验题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.550Z",
+    "updated_at": "2026-06-01T13:11:33.568Z"
+  },
+  {
+    "kp_id": "bio_kp4_2",
+    "kp_name": "植株的生长",
+    "chapter": "被子植物的一生",
+    "subject": "生物",
+    "grade": 7,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "根的生长",
+      "芽的发育",
+      "营养物质的吸收"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "实验题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.568Z",
+    "updated_at": "2026-06-01T13:11:33.568Z"
+  },
+  {
+    "kp_id": "bio_kp4_3",
+    "kp_name": "开花和结果",
+    "chapter": "被子植物的一生",
+    "subject": "生物",
+    "grade": 7,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "花的结构",
+      "传粉和受精",
+      "果实和种子的形成"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "实验题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.568Z",
+    "updated_at": "2026-06-01T13:11:33.568Z"
+  },
+  {
+    "kp_id": "bio_kp5_1",
+    "kp_name": "绿色植物的生活需要水",
+    "chapter": "绿色植物与生物圈的水循环",
+    "subject": "生物",
+    "grade": 7,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "水对植物的作用",
+      "植物的需水特点"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.568Z",
+    "updated_at": "2026-06-01T13:11:33.568Z"
+  },
+  {
+    "kp_id": "bio_kp5_2",
+    "kp_name": "水分进入植物体内的途径",
+    "chapter": "绿色植物与生物圈的水循环",
+    "subject": "生物",
+    "grade": 7,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "根适于吸水的特点",
+      "水分的运输"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "实验题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.568Z",
+    "updated_at": "2026-06-01T13:11:33.568Z"
+  },
+  {
+    "kp_id": "bio_kp5_3",
+    "kp_name": "绿色植物参与生物圈的水循环",
+    "chapter": "绿色植物与生物圈的水循环",
+    "subject": "生物",
+    "grade": 7,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "蒸腾作用",
+      "绿色植物在水循环中的作用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "实验题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.568Z",
+    "updated_at": "2026-06-01T13:11:33.568Z"
+  },
+  {
+    "kp_id": "bio_kp1_1",
+    "kp_name": "生物的特征",
+    "chapter": "生物与环境",
+    "subject": "生物",
+    "grade": 7,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "生物的生活需要营养",
+      "生物能进行呼吸",
+      "生物能排出身体内产生的废物",
+      "生物能对外界刺激作出反应",
+      "生物能生长和繁殖",
+      "生物都有遗传和变异的特性",
+      "除病毒外，生物都由细胞构成"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.570Z",
+    "updated_at": "2026-06-01T13:11:33.570Z"
+  },
+  {
+    "kp_id": "bio_kp1_2",
+    "kp_name": "环境对生物的影响",
+    "chapter": "生物与环境",
+    "subject": "生物",
+    "grade": 7,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "非生物因素对生物的影响",
+      "生物因素对生物的影响",
+      "探究实验"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "实验题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.570Z",
+    "updated_at": "2026-06-01T13:11:33.570Z"
+  },
+  {
+    "kp_id": "bio_kp2_1",
+    "kp_name": "练习使用显微镜",
+    "chapter": "细胞是生命活动的基本单位",
+    "subject": "生物",
+    "grade": 7,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "显微镜的结构",
+      "显微镜的使用方法",
+      "显微镜的成像特点"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "实验题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.570Z",
+    "updated_at": "2026-06-01T13:11:33.570Z"
+  },
+  {
+    "kp_id": "bio_kp2_2",
+    "kp_name": "植物细胞",
+    "chapter": "细胞是生命活动的基本单位",
+    "subject": "生物",
+    "grade": 7,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "玻片标本",
+      "植物细胞的基本结构",
+      "细胞各结构的功能"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "实验题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.570Z",
+    "updated_at": "2026-06-01T13:11:33.570Z"
+  },
+  {
+    "kp_id": "bio_kp2_3",
+    "kp_name": "动物细胞",
+    "chapter": "细胞是生命活动的基本单位",
+    "subject": "生物",
+    "grade": 7,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "动物细胞的基本结构",
+      "植物细胞与动物细胞的区别"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "实验题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.570Z",
+    "updated_at": "2026-06-01T13:11:33.570Z"
+  },
+  {
+    "kp_id": "bio_kp2_4",
+    "kp_name": "细胞的生活",
+    "chapter": "细胞是生命活动的基本单位",
+    "subject": "生物",
+    "grade": 7,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "细胞的生活需要物质和能量",
+      "细胞核是控制中心"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.570Z",
+    "updated_at": "2026-06-01T13:11:33.570Z"
+  },
+  {
+    "kp_id": "bio_kp3_1",
+    "kp_name": "动物体的结构层次",
+    "chapter": "细胞怎样构成生物体",
+    "subject": "生物",
+    "grade": 7,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "细胞分裂",
+      "细胞生长",
+      "细胞分化",
+      "组织",
+      "器官",
+      "系统"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.570Z",
+    "updated_at": "2026-06-01T13:11:33.570Z"
+  },
+  {
+    "kp_id": "bio_kp3_2",
+    "kp_name": "植物体的结构层次",
+    "chapter": "细胞怎样构成生物体",
+    "subject": "生物",
+    "grade": 7,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "植物的器官",
+      "植物的几种主要组织"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.570Z",
+    "updated_at": "2026-06-01T13:11:33.570Z"
+  },
+  {
+    "kp_id": "bio_kp4_1",
+    "kp_name": "人的生殖",
+    "chapter": "生物的生殖和发育",
+    "subject": "生物",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "男性生殖系统",
+      "女性生殖系统",
+      "生殖过程"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.571Z",
+    "updated_at": "2026-06-01T13:11:33.571Z"
+  },
+  {
+    "kp_id": "bio_kp4_2",
+    "kp_name": "昆虫的生殖和发育",
+    "chapter": "生物的生殖和发育",
+    "subject": "生物",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "完全变态发育",
+      "不完全变态发育"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.571Z",
+    "updated_at": "2026-06-01T13:11:33.571Z"
+  },
+  {
+    "kp_id": "bio_kp4_3",
+    "kp_name": "两栖动物的生殖和发育",
+    "chapter": "生物的生殖和发育",
+    "subject": "生物",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "两栖动物的生殖",
+      "两栖动物的发育"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.571Z",
+    "updated_at": "2026-06-01T13:11:33.571Z"
+  },
+  {
+    "kp_id": "bio_kp4_4",
+    "kp_name": "鸟的生殖和发育",
+    "chapter": "生物的生殖和发育",
+    "subject": "生物",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "鸟卵的结构",
+      "鸟的生殖和发育过程"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "实验题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.571Z",
+    "updated_at": "2026-06-01T13:11:33.571Z"
+  },
+  {
+    "kp_id": "bio_kp5_1",
+    "kp_name": "基因控制生物的性状",
+    "chapter": "生物的遗传和变异",
+    "subject": "生物",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "性状",
+      "基因控制性状"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.571Z",
+    "updated_at": "2026-06-01T13:11:33.571Z"
+  },
+  {
+    "kp_id": "bio_kp5_2",
+    "kp_name": "基因在亲子代间的传递",
+    "chapter": "生物的遗传和变异",
+    "subject": "生物",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "染色体",
+      "DNA和基因的关系",
+      "基因经精子或卵细胞的传递"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.571Z",
+    "updated_at": "2026-06-01T13:11:33.571Z"
+  },
+  {
+    "kp_id": "bio_kp5_3",
+    "kp_name": "基因的显性和隐性",
+    "chapter": "生物的遗传和变异",
+    "subject": "生物",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "孟德尔的豌豆杂交实验",
+      "显性基因和隐性基因",
+      "基因型与表现型"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.3,
+      "medium": 0.4,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.571Z",
+    "updated_at": "2026-06-01T13:11:33.571Z"
+  },
+  {
+    "kp_id": "bio_kp1_1",
+    "kp_name": "腔肠动物",
+    "chapter": "动物的主要类群",
+    "subject": "生物",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "腔肠动物的主要特征",
+      "腔肠动物与人类的关系"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.572Z",
+    "updated_at": "2026-06-01T13:11:33.572Z"
+  },
+  {
+    "kp_id": "bio_kp1_2",
+    "kp_name": "扁形动物",
+    "chapter": "动物的主要类群",
+    "subject": "生物",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "扁形动物的主要特征",
+      "扁形动物与人类的关系"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.572Z",
+    "updated_at": "2026-06-01T13:11:33.572Z"
+  },
+  {
+    "kp_id": "bio_kp1_3",
+    "kp_name": "线形动物和环节动物",
+    "chapter": "动物的主要类群",
+    "subject": "生物",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "线形动物的主要特征",
+      "环节动物的主要特征"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.572Z",
+    "updated_at": "2026-06-01T13:11:33.572Z"
+  },
+  {
+    "kp_id": "bio_kp2_1",
+    "kp_name": "动物的运动",
+    "chapter": "动物的运动和行为",
+    "subject": "生物",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "运动系统的组成",
+      "骨、关节和肌肉的协调配合",
+      "动物的运动依赖于一定的结构"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.572Z",
+    "updated_at": "2026-06-01T13:11:33.572Z"
+  },
+  {
+    "kp_id": "bio_kp2_2",
+    "kp_name": "动物的行为",
+    "chapter": "动物的运动和行为",
+    "subject": "生物",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "先天性行为和学习行为",
+      "社会行为"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.572Z",
+    "updated_at": "2026-06-01T13:11:33.572Z"
+  },
+  {
+    "kp_id": "bio_kp3_1",
+    "kp_name": "细菌",
+    "chapter": "细菌和真菌",
+    "subject": "生物",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "细菌的发现",
+      "细菌的形态和结构",
+      "细菌的营养方式",
+      "细菌的生殖"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.572Z",
+    "updated_at": "2026-06-01T13:11:33.572Z"
+  },
+  {
+    "kp_id": "bio_kp3_2",
+    "kp_name": "真菌",
+    "chapter": "细菌和真菌",
+    "subject": "生物",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "真菌的形态结构",
+      "真菌的营养方式",
+      "真菌的生殖"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "实验题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.572Z",
+    "updated_at": "2026-06-01T13:11:33.572Z"
+  },
+  {
+    "kp_id": "biology-high-1-1-1",
+    "kp_name": "细胞结构",
+    "chapter": "第1章 细胞生物学",
+    "subject": "生物",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "基本概念",
+      "生理过程",
+      "实验探究"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.574Z",
+    "updated_at": "2026-06-01T13:11:33.574Z"
+  },
+  {
+    "kp_id": "biology-high-1-1-2",
+    "kp_name": "细胞代谢",
+    "chapter": "第1章 细胞生物学",
+    "subject": "生物",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "基本概念",
+      "生理过程",
+      "实验探究"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.574Z",
+    "updated_at": "2026-06-01T13:11:33.574Z"
+  },
+  {
+    "kp_id": "biology-high-1-1-3",
+    "kp_name": "细胞分裂",
+    "chapter": "第1章 细胞生物学",
+    "subject": "生物",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "基本概念",
+      "生理过程",
+      "实验探究"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.574Z",
+    "updated_at": "2026-06-01T13:11:33.574Z"
+  },
+  {
+    "kp_id": "biology-high-1-2-1",
+    "kp_name": "遗传定律",
+    "chapter": "第2章 遗传与进化",
+    "subject": "生物",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "基本概念",
+      "生理过程",
+      "实验探究"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.574Z",
+    "updated_at": "2026-06-01T13:11:33.574Z"
+  },
+  {
+    "kp_id": "biology-high-1-2-2",
+    "kp_name": "DNA复制",
+    "chapter": "第2章 遗传与进化",
+    "subject": "生物",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "基本概念",
+      "生理过程",
+      "实验探究"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.574Z",
+    "updated_at": "2026-06-01T13:11:33.574Z"
+  },
+  {
+    "kp_id": "biology-high-1-2-3",
+    "kp_name": "基因表达",
+    "chapter": "第2章 遗传与进化",
+    "subject": "生物",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "基本概念",
+      "生理过程",
+      "实验探究"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.574Z",
+    "updated_at": "2026-06-01T13:11:33.574Z"
+  },
+  {
+    "kp_id": "biology-high-1-3-1",
+    "kp_name": "生态系统",
+    "chapter": "第3章 生态学",
+    "subject": "生物",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "基本概念",
+      "生理过程",
+      "实验探究"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.574Z",
+    "updated_at": "2026-06-01T13:11:33.574Z"
+  },
+  {
+    "kp_id": "biology-high-1-3-2",
+    "kp_name": "种群群落",
+    "chapter": "第3章 生态学",
+    "subject": "生物",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "基本概念",
+      "生理过程",
+      "实验探究"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.574Z",
+    "updated_at": "2026-06-01T13:11:33.574Z"
+  },
+  {
+    "kp_id": "biology-high-1-3-3",
+    "kp_name": "生态平衡",
+    "chapter": "第3章 生态学",
+    "subject": "生物",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "基本概念",
+      "生理过程",
+      "实验探究"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.574Z",
+    "updated_at": "2026-06-01T13:11:33.574Z"
+  },
+  {
+    "kp_id": "biology-high-1-4-1",
+    "kp_name": "生命调节",
+    "chapter": "第4章 生命调节",
+    "subject": "生物",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "基本概念",
+      "生理过程",
+      "实验探究"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.574Z",
+    "updated_at": "2026-06-01T13:11:33.574Z"
+  },
+  {
+    "kp_id": "biology-high-1-4-2",
+    "kp_name": "神经调节",
+    "chapter": "第4章 生命调节",
+    "subject": "生物",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "基本概念",
+      "生理过程",
+      "实验探究"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.574Z",
+    "updated_at": "2026-06-01T13:11:33.574Z"
+  },
+  {
+    "kp_id": "biology-high-1-4-3",
+    "kp_name": "体液调节",
+    "chapter": "第4章 生命调节",
+    "subject": "生物",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "基本概念",
+      "生理过程",
+      "实验探究"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.574Z",
+    "updated_at": "2026-06-01T13:11:33.574Z"
+  },
+  {
+    "kp_id": "biology-high-2-1-1",
+    "kp_name": "细胞结构",
+    "chapter": "第1章 细胞生物学",
+    "subject": "生物",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "基本概念",
+      "生理过程",
+      "实验探究"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.576Z",
+    "updated_at": "2026-06-01T13:11:33.576Z"
+  },
+  {
+    "kp_id": "biology-high-2-1-2",
+    "kp_name": "细胞代谢",
+    "chapter": "第1章 细胞生物学",
+    "subject": "生物",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "基本概念",
+      "生理过程",
+      "实验探究"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.576Z",
+    "updated_at": "2026-06-01T13:11:33.576Z"
+  },
+  {
+    "kp_id": "biology-high-2-1-3",
+    "kp_name": "细胞分裂",
+    "chapter": "第1章 细胞生物学",
+    "subject": "生物",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "基本概念",
+      "生理过程",
+      "实验探究"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.576Z",
+    "updated_at": "2026-06-01T13:11:33.576Z"
+  },
+  {
+    "kp_id": "biology-high-2-2-1",
+    "kp_name": "遗传定律",
+    "chapter": "第2章 遗传与进化",
+    "subject": "生物",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "基本概念",
+      "生理过程",
+      "实验探究"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.576Z",
+    "updated_at": "2026-06-01T13:11:33.576Z"
+  },
+  {
+    "kp_id": "biology-high-2-2-2",
+    "kp_name": "DNA复制",
+    "chapter": "第2章 遗传与进化",
+    "subject": "生物",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "基本概念",
+      "生理过程",
+      "实验探究"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.576Z",
+    "updated_at": "2026-06-01T13:11:33.576Z"
+  },
+  {
+    "kp_id": "biology-high-2-2-3",
+    "kp_name": "基因表达",
+    "chapter": "第2章 遗传与进化",
+    "subject": "生物",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "基本概念",
+      "生理过程",
+      "实验探究"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.576Z",
+    "updated_at": "2026-06-01T13:11:33.576Z"
+  },
+  {
+    "kp_id": "biology-high-2-3-1",
+    "kp_name": "生态系统",
+    "chapter": "第3章 生态学",
+    "subject": "生物",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "基本概念",
+      "生理过程",
+      "实验探究"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.576Z",
+    "updated_at": "2026-06-01T13:11:33.576Z"
+  },
+  {
+    "kp_id": "biology-high-2-3-2",
+    "kp_name": "种群群落",
+    "chapter": "第3章 生态学",
+    "subject": "生物",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "基本概念",
+      "生理过程",
+      "实验探究"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.576Z",
+    "updated_at": "2026-06-01T13:11:33.576Z"
+  },
+  {
+    "kp_id": "biology-high-2-3-3",
+    "kp_name": "生态平衡",
+    "chapter": "第3章 生态学",
+    "subject": "生物",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "基本概念",
+      "生理过程",
+      "实验探究"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.576Z",
+    "updated_at": "2026-06-01T13:11:33.576Z"
+  },
+  {
+    "kp_id": "biology-high-2-4-1",
+    "kp_name": "生命调节",
+    "chapter": "第4章 生命调节",
+    "subject": "生物",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "基本概念",
+      "生理过程",
+      "实验探究"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.576Z",
+    "updated_at": "2026-06-01T13:11:33.576Z"
+  },
+  {
+    "kp_id": "biology-high-2-4-2",
+    "kp_name": "神经调节",
+    "chapter": "第4章 生命调节",
+    "subject": "生物",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "基本概念",
+      "生理过程",
+      "实验探究"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.576Z",
+    "updated_at": "2026-06-01T13:11:33.576Z"
+  },
+  {
+    "kp_id": "biology-high-2-4-3",
+    "kp_name": "体液调节",
+    "chapter": "第4章 生命调节",
+    "subject": "生物",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "基本概念",
+      "生理过程",
+      "实验探究"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.576Z",
+    "updated_at": "2026-06-01T13:11:33.576Z"
+  },
+  {
+    "kp_id": "biology-high-3-1-1",
+    "kp_name": "细胞结构",
+    "chapter": "第1章 细胞生物学",
+    "subject": "生物",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "基本概念",
+      "生理过程",
+      "实验探究"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.576Z",
+    "updated_at": "2026-06-01T13:11:33.576Z"
+  },
+  {
+    "kp_id": "biology-high-3-1-2",
+    "kp_name": "细胞代谢",
+    "chapter": "第1章 细胞生物学",
+    "subject": "生物",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "基本概念",
+      "生理过程",
+      "实验探究"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.576Z",
+    "updated_at": "2026-06-01T13:11:33.576Z"
+  },
+  {
+    "kp_id": "biology-high-3-1-3",
+    "kp_name": "细胞分裂",
+    "chapter": "第1章 细胞生物学",
+    "subject": "生物",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "基本概念",
+      "生理过程",
+      "实验探究"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.576Z",
+    "updated_at": "2026-06-01T13:11:33.576Z"
+  },
+  {
+    "kp_id": "biology-high-3-2-1",
+    "kp_name": "遗传定律",
+    "chapter": "第2章 遗传与进化",
+    "subject": "生物",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "基本概念",
+      "生理过程",
+      "实验探究"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.576Z",
+    "updated_at": "2026-06-01T13:11:33.576Z"
+  },
+  {
+    "kp_id": "biology-high-3-2-2",
+    "kp_name": "DNA复制",
+    "chapter": "第2章 遗传与进化",
+    "subject": "生物",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "基本概念",
+      "生理过程",
+      "实验探究"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.576Z",
+    "updated_at": "2026-06-01T13:11:33.576Z"
+  },
+  {
+    "kp_id": "biology-high-3-2-3",
+    "kp_name": "基因表达",
+    "chapter": "第2章 遗传与进化",
+    "subject": "生物",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "基本概念",
+      "生理过程",
+      "实验探究"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.576Z",
+    "updated_at": "2026-06-01T13:11:33.576Z"
+  },
+  {
+    "kp_id": "biology-high-3-3-1",
+    "kp_name": "生态系统",
+    "chapter": "第3章 生态学",
+    "subject": "生物",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "基本概念",
+      "生理过程",
+      "实验探究"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.576Z",
+    "updated_at": "2026-06-01T13:11:33.576Z"
+  },
+  {
+    "kp_id": "biology-high-3-3-2",
+    "kp_name": "种群群落",
+    "chapter": "第3章 生态学",
+    "subject": "生物",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "基本概念",
+      "生理过程",
+      "实验探究"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.576Z",
+    "updated_at": "2026-06-01T13:11:33.576Z"
+  },
+  {
+    "kp_id": "biology-high-3-3-3",
+    "kp_name": "生态平衡",
+    "chapter": "第3章 生态学",
+    "subject": "生物",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "基本概念",
+      "生理过程",
+      "实验探究"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.576Z",
+    "updated_at": "2026-06-01T13:11:33.576Z"
+  },
+  {
+    "kp_id": "biology-high-3-4-1",
+    "kp_name": "生命调节",
+    "chapter": "第4章 生命调节",
+    "subject": "生物",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "基本概念",
+      "生理过程",
+      "实验探究"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.576Z",
+    "updated_at": "2026-06-01T13:11:33.576Z"
+  },
+  {
+    "kp_id": "biology-high-3-4-2",
+    "kp_name": "神经调节",
+    "chapter": "第4章 生命调节",
+    "subject": "生物",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "基本概念",
+      "生理过程",
+      "实验探究"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.576Z",
+    "updated_at": "2026-06-01T13:11:33.576Z"
+  },
+  {
+    "kp_id": "biology-high-3-4-3",
+    "kp_name": "体液调节",
+    "chapter": "第4章 生命调节",
+    "subject": "生物",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "基本概念",
+      "生理过程",
+      "实验探究"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.576Z",
+    "updated_at": "2026-06-01T13:11:33.576Z"
+  },
+  {
+    "kp_id": "biology-high-4-1-1",
+    "kp_name": "细胞结构",
+    "chapter": "第1章 细胞生物学",
+    "subject": "生物",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "基本概念",
+      "生理过程",
+      "实验探究"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.577Z",
+    "updated_at": "2026-06-01T13:11:33.577Z"
+  },
+  {
+    "kp_id": "biology-high-4-1-2",
+    "kp_name": "细胞代谢",
+    "chapter": "第1章 细胞生物学",
+    "subject": "生物",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "基本概念",
+      "生理过程",
+      "实验探究"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.577Z",
+    "updated_at": "2026-06-01T13:11:33.577Z"
+  },
+  {
+    "kp_id": "biology-high-4-1-3",
+    "kp_name": "细胞分裂",
+    "chapter": "第1章 细胞生物学",
+    "subject": "生物",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "基本概念",
+      "生理过程",
+      "实验探究"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.577Z",
+    "updated_at": "2026-06-01T13:11:33.577Z"
+  },
+  {
+    "kp_id": "biology-high-4-2-1",
+    "kp_name": "遗传定律",
+    "chapter": "第2章 遗传与进化",
+    "subject": "生物",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "基本概念",
+      "生理过程",
+      "实验探究"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.577Z",
+    "updated_at": "2026-06-01T13:11:33.577Z"
+  },
+  {
+    "kp_id": "biology-high-4-2-2",
+    "kp_name": "DNA复制",
+    "chapter": "第2章 遗传与进化",
+    "subject": "生物",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "基本概念",
+      "生理过程",
+      "实验探究"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.577Z",
+    "updated_at": "2026-06-01T13:11:33.577Z"
+  },
+  {
+    "kp_id": "biology-high-4-2-3",
+    "kp_name": "基因表达",
+    "chapter": "第2章 遗传与进化",
+    "subject": "生物",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "基本概念",
+      "生理过程",
+      "实验探究"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.577Z",
+    "updated_at": "2026-06-01T13:11:33.577Z"
+  },
+  {
+    "kp_id": "biology-high-4-3-1",
+    "kp_name": "生态系统",
+    "chapter": "第3章 生态学",
+    "subject": "生物",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "基本概念",
+      "生理过程",
+      "实验探究"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.577Z",
+    "updated_at": "2026-06-01T13:11:33.577Z"
+  },
+  {
+    "kp_id": "biology-high-4-3-2",
+    "kp_name": "种群群落",
+    "chapter": "第3章 生态学",
+    "subject": "生物",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "基本概念",
+      "生理过程",
+      "实验探究"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.577Z",
+    "updated_at": "2026-06-01T13:11:33.577Z"
+  },
+  {
+    "kp_id": "biology-high-4-3-3",
+    "kp_name": "生态平衡",
+    "chapter": "第3章 生态学",
+    "subject": "生物",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "基本概念",
+      "生理过程",
+      "实验探究"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.577Z",
+    "updated_at": "2026-06-01T13:11:33.577Z"
+  },
+  {
+    "kp_id": "biology-high-4-4-1",
+    "kp_name": "生命调节",
+    "chapter": "第4章 生命调节",
+    "subject": "生物",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "基本概念",
+      "生理过程",
+      "实验探究"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.577Z",
+    "updated_at": "2026-06-01T13:11:33.577Z"
+  },
+  {
+    "kp_id": "biology-high-4-4-2",
+    "kp_name": "神经调节",
+    "chapter": "第4章 生命调节",
+    "subject": "生物",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "基本概念",
+      "生理过程",
+      "实验探究"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.577Z",
+    "updated_at": "2026-06-01T13:11:33.577Z"
+  },
+  {
+    "kp_id": "biology-high-4-4-3",
+    "kp_name": "体液调节",
+    "chapter": "第4章 生命调节",
+    "subject": "生物",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "基本概念",
+      "生理过程",
+      "实验探究"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.577Z",
+    "updated_at": "2026-06-01T13:11:33.577Z"
+  },
+  {
+    "kp_id": "chem_kp5_1",
+    "kp_name": "质量守恒定律",
+    "chapter": "化学方程式",
+    "subject": "化学",
+    "grade": 9,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "质量守恒定律",
+      "化学方程式的配平"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.578Z",
+    "updated_at": "2026-06-01T13:11:33.578Z"
+  },
+  {
+    "kp_id": "chem_kp5_2",
+    "kp_name": "如何正确书写化学方程式",
+    "chapter": "化学方程式",
+    "subject": "化学",
+    "grade": 9,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "化学方程式的书写原则",
+      "化学方程式的配平"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.578Z",
+    "updated_at": "2026-06-01T13:11:33.578Z"
+  },
+  {
+    "kp_id": "chem_kp5_3",
+    "kp_name": "利用化学方程式的简单计算",
+    "chapter": "化学方程式",
+    "subject": "化学",
+    "grade": 9,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "化学方程式的计算步骤",
+      "有关化学方程式的计算"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.3,
+      "medium": 0.4,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.578Z",
+    "updated_at": "2026-06-01T13:11:33.578Z"
+  },
+  {
+    "kp_id": "chem_kp6_1",
+    "kp_name": "金刚石、石墨和C60",
+    "chapter": "碳和碳的氧化物",
+    "subject": "化学",
+    "grade": 9,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "碳的单质",
+      "碳的化学性质"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.578Z",
+    "updated_at": "2026-06-01T13:11:33.578Z"
+  },
+  {
+    "kp_id": "chem_kp6_2",
+    "kp_name": "二氧化碳制取的研究",
+    "chapter": "碳和碳的氧化物",
+    "subject": "化学",
+    "grade": 9,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "实验室制取二氧化碳",
+      "实验室制取气体的设计思路"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "实验题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.578Z",
+    "updated_at": "2026-06-01T13:11:33.578Z"
+  },
+  {
+    "kp_id": "chem_kp6_3",
+    "kp_name": "二氧化碳和一氧化碳",
+    "chapter": "碳和碳的氧化物",
+    "subject": "化学",
+    "grade": 9,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "二氧化碳的性质",
+      "一氧化碳的性质",
+      "二氧化碳的用途"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "实验题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.578Z",
+    "updated_at": "2026-06-01T13:11:33.578Z"
+  },
+  {
+    "kp_id": "chem_kp7_1",
+    "kp_name": "燃烧和灭火",
+    "chapter": "燃料及其利用",
+    "subject": "化学",
+    "grade": 9,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "燃烧的条件",
+      "灭火的原理和方法"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.578Z",
+    "updated_at": "2026-06-01T13:11:33.578Z"
+  },
+  {
+    "kp_id": "chem_kp7_2",
+    "kp_name": "燃料的合理利用与开发",
+    "chapter": "燃料及其利用",
+    "subject": "化学",
+    "grade": 9,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "三大化石燃料",
+      "使用燃料对环境的影响",
+      "新能源的开发"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.578Z",
+    "updated_at": "2026-06-01T13:11:33.578Z"
+  },
+  {
+    "kp_id": "chem_kp1_1",
+    "kp_name": "物质的变化和性质",
+    "chapter": "走进化学世界",
+    "subject": "化学",
+    "grade": 9,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "物理变化",
+      "化学变化",
+      "物理性质",
+      "化学性质"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.579Z",
+    "updated_at": "2026-06-01T13:11:33.579Z"
+  },
+  {
+    "kp_id": "chem_kp1_2",
+    "kp_name": "化学是一门以实验为基础的科学",
+    "chapter": "走进化学世界",
+    "subject": "化学",
+    "grade": 9,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "化学实验",
+      "观察和描述实验"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "实验题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.579Z",
+    "updated_at": "2026-06-01T13:11:33.579Z"
+  },
+  {
+    "kp_id": "chem_kp1_3",
+    "kp_name": "走进化学实验室",
+    "chapter": "走进化学世界",
+    "subject": "化学",
+    "grade": 9,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "实验室常用仪器",
+      "药品的取用",
+      "物质的加热",
+      "仪器的洗涤"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "实验题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.579Z",
+    "updated_at": "2026-06-01T13:11:33.579Z"
+  },
+  {
+    "kp_id": "chem_kp2_1",
+    "kp_name": "空气",
+    "chapter": "我们周围的空气",
+    "subject": "化学",
+    "grade": 9,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "空气的成分",
+      "空气是一种宝贵的资源",
+      "保护空气"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.579Z",
+    "updated_at": "2026-06-01T13:11:33.579Z"
+  },
+  {
+    "kp_id": "chem_kp2_2",
+    "kp_name": "氧气",
+    "chapter": "我们周围的空气",
+    "subject": "化学",
+    "grade": 9,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "氧气的性质",
+      "氧气与物质的反应",
+      "化合反应",
+      "氧化反应"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "实验题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.579Z",
+    "updated_at": "2026-06-01T13:11:33.579Z"
+  },
+  {
+    "kp_id": "chem_kp2_3",
+    "kp_name": "制取氧气",
+    "chapter": "我们周围的空气",
+    "subject": "化学",
+    "grade": 9,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "氧气的实验室制法",
+      "分解反应",
+      "催化剂"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "实验题",
+      "计算题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.579Z",
+    "updated_at": "2026-06-01T13:11:33.579Z"
+  },
+  {
+    "kp_id": "chem_kp3_1",
+    "kp_name": "分子和原子",
+    "chapter": "物质构成的奥秘",
+    "subject": "化学",
+    "grade": 9,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "分子",
+      "原子",
+      "分子和原子的区别与联系"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.579Z",
+    "updated_at": "2026-06-01T13:11:33.579Z"
+  },
+  {
+    "kp_id": "chem_kp3_2",
+    "kp_name": "原子的结构",
+    "chapter": "物质构成的奥秘",
+    "subject": "化学",
+    "grade": 9,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "原子的构成",
+      "原子核外电子的排布",
+      "离子"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.579Z",
+    "updated_at": "2026-06-01T13:11:33.580Z"
+  },
+  {
+    "kp_id": "chem_kp3_3",
+    "kp_name": "元素",
+    "chapter": "物质构成的奥秘",
+    "subject": "化学",
+    "grade": 9,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "元素",
+      "元素符号",
+      "元素周期表"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.580Z",
+    "updated_at": "2026-06-01T13:11:33.580Z"
+  },
+  {
+    "kp_id": "chem_kp4_1",
+    "kp_name": "爱护水资源",
+    "chapter": "自然界的水",
+    "subject": "化学",
+    "grade": 9,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "人类拥有的水资源",
+      "爱护水资源"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.580Z",
+    "updated_at": "2026-06-01T13:11:33.580Z"
+  },
+  {
+    "kp_id": "chem_kp4_2",
+    "kp_name": "水的净化",
+    "chapter": "自然界的水",
+    "subject": "化学",
+    "grade": 9,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "水的净化方法",
+      "硬水和软水"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "实验题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.580Z",
+    "updated_at": "2026-06-01T13:11:33.580Z"
+  },
+  {
+    "kp_id": "chem_kp4_3",
+    "kp_name": "水的组成",
+    "chapter": "自然界的水",
+    "subject": "化学",
+    "grade": 9,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "水的电解",
+      "氢气",
+      "单质和化合物"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "实验题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.580Z",
+    "updated_at": "2026-06-01T13:11:33.580Z"
+  },
+  {
+    "kp_id": "chem_kp4_4",
+    "kp_name": "化学式与化合价",
+    "chapter": "自然界的水",
+    "subject": "化学",
+    "grade": 9,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "化学式",
+      "化合价",
+      "有关化学式的计算"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.580Z",
+    "updated_at": "2026-06-01T13:11:33.580Z"
+  },
+  {
+    "kp_id": "chemistry-high-1-1-1",
+    "kp_name": "物质结构",
+    "chapter": "第1章 物质结构",
+    "subject": "化学",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "物质性质",
+      "反应原理",
+      "实验操作"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.580Z",
+    "updated_at": "2026-06-01T13:11:33.580Z"
+  },
+  {
+    "kp_id": "chemistry-high-1-1-2",
+    "kp_name": "元素周期律",
+    "chapter": "第1章 物质结构",
+    "subject": "化学",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "物质性质",
+      "反应原理",
+      "实验操作"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.580Z",
+    "updated_at": "2026-06-01T13:11:33.580Z"
+  },
+  {
+    "kp_id": "chemistry-high-1-1-3",
+    "kp_name": "化学键",
+    "chapter": "第1章 物质结构",
+    "subject": "化学",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "物质性质",
+      "反应原理",
+      "实验操作"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.580Z",
+    "updated_at": "2026-06-01T13:11:33.580Z"
+  },
+  {
+    "kp_id": "chemistry-high-1-2-1",
+    "kp_name": "化学反应速率",
+    "chapter": "第2章 化学反应",
+    "subject": "化学",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "物质性质",
+      "反应原理",
+      "实验操作"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.580Z",
+    "updated_at": "2026-06-01T13:11:33.580Z"
+  },
+  {
+    "kp_id": "chemistry-high-1-2-2",
+    "kp_name": "化学平衡",
+    "chapter": "第2章 化学反应",
+    "subject": "化学",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "物质性质",
+      "反应原理",
+      "实验操作"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.580Z",
+    "updated_at": "2026-06-01T13:11:33.580Z"
+  },
+  {
+    "kp_id": "chemistry-high-1-2-3",
+    "kp_name": "电化学",
+    "chapter": "第2章 化学反应",
+    "subject": "化学",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "物质性质",
+      "反应原理",
+      "实验操作"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.580Z",
+    "updated_at": "2026-06-01T13:11:33.580Z"
+  },
+  {
+    "kp_id": "chemistry-high-1-3-1",
+    "kp_name": "有机化合物",
+    "chapter": "第3章 有机化学",
+    "subject": "化学",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "物质性质",
+      "反应原理",
+      "实验操作"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.580Z",
+    "updated_at": "2026-06-01T13:11:33.580Z"
+  },
+  {
+    "kp_id": "chemistry-high-1-3-2",
+    "kp_name": "烃类",
+    "chapter": "第3章 有机化学",
+    "subject": "化学",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "物质性质",
+      "反应原理",
+      "实验操作"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.580Z",
+    "updated_at": "2026-06-01T13:11:33.580Z"
+  },
+  {
+    "kp_id": "chemistry-high-1-3-3",
+    "kp_name": "烃的衍生物",
+    "chapter": "第3章 有机化学",
+    "subject": "化学",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "物质性质",
+      "反应原理",
+      "实验操作"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.580Z",
+    "updated_at": "2026-06-01T13:11:33.580Z"
+  },
+  {
+    "kp_id": "chemistry-high-1-4-1",
+    "kp_name": "化学实验",
+    "chapter": "第4章 化学实验",
+    "subject": "化学",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "物质性质",
+      "反应原理",
+      "实验操作"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.580Z",
+    "updated_at": "2026-06-01T13:11:33.580Z"
+  },
+  {
+    "kp_id": "chemistry-high-1-4-2",
+    "kp_name": "物质检验",
+    "chapter": "第4章 化学实验",
+    "subject": "化学",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "物质性质",
+      "反应原理",
+      "实验操作"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.580Z",
+    "updated_at": "2026-06-01T13:11:33.580Z"
+  },
+  {
+    "kp_id": "chemistry-high-1-4-3",
+    "kp_name": "定量分析",
+    "chapter": "第4章 化学实验",
+    "subject": "化学",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "物质性质",
+      "反应原理",
+      "实验操作"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.580Z",
+    "updated_at": "2026-06-01T13:11:33.580Z"
+  },
+  {
+    "kp_id": "chemistry-high-2-1-1",
+    "kp_name": "物质结构",
+    "chapter": "第1章 物质结构",
+    "subject": "化学",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "物质性质",
+      "反应原理",
+      "实验操作"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.581Z",
+    "updated_at": "2026-06-01T13:11:33.581Z"
+  },
+  {
+    "kp_id": "chemistry-high-2-1-2",
+    "kp_name": "元素周期律",
+    "chapter": "第1章 物质结构",
+    "subject": "化学",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "物质性质",
+      "反应原理",
+      "实验操作"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.581Z",
+    "updated_at": "2026-06-01T13:11:33.581Z"
+  },
+  {
+    "kp_id": "chemistry-high-2-1-3",
+    "kp_name": "化学键",
+    "chapter": "第1章 物质结构",
+    "subject": "化学",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "物质性质",
+      "反应原理",
+      "实验操作"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.581Z",
+    "updated_at": "2026-06-01T13:11:33.581Z"
+  },
+  {
+    "kp_id": "chemistry-high-2-2-1",
+    "kp_name": "化学反应速率",
+    "chapter": "第2章 化学反应",
+    "subject": "化学",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "物质性质",
+      "反应原理",
+      "实验操作"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.581Z",
+    "updated_at": "2026-06-01T13:11:33.581Z"
+  },
+  {
+    "kp_id": "chemistry-high-2-2-2",
+    "kp_name": "化学平衡",
+    "chapter": "第2章 化学反应",
+    "subject": "化学",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "物质性质",
+      "反应原理",
+      "实验操作"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.581Z",
+    "updated_at": "2026-06-01T13:11:33.581Z"
+  },
+  {
+    "kp_id": "chemistry-high-2-2-3",
+    "kp_name": "电化学",
+    "chapter": "第2章 化学反应",
+    "subject": "化学",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "物质性质",
+      "反应原理",
+      "实验操作"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.581Z",
+    "updated_at": "2026-06-01T13:11:33.581Z"
+  },
+  {
+    "kp_id": "chemistry-high-2-3-1",
+    "kp_name": "有机化合物",
+    "chapter": "第3章 有机化学",
+    "subject": "化学",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "物质性质",
+      "反应原理",
+      "实验操作"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.581Z",
+    "updated_at": "2026-06-01T13:11:33.581Z"
+  },
+  {
+    "kp_id": "chemistry-high-2-3-2",
+    "kp_name": "烃类",
+    "chapter": "第3章 有机化学",
+    "subject": "化学",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "物质性质",
+      "反应原理",
+      "实验操作"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.581Z",
+    "updated_at": "2026-06-01T13:11:33.581Z"
+  },
+  {
+    "kp_id": "chemistry-high-2-3-3",
+    "kp_name": "烃的衍生物",
+    "chapter": "第3章 有机化学",
+    "subject": "化学",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "物质性质",
+      "反应原理",
+      "实验操作"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.581Z",
+    "updated_at": "2026-06-01T13:11:33.581Z"
+  },
+  {
+    "kp_id": "chemistry-high-2-4-1",
+    "kp_name": "化学实验",
+    "chapter": "第4章 化学实验",
+    "subject": "化学",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "物质性质",
+      "反应原理",
+      "实验操作"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.581Z",
+    "updated_at": "2026-06-01T13:11:33.581Z"
+  },
+  {
+    "kp_id": "chemistry-high-2-4-2",
+    "kp_name": "物质检验",
+    "chapter": "第4章 化学实验",
+    "subject": "化学",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "物质性质",
+      "反应原理",
+      "实验操作"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.581Z",
+    "updated_at": "2026-06-01T13:11:33.581Z"
+  },
+  {
+    "kp_id": "chemistry-high-2-4-3",
+    "kp_name": "定量分析",
+    "chapter": "第4章 化学实验",
+    "subject": "化学",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "物质性质",
+      "反应原理",
+      "实验操作"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.581Z",
+    "updated_at": "2026-06-01T13:11:33.581Z"
+  },
+  {
+    "kp_id": "chemistry-high-3-1-1",
+    "kp_name": "物质结构",
+    "chapter": "第1章 物质结构",
+    "subject": "化学",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "物质性质",
+      "反应原理",
+      "实验操作"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.582Z",
+    "updated_at": "2026-06-01T13:11:33.582Z"
+  },
+  {
+    "kp_id": "chemistry-high-3-1-2",
+    "kp_name": "元素周期律",
+    "chapter": "第1章 物质结构",
+    "subject": "化学",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "物质性质",
+      "反应原理",
+      "实验操作"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.582Z",
+    "updated_at": "2026-06-01T13:11:33.582Z"
+  },
+  {
+    "kp_id": "chemistry-high-3-1-3",
+    "kp_name": "化学键",
+    "chapter": "第1章 物质结构",
+    "subject": "化学",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "物质性质",
+      "反应原理",
+      "实验操作"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.582Z",
+    "updated_at": "2026-06-01T13:11:33.582Z"
+  },
+  {
+    "kp_id": "chemistry-high-3-2-1",
+    "kp_name": "化学反应速率",
+    "chapter": "第2章 化学反应",
+    "subject": "化学",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "物质性质",
+      "反应原理",
+      "实验操作"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.582Z",
+    "updated_at": "2026-06-01T13:11:33.582Z"
+  },
+  {
+    "kp_id": "chemistry-high-3-2-2",
+    "kp_name": "化学平衡",
+    "chapter": "第2章 化学反应",
+    "subject": "化学",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "物质性质",
+      "反应原理",
+      "实验操作"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.582Z",
+    "updated_at": "2026-06-01T13:11:33.582Z"
+  },
+  {
+    "kp_id": "chemistry-high-3-2-3",
+    "kp_name": "电化学",
+    "chapter": "第2章 化学反应",
+    "subject": "化学",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "物质性质",
+      "反应原理",
+      "实验操作"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.582Z",
+    "updated_at": "2026-06-01T13:11:33.582Z"
+  },
+  {
+    "kp_id": "chemistry-high-3-3-1",
+    "kp_name": "有机化合物",
+    "chapter": "第3章 有机化学",
+    "subject": "化学",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "物质性质",
+      "反应原理",
+      "实验操作"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.582Z",
+    "updated_at": "2026-06-01T13:11:33.582Z"
+  },
+  {
+    "kp_id": "chemistry-high-3-3-2",
+    "kp_name": "烃类",
+    "chapter": "第3章 有机化学",
+    "subject": "化学",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "物质性质",
+      "反应原理",
+      "实验操作"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.582Z",
+    "updated_at": "2026-06-01T13:11:33.582Z"
+  },
+  {
+    "kp_id": "chemistry-high-3-3-3",
+    "kp_name": "烃的衍生物",
+    "chapter": "第3章 有机化学",
+    "subject": "化学",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "物质性质",
+      "反应原理",
+      "实验操作"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.582Z",
+    "updated_at": "2026-06-01T13:11:33.582Z"
+  },
+  {
+    "kp_id": "chemistry-high-3-4-1",
+    "kp_name": "化学实验",
+    "chapter": "第4章 化学实验",
+    "subject": "化学",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "物质性质",
+      "反应原理",
+      "实验操作"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.582Z",
+    "updated_at": "2026-06-01T13:11:33.582Z"
+  },
+  {
+    "kp_id": "chemistry-high-3-4-2",
+    "kp_name": "物质检验",
+    "chapter": "第4章 化学实验",
+    "subject": "化学",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "物质性质",
+      "反应原理",
+      "实验操作"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.582Z",
+    "updated_at": "2026-06-01T13:11:33.582Z"
+  },
+  {
+    "kp_id": "chemistry-high-3-4-3",
+    "kp_name": "定量分析",
+    "chapter": "第4章 化学实验",
+    "subject": "化学",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "物质性质",
+      "反应原理",
+      "实验操作"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.582Z",
+    "updated_at": "2026-06-01T13:11:33.582Z"
+  },
+  {
+    "kp_id": "chemistry-high-4-1-1",
+    "kp_name": "物质结构",
+    "chapter": "第1章 物质结构",
+    "subject": "化学",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "物质性质",
+      "反应原理",
+      "实验操作"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.582Z",
+    "updated_at": "2026-06-01T13:11:33.582Z"
+  },
+  {
+    "kp_id": "chemistry-high-4-1-2",
+    "kp_name": "元素周期律",
+    "chapter": "第1章 物质结构",
+    "subject": "化学",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "物质性质",
+      "反应原理",
+      "实验操作"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.582Z",
+    "updated_at": "2026-06-01T13:11:33.582Z"
+  },
+  {
+    "kp_id": "chemistry-high-4-1-3",
+    "kp_name": "化学键",
+    "chapter": "第1章 物质结构",
+    "subject": "化学",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "物质性质",
+      "反应原理",
+      "实验操作"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.582Z",
+    "updated_at": "2026-06-01T13:11:33.582Z"
+  },
+  {
+    "kp_id": "chemistry-high-4-2-1",
+    "kp_name": "化学反应速率",
+    "chapter": "第2章 化学反应",
+    "subject": "化学",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "物质性质",
+      "反应原理",
+      "实验操作"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.582Z",
+    "updated_at": "2026-06-01T13:11:33.582Z"
+  },
+  {
+    "kp_id": "chemistry-high-4-2-2",
+    "kp_name": "化学平衡",
+    "chapter": "第2章 化学反应",
+    "subject": "化学",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "物质性质",
+      "反应原理",
+      "实验操作"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.582Z",
+    "updated_at": "2026-06-01T13:11:33.582Z"
+  },
+  {
+    "kp_id": "chemistry-high-4-2-3",
+    "kp_name": "电化学",
+    "chapter": "第2章 化学反应",
+    "subject": "化学",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "物质性质",
+      "反应原理",
+      "实验操作"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.582Z",
+    "updated_at": "2026-06-01T13:11:33.582Z"
+  },
+  {
+    "kp_id": "chemistry-high-4-3-1",
+    "kp_name": "有机化合物",
+    "chapter": "第3章 有机化学",
+    "subject": "化学",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "物质性质",
+      "反应原理",
+      "实验操作"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.582Z",
+    "updated_at": "2026-06-01T13:11:33.582Z"
+  },
+  {
+    "kp_id": "chemistry-high-4-3-2",
+    "kp_name": "烃类",
+    "chapter": "第3章 有机化学",
+    "subject": "化学",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "物质性质",
+      "反应原理",
+      "实验操作"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.582Z",
+    "updated_at": "2026-06-01T13:11:33.582Z"
+  },
+  {
+    "kp_id": "chemistry-high-4-3-3",
+    "kp_name": "烃的衍生物",
+    "chapter": "第3章 有机化学",
+    "subject": "化学",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "物质性质",
+      "反应原理",
+      "实验操作"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.582Z",
+    "updated_at": "2026-06-01T13:11:33.582Z"
+  },
+  {
+    "kp_id": "chemistry-high-4-4-1",
+    "kp_name": "化学实验",
+    "chapter": "第4章 化学实验",
+    "subject": "化学",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "物质性质",
+      "反应原理",
+      "实验操作"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.582Z",
+    "updated_at": "2026-06-01T13:11:33.582Z"
+  },
+  {
+    "kp_id": "chemistry-high-4-4-2",
+    "kp_name": "物质检验",
+    "chapter": "第4章 化学实验",
+    "subject": "化学",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "物质性质",
+      "反应原理",
+      "实验操作"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.582Z",
+    "updated_at": "2026-06-01T13:11:33.582Z"
+  },
+  {
+    "kp_id": "chemistry-high-4-4-3",
+    "kp_name": "定量分析",
+    "chapter": "第4章 化学实验",
+    "subject": "化学",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "物质性质",
+      "反应原理",
+      "实验操作"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.582Z",
+    "updated_at": "2026-06-01T13:11:33.582Z"
+  },
+  {
+    "kp_id": "chinese-grade1-down-1-1",
+    "kp_name": "识字与写字",
+    "chapter": "第一单元",
+    "subject": "语文",
+    "grade": 1,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.75,
+      "medium": 0.25,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.583Z",
+    "updated_at": "2026-06-01T13:11:33.583Z"
+  },
+  {
+    "kp_id": "chinese-grade1-down-1-2",
+    "kp_name": "汉语拼音",
+    "chapter": "第一单元",
+    "subject": "语文",
+    "grade": 1,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.75,
+      "medium": 0.25,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.583Z",
+    "updated_at": "2026-06-01T13:11:33.583Z"
+  },
+  {
+    "kp_id": "chinese-grade1-down-1-3",
+    "kp_name": "课文阅读",
+    "chapter": "第一单元",
+    "subject": "语文",
+    "grade": 1,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.75,
+      "medium": 0.25,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.583Z",
+    "updated_at": "2026-06-01T13:11:33.583Z"
+  },
+  {
+    "kp_id": "chinese-grade1-down-2-4",
+    "kp_name": "口语交际",
+    "chapter": "第二单元",
+    "subject": "语文",
+    "grade": 1,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.75,
+      "medium": 0.25,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.583Z",
+    "updated_at": "2026-06-01T13:11:33.583Z"
+  },
+  {
+    "kp_id": "chinese-grade1-down-2-5",
+    "kp_name": "看图说话",
+    "chapter": "第二单元",
+    "subject": "语文",
+    "grade": 1,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.75,
+      "medium": 0.25,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.583Z",
+    "updated_at": "2026-06-01T13:11:33.583Z"
+  },
+  {
+    "kp_id": "chinese-grade1-down-2-6",
+    "kp_name": "阅读理解",
+    "chapter": "第二单元",
+    "subject": "语文",
+    "grade": 1,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.75,
+      "medium": 0.25,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.583Z",
+    "updated_at": "2026-06-01T13:11:33.583Z"
+  },
+  {
+    "kp_id": "chinese-grade1-down-3-7",
+    "kp_name": "古诗诵读",
+    "chapter": "第三单元",
+    "subject": "语文",
+    "grade": 1,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.75,
+      "medium": 0.25,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.583Z",
+    "updated_at": "2026-06-01T13:11:33.583Z"
+  },
+  {
+    "kp_id": "chinese-grade1-down-3-8",
+    "kp_name": "日积月累",
+    "chapter": "第三单元",
+    "subject": "语文",
+    "grade": 1,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.75,
+      "medium": 0.25,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.583Z",
+    "updated_at": "2026-06-01T13:11:33.583Z"
+  },
+  {
+    "kp_id": "chinese-grade1-down-3-9",
+    "kp_name": "写话练习",
+    "chapter": "第三单元",
+    "subject": "语文",
+    "grade": 1,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.75,
+      "medium": 0.25,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.583Z",
+    "updated_at": "2026-06-01T13:11:33.583Z"
+  },
+  {
+    "kp_id": "chinese-grade1-up-1-1",
+    "kp_name": "识字与写字",
+    "chapter": "第一单元",
+    "subject": "语文",
+    "grade": 1,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.75,
+      "medium": 0.25,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.583Z",
+    "updated_at": "2026-06-01T13:11:33.583Z"
+  },
+  {
+    "kp_id": "chinese-grade1-up-1-2",
+    "kp_name": "汉语拼音",
+    "chapter": "第一单元",
+    "subject": "语文",
+    "grade": 1,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.75,
+      "medium": 0.25,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.583Z",
+    "updated_at": "2026-06-01T13:11:33.583Z"
+  },
+  {
+    "kp_id": "chinese-grade1-up-1-3",
+    "kp_name": "课文阅读",
+    "chapter": "第一单元",
+    "subject": "语文",
+    "grade": 1,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.75,
+      "medium": 0.25,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.583Z",
+    "updated_at": "2026-06-01T13:11:33.583Z"
+  },
+  {
+    "kp_id": "chinese-grade1-up-2-4",
+    "kp_name": "口语交际",
+    "chapter": "第二单元",
+    "subject": "语文",
+    "grade": 1,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.75,
+      "medium": 0.25,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.583Z",
+    "updated_at": "2026-06-01T13:11:33.583Z"
+  },
+  {
+    "kp_id": "chinese-grade1-up-2-5",
+    "kp_name": "看图说话",
+    "chapter": "第二单元",
+    "subject": "语文",
+    "grade": 1,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.75,
+      "medium": 0.25,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.583Z",
+    "updated_at": "2026-06-01T13:11:33.583Z"
+  },
+  {
+    "kp_id": "chinese-grade1-up-2-6",
+    "kp_name": "阅读理解",
+    "chapter": "第二单元",
+    "subject": "语文",
+    "grade": 1,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.75,
+      "medium": 0.25,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.583Z",
+    "updated_at": "2026-06-01T13:11:33.583Z"
+  },
+  {
+    "kp_id": "chinese-grade1-up-3-7",
+    "kp_name": "古诗诵读",
+    "chapter": "第三单元",
+    "subject": "语文",
+    "grade": 1,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.75,
+      "medium": 0.25,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.583Z",
+    "updated_at": "2026-06-01T13:11:33.583Z"
+  },
+  {
+    "kp_id": "chinese-grade1-up-3-8",
+    "kp_name": "日积月累",
+    "chapter": "第三单元",
+    "subject": "语文",
+    "grade": 1,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.75,
+      "medium": 0.25,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.583Z",
+    "updated_at": "2026-06-01T13:11:33.583Z"
+  },
+  {
+    "kp_id": "chinese-grade1-up-3-9",
+    "kp_name": "写话练习",
+    "chapter": "第三单元",
+    "subject": "语文",
+    "grade": 1,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.75,
+      "medium": 0.25,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.583Z",
+    "updated_at": "2026-06-01T13:11:33.583Z"
+  },
+  {
+    "kp_id": "chinese-grade2-down-1-1",
+    "kp_name": "识字与写字",
+    "chapter": "第一单元",
+    "subject": "语文",
+    "grade": 2,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.7999999999999999,
+      "medium": 0.19999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.584Z",
+    "updated_at": "2026-06-01T13:11:33.584Z"
+  },
+  {
+    "kp_id": "chinese-grade2-down-1-2",
+    "kp_name": "汉语拼音",
+    "chapter": "第一单元",
+    "subject": "语文",
+    "grade": 2,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.7999999999999999,
+      "medium": 0.19999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.584Z",
+    "updated_at": "2026-06-01T13:11:33.584Z"
+  },
+  {
+    "kp_id": "chinese-grade2-down-1-3",
+    "kp_name": "课文阅读",
+    "chapter": "第一单元",
+    "subject": "语文",
+    "grade": 2,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.7999999999999999,
+      "medium": 0.19999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.584Z",
+    "updated_at": "2026-06-01T13:11:33.584Z"
+  },
+  {
+    "kp_id": "chinese-grade2-down-2-4",
+    "kp_name": "口语交际",
+    "chapter": "第二单元",
+    "subject": "语文",
+    "grade": 2,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.7999999999999999,
+      "medium": 0.19999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.584Z",
+    "updated_at": "2026-06-01T13:11:33.584Z"
+  },
+  {
+    "kp_id": "chinese-grade2-down-2-5",
+    "kp_name": "看图说话",
+    "chapter": "第二单元",
+    "subject": "语文",
+    "grade": 2,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.7999999999999999,
+      "medium": 0.19999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.584Z",
+    "updated_at": "2026-06-01T13:11:33.584Z"
+  },
+  {
+    "kp_id": "chinese-grade2-down-2-6",
+    "kp_name": "阅读理解",
+    "chapter": "第二单元",
+    "subject": "语文",
+    "grade": 2,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.7999999999999999,
+      "medium": 0.19999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.584Z",
+    "updated_at": "2026-06-01T13:11:33.584Z"
+  },
+  {
+    "kp_id": "chinese-grade2-down-3-7",
+    "kp_name": "古诗诵读",
+    "chapter": "第三单元",
+    "subject": "语文",
+    "grade": 2,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.7999999999999999,
+      "medium": 0.19999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.584Z",
+    "updated_at": "2026-06-01T13:11:33.584Z"
+  },
+  {
+    "kp_id": "chinese-grade2-down-3-8",
+    "kp_name": "日积月累",
+    "chapter": "第三单元",
+    "subject": "语文",
+    "grade": 2,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.7999999999999999,
+      "medium": 0.19999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.584Z",
+    "updated_at": "2026-06-01T13:11:33.584Z"
+  },
+  {
+    "kp_id": "chinese-grade2-down-3-9",
+    "kp_name": "写话练习",
+    "chapter": "第三单元",
+    "subject": "语文",
+    "grade": 2,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.7999999999999999,
+      "medium": 0.19999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.584Z",
+    "updated_at": "2026-06-01T13:11:33.584Z"
+  },
+  {
+    "kp_id": "chinese-grade2-up-1-1",
+    "kp_name": "识字与写字",
+    "chapter": "第一单元",
+    "subject": "语文",
+    "grade": 2,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.7999999999999999,
+      "medium": 0.19999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.584Z",
+    "updated_at": "2026-06-01T13:11:33.584Z"
+  },
+  {
+    "kp_id": "chinese-grade2-up-1-2",
+    "kp_name": "汉语拼音",
+    "chapter": "第一单元",
+    "subject": "语文",
+    "grade": 2,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.7999999999999999,
+      "medium": 0.19999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.584Z",
+    "updated_at": "2026-06-01T13:11:33.584Z"
+  },
+  {
+    "kp_id": "chinese-grade2-up-1-3",
+    "kp_name": "课文阅读",
+    "chapter": "第一单元",
+    "subject": "语文",
+    "grade": 2,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.7999999999999999,
+      "medium": 0.19999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.584Z",
+    "updated_at": "2026-06-01T13:11:33.584Z"
+  },
+  {
+    "kp_id": "chinese-grade2-up-2-4",
+    "kp_name": "口语交际",
+    "chapter": "第二单元",
+    "subject": "语文",
+    "grade": 2,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.7999999999999999,
+      "medium": 0.19999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.584Z",
+    "updated_at": "2026-06-01T13:11:33.584Z"
+  },
+  {
+    "kp_id": "chinese-grade2-up-2-5",
+    "kp_name": "看图说话",
+    "chapter": "第二单元",
+    "subject": "语文",
+    "grade": 2,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.7999999999999999,
+      "medium": 0.19999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.584Z",
+    "updated_at": "2026-06-01T13:11:33.584Z"
+  },
+  {
+    "kp_id": "chinese-grade2-up-2-6",
+    "kp_name": "阅读理解",
+    "chapter": "第二单元",
+    "subject": "语文",
+    "grade": 2,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.7999999999999999,
+      "medium": 0.19999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.584Z",
+    "updated_at": "2026-06-01T13:11:33.584Z"
+  },
+  {
+    "kp_id": "chinese-grade2-up-3-7",
+    "kp_name": "古诗诵读",
+    "chapter": "第三单元",
+    "subject": "语文",
+    "grade": 2,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.7999999999999999,
+      "medium": 0.19999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.584Z",
+    "updated_at": "2026-06-01T13:11:33.584Z"
+  },
+  {
+    "kp_id": "chinese-grade2-up-3-8",
+    "kp_name": "日积月累",
+    "chapter": "第三单元",
+    "subject": "语文",
+    "grade": 2,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.7999999999999999,
+      "medium": 0.19999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.584Z",
+    "updated_at": "2026-06-01T13:11:33.584Z"
+  },
+  {
+    "kp_id": "chinese-grade2-up-3-9",
+    "kp_name": "写话练习",
+    "chapter": "第三单元",
+    "subject": "语文",
+    "grade": 2,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.7999999999999999,
+      "medium": 0.19999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.584Z",
+    "updated_at": "2026-06-01T13:11:33.584Z"
+  },
+  {
+    "kp_id": "chinese-grade3-down-1-1",
+    "kp_name": "识字与写字",
+    "chapter": "第一单元",
+    "subject": "语文",
+    "grade": 3,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "阅读理解",
+      "简单写作"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.85,
+      "medium": 0.14999999999999997,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.584Z",
+    "updated_at": "2026-06-01T13:11:33.584Z"
+  },
+  {
+    "kp_id": "chinese-grade3-down-1-2",
+    "kp_name": "汉语拼音",
+    "chapter": "第一单元",
+    "subject": "语文",
+    "grade": 3,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "阅读理解",
+      "简单写作"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.85,
+      "medium": 0.14999999999999997,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.584Z",
+    "updated_at": "2026-06-01T13:11:33.584Z"
+  },
+  {
+    "kp_id": "chinese-grade3-down-1-3",
+    "kp_name": "课文阅读",
+    "chapter": "第一单元",
+    "subject": "语文",
+    "grade": 3,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "阅读理解",
+      "简单写作"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.85,
+      "medium": 0.14999999999999997,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.584Z",
+    "updated_at": "2026-06-01T13:11:33.584Z"
+  },
+  {
+    "kp_id": "chinese-grade3-down-2-4",
+    "kp_name": "口语交际",
+    "chapter": "第二单元",
+    "subject": "语文",
+    "grade": 3,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "阅读理解",
+      "简单写作"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.85,
+      "medium": 0.14999999999999997,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.584Z",
+    "updated_at": "2026-06-01T13:11:33.584Z"
+  },
+  {
+    "kp_id": "chinese-grade3-down-2-5",
+    "kp_name": "看图说话",
+    "chapter": "第二单元",
+    "subject": "语文",
+    "grade": 3,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "阅读理解",
+      "简单写作"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.85,
+      "medium": 0.14999999999999997,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.584Z",
+    "updated_at": "2026-06-01T13:11:33.584Z"
+  },
+  {
+    "kp_id": "chinese-grade3-down-2-6",
+    "kp_name": "阅读理解",
+    "chapter": "第二单元",
+    "subject": "语文",
+    "grade": 3,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "阅读理解",
+      "简单写作"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.85,
+      "medium": 0.14999999999999997,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.584Z",
+    "updated_at": "2026-06-01T13:11:33.584Z"
+  },
+  {
+    "kp_id": "chinese-grade3-down-3-7",
+    "kp_name": "古诗诵读",
+    "chapter": "第三单元",
+    "subject": "语文",
+    "grade": 3,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "阅读理解",
+      "简单写作"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.85,
+      "medium": 0.14999999999999997,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.584Z",
+    "updated_at": "2026-06-01T13:11:33.584Z"
+  },
+  {
+    "kp_id": "chinese-grade3-down-3-8",
+    "kp_name": "日积月累",
+    "chapter": "第三单元",
+    "subject": "语文",
+    "grade": 3,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "阅读理解",
+      "简单写作"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.85,
+      "medium": 0.14999999999999997,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.584Z",
+    "updated_at": "2026-06-01T13:11:33.584Z"
+  },
+  {
+    "kp_id": "chinese-grade3-down-3-9",
+    "kp_name": "写话练习",
+    "chapter": "第三单元",
+    "subject": "语文",
+    "grade": 3,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "阅读理解",
+      "简单写作"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.85,
+      "medium": 0.14999999999999997,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.584Z",
+    "updated_at": "2026-06-01T13:11:33.584Z"
+  },
+  {
+    "kp_id": "chinese-grade3-up-1-1",
+    "kp_name": "识字与写字",
+    "chapter": "第一单元",
+    "subject": "语文",
+    "grade": 3,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "阅读理解",
+      "简单写作"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.85,
+      "medium": 0.14999999999999997,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.585Z",
+    "updated_at": "2026-06-01T13:11:33.585Z"
+  },
+  {
+    "kp_id": "chinese-grade3-up-1-2",
+    "kp_name": "汉语拼音",
+    "chapter": "第一单元",
+    "subject": "语文",
+    "grade": 3,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "阅读理解",
+      "简单写作"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.85,
+      "medium": 0.14999999999999997,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.585Z",
+    "updated_at": "2026-06-01T13:11:33.585Z"
+  },
+  {
+    "kp_id": "chinese-grade3-up-1-3",
+    "kp_name": "课文阅读",
+    "chapter": "第一单元",
+    "subject": "语文",
+    "grade": 3,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "阅读理解",
+      "简单写作"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.85,
+      "medium": 0.14999999999999997,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.585Z",
+    "updated_at": "2026-06-01T13:11:33.585Z"
+  },
+  {
+    "kp_id": "chinese-grade3-up-2-4",
+    "kp_name": "口语交际",
+    "chapter": "第二单元",
+    "subject": "语文",
+    "grade": 3,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "阅读理解",
+      "简单写作"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.85,
+      "medium": 0.14999999999999997,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.585Z",
+    "updated_at": "2026-06-01T13:11:33.585Z"
+  },
+  {
+    "kp_id": "chinese-grade3-up-2-5",
+    "kp_name": "看图说话",
+    "chapter": "第二单元",
+    "subject": "语文",
+    "grade": 3,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "阅读理解",
+      "简单写作"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.85,
+      "medium": 0.14999999999999997,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.585Z",
+    "updated_at": "2026-06-01T13:11:33.585Z"
+  },
+  {
+    "kp_id": "chinese-grade3-up-2-6",
+    "kp_name": "阅读理解",
+    "chapter": "第二单元",
+    "subject": "语文",
+    "grade": 3,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "阅读理解",
+      "简单写作"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.85,
+      "medium": 0.14999999999999997,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.585Z",
+    "updated_at": "2026-06-01T13:11:33.585Z"
+  },
+  {
+    "kp_id": "chinese-grade3-up-3-7",
+    "kp_name": "古诗诵读",
+    "chapter": "第三单元",
+    "subject": "语文",
+    "grade": 3,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "阅读理解",
+      "简单写作"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.85,
+      "medium": 0.14999999999999997,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.585Z",
+    "updated_at": "2026-06-01T13:11:33.585Z"
+  },
+  {
+    "kp_id": "chinese-grade3-up-3-8",
+    "kp_name": "日积月累",
+    "chapter": "第三单元",
+    "subject": "语文",
+    "grade": 3,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "阅读理解",
+      "简单写作"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.85,
+      "medium": 0.14999999999999997,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.585Z",
+    "updated_at": "2026-06-01T13:11:33.585Z"
+  },
+  {
+    "kp_id": "chinese-grade3-up-3-9",
+    "kp_name": "写话练习",
+    "chapter": "第三单元",
+    "subject": "语文",
+    "grade": 3,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "阅读理解",
+      "简单写作"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.85,
+      "medium": 0.14999999999999997,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.585Z",
+    "updated_at": "2026-06-01T13:11:33.585Z"
+  },
+  {
+    "kp_id": "chinese-grade4-down-1-1",
+    "kp_name": "识字与写字",
+    "chapter": "第一单元",
+    "subject": "语文",
+    "grade": 4,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "阅读理解",
+      "简单写作"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.8999999999999999,
+      "medium": 0.09999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.585Z",
+    "updated_at": "2026-06-01T13:11:33.585Z"
+  },
+  {
+    "kp_id": "chinese-grade4-down-1-2",
+    "kp_name": "汉语拼音",
+    "chapter": "第一单元",
+    "subject": "语文",
+    "grade": 4,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "阅读理解",
+      "简单写作"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.8999999999999999,
+      "medium": 0.09999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.585Z",
+    "updated_at": "2026-06-01T13:11:33.585Z"
+  },
+  {
+    "kp_id": "chinese-grade4-down-1-3",
+    "kp_name": "课文阅读",
+    "chapter": "第一单元",
+    "subject": "语文",
+    "grade": 4,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "阅读理解",
+      "简单写作"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.8999999999999999,
+      "medium": 0.09999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.585Z",
+    "updated_at": "2026-06-01T13:11:33.585Z"
+  },
+  {
+    "kp_id": "chinese-grade4-down-2-4",
+    "kp_name": "口语交际",
+    "chapter": "第二单元",
+    "subject": "语文",
+    "grade": 4,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "阅读理解",
+      "简单写作"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.8999999999999999,
+      "medium": 0.09999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.585Z",
+    "updated_at": "2026-06-01T13:11:33.585Z"
+  },
+  {
+    "kp_id": "chinese-grade4-down-2-5",
+    "kp_name": "看图说话",
+    "chapter": "第二单元",
+    "subject": "语文",
+    "grade": 4,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "阅读理解",
+      "简单写作"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.8999999999999999,
+      "medium": 0.09999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.585Z",
+    "updated_at": "2026-06-01T13:11:33.585Z"
+  },
+  {
+    "kp_id": "chinese-grade4-down-2-6",
+    "kp_name": "阅读理解",
+    "chapter": "第二单元",
+    "subject": "语文",
+    "grade": 4,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "阅读理解",
+      "简单写作"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.8999999999999999,
+      "medium": 0.09999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.585Z",
+    "updated_at": "2026-06-01T13:11:33.585Z"
+  },
+  {
+    "kp_id": "chinese-grade4-down-3-7",
+    "kp_name": "古诗诵读",
+    "chapter": "第三单元",
+    "subject": "语文",
+    "grade": 4,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "阅读理解",
+      "简单写作"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.8999999999999999,
+      "medium": 0.09999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.585Z",
+    "updated_at": "2026-06-01T13:11:33.585Z"
+  },
+  {
+    "kp_id": "chinese-grade4-down-3-8",
+    "kp_name": "日积月累",
+    "chapter": "第三单元",
+    "subject": "语文",
+    "grade": 4,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "阅读理解",
+      "简单写作"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.8999999999999999,
+      "medium": 0.09999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.585Z",
+    "updated_at": "2026-06-01T13:11:33.585Z"
+  },
+  {
+    "kp_id": "chinese-grade4-down-3-9",
+    "kp_name": "写话练习",
+    "chapter": "第三单元",
+    "subject": "语文",
+    "grade": 4,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "阅读理解",
+      "简单写作"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.8999999999999999,
+      "medium": 0.09999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.585Z",
+    "updated_at": "2026-06-01T13:11:33.585Z"
+  },
+  {
+    "kp_id": "chinese-grade4-up-1-1",
+    "kp_name": "识字与写字",
+    "chapter": "第一单元",
+    "subject": "语文",
+    "grade": 4,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "阅读理解",
+      "简单写作"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.8999999999999999,
+      "medium": 0.09999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.586Z",
+    "updated_at": "2026-06-01T13:11:33.586Z"
+  },
+  {
+    "kp_id": "chinese-grade4-up-1-2",
+    "kp_name": "汉语拼音",
+    "chapter": "第一单元",
+    "subject": "语文",
+    "grade": 4,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "阅读理解",
+      "简单写作"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.8999999999999999,
+      "medium": 0.09999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.586Z",
+    "updated_at": "2026-06-01T13:11:33.586Z"
+  },
+  {
+    "kp_id": "chinese-grade4-up-1-3",
+    "kp_name": "课文阅读",
+    "chapter": "第一单元",
+    "subject": "语文",
+    "grade": 4,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "阅读理解",
+      "简单写作"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.8999999999999999,
+      "medium": 0.09999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.586Z",
+    "updated_at": "2026-06-01T13:11:33.586Z"
+  },
+  {
+    "kp_id": "chinese-grade4-up-2-4",
+    "kp_name": "口语交际",
+    "chapter": "第二单元",
+    "subject": "语文",
+    "grade": 4,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "阅读理解",
+      "简单写作"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.8999999999999999,
+      "medium": 0.09999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.586Z",
+    "updated_at": "2026-06-01T13:11:33.586Z"
+  },
+  {
+    "kp_id": "chinese-grade4-up-2-5",
+    "kp_name": "看图说话",
+    "chapter": "第二单元",
+    "subject": "语文",
+    "grade": 4,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "阅读理解",
+      "简单写作"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.8999999999999999,
+      "medium": 0.09999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.586Z",
+    "updated_at": "2026-06-01T13:11:33.586Z"
+  },
+  {
+    "kp_id": "chinese-grade4-up-2-6",
+    "kp_name": "阅读理解",
+    "chapter": "第二单元",
+    "subject": "语文",
+    "grade": 4,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "阅读理解",
+      "简单写作"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.8999999999999999,
+      "medium": 0.09999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.586Z",
+    "updated_at": "2026-06-01T13:11:33.586Z"
+  },
+  {
+    "kp_id": "chinese-grade4-up-3-7",
+    "kp_name": "古诗诵读",
+    "chapter": "第三单元",
+    "subject": "语文",
+    "grade": 4,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "阅读理解",
+      "简单写作"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.8999999999999999,
+      "medium": 0.09999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.586Z",
+    "updated_at": "2026-06-01T13:11:33.586Z"
+  },
+  {
+    "kp_id": "chinese-grade4-up-3-8",
+    "kp_name": "日积月累",
+    "chapter": "第三单元",
+    "subject": "语文",
+    "grade": 4,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "阅读理解",
+      "简单写作"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.8999999999999999,
+      "medium": 0.09999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.586Z",
+    "updated_at": "2026-06-01T13:11:33.586Z"
+  },
+  {
+    "kp_id": "chinese-grade4-up-3-9",
+    "kp_name": "写话练习",
+    "chapter": "第三单元",
+    "subject": "语文",
+    "grade": 4,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "阅读理解",
+      "简单写作"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.8999999999999999,
+      "medium": 0.09999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.586Z",
+    "updated_at": "2026-06-01T13:11:33.586Z"
+  },
+  {
+    "kp_id": "chinese-grade5-down-1-1",
+    "kp_name": "识字与写字",
+    "chapter": "第一单元",
+    "subject": "语文",
+    "grade": 5,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "深度理解",
+      "写作技巧",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.95,
+      "medium": 0.04999999999999999,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.586Z",
+    "updated_at": "2026-06-01T13:11:33.586Z"
+  },
+  {
+    "kp_id": "chinese-grade5-down-1-2",
+    "kp_name": "汉语拼音",
+    "chapter": "第一单元",
+    "subject": "语文",
+    "grade": 5,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "深度理解",
+      "写作技巧",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.95,
+      "medium": 0.04999999999999999,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.586Z",
+    "updated_at": "2026-06-01T13:11:33.586Z"
+  },
+  {
+    "kp_id": "chinese-grade5-down-1-3",
+    "kp_name": "课文阅读",
+    "chapter": "第一单元",
+    "subject": "语文",
+    "grade": 5,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "深度理解",
+      "写作技巧",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.95,
+      "medium": 0.04999999999999999,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.586Z",
+    "updated_at": "2026-06-01T13:11:33.586Z"
+  },
+  {
+    "kp_id": "chinese-grade5-down-2-4",
+    "kp_name": "口语交际",
+    "chapter": "第二单元",
+    "subject": "语文",
+    "grade": 5,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "深度理解",
+      "写作技巧",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.95,
+      "medium": 0.04999999999999999,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.586Z",
+    "updated_at": "2026-06-01T13:11:33.586Z"
+  },
+  {
+    "kp_id": "chinese-grade5-down-2-5",
+    "kp_name": "看图说话",
+    "chapter": "第二单元",
+    "subject": "语文",
+    "grade": 5,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "深度理解",
+      "写作技巧",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.95,
+      "medium": 0.04999999999999999,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.586Z",
+    "updated_at": "2026-06-01T13:11:33.586Z"
+  },
+  {
+    "kp_id": "chinese-grade5-down-2-6",
+    "kp_name": "阅读理解",
+    "chapter": "第二单元",
+    "subject": "语文",
+    "grade": 5,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "深度理解",
+      "写作技巧",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.95,
+      "medium": 0.04999999999999999,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.586Z",
+    "updated_at": "2026-06-01T13:11:33.586Z"
+  },
+  {
+    "kp_id": "chinese-grade5-down-3-7",
+    "kp_name": "古诗诵读",
+    "chapter": "第三单元",
+    "subject": "语文",
+    "grade": 5,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "深度理解",
+      "写作技巧",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.95,
+      "medium": 0.04999999999999999,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.586Z",
+    "updated_at": "2026-06-01T13:11:33.586Z"
+  },
+  {
+    "kp_id": "chinese-grade5-down-3-8",
+    "kp_name": "日积月累",
+    "chapter": "第三单元",
+    "subject": "语文",
+    "grade": 5,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "深度理解",
+      "写作技巧",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.95,
+      "medium": 0.04999999999999999,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.586Z",
+    "updated_at": "2026-06-01T13:11:33.586Z"
+  },
+  {
+    "kp_id": "chinese-grade5-down-3-9",
+    "kp_name": "写话练习",
+    "chapter": "第三单元",
+    "subject": "语文",
+    "grade": 5,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "深度理解",
+      "写作技巧",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.95,
+      "medium": 0.04999999999999999,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.586Z",
+    "updated_at": "2026-06-01T13:11:33.586Z"
+  },
+  {
+    "kp_id": "chinese-grade5-up-1-1",
+    "kp_name": "识字与写字",
+    "chapter": "第一单元",
+    "subject": "语文",
+    "grade": 5,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "深度理解",
+      "写作技巧",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.95,
+      "medium": 0.04999999999999999,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.586Z",
+    "updated_at": "2026-06-01T13:11:33.586Z"
+  },
+  {
+    "kp_id": "chinese-grade5-up-1-2",
+    "kp_name": "汉语拼音",
+    "chapter": "第一单元",
+    "subject": "语文",
+    "grade": 5,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "深度理解",
+      "写作技巧",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.95,
+      "medium": 0.04999999999999999,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.586Z",
+    "updated_at": "2026-06-01T13:11:33.586Z"
+  },
+  {
+    "kp_id": "chinese-grade5-up-1-3",
+    "kp_name": "课文阅读",
+    "chapter": "第一单元",
+    "subject": "语文",
+    "grade": 5,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "深度理解",
+      "写作技巧",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.95,
+      "medium": 0.04999999999999999,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.586Z",
+    "updated_at": "2026-06-01T13:11:33.586Z"
+  },
+  {
+    "kp_id": "chinese-grade5-up-2-4",
+    "kp_name": "口语交际",
+    "chapter": "第二单元",
+    "subject": "语文",
+    "grade": 5,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "深度理解",
+      "写作技巧",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.95,
+      "medium": 0.04999999999999999,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.586Z",
+    "updated_at": "2026-06-01T13:11:33.586Z"
+  },
+  {
+    "kp_id": "chinese-grade5-up-2-5",
+    "kp_name": "看图说话",
+    "chapter": "第二单元",
+    "subject": "语文",
+    "grade": 5,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "深度理解",
+      "写作技巧",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.95,
+      "medium": 0.04999999999999999,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.586Z",
+    "updated_at": "2026-06-01T13:11:33.586Z"
+  },
+  {
+    "kp_id": "chinese-grade5-up-2-6",
+    "kp_name": "阅读理解",
+    "chapter": "第二单元",
+    "subject": "语文",
+    "grade": 5,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "深度理解",
+      "写作技巧",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.95,
+      "medium": 0.04999999999999999,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.586Z",
+    "updated_at": "2026-06-01T13:11:33.586Z"
+  },
+  {
+    "kp_id": "chinese-grade5-up-3-7",
+    "kp_name": "古诗诵读",
+    "chapter": "第三单元",
+    "subject": "语文",
+    "grade": 5,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "深度理解",
+      "写作技巧",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.95,
+      "medium": 0.04999999999999999,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.586Z",
+    "updated_at": "2026-06-01T13:11:33.586Z"
+  },
+  {
+    "kp_id": "chinese-grade5-up-3-8",
+    "kp_name": "日积月累",
+    "chapter": "第三单元",
+    "subject": "语文",
+    "grade": 5,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "深度理解",
+      "写作技巧",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.95,
+      "medium": 0.04999999999999999,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.586Z",
+    "updated_at": "2026-06-01T13:11:33.586Z"
+  },
+  {
+    "kp_id": "chinese-grade5-up-3-9",
+    "kp_name": "写话练习",
+    "chapter": "第三单元",
+    "subject": "语文",
+    "grade": 5,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "深度理解",
+      "写作技巧",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.95,
+      "medium": 0.04999999999999999,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.586Z",
+    "updated_at": "2026-06-01T13:11:33.586Z"
+  },
+  {
+    "kp_id": "chinese-grade6-down-1-1",
+    "kp_name": "识字与写字",
+    "chapter": "第一单元",
+    "subject": "语文",
+    "grade": 6,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "深度理解",
+      "写作技巧",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 1,
+      "medium": -5.551115123125783e-17,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.587Z",
+    "updated_at": "2026-06-01T13:11:33.587Z"
+  },
+  {
+    "kp_id": "chinese-grade6-down-1-2",
+    "kp_name": "汉语拼音",
+    "chapter": "第一单元",
+    "subject": "语文",
+    "grade": 6,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "深度理解",
+      "写作技巧",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 1,
+      "medium": -5.551115123125783e-17,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.587Z",
+    "updated_at": "2026-06-01T13:11:33.587Z"
+  },
+  {
+    "kp_id": "chinese-grade6-down-1-3",
+    "kp_name": "课文阅读",
+    "chapter": "第一单元",
+    "subject": "语文",
+    "grade": 6,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "深度理解",
+      "写作技巧",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 1,
+      "medium": -5.551115123125783e-17,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.587Z",
+    "updated_at": "2026-06-01T13:11:33.587Z"
+  },
+  {
+    "kp_id": "chinese-grade6-down-2-4",
+    "kp_name": "口语交际",
+    "chapter": "第二单元",
+    "subject": "语文",
+    "grade": 6,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "深度理解",
+      "写作技巧",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 1,
+      "medium": -5.551115123125783e-17,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.587Z",
+    "updated_at": "2026-06-01T13:11:33.587Z"
+  },
+  {
+    "kp_id": "chinese-grade6-down-2-5",
+    "kp_name": "看图说话",
+    "chapter": "第二单元",
+    "subject": "语文",
+    "grade": 6,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "深度理解",
+      "写作技巧",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 1,
+      "medium": -5.551115123125783e-17,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.587Z",
+    "updated_at": "2026-06-01T13:11:33.587Z"
+  },
+  {
+    "kp_id": "chinese-grade6-down-2-6",
+    "kp_name": "阅读理解",
+    "chapter": "第二单元",
+    "subject": "语文",
+    "grade": 6,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "深度理解",
+      "写作技巧",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 1,
+      "medium": -5.551115123125783e-17,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.587Z",
+    "updated_at": "2026-06-01T13:11:33.587Z"
+  },
+  {
+    "kp_id": "chinese-grade6-down-3-7",
+    "kp_name": "古诗诵读",
+    "chapter": "第三单元",
+    "subject": "语文",
+    "grade": 6,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "深度理解",
+      "写作技巧",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 1,
+      "medium": -5.551115123125783e-17,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.587Z",
+    "updated_at": "2026-06-01T13:11:33.587Z"
+  },
+  {
+    "kp_id": "chinese-grade6-down-3-8",
+    "kp_name": "日积月累",
+    "chapter": "第三单元",
+    "subject": "语文",
+    "grade": 6,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "深度理解",
+      "写作技巧",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 1,
+      "medium": -5.551115123125783e-17,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.587Z",
+    "updated_at": "2026-06-01T13:11:33.587Z"
+  },
+  {
+    "kp_id": "chinese-grade6-down-3-9",
+    "kp_name": "写话练习",
+    "chapter": "第三单元",
+    "subject": "语文",
+    "grade": 6,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "深度理解",
+      "写作技巧",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 1,
+      "medium": -5.551115123125783e-17,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.587Z",
+    "updated_at": "2026-06-01T13:11:33.587Z"
+  },
+  {
+    "kp_id": "chinese-grade6-up-1-1",
+    "kp_name": "识字与写字",
+    "chapter": "第一单元",
+    "subject": "语文",
+    "grade": 6,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "深度理解",
+      "写作技巧",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 1,
+      "medium": -5.551115123125783e-17,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.589Z",
+    "updated_at": "2026-06-01T13:11:33.589Z"
+  },
+  {
+    "kp_id": "chinese-grade6-up-1-2",
+    "kp_name": "汉语拼音",
+    "chapter": "第一单元",
+    "subject": "语文",
+    "grade": 6,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "深度理解",
+      "写作技巧",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 1,
+      "medium": -5.551115123125783e-17,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.589Z",
+    "updated_at": "2026-06-01T13:11:33.589Z"
+  },
+  {
+    "kp_id": "chinese-grade6-up-1-3",
+    "kp_name": "课文阅读",
+    "chapter": "第一单元",
+    "subject": "语文",
+    "grade": 6,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "深度理解",
+      "写作技巧",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 1,
+      "medium": -5.551115123125783e-17,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.589Z",
+    "updated_at": "2026-06-01T13:11:33.589Z"
+  },
+  {
+    "kp_id": "chinese-grade6-up-2-4",
+    "kp_name": "口语交际",
+    "chapter": "第二单元",
+    "subject": "语文",
+    "grade": 6,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "深度理解",
+      "写作技巧",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 1,
+      "medium": -5.551115123125783e-17,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.589Z",
+    "updated_at": "2026-06-01T13:11:33.589Z"
+  },
+  {
+    "kp_id": "chinese-grade6-up-2-5",
+    "kp_name": "看图说话",
+    "chapter": "第二单元",
+    "subject": "语文",
+    "grade": 6,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "深度理解",
+      "写作技巧",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 1,
+      "medium": -5.551115123125783e-17,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.589Z",
+    "updated_at": "2026-06-01T13:11:33.589Z"
+  },
+  {
+    "kp_id": "chinese-grade6-up-2-6",
+    "kp_name": "阅读理解",
+    "chapter": "第二单元",
+    "subject": "语文",
+    "grade": 6,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "深度理解",
+      "写作技巧",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 1,
+      "medium": -5.551115123125783e-17,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.589Z",
+    "updated_at": "2026-06-01T13:11:33.589Z"
+  },
+  {
+    "kp_id": "chinese-grade6-up-3-7",
+    "kp_name": "古诗诵读",
+    "chapter": "第三单元",
+    "subject": "语文",
+    "grade": 6,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "深度理解",
+      "写作技巧",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 1,
+      "medium": -5.551115123125783e-17,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.589Z",
+    "updated_at": "2026-06-01T13:11:33.589Z"
+  },
+  {
+    "kp_id": "chinese-grade6-up-3-8",
+    "kp_name": "日积月累",
+    "chapter": "第三单元",
+    "subject": "语文",
+    "grade": 6,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "深度理解",
+      "写作技巧",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 1,
+      "medium": -5.551115123125783e-17,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.589Z",
+    "updated_at": "2026-06-01T13:11:33.589Z"
+  },
+  {
+    "kp_id": "chinese-grade6-up-3-9",
+    "kp_name": "写话练习",
+    "chapter": "第三单元",
+    "subject": "语文",
+    "grade": 6,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "深度理解",
+      "写作技巧",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "填空题",
+      "选择题",
+      "问答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 1,
+      "medium": -5.551115123125783e-17,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.589Z",
+    "updated_at": "2026-06-01T13:11:33.589Z"
+  },
+  {
+    "kp_id": "chi_kp1_1",
+    "kp_name": "邓稼先",
+    "chapter": "邓稼先",
+    "subject": "语文",
+    "grade": 7,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "人物传记",
+      "科学家精神",
+      "爱国主义"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.590Z",
+    "updated_at": "2026-06-01T13:11:33.590Z"
+  },
+  {
+    "kp_id": "chi_kp2_1",
+    "kp_name": "说和做",
+    "chapter": "说和做",
+    "subject": "语文",
+    "grade": 7,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "闻一多",
+      "学者",
+      "民主战士"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.590Z",
+    "updated_at": "2026-06-01T13:11:33.590Z"
+  },
+  {
+    "kp_id": "chi_kp3_1",
+    "kp_name": "回忆鲁迅先生",
+    "chapter": "回忆鲁迅先生",
+    "subject": "语文",
+    "grade": 7,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "萧红",
+      "鲁迅形象",
+      "细节描写"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.590Z",
+    "updated_at": "2026-06-01T13:11:33.590Z"
+  },
+  {
+    "kp_id": "chi_kp4_1",
+    "kp_name": "孙权劝学",
+    "chapter": "孙权劝学",
+    "subject": "语文",
+    "grade": 7,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "资治通鉴",
+      "吕蒙",
+      "学习的重要性"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.590Z",
+    "updated_at": "2026-06-01T13:11:33.590Z"
+  },
+  {
+    "kp_id": "chi_kp5_1",
+    "kp_name": "黄河颂",
+    "chapter": "黄河颂",
+    "subject": "语文",
+    "grade": 7,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "光未然",
+      "象征手法",
+      "爱国主义"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.590Z",
+    "updated_at": "2026-06-01T13:11:33.590Z"
+  },
+  {
+    "kp_id": "chi_kp6_1",
+    "kp_name": "木兰诗",
+    "chapter": "木兰诗",
+    "subject": "语文",
+    "grade": 7,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "乐府民歌",
+      "花木兰",
+      "巾帼英雄"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.590Z",
+    "updated_at": "2026-06-01T13:11:33.590Z"
+  },
+  {
+    "kp_id": "chi_kp1_1",
+    "kp_name": "春",
+    "chapter": "春",
+    "subject": "语文",
+    "grade": 7,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "朱自清",
+      "盼春",
+      "绘春",
+      "赞春",
+      "比喻",
+      "拟人",
+      "排比"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.590Z",
+    "updated_at": "2026-06-01T13:11:33.590Z"
+  },
+  {
+    "kp_id": "chi_kp2_1",
+    "kp_name": "济南的冬天",
+    "chapter": "济南的冬天",
+    "subject": "语文",
+    "grade": 7,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "老舍",
+      "写景抒情",
+      "比喻",
+      "拟人"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.590Z",
+    "updated_at": "2026-06-01T13:11:33.590Z"
+  },
+  {
+    "kp_id": "chi_kp3_1",
+    "kp_name": "观沧海",
+    "chapter": "古代诗歌四首",
+    "subject": "语文",
+    "grade": 7,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "曹操",
+      "乐府诗",
+      "借景抒情"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.590Z",
+    "updated_at": "2026-06-01T13:11:33.590Z"
+  },
+  {
+    "kp_id": "chi_kp3_2",
+    "kp_name": "闻王昌龄左迁龙标遥有此寄",
+    "chapter": "古代诗歌四首",
+    "subject": "语文",
+    "grade": 7,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "李白",
+      "七言绝句",
+      "借月抒情"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.590Z",
+    "updated_at": "2026-06-01T13:11:33.590Z"
+  },
+  {
+    "kp_id": "chi_kp3_3",
+    "kp_name": "次北固山下",
+    "chapter": "古代诗歌四首",
+    "subject": "语文",
+    "grade": 7,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "王湾",
+      "五言律诗",
+      "思乡"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.590Z",
+    "updated_at": "2026-06-01T13:11:33.590Z"
+  },
+  {
+    "kp_id": "chi_kp3_4",
+    "kp_name": "天净沙秋思",
+    "chapter": "古代诗歌四首",
+    "subject": "语文",
+    "grade": 7,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "马致远",
+      "元曲",
+      "借景抒情"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.590Z",
+    "updated_at": "2026-06-01T13:11:33.590Z"
+  },
+  {
+    "kp_id": "chi_kp4_1",
+    "kp_name": "秋天的怀念",
+    "chapter": "秋天的怀念",
+    "subject": "语文",
+    "grade": 7,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "史铁生",
+      "母爱",
+      "生命主题"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.590Z",
+    "updated_at": "2026-06-01T13:11:33.590Z"
+  },
+  {
+    "kp_id": "chi_kp5_1",
+    "kp_name": "散步",
+    "chapter": "散步",
+    "subject": "语文",
+    "grade": 7,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "莫怀戚",
+      "亲情",
+      "尊老爱幼"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.590Z",
+    "updated_at": "2026-06-01T13:11:33.590Z"
+  },
+  {
+    "kp_id": "chi_kp6_1",
+    "kp_name": "咏雪",
+    "chapter": "世说新语二则",
+    "subject": "语文",
+    "grade": 7,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "刘义庆",
+      "文言文",
+      "比喻"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.590Z",
+    "updated_at": "2026-06-01T13:11:33.590Z"
+  },
+  {
+    "kp_id": "chi_kp6_2",
+    "kp_name": "陈太丘与友期行",
+    "chapter": "世说新语二则",
+    "subject": "语文",
+    "grade": 7,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "诚信",
+      "礼仪",
+      "为人处世"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.590Z",
+    "updated_at": "2026-06-01T13:11:33.590Z"
+  },
+  {
+    "kp_id": "chi_kp1_1",
+    "kp_name": "桃花源记",
+    "chapter": "桃花源记",
+    "subject": "语文",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "陶渊明",
+      "田园诗",
+      "理想社会"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.591Z",
+    "updated_at": "2026-06-01T13:11:33.591Z"
+  },
+  {
+    "kp_id": "chi_kp2_1",
+    "kp_name": "小石潭记",
+    "chapter": "小石潭记",
+    "subject": "语文",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "柳宗元",
+      "永州八记",
+      "山水游记"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.591Z",
+    "updated_at": "2026-06-01T13:11:33.591Z"
+  },
+  {
+    "kp_id": "chi_kp3_1",
+    "kp_name": "关雎",
+    "chapter": "诗经二首",
+    "subject": "语文",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "诗经",
+      "爱情诗",
+      "比兴手法"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.591Z",
+    "updated_at": "2026-06-01T13:11:33.591Z"
+  },
+  {
+    "kp_id": "chi_kp3_2",
+    "kp_name": "蒹葭",
+    "chapter": "诗经二首",
+    "subject": "语文",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "诗经",
+      "朦胧美",
+      "意境"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.591Z",
+    "updated_at": "2026-06-01T13:11:33.591Z"
+  },
+  {
+    "kp_id": "chi_kp4_1",
+    "kp_name": "社戏",
+    "chapter": "社戏",
+    "subject": "语文",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "鲁迅",
+      "童年回忆",
+      "乡村生活"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.591Z",
+    "updated_at": "2026-06-01T13:11:33.591Z"
+  },
+  {
+    "kp_id": "chi_kp5_1",
+    "kp_name": "安塞腰鼓",
+    "chapter": "安塞腰鼓",
+    "subject": "语文",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "刘成章",
+      "民俗文化",
+      "生命力量"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.591Z",
+    "updated_at": "2026-06-01T13:11:33.591Z"
+  },
+  {
+    "kp_id": "chi_kp1_1",
+    "kp_name": "消息二则",
+    "chapter": "消息二则",
+    "subject": "语文",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "新闻要素",
+      "消息结构",
+      "倒金字塔结构"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.592Z",
+    "updated_at": "2026-06-01T13:11:33.592Z"
+  },
+  {
+    "kp_id": "chi_kp2_1",
+    "kp_name": "藤野先生",
+    "chapter": "藤野先生",
+    "subject": "语文",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "鲁迅",
+      "师生情谊",
+      "爱国主义"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.592Z",
+    "updated_at": "2026-06-01T13:11:33.592Z"
+  },
+  {
+    "kp_id": "chi_kp3_1",
+    "kp_name": "背影",
+    "chapter": "背影",
+    "subject": "语文",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "朱自清",
+      "父爱",
+      "细节描写"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.592Z",
+    "updated_at": "2026-06-01T13:11:33.592Z"
+  },
+  {
+    "kp_id": "chi_kp4_1",
+    "kp_name": "白杨礼赞",
+    "chapter": "白杨礼赞",
+    "subject": "语文",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "茅盾",
+      "象征手法",
+      "西北风情"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.592Z",
+    "updated_at": "2026-06-01T13:11:33.592Z"
+  },
+  {
+    "kp_id": "chi_kp5_1",
+    "kp_name": "野望",
+    "chapter": "唐诗五首",
+    "subject": "语文",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "王绩",
+      "田园诗"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.592Z",
+    "updated_at": "2026-06-01T13:11:33.592Z"
+  },
+  {
+    "kp_id": "chi_kp5_2",
+    "kp_name": "黄鹤楼",
+    "chapter": "唐诗五首",
+    "subject": "语文",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "崔颢",
+      "思乡"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.592Z",
+    "updated_at": "2026-06-01T13:11:33.592Z"
+  },
+  {
+    "kp_id": "chi_kp5_3",
+    "kp_name": "使至塞上",
+    "chapter": "唐诗五首",
+    "subject": "语文",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "王维",
+      "边塞诗"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.592Z",
+    "updated_at": "2026-06-01T13:11:33.592Z"
+  },
+  {
+    "kp_id": "chi_kp1_1",
+    "kp_name": "孔乙己",
+    "chapter": "孔乙己",
+    "subject": "语文",
+    "grade": 9,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "鲁迅",
+      "科举制度",
+      "人物形象"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.593Z",
+    "updated_at": "2026-06-01T13:11:33.593Z"
+  },
+  {
+    "kp_id": "chi_kp2_1",
+    "kp_name": "变色龙",
+    "chapter": "变色龙",
+    "subject": "语文",
+    "grade": 9,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "契诃夫",
+      "讽刺小说",
+      "官僚主义"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.593Z",
+    "updated_at": "2026-06-01T13:11:33.593Z"
+  },
+  {
+    "kp_id": "chi_kp3_1",
+    "kp_name": "曹刿论战",
+    "chapter": "曹刿论战",
+    "subject": "语文",
+    "grade": 9,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "左传",
+      "长勺之战",
+      "谋略"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.593Z",
+    "updated_at": "2026-06-01T13:11:33.593Z"
+  },
+  {
+    "kp_id": "chi_kp4_1",
+    "kp_name": "邹忌讽齐王纳谏",
+    "chapter": "邹忌讽齐王纳谏",
+    "subject": "语文",
+    "grade": 9,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "战国策",
+      "讽谏艺术",
+      "君主纳谏"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.593Z",
+    "updated_at": "2026-06-01T13:11:33.593Z"
+  },
+  {
+    "kp_id": "chi_kp5_1",
+    "kp_name": "出师表",
+    "chapter": "出师表",
+    "subject": "语文",
+    "grade": 9,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "诸葛亮",
+      "表文",
+      "忠诚"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.593Z",
+    "updated_at": "2026-06-01T13:11:33.593Z"
+  },
+  {
+    "kp_id": "chi_kp6_1",
+    "kp_name": "过零丁洋",
+    "chapter": "诗词曲五首",
+    "subject": "语文",
+    "grade": 9,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "文天祥",
+      "爱国",
+      "人生自古谁无死"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.593Z",
+    "updated_at": "2026-06-01T13:11:33.593Z"
+  },
+  {
+    "kp_id": "chi_kp6_2",
+    "kp_name": "山坡羊潼关怀古",
+    "chapter": "诗词曲五首",
+    "subject": "语文",
+    "grade": 9,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "张养浩",
+      "元曲",
+      "兴亡百姓苦"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.593Z",
+    "updated_at": "2026-06-01T13:11:33.593Z"
+  },
+  {
+    "kp_id": "chi_kp1_1",
+    "kp_name": "沁园春雪",
+    "chapter": "沁园春雪",
+    "subject": "语文",
+    "grade": 9,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "毛泽东",
+      "豪放词",
+      "历史情怀"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.593Z",
+    "updated_at": "2026-06-01T13:11:33.593Z"
+  },
+  {
+    "kp_id": "chi_kp2_1",
+    "kp_name": "我爱这土地",
+    "chapter": "我爱这土地",
+    "subject": "语文",
+    "grade": 9,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "艾青",
+      "土地意象",
+      "爱国情怀"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.593Z",
+    "updated_at": "2026-06-01T13:11:33.593Z"
+  },
+  {
+    "kp_id": "chi_kp3_1",
+    "kp_name": "乡愁",
+    "chapter": "乡愁",
+    "subject": "语文",
+    "grade": 9,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "余光中",
+      "乡愁主题",
+      "意象运用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.593Z",
+    "updated_at": "2026-06-01T13:11:33.593Z"
+  },
+  {
+    "kp_id": "chi_kp4_1",
+    "kp_name": "岳阳楼记",
+    "chapter": "岳阳楼记",
+    "subject": "语文",
+    "grade": 9,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "范仲淹",
+      "忧乐观",
+      "先天下之忧而忧"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.593Z",
+    "updated_at": "2026-06-01T13:11:33.593Z"
+  },
+  {
+    "kp_id": "chi_kp5_1",
+    "kp_name": "醉翁亭记",
+    "chapter": "醉翁亭记",
+    "subject": "语文",
+    "grade": 9,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "欧阳修",
+      "山水游记",
+      "与民同乐"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.593Z",
+    "updated_at": "2026-06-01T13:11:33.593Z"
+  },
+  {
+    "kp_id": "chinese-high-1-1-1",
+    "kp_name": "现代文阅读",
+    "chapter": "第1章 现代文阅读",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.594Z",
+    "updated_at": "2026-06-01T13:11:33.594Z"
+  },
+  {
+    "kp_id": "chinese-high-1-1-2",
+    "kp_name": "古代诗歌",
+    "chapter": "第1章 现代文阅读",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.594Z",
+    "updated_at": "2026-06-01T13:11:33.594Z"
+  },
+  {
+    "kp_id": "chinese-high-1-1-3",
+    "kp_name": "文言文",
+    "chapter": "第1章 现代文阅读",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.594Z",
+    "updated_at": "2026-06-01T13:11:33.594Z"
+  },
+  {
+    "kp_id": "chinese-high-1-2-1",
+    "kp_name": "文学常识",
+    "chapter": "第2章 文学常识",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.594Z",
+    "updated_at": "2026-06-01T13:11:33.594Z"
+  },
+  {
+    "kp_id": "chinese-high-1-2-2",
+    "kp_name": "写作技巧",
+    "chapter": "第2章 文学常识",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.594Z",
+    "updated_at": "2026-06-01T13:11:33.594Z"
+  },
+  {
+    "kp_id": "chinese-high-1-2-3",
+    "kp_name": "修辞手法",
+    "chapter": "第2章 文学常识",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.594Z",
+    "updated_at": "2026-06-01T13:11:33.594Z"
+  },
+  {
+    "kp_id": "chinese-high-1-3-1",
+    "kp_name": "阅读理解",
+    "chapter": "第3章 古诗文鉴赏",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.594Z",
+    "updated_at": "2026-06-01T13:11:33.594Z"
+  },
+  {
+    "kp_id": "chinese-high-1-3-2",
+    "kp_name": "表达技巧",
+    "chapter": "第3章 古诗文鉴赏",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.594Z",
+    "updated_at": "2026-06-01T13:11:33.594Z"
+  },
+  {
+    "kp_id": "chinese-high-1-3-3",
+    "kp_name": "名篇赏析",
+    "chapter": "第3章 古诗文鉴赏",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.594Z",
+    "updated_at": "2026-06-01T13:11:33.594Z"
+  },
+  {
+    "kp_id": "chinese-high-1-4-1",
+    "kp_name": "现代文写作",
+    "chapter": "第4章 语言运用",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.594Z",
+    "updated_at": "2026-06-01T13:11:33.594Z"
+  },
+  {
+    "kp_id": "chinese-high-1-4-2",
+    "kp_name": "古诗文阅读",
+    "chapter": "第4章 语言运用",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.594Z",
+    "updated_at": "2026-06-01T13:11:33.594Z"
+  },
+  {
+    "kp_id": "chinese-high-1-4-3",
+    "kp_name": "语言运用",
+    "chapter": "第4章 语言运用",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.594Z",
+    "updated_at": "2026-06-01T13:11:33.594Z"
+  },
+  {
+    "kp_id": "chinese-high-1-5-1",
+    "kp_name": "作文训练",
+    "chapter": "第5章 写作训练",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.594Z",
+    "updated_at": "2026-06-01T13:11:33.594Z"
+  },
+  {
+    "kp_id": "chinese-high-1-5-2",
+    "kp_name": "诗词鉴赏",
+    "chapter": "第5章 写作训练",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.594Z",
+    "updated_at": "2026-06-01T13:11:33.594Z"
+  },
+  {
+    "kp_id": "chinese-high-1-5-3",
+    "kp_name": "文言文翻译",
+    "chapter": "第5章 写作训练",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.594Z",
+    "updated_at": "2026-06-01T13:11:33.594Z"
+  },
+  {
+    "kp_id": "chinese-high-2-1-1",
+    "kp_name": "现代文阅读",
+    "chapter": "第1章 现代文阅读",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.594Z",
+    "updated_at": "2026-06-01T13:11:33.594Z"
+  },
+  {
+    "kp_id": "chinese-high-2-1-2",
+    "kp_name": "古代诗歌",
+    "chapter": "第1章 现代文阅读",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.594Z",
+    "updated_at": "2026-06-01T13:11:33.594Z"
+  },
+  {
+    "kp_id": "chinese-high-2-1-3",
+    "kp_name": "文言文",
+    "chapter": "第1章 现代文阅读",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.594Z",
+    "updated_at": "2026-06-01T13:11:33.594Z"
+  },
+  {
+    "kp_id": "chinese-high-2-2-1",
+    "kp_name": "文学常识",
+    "chapter": "第2章 文学常识",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.594Z",
+    "updated_at": "2026-06-01T13:11:33.594Z"
+  },
+  {
+    "kp_id": "chinese-high-2-2-2",
+    "kp_name": "写作技巧",
+    "chapter": "第2章 文学常识",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.594Z",
+    "updated_at": "2026-06-01T13:11:33.594Z"
+  },
+  {
+    "kp_id": "chinese-high-2-2-3",
+    "kp_name": "修辞手法",
+    "chapter": "第2章 文学常识",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.594Z",
+    "updated_at": "2026-06-01T13:11:33.594Z"
+  },
+  {
+    "kp_id": "chinese-high-2-3-1",
+    "kp_name": "阅读理解",
+    "chapter": "第3章 古诗文鉴赏",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.594Z",
+    "updated_at": "2026-06-01T13:11:33.594Z"
+  },
+  {
+    "kp_id": "chinese-high-2-3-2",
+    "kp_name": "表达技巧",
+    "chapter": "第3章 古诗文鉴赏",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.594Z",
+    "updated_at": "2026-06-01T13:11:33.594Z"
+  },
+  {
+    "kp_id": "chinese-high-2-3-3",
+    "kp_name": "名篇赏析",
+    "chapter": "第3章 古诗文鉴赏",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.594Z",
+    "updated_at": "2026-06-01T13:11:33.594Z"
+  },
+  {
+    "kp_id": "chinese-high-2-4-1",
+    "kp_name": "现代文写作",
+    "chapter": "第4章 语言运用",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.594Z",
+    "updated_at": "2026-06-01T13:11:33.594Z"
+  },
+  {
+    "kp_id": "chinese-high-2-4-2",
+    "kp_name": "古诗文阅读",
+    "chapter": "第4章 语言运用",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.594Z",
+    "updated_at": "2026-06-01T13:11:33.594Z"
+  },
+  {
+    "kp_id": "chinese-high-2-4-3",
+    "kp_name": "语言运用",
+    "chapter": "第4章 语言运用",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.594Z",
+    "updated_at": "2026-06-01T13:11:33.594Z"
+  },
+  {
+    "kp_id": "chinese-high-2-5-1",
+    "kp_name": "作文训练",
+    "chapter": "第5章 写作训练",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.594Z",
+    "updated_at": "2026-06-01T13:11:33.594Z"
+  },
+  {
+    "kp_id": "chinese-high-2-5-2",
+    "kp_name": "诗词鉴赏",
+    "chapter": "第5章 写作训练",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.594Z",
+    "updated_at": "2026-06-01T13:11:33.594Z"
+  },
+  {
+    "kp_id": "chinese-high-2-5-3",
+    "kp_name": "文言文翻译",
+    "chapter": "第5章 写作训练",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.594Z",
+    "updated_at": "2026-06-01T13:11:33.594Z"
+  },
+  {
+    "kp_id": "chinese-high-3-1-1",
+    "kp_name": "现代文阅读",
+    "chapter": "第1章 现代文阅读",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.594Z",
+    "updated_at": "2026-06-01T13:11:33.594Z"
+  },
+  {
+    "kp_id": "chinese-high-3-1-2",
+    "kp_name": "古代诗歌",
+    "chapter": "第1章 现代文阅读",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.594Z",
+    "updated_at": "2026-06-01T13:11:33.594Z"
+  },
+  {
+    "kp_id": "chinese-high-3-1-3",
+    "kp_name": "文言文",
+    "chapter": "第1章 现代文阅读",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.594Z",
+    "updated_at": "2026-06-01T13:11:33.594Z"
+  },
+  {
+    "kp_id": "chinese-high-3-2-1",
+    "kp_name": "文学常识",
+    "chapter": "第2章 文学常识",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.594Z",
+    "updated_at": "2026-06-01T13:11:33.594Z"
+  },
+  {
+    "kp_id": "chinese-high-3-2-2",
+    "kp_name": "写作技巧",
+    "chapter": "第2章 文学常识",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.594Z",
+    "updated_at": "2026-06-01T13:11:33.594Z"
+  },
+  {
+    "kp_id": "chinese-high-3-2-3",
+    "kp_name": "修辞手法",
+    "chapter": "第2章 文学常识",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.594Z",
+    "updated_at": "2026-06-01T13:11:33.594Z"
+  },
+  {
+    "kp_id": "chinese-high-3-3-1",
+    "kp_name": "阅读理解",
+    "chapter": "第3章 古诗文鉴赏",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.594Z",
+    "updated_at": "2026-06-01T13:11:33.594Z"
+  },
+  {
+    "kp_id": "chinese-high-3-3-2",
+    "kp_name": "表达技巧",
+    "chapter": "第3章 古诗文鉴赏",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.594Z",
+    "updated_at": "2026-06-01T13:11:33.594Z"
+  },
+  {
+    "kp_id": "chinese-high-3-3-3",
+    "kp_name": "名篇赏析",
+    "chapter": "第3章 古诗文鉴赏",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.594Z",
+    "updated_at": "2026-06-01T13:11:33.594Z"
+  },
+  {
+    "kp_id": "chinese-high-3-4-1",
+    "kp_name": "现代文写作",
+    "chapter": "第4章 语言运用",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.594Z",
+    "updated_at": "2026-06-01T13:11:33.594Z"
+  },
+  {
+    "kp_id": "chinese-high-3-4-2",
+    "kp_name": "古诗文阅读",
+    "chapter": "第4章 语言运用",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.594Z",
+    "updated_at": "2026-06-01T13:11:33.594Z"
+  },
+  {
+    "kp_id": "chinese-high-3-4-3",
+    "kp_name": "语言运用",
+    "chapter": "第4章 语言运用",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.594Z",
+    "updated_at": "2026-06-01T13:11:33.594Z"
+  },
+  {
+    "kp_id": "chinese-high-3-5-1",
+    "kp_name": "作文训练",
+    "chapter": "第5章 写作训练",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.594Z",
+    "updated_at": "2026-06-01T13:11:33.594Z"
+  },
+  {
+    "kp_id": "chinese-high-3-5-2",
+    "kp_name": "诗词鉴赏",
+    "chapter": "第5章 写作训练",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.594Z",
+    "updated_at": "2026-06-01T13:11:33.594Z"
+  },
+  {
+    "kp_id": "chinese-high-3-5-3",
+    "kp_name": "文言文翻译",
+    "chapter": "第5章 写作训练",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.594Z",
+    "updated_at": "2026-06-01T13:11:33.594Z"
+  },
+  {
+    "kp_id": "chinese-high-4-1-1",
+    "kp_name": "现代文阅读",
+    "chapter": "第1章 现代文阅读",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.595Z",
+    "updated_at": "2026-06-01T13:11:33.595Z"
+  },
+  {
+    "kp_id": "chinese-high-4-1-2",
+    "kp_name": "古代诗歌",
+    "chapter": "第1章 现代文阅读",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.595Z",
+    "updated_at": "2026-06-01T13:11:33.595Z"
+  },
+  {
+    "kp_id": "chinese-high-4-1-3",
+    "kp_name": "文言文",
+    "chapter": "第1章 现代文阅读",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.595Z",
+    "updated_at": "2026-06-01T13:11:33.595Z"
+  },
+  {
+    "kp_id": "chinese-high-4-2-1",
+    "kp_name": "文学常识",
+    "chapter": "第2章 文学常识",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.595Z",
+    "updated_at": "2026-06-01T13:11:33.595Z"
+  },
+  {
+    "kp_id": "chinese-high-4-2-2",
+    "kp_name": "写作技巧",
+    "chapter": "第2章 文学常识",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.595Z",
+    "updated_at": "2026-06-01T13:11:33.595Z"
+  },
+  {
+    "kp_id": "chinese-high-4-2-3",
+    "kp_name": "修辞手法",
+    "chapter": "第2章 文学常识",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.595Z",
+    "updated_at": "2026-06-01T13:11:33.595Z"
+  },
+  {
+    "kp_id": "chinese-high-4-3-1",
+    "kp_name": "阅读理解",
+    "chapter": "第3章 古诗文鉴赏",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.595Z",
+    "updated_at": "2026-06-01T13:11:33.595Z"
+  },
+  {
+    "kp_id": "chinese-high-4-3-2",
+    "kp_name": "表达技巧",
+    "chapter": "第3章 古诗文鉴赏",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.595Z",
+    "updated_at": "2026-06-01T13:11:33.595Z"
+  },
+  {
+    "kp_id": "chinese-high-4-3-3",
+    "kp_name": "名篇赏析",
+    "chapter": "第3章 古诗文鉴赏",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.595Z",
+    "updated_at": "2026-06-01T13:11:33.595Z"
+  },
+  {
+    "kp_id": "chinese-high-4-4-1",
+    "kp_name": "现代文写作",
+    "chapter": "第4章 语言运用",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.595Z",
+    "updated_at": "2026-06-01T13:11:33.595Z"
+  },
+  {
+    "kp_id": "chinese-high-4-4-2",
+    "kp_name": "古诗文阅读",
+    "chapter": "第4章 语言运用",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.595Z",
+    "updated_at": "2026-06-01T13:11:33.595Z"
+  },
+  {
+    "kp_id": "chinese-high-4-4-3",
+    "kp_name": "语言运用",
+    "chapter": "第4章 语言运用",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.595Z",
+    "updated_at": "2026-06-01T13:11:33.595Z"
+  },
+  {
+    "kp_id": "chinese-high-4-5-1",
+    "kp_name": "作文训练",
+    "chapter": "第5章 写作训练",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.595Z",
+    "updated_at": "2026-06-01T13:11:33.595Z"
+  },
+  {
+    "kp_id": "chinese-high-4-5-2",
+    "kp_name": "诗词鉴赏",
+    "chapter": "第5章 写作训练",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.595Z",
+    "updated_at": "2026-06-01T13:11:33.595Z"
+  },
+  {
+    "kp_id": "chinese-high-4-5-3",
+    "kp_name": "文言文翻译",
+    "chapter": "第5章 写作训练",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.595Z",
+    "updated_at": "2026-06-01T13:11:33.595Z"
+  },
+  {
+    "kp_id": "chinese-high-5-1-1",
+    "kp_name": "现代文阅读",
+    "chapter": "第1章 现代文阅读",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修5",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.595Z",
+    "updated_at": "2026-06-01T13:11:33.595Z"
+  },
+  {
+    "kp_id": "chinese-high-5-1-2",
+    "kp_name": "古代诗歌",
+    "chapter": "第1章 现代文阅读",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修5",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.595Z",
+    "updated_at": "2026-06-01T13:11:33.595Z"
+  },
+  {
+    "kp_id": "chinese-high-5-1-3",
+    "kp_name": "文言文",
+    "chapter": "第1章 现代文阅读",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修5",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.595Z",
+    "updated_at": "2026-06-01T13:11:33.595Z"
+  },
+  {
+    "kp_id": "chinese-high-5-2-1",
+    "kp_name": "文学常识",
+    "chapter": "第2章 文学常识",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修5",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.595Z",
+    "updated_at": "2026-06-01T13:11:33.595Z"
+  },
+  {
+    "kp_id": "chinese-high-5-2-2",
+    "kp_name": "写作技巧",
+    "chapter": "第2章 文学常识",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修5",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.595Z",
+    "updated_at": "2026-06-01T13:11:33.595Z"
+  },
+  {
+    "kp_id": "chinese-high-5-2-3",
+    "kp_name": "修辞手法",
+    "chapter": "第2章 文学常识",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修5",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.595Z",
+    "updated_at": "2026-06-01T13:11:33.595Z"
+  },
+  {
+    "kp_id": "chinese-high-5-3-1",
+    "kp_name": "阅读理解",
+    "chapter": "第3章 古诗文鉴赏",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修5",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.595Z",
+    "updated_at": "2026-06-01T13:11:33.595Z"
+  },
+  {
+    "kp_id": "chinese-high-5-3-2",
+    "kp_name": "表达技巧",
+    "chapter": "第3章 古诗文鉴赏",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修5",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.595Z",
+    "updated_at": "2026-06-01T13:11:33.595Z"
+  },
+  {
+    "kp_id": "chinese-high-5-3-3",
+    "kp_name": "名篇赏析",
+    "chapter": "第3章 古诗文鉴赏",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修5",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.595Z",
+    "updated_at": "2026-06-01T13:11:33.595Z"
+  },
+  {
+    "kp_id": "chinese-high-5-4-1",
+    "kp_name": "现代文写作",
+    "chapter": "第4章 语言运用",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修5",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.595Z",
+    "updated_at": "2026-06-01T13:11:33.595Z"
+  },
+  {
+    "kp_id": "chinese-high-5-4-2",
+    "kp_name": "古诗文阅读",
+    "chapter": "第4章 语言运用",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修5",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.595Z",
+    "updated_at": "2026-06-01T13:11:33.595Z"
+  },
+  {
+    "kp_id": "chinese-high-5-4-3",
+    "kp_name": "语言运用",
+    "chapter": "第4章 语言运用",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修5",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.595Z",
+    "updated_at": "2026-06-01T13:11:33.595Z"
+  },
+  {
+    "kp_id": "chinese-high-5-5-1",
+    "kp_name": "作文训练",
+    "chapter": "第5章 写作训练",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修5",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.595Z",
+    "updated_at": "2026-06-01T13:11:33.595Z"
+  },
+  {
+    "kp_id": "chinese-high-5-5-2",
+    "kp_name": "诗词鉴赏",
+    "chapter": "第5章 写作训练",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修5",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.595Z",
+    "updated_at": "2026-06-01T13:11:33.595Z"
+  },
+  {
+    "kp_id": "chinese-high-5-5-3",
+    "kp_name": "文言文翻译",
+    "chapter": "第5章 写作训练",
+    "subject": "语文",
+    "grade": 10,
+    "semester": "必修5",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "分析方法",
+      "应用实践"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.595Z",
+    "updated_at": "2026-06-01T13:11:33.595Z"
+  },
+  {
+    "kp_id": "geo_kp5_1",
+    "kp_name": "日本",
+    "chapter": "我们邻近的国家和地区",
+    "subject": "地理",
+    "grade": 7,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "日本的自然环境",
+      "日本的经济",
+      "日本的文化"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.596Z",
+    "updated_at": "2026-06-01T13:11:33.596Z"
+  },
+  {
+    "kp_id": "geo_kp5_2",
+    "kp_name": "东南亚",
+    "chapter": "我们邻近的国家和地区",
+    "subject": "地理",
+    "grade": 7,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "东南亚的位置",
+      "东南亚的气候",
+      "东南亚的农作物",
+      "东南亚的旅游业"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.596Z",
+    "updated_at": "2026-06-01T13:11:33.596Z"
+  },
+  {
+    "kp_id": "geo_kp5_3",
+    "kp_name": "印度",
+    "chapter": "我们邻近的国家和地区",
+    "subject": "地理",
+    "grade": 7,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "印度的自然环境",
+      "印度的人口",
+      "印度的经济",
+      "印度的服务业"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.596Z",
+    "updated_at": "2026-06-01T13:11:33.596Z"
+  },
+  {
+    "kp_id": "geo_kp5_4",
+    "kp_name": "俄罗斯",
+    "chapter": "我们邻近的国家和地区",
+    "subject": "地理",
+    "grade": 7,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "俄罗斯的自然环境",
+      "俄罗斯的资源",
+      "俄罗斯的工业",
+      "俄罗斯的交通"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.596Z",
+    "updated_at": "2026-06-01T13:11:33.596Z"
+  },
+  {
+    "kp_id": "geo_kp6_1",
+    "kp_name": "中东",
+    "chapter": "东半球其他的国家和地区",
+    "subject": "地理",
+    "grade": 7,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "中东的位置",
+      "中东的石油资源",
+      "中东的水资源",
+      "中东的文化"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.596Z",
+    "updated_at": "2026-06-01T13:11:33.596Z"
+  },
+  {
+    "kp_id": "geo_kp6_2",
+    "kp_name": "欧洲西部",
+    "chapter": "东半球其他的国家和地区",
+    "subject": "地理",
+    "grade": 7,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "欧洲西部的自然环境",
+      "欧洲西部的经济",
+      "欧洲西部的旅游业",
+      "欧洲西部的畜牧业"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.596Z",
+    "updated_at": "2026-06-01T13:11:33.596Z"
+  },
+  {
+    "kp_id": "geo_kp6_3",
+    "kp_name": "撒哈拉以南的非洲",
+    "chapter": "东半球其他的国家和地区",
+    "subject": "地理",
+    "grade": 7,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "撒哈拉以南非洲的自然环境",
+      "撒哈拉以南非洲的人口",
+      "撒哈拉以南非洲的经济",
+      "黑种人的故乡"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.596Z",
+    "updated_at": "2026-06-01T13:11:33.596Z"
+  },
+  {
+    "kp_id": "geo_kp6_4",
+    "kp_name": "澳大利亚",
+    "chapter": "东半球其他的国家和地区",
+    "subject": "地理",
+    "grade": 7,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "澳大利亚的自然环境",
+      "澳大利亚的特有动物",
+      "澳大利亚的畜牧业",
+      "澳大利亚的矿业"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.596Z",
+    "updated_at": "2026-06-01T13:11:33.596Z"
+  },
+  {
+    "kp_id": "geo_kp7_1",
+    "kp_name": "美国",
+    "chapter": "西半球的国家",
+    "subject": "地理",
+    "grade": 7,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "美国的自然环境",
+      "美国的人口和民族",
+      "美国的农业",
+      "美国的工业"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.596Z",
+    "updated_at": "2026-06-01T13:11:33.596Z"
+  },
+  {
+    "kp_id": "geo_kp7_2",
+    "kp_name": "巴西",
+    "chapter": "西半球的国家",
+    "subject": "地理",
+    "grade": 7,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "巴西的自然环境",
+      "巴西的人口",
+      "巴西的农业",
+      "巴西的工业",
+      "巴西的足球文化"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.596Z",
+    "updated_at": "2026-06-01T13:11:33.596Z"
+  },
+  {
+    "kp_id": "geo_kp1_1",
+    "kp_name": "地球和地球仪",
+    "chapter": "地球和地图",
+    "subject": "地理",
+    "grade": 7,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "地球的形状和大小",
+      "地球仪",
+      "经线和纬线",
+      "经度和纬度",
+      "半球划分"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.596Z",
+    "updated_at": "2026-06-01T13:11:33.596Z"
+  },
+  {
+    "kp_id": "geo_kp1_2",
+    "kp_name": "地球的运动",
+    "chapter": "地球和地图",
+    "subject": "地理",
+    "grade": 7,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "地球的自转",
+      "地球的公转",
+      "四季的变化",
+      "五带的划分"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.596Z",
+    "updated_at": "2026-06-01T13:11:33.596Z"
+  },
+  {
+    "kp_id": "geo_kp1_3",
+    "kp_name": "地图的阅读",
+    "chapter": "地球和地图",
+    "subject": "地理",
+    "grade": 7,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "地图的基本要素",
+      "地图的比例尺",
+      "地图的方向",
+      "地图图例"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.596Z",
+    "updated_at": "2026-06-01T13:11:33.596Z"
+  },
+  {
+    "kp_id": "geo_kp1_4",
+    "kp_name": "地形图的判读",
+    "chapter": "地球和地图",
+    "subject": "地理",
+    "grade": 7,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "海拔和相对高度",
+      "等高线地形图",
+      "分层设色地形图",
+      "地形剖面图"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.596Z",
+    "updated_at": "2026-06-01T13:11:33.596Z"
+  },
+  {
+    "kp_id": "geo_kp2_1",
+    "kp_name": "大洲和大洋",
+    "chapter": "陆地和海洋",
+    "subject": "地理",
+    "grade": 7,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "海陆分布",
+      "七大洲",
+      "四大洋",
+      "大洲分界线"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.596Z",
+    "updated_at": "2026-06-01T13:11:33.596Z"
+  },
+  {
+    "kp_id": "geo_kp2_2",
+    "kp_name": "海陆的变迁",
+    "chapter": "陆地和海洋",
+    "subject": "地理",
+    "grade": 7,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "地表形态变化",
+      "大陆漂移假说",
+      "板块构造学说",
+      "世界主要山系及火山地震带的分布"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.596Z",
+    "updated_at": "2026-06-01T13:11:33.596Z"
+  },
+  {
+    "kp_id": "geo_kp3_1",
+    "kp_name": "多变的天气",
+    "chapter": "天气与气候",
+    "subject": "地理",
+    "grade": 7,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "天气与气候的区别",
+      "天气预报",
+      "空气质量"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.596Z",
+    "updated_at": "2026-06-01T13:11:33.596Z"
+  },
+  {
+    "kp_id": "geo_kp3_2",
+    "kp_name": "气温的变化与分布",
+    "chapter": "天气与气候",
+    "subject": "地理",
+    "grade": 7,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "气温的变化",
+      "气温的分布",
+      "等温线"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.596Z",
+    "updated_at": "2026-06-01T13:11:33.596Z"
+  },
+  {
+    "kp_id": "geo_kp3_3",
+    "kp_name": "降水的变化与分布",
+    "chapter": "天气与气候",
+    "subject": "地理",
+    "grade": 7,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "降水的变化",
+      "降水的分布",
+      "等降水量线"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.596Z",
+    "updated_at": "2026-06-01T13:11:33.596Z"
+  },
+  {
+    "kp_id": "geo_kp3_4",
+    "kp_name": "世界的气候",
+    "chapter": "天气与气候",
+    "subject": "地理",
+    "grade": 7,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "气候的地区差异",
+      "影响气候的主要因素",
+      "气候与人类活动"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.596Z",
+    "updated_at": "2026-06-01T13:11:33.596Z"
+  },
+  {
+    "kp_id": "geo_kp4_1",
+    "kp_name": "人口与人种",
+    "chapter": "居民与聚落",
+    "subject": "地理",
+    "grade": 7,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "世界人口的增长",
+      "世界人口的分布",
+      "人口问题",
+      "不同的人种"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.596Z",
+    "updated_at": "2026-06-01T13:11:33.596Z"
+  },
+  {
+    "kp_id": "geo_kp4_2",
+    "kp_name": "世界的语言和宗教",
+    "chapter": "居民与聚落",
+    "subject": "地理",
+    "grade": 7,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "世界的语言",
+      "世界的宗教"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.596Z",
+    "updated_at": "2026-06-01T13:11:33.596Z"
+  },
+  {
+    "kp_id": "geo_kp4_3",
+    "kp_name": "聚落",
+    "chapter": "居民与聚落",
+    "subject": "地理",
+    "grade": 7,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "聚落与环境",
+      "聚落的发展与保护"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.596Z",
+    "updated_at": "2026-06-01T13:11:33.596Z"
+  },
+  {
+    "kp_id": "geo_kp5_1",
+    "kp_name": "四大地理区域的划分",
+    "chapter": "中国的地理差异",
+    "subject": "地理",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "秦岭-淮河一线",
+      "北方地区",
+      "南方地区",
+      "西北地区",
+      "青藏地区"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.597Z",
+    "updated_at": "2026-06-01T13:11:33.597Z"
+  },
+  {
+    "kp_id": "geo_kp6_1",
+    "kp_name": "自然特征与农业",
+    "chapter": "北方地区",
+    "subject": "地理",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "黑土地和黄土地",
+      "重要的旱作农业区"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.597Z",
+    "updated_at": "2026-06-01T13:11:33.597Z"
+  },
+  {
+    "kp_id": "geo_kp6_2",
+    "kp_name": "白山黑水——东北三省",
+    "chapter": "北方地区",
+    "subject": "地理",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "山环水绕 沃野千里",
+      "从北大荒到北大仓",
+      "我国最大的重工业基地"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.597Z",
+    "updated_at": "2026-06-01T13:11:33.597Z"
+  },
+  {
+    "kp_id": "geo_kp6_3",
+    "kp_name": "祖国的首都——北京",
+    "chapter": "北方地区",
+    "subject": "地理",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "政治文化中心",
+      "历史古城",
+      "现代化的大都市"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.597Z",
+    "updated_at": "2026-06-01T13:11:33.597Z"
+  },
+  {
+    "kp_id": "geo_kp7_1",
+    "kp_name": "自然特征与农业",
+    "chapter": "南方地区",
+    "subject": "地理",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "气候湿热的红土地",
+      "重要的水田农业区"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.597Z",
+    "updated_at": "2026-06-01T13:11:33.597Z"
+  },
+  {
+    "kp_id": "geo_kp7_2",
+    "kp_name": "鱼米之乡——长江三角洲地区",
+    "chapter": "南方地区",
+    "subject": "地理",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "江海交汇之地",
+      "我国最大的城市群",
+      "水乡的文化特色与旅游"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.597Z",
+    "updated_at": "2026-06-01T13:11:33.597Z"
+  },
+  {
+    "kp_id": "geo_kp7_3",
+    "kp_name": "东方明珠——香港和澳门",
+    "chapter": "南方地区",
+    "subject": "地理",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "人多地少",
+      "港澳与祖国内地的密切联系"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.597Z",
+    "updated_at": "2026-06-01T13:11:33.597Z"
+  },
+  {
+    "kp_id": "geo_kp7_4",
+    "kp_name": "祖国的神圣领土——台湾省",
+    "chapter": "南方地区",
+    "subject": "地理",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "台湾省的位置与范围",
+      "台湾省的自然环境",
+      "台湾省的经济与人口"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.597Z",
+    "updated_at": "2026-06-01T13:11:33.597Z"
+  },
+  {
+    "kp_id": "geo_kp1_1",
+    "kp_name": "疆域",
+    "chapter": "从世界看中国",
+    "subject": "地理",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "优越的地理位置",
+      "海陆兼备的大国",
+      "中国的邻国",
+      "中国的疆域"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.597Z",
+    "updated_at": "2026-06-01T13:11:33.597Z"
+  },
+  {
+    "kp_id": "geo_kp1_2",
+    "kp_name": "人口",
+    "chapter": "从世界看中国",
+    "subject": "地理",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "世界上人口最多的国家",
+      "人口东多西少"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.597Z",
+    "updated_at": "2026-06-01T13:11:33.597Z"
+  },
+  {
+    "kp_id": "geo_kp1_3",
+    "kp_name": "民族",
+    "chapter": "从世界看中国",
+    "subject": "地理",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "中华民族大家庭",
+      "民族分布特点",
+      "民族的节日"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.597Z",
+    "updated_at": "2026-06-01T13:11:33.597Z"
+  },
+  {
+    "kp_id": "geo_kp2_1",
+    "kp_name": "地形",
+    "chapter": "中国的自然环境",
+    "subject": "地理",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "地形类型多样",
+      "山区面积广大",
+      "地势西高东低"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.597Z",
+    "updated_at": "2026-06-01T13:11:33.597Z"
+  },
+  {
+    "kp_id": "geo_kp2_2",
+    "kp_name": "气候",
+    "chapter": "中国的自然环境",
+    "subject": "地理",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "气候复杂多样",
+      "季风气候显著",
+      "气候的主要特征"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.597Z",
+    "updated_at": "2026-06-01T13:11:33.597Z"
+  },
+  {
+    "kp_id": "geo_kp2_3",
+    "kp_name": "河流",
+    "chapter": "中国的自然环境",
+    "subject": "地理",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "以外流河为主",
+      "长江的开发与治理",
+      "黄河的治理与开发"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.597Z",
+    "updated_at": "2026-06-01T13:11:33.597Z"
+  },
+  {
+    "kp_id": "geo_kp2_4",
+    "kp_name": "自然灾害",
+    "chapter": "中国的自然环境",
+    "subject": "地理",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "气象灾害",
+      "地质灾害",
+      "防灾减灾"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.597Z",
+    "updated_at": "2026-06-01T13:11:33.597Z"
+  },
+  {
+    "kp_id": "geo_kp3_1",
+    "kp_name": "自然资源的基本特征",
+    "chapter": "中国的自然资源",
+    "subject": "地理",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "自然资源及其类型",
+      "可再生资源与非可再生资源",
+      "中国自然资源的特点"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.597Z",
+    "updated_at": "2026-06-01T13:11:33.597Z"
+  },
+  {
+    "kp_id": "geo_kp3_2",
+    "kp_name": "土地资源",
+    "chapter": "中国的自然资源",
+    "subject": "地理",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "土地资源的利用",
+      "土地资源分布不均",
+      "土地资源保护"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.597Z",
+    "updated_at": "2026-06-01T13:11:33.597Z"
+  },
+  {
+    "kp_id": "geo_kp3_3",
+    "kp_name": "水资源",
+    "chapter": "中国的自然资源",
+    "subject": "地理",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "水资源及其分布",
+      "水资源短缺",
+      "节约用水保护水资源"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.597Z",
+    "updated_at": "2026-06-01T13:11:33.597Z"
+  },
+  {
+    "kp_id": "geo_kp4_1",
+    "kp_name": "交通运输",
+    "chapter": "中国的经济发展",
+    "subject": "地理",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "交通运输方式的选择",
+      "中国铁路干线的分布",
+      "中国主要的铁路干线"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.597Z",
+    "updated_at": "2026-06-01T13:11:33.597Z"
+  },
+  {
+    "kp_id": "geo_kp4_2",
+    "kp_name": "农业",
+    "chapter": "中国的经济发展",
+    "subject": "地理",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "农业及其重要性",
+      "中国农业的地区分布",
+      "发展农业要因地制宜",
+      "科技强农"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.597Z",
+    "updated_at": "2026-06-01T13:11:33.597Z"
+  },
+  {
+    "kp_id": "geo_kp4_3",
+    "kp_name": "工业",
+    "chapter": "中国的经济发展",
+    "subject": "地理",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "工业及其重要性",
+      "中国工业的分布",
+      "高新技术产业的发展",
+      "蓬勃发展的高新技术产业"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.597Z",
+    "updated_at": "2026-06-01T13:11:33.597Z"
+  },
+  {
+    "kp_id": "geography-high-1-1-1",
+    "kp_name": "地球运动",
+    "chapter": "第1章 自然地理",
+    "subject": "地理",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "地理原理",
+      "区域特征",
+      "综合分析"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.597Z",
+    "updated_at": "2026-06-01T13:11:33.597Z"
+  },
+  {
+    "kp_id": "geography-high-1-1-2",
+    "kp_name": "经纬网",
+    "chapter": "第1章 自然地理",
+    "subject": "地理",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "地理原理",
+      "区域特征",
+      "综合分析"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.597Z",
+    "updated_at": "2026-06-01T13:11:33.597Z"
+  },
+  {
+    "kp_id": "geography-high-1-1-3",
+    "kp_name": "时区计算",
+    "chapter": "第1章 自然地理",
+    "subject": "地理",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "地理原理",
+      "区域特征",
+      "综合分析"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.597Z",
+    "updated_at": "2026-06-01T13:11:33.597Z"
+  },
+  {
+    "kp_id": "geography-high-1-2-1",
+    "kp_name": "大气环流",
+    "chapter": "第2章 人文地理",
+    "subject": "地理",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "地理原理",
+      "区域特征",
+      "综合分析"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.597Z",
+    "updated_at": "2026-06-01T13:11:33.597Z"
+  },
+  {
+    "kp_id": "geography-high-1-2-2",
+    "kp_name": "气候类型",
+    "chapter": "第2章 人文地理",
+    "subject": "地理",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "地理原理",
+      "区域特征",
+      "综合分析"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.597Z",
+    "updated_at": "2026-06-01T13:11:33.597Z"
+  },
+  {
+    "kp_id": "geography-high-1-2-3",
+    "kp_name": "天气系统",
+    "chapter": "第2章 人文地理",
+    "subject": "地理",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "地理原理",
+      "区域特征",
+      "综合分析"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.597Z",
+    "updated_at": "2026-06-01T13:11:33.597Z"
+  },
+  {
+    "kp_id": "geography-high-1-3-1",
+    "kp_name": "水循环",
+    "chapter": "第3章 区域地理",
+    "subject": "地理",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "地理原理",
+      "区域特征",
+      "综合分析"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.597Z",
+    "updated_at": "2026-06-01T13:11:33.597Z"
+  },
+  {
+    "kp_id": "geography-high-1-3-2",
+    "kp_name": "洋流",
+    "chapter": "第3章 区域地理",
+    "subject": "地理",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "地理原理",
+      "区域特征",
+      "综合分析"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.597Z",
+    "updated_at": "2026-06-01T13:11:33.597Z"
+  },
+  {
+    "kp_id": "geography-high-1-3-3",
+    "kp_name": "水资源",
+    "chapter": "第3章 区域地理",
+    "subject": "地理",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "地理原理",
+      "区域特征",
+      "综合分析"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.597Z",
+    "updated_at": "2026-06-01T13:11:33.597Z"
+  },
+  {
+    "kp_id": "geography-high-1-4-1",
+    "kp_name": "人口城市",
+    "chapter": "第4章 地理信息技术",
+    "subject": "地理",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "地理原理",
+      "区域特征",
+      "综合分析"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.597Z",
+    "updated_at": "2026-06-01T13:11:33.597Z"
+  },
+  {
+    "kp_id": "geography-high-1-4-2",
+    "kp_name": "产业区位",
+    "chapter": "第4章 地理信息技术",
+    "subject": "地理",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "地理原理",
+      "区域特征",
+      "综合分析"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.597Z",
+    "updated_at": "2026-06-01T13:11:33.597Z"
+  },
+  {
+    "kp_id": "geography-high-1-4-3",
+    "kp_name": "区域发展",
+    "chapter": "第4章 地理信息技术",
+    "subject": "地理",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "地理原理",
+      "区域特征",
+      "综合分析"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.597Z",
+    "updated_at": "2026-06-01T13:11:33.597Z"
+  },
+  {
+    "kp_id": "geography-high-2-1-1",
+    "kp_name": "地球运动",
+    "chapter": "第1章 自然地理",
+    "subject": "地理",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "地理原理",
+      "区域特征",
+      "综合分析"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.598Z",
+    "updated_at": "2026-06-01T13:11:33.598Z"
+  },
+  {
+    "kp_id": "geography-high-2-1-2",
+    "kp_name": "经纬网",
+    "chapter": "第1章 自然地理",
+    "subject": "地理",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "地理原理",
+      "区域特征",
+      "综合分析"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.598Z",
+    "updated_at": "2026-06-01T13:11:33.598Z"
+  },
+  {
+    "kp_id": "geography-high-2-1-3",
+    "kp_name": "时区计算",
+    "chapter": "第1章 自然地理",
+    "subject": "地理",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "地理原理",
+      "区域特征",
+      "综合分析"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.598Z",
+    "updated_at": "2026-06-01T13:11:33.598Z"
+  },
+  {
+    "kp_id": "geography-high-2-2-1",
+    "kp_name": "大气环流",
+    "chapter": "第2章 人文地理",
+    "subject": "地理",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "地理原理",
+      "区域特征",
+      "综合分析"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.598Z",
+    "updated_at": "2026-06-01T13:11:33.598Z"
+  },
+  {
+    "kp_id": "geography-high-2-2-2",
+    "kp_name": "气候类型",
+    "chapter": "第2章 人文地理",
+    "subject": "地理",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "地理原理",
+      "区域特征",
+      "综合分析"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.598Z",
+    "updated_at": "2026-06-01T13:11:33.598Z"
+  },
+  {
+    "kp_id": "geography-high-2-2-3",
+    "kp_name": "天气系统",
+    "chapter": "第2章 人文地理",
+    "subject": "地理",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "地理原理",
+      "区域特征",
+      "综合分析"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.598Z",
+    "updated_at": "2026-06-01T13:11:33.598Z"
+  },
+  {
+    "kp_id": "geography-high-2-3-1",
+    "kp_name": "水循环",
+    "chapter": "第3章 区域地理",
+    "subject": "地理",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "地理原理",
+      "区域特征",
+      "综合分析"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.598Z",
+    "updated_at": "2026-06-01T13:11:33.598Z"
+  },
+  {
+    "kp_id": "geography-high-2-3-2",
+    "kp_name": "洋流",
+    "chapter": "第3章 区域地理",
+    "subject": "地理",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "地理原理",
+      "区域特征",
+      "综合分析"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.598Z",
+    "updated_at": "2026-06-01T13:11:33.598Z"
+  },
+  {
+    "kp_id": "geography-high-2-3-3",
+    "kp_name": "水资源",
+    "chapter": "第3章 区域地理",
+    "subject": "地理",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "地理原理",
+      "区域特征",
+      "综合分析"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.598Z",
+    "updated_at": "2026-06-01T13:11:33.598Z"
+  },
+  {
+    "kp_id": "geography-high-2-4-1",
+    "kp_name": "人口城市",
+    "chapter": "第4章 地理信息技术",
+    "subject": "地理",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "地理原理",
+      "区域特征",
+      "综合分析"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.598Z",
+    "updated_at": "2026-06-01T13:11:33.598Z"
+  },
+  {
+    "kp_id": "geography-high-2-4-2",
+    "kp_name": "产业区位",
+    "chapter": "第4章 地理信息技术",
+    "subject": "地理",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "地理原理",
+      "区域特征",
+      "综合分析"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.598Z",
+    "updated_at": "2026-06-01T13:11:33.598Z"
+  },
+  {
+    "kp_id": "geography-high-2-4-3",
+    "kp_name": "区域发展",
+    "chapter": "第4章 地理信息技术",
+    "subject": "地理",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "地理原理",
+      "区域特征",
+      "综合分析"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.598Z",
+    "updated_at": "2026-06-01T13:11:33.598Z"
+  },
+  {
+    "kp_id": "geography-high-3-1-1",
+    "kp_name": "地球运动",
+    "chapter": "第1章 自然地理",
+    "subject": "地理",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "地理原理",
+      "区域特征",
+      "综合分析"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.598Z",
+    "updated_at": "2026-06-01T13:11:33.598Z"
+  },
+  {
+    "kp_id": "geography-high-3-1-2",
+    "kp_name": "经纬网",
+    "chapter": "第1章 自然地理",
+    "subject": "地理",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "地理原理",
+      "区域特征",
+      "综合分析"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.598Z",
+    "updated_at": "2026-06-01T13:11:33.598Z"
+  },
+  {
+    "kp_id": "geography-high-3-1-3",
+    "kp_name": "时区计算",
+    "chapter": "第1章 自然地理",
+    "subject": "地理",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "地理原理",
+      "区域特征",
+      "综合分析"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.598Z",
+    "updated_at": "2026-06-01T13:11:33.598Z"
+  },
+  {
+    "kp_id": "geography-high-3-2-1",
+    "kp_name": "大气环流",
+    "chapter": "第2章 人文地理",
+    "subject": "地理",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "地理原理",
+      "区域特征",
+      "综合分析"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.598Z",
+    "updated_at": "2026-06-01T13:11:33.598Z"
+  },
+  {
+    "kp_id": "geography-high-3-2-2",
+    "kp_name": "气候类型",
+    "chapter": "第2章 人文地理",
+    "subject": "地理",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "地理原理",
+      "区域特征",
+      "综合分析"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.598Z",
+    "updated_at": "2026-06-01T13:11:33.598Z"
+  },
+  {
+    "kp_id": "geography-high-3-2-3",
+    "kp_name": "天气系统",
+    "chapter": "第2章 人文地理",
+    "subject": "地理",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "地理原理",
+      "区域特征",
+      "综合分析"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.598Z",
+    "updated_at": "2026-06-01T13:11:33.598Z"
+  },
+  {
+    "kp_id": "geography-high-3-3-1",
+    "kp_name": "水循环",
+    "chapter": "第3章 区域地理",
+    "subject": "地理",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "地理原理",
+      "区域特征",
+      "综合分析"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.598Z",
+    "updated_at": "2026-06-01T13:11:33.598Z"
+  },
+  {
+    "kp_id": "geography-high-3-3-2",
+    "kp_name": "洋流",
+    "chapter": "第3章 区域地理",
+    "subject": "地理",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "地理原理",
+      "区域特征",
+      "综合分析"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.598Z",
+    "updated_at": "2026-06-01T13:11:33.598Z"
+  },
+  {
+    "kp_id": "geography-high-3-3-3",
+    "kp_name": "水资源",
+    "chapter": "第3章 区域地理",
+    "subject": "地理",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "地理原理",
+      "区域特征",
+      "综合分析"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.598Z",
+    "updated_at": "2026-06-01T13:11:33.598Z"
+  },
+  {
+    "kp_id": "geography-high-3-4-1",
+    "kp_name": "人口城市",
+    "chapter": "第4章 地理信息技术",
+    "subject": "地理",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "地理原理",
+      "区域特征",
+      "综合分析"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.598Z",
+    "updated_at": "2026-06-01T13:11:33.598Z"
+  },
+  {
+    "kp_id": "geography-high-3-4-2",
+    "kp_name": "产业区位",
+    "chapter": "第4章 地理信息技术",
+    "subject": "地理",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "地理原理",
+      "区域特征",
+      "综合分析"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.598Z",
+    "updated_at": "2026-06-01T13:11:33.598Z"
+  },
+  {
+    "kp_id": "geography-high-3-4-3",
+    "kp_name": "区域发展",
+    "chapter": "第4章 地理信息技术",
+    "subject": "地理",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "地理原理",
+      "区域特征",
+      "综合分析"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.598Z",
+    "updated_at": "2026-06-01T13:11:33.598Z"
+  },
+  {
+    "kp_id": "geography-high-4-1-1",
+    "kp_name": "地球运动",
+    "chapter": "第1章 自然地理",
+    "subject": "地理",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "地理原理",
+      "区域特征",
+      "综合分析"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.599Z",
+    "updated_at": "2026-06-01T13:11:33.599Z"
+  },
+  {
+    "kp_id": "geography-high-4-1-2",
+    "kp_name": "经纬网",
+    "chapter": "第1章 自然地理",
+    "subject": "地理",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "地理原理",
+      "区域特征",
+      "综合分析"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.599Z",
+    "updated_at": "2026-06-01T13:11:33.599Z"
+  },
+  {
+    "kp_id": "geography-high-4-1-3",
+    "kp_name": "时区计算",
+    "chapter": "第1章 自然地理",
+    "subject": "地理",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "地理原理",
+      "区域特征",
+      "综合分析"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.599Z",
+    "updated_at": "2026-06-01T13:11:33.599Z"
+  },
+  {
+    "kp_id": "geography-high-4-2-1",
+    "kp_name": "大气环流",
+    "chapter": "第2章 人文地理",
+    "subject": "地理",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "地理原理",
+      "区域特征",
+      "综合分析"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.599Z",
+    "updated_at": "2026-06-01T13:11:33.599Z"
+  },
+  {
+    "kp_id": "geography-high-4-2-2",
+    "kp_name": "气候类型",
+    "chapter": "第2章 人文地理",
+    "subject": "地理",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "地理原理",
+      "区域特征",
+      "综合分析"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.599Z",
+    "updated_at": "2026-06-01T13:11:33.599Z"
+  },
+  {
+    "kp_id": "geography-high-4-2-3",
+    "kp_name": "天气系统",
+    "chapter": "第2章 人文地理",
+    "subject": "地理",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "地理原理",
+      "区域特征",
+      "综合分析"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.599Z",
+    "updated_at": "2026-06-01T13:11:33.599Z"
+  },
+  {
+    "kp_id": "geography-high-4-3-1",
+    "kp_name": "水循环",
+    "chapter": "第3章 区域地理",
+    "subject": "地理",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "地理原理",
+      "区域特征",
+      "综合分析"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.599Z",
+    "updated_at": "2026-06-01T13:11:33.599Z"
+  },
+  {
+    "kp_id": "geography-high-4-3-2",
+    "kp_name": "洋流",
+    "chapter": "第3章 区域地理",
+    "subject": "地理",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "地理原理",
+      "区域特征",
+      "综合分析"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.599Z",
+    "updated_at": "2026-06-01T13:11:33.599Z"
+  },
+  {
+    "kp_id": "geography-high-4-3-3",
+    "kp_name": "水资源",
+    "chapter": "第3章 区域地理",
+    "subject": "地理",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "地理原理",
+      "区域特征",
+      "综合分析"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.599Z",
+    "updated_at": "2026-06-01T13:11:33.599Z"
+  },
+  {
+    "kp_id": "geography-high-4-4-1",
+    "kp_name": "人口城市",
+    "chapter": "第4章 地理信息技术",
+    "subject": "地理",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "地理原理",
+      "区域特征",
+      "综合分析"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.599Z",
+    "updated_at": "2026-06-01T13:11:33.599Z"
+  },
+  {
+    "kp_id": "geography-high-4-4-2",
+    "kp_name": "产业区位",
+    "chapter": "第4章 地理信息技术",
+    "subject": "地理",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "地理原理",
+      "区域特征",
+      "综合分析"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.599Z",
+    "updated_at": "2026-06-01T13:11:33.599Z"
+  },
+  {
+    "kp_id": "geography-high-4-4-3",
+    "kp_name": "区域发展",
+    "chapter": "第4章 地理信息技术",
+    "subject": "地理",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "地理原理",
+      "区域特征",
+      "综合分析"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.599Z",
+    "updated_at": "2026-06-01T13:11:33.599Z"
+  },
+  {
+    "kp_id": "his_kp5_1",
+    "kp_name": "秦灭六国",
+    "chapter": "秦统一中国",
+    "subject": "历史",
+    "grade": 7,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "统一的背景",
+      "统一的过程",
+      "统一的意义"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.600Z",
+    "updated_at": "2026-06-01T13:11:33.600Z"
+  },
+  {
+    "kp_id": "his_kp5_2",
+    "kp_name": "确立中央集权制度",
+    "chapter": "秦统一中国",
+    "subject": "历史",
+    "grade": 7,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "皇帝制度",
+      "三公九卿",
+      "郡县制"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.600Z",
+    "updated_at": "2026-06-01T13:11:33.600Z"
+  },
+  {
+    "kp_id": "his_kp5_3",
+    "kp_name": "巩固统一的措施",
+    "chapter": "秦统一中国",
+    "subject": "历史",
+    "grade": 7,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "统一文字",
+      "统一货币",
+      "统一度量衡",
+      "统一车轨"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.600Z",
+    "updated_at": "2026-06-01T13:11:33.600Z"
+  },
+  {
+    "kp_id": "his_kp6_1",
+    "kp_name": "秦的暴政",
+    "chapter": "秦末农民大起义",
+    "subject": "历史",
+    "grade": 7,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "繁重的徭役",
+      "沉重的赋税",
+      "残酷的刑罚"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.600Z",
+    "updated_at": "2026-06-01T13:11:33.600Z"
+  },
+  {
+    "kp_id": "his_kp6_2",
+    "kp_name": "陈胜吴广起义",
+    "chapter": "秦末农民大起义",
+    "subject": "历史",
+    "grade": 7,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "起义的原因",
+      "起义的过程",
+      "起义的意义"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.600Z",
+    "updated_at": "2026-06-01T13:11:33.600Z"
+  },
+  {
+    "kp_id": "his_kp6_3",
+    "kp_name": "楚汉之争",
+    "chapter": "秦末农民大起义",
+    "subject": "历史",
+    "grade": 7,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "秦朝的灭亡",
+      "楚汉之争",
+      "西汉的建立"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.600Z",
+    "updated_at": "2026-06-01T13:11:33.600Z"
+  },
+  {
+    "kp_id": "his_kp1_1",
+    "kp_name": "元谋人",
+    "chapter": "中国境内早期人类的代表",
+    "subject": "历史",
+    "grade": 7,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "元谋人的发现",
+      "元谋人的生活"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.601Z",
+    "updated_at": "2026-06-01T13:11:33.601Z"
+  },
+  {
+    "kp_id": "his_kp1_2",
+    "kp_name": "北京人",
+    "chapter": "中国境内早期人类的代表",
+    "subject": "历史",
+    "grade": 7,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "北京人的发现",
+      "北京人的特征",
+      "北京人的生活"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.601Z",
+    "updated_at": "2026-06-01T13:11:33.601Z"
+  },
+  {
+    "kp_id": "his_kp2_1",
+    "kp_name": "原始农业的发展",
+    "chapter": "原始农耕生活",
+    "subject": "历史",
+    "grade": 7,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "农业的起源",
+      "原始农业的特点"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.601Z",
+    "updated_at": "2026-06-01T13:11:33.601Z"
+  },
+  {
+    "kp_id": "his_kp2_2",
+    "kp_name": "河姆渡人和半坡人",
+    "chapter": "原始农耕生活",
+    "subject": "历史",
+    "grade": 7,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "河姆渡人",
+      "半坡人"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.601Z",
+    "updated_at": "2026-06-01T13:11:33.601Z"
+  },
+  {
+    "kp_id": "his_kp3_1",
+    "kp_name": "炎黄联盟",
+    "chapter": "远古的传说",
+    "subject": "历史",
+    "grade": 7,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "炎黄部落",
+      "涿鹿之战"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.601Z",
+    "updated_at": "2026-06-01T13:11:33.601Z"
+  },
+  {
+    "kp_id": "his_kp3_2",
+    "kp_name": "尧舜禹的禅让",
+    "chapter": "远古的传说",
+    "subject": "历史",
+    "grade": 7,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "禅让制",
+      "大禹治水"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.601Z",
+    "updated_at": "2026-06-01T13:11:33.601Z"
+  },
+  {
+    "kp_id": "his_kp4_1",
+    "kp_name": "夏朝的建立与灭亡",
+    "chapter": "夏商周的更替",
+    "subject": "历史",
+    "grade": 7,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "夏朝的建立",
+      "夏朝的统治",
+      "夏朝的灭亡"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.601Z",
+    "updated_at": "2026-06-01T13:11:33.601Z"
+  },
+  {
+    "kp_id": "his_kp4_2",
+    "kp_name": "商朝的统治",
+    "chapter": "夏商周的更替",
+    "subject": "历史",
+    "grade": 7,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "商汤灭夏",
+      "盘庚迁殷",
+      "商朝的灭亡"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.601Z",
+    "updated_at": "2026-06-01T13:11:33.601Z"
+  },
+  {
+    "kp_id": "his_kp4_3",
+    "kp_name": "西周的兴衰",
+    "chapter": "夏商周的更替",
+    "subject": "历史",
+    "grade": 7,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "武王伐纣",
+      "分封制",
+      "西周的灭亡"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.601Z",
+    "updated_at": "2026-06-01T13:11:33.601Z"
+  },
+  {
+    "kp_id": "his_kp4_1",
+    "kp_name": "洋务运动的兴起",
+    "chapter": "洋务运动",
+    "subject": "历史",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "洋务派",
+      "洋务运动的目的"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.601Z",
+    "updated_at": "2026-06-01T13:11:33.601Z"
+  },
+  {
+    "kp_id": "his_kp4_2",
+    "kp_name": "创办近代军事和民用企业",
+    "chapter": "洋务运动",
+    "subject": "历史",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "军事工业",
+      "民用工业"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.601Z",
+    "updated_at": "2026-06-01T13:11:33.601Z"
+  },
+  {
+    "kp_id": "his_kp4_3",
+    "kp_name": "建立新式海陆军",
+    "chapter": "洋务运动",
+    "subject": "历史",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "新式军队",
+      "北洋舰队"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.601Z",
+    "updated_at": "2026-06-01T13:11:33.601Z"
+  },
+  {
+    "kp_id": "his_kp5_1",
+    "kp_name": "甲午中日战争",
+    "chapter": "甲午中日战争与瓜分中国狂潮",
+    "subject": "历史",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "战争的爆发",
+      "黄海海战",
+      "威海卫战役"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.601Z",
+    "updated_at": "2026-06-01T13:11:33.601Z"
+  },
+  {
+    "kp_id": "his_kp5_2",
+    "kp_name": "马关条约",
+    "chapter": "甲午中日战争与瓜分中国狂潮",
+    "subject": "历史",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "条约的内容",
+      "条约的影响"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.601Z",
+    "updated_at": "2026-06-01T13:11:33.601Z"
+  },
+  {
+    "kp_id": "his_kp5_3",
+    "kp_name": "瓜分中国狂潮",
+    "chapter": "甲午中日战争与瓜分中国狂潮",
+    "subject": "历史",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "瓜分狂潮",
+      "门户开放政策"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.601Z",
+    "updated_at": "2026-06-01T13:11:33.601Z"
+  },
+  {
+    "kp_id": "his_kp6_1",
+    "kp_name": "维新变法运动的兴起",
+    "chapter": "戊戌变法",
+    "subject": "历史",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "公车上书",
+      "维新派的活动"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.601Z",
+    "updated_at": "2026-06-01T13:11:33.601Z"
+  },
+  {
+    "kp_id": "his_kp6_2",
+    "kp_name": "百日维新",
+    "chapter": "戊戌变法",
+    "subject": "历史",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "变法的内容",
+      "变法的失败"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.601Z",
+    "updated_at": "2026-06-01T13:11:33.601Z"
+  },
+  {
+    "kp_id": "his_kp1_1",
+    "kp_name": "鸦片走私与林则徐禁烟",
+    "chapter": "鸦片战争",
+    "subject": "历史",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "鸦片的危害",
+      "虎门销烟"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.602Z",
+    "updated_at": "2026-06-01T13:11:33.602Z"
+  },
+  {
+    "kp_id": "his_kp1_2",
+    "kp_name": "鸦片战争",
+    "chapter": "鸦片战争",
+    "subject": "历史",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "战争的经过",
+      "南京条约"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.602Z",
+    "updated_at": "2026-06-01T13:11:33.602Z"
+  },
+  {
+    "kp_id": "his_kp2_1",
+    "kp_name": "英法再次发动侵华战争",
+    "chapter": "第二次鸦片战争",
+    "subject": "历史",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "战争的原因",
+      "战争的经过"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.602Z",
+    "updated_at": "2026-06-01T13:11:33.602Z"
+  },
+  {
+    "kp_id": "his_kp2_2",
+    "kp_name": "火烧圆明园与北京条约",
+    "chapter": "第二次鸦片战争",
+    "subject": "历史",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "火烧圆明园",
+      "不平等条约"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.602Z",
+    "updated_at": "2026-06-01T13:11:33.602Z"
+  },
+  {
+    "kp_id": "his_kp3_1",
+    "kp_name": "太平天国运动的兴起",
+    "chapter": "太平天国运动",
+    "subject": "历史",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "金田起义",
+      "定都天京"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.602Z",
+    "updated_at": "2026-06-01T13:11:33.602Z"
+  },
+  {
+    "kp_id": "his_kp3_2",
+    "kp_name": "太平天国的盛衰",
+    "chapter": "太平天国运动",
+    "subject": "历史",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "天朝田亩制度",
+      "天京事变",
+      "太平天国的失败"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.602Z",
+    "updated_at": "2026-06-01T13:11:33.602Z"
+  },
+  {
+    "kp_id": "his_kp6_1",
+    "kp_name": "英国革命",
+    "chapter": "英国资产阶级革命",
+    "subject": "历史",
+    "grade": 9,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "革命的背景",
+      "权利法案",
+      "君主立宪制"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.602Z",
+    "updated_at": "2026-06-01T13:11:33.602Z"
+  },
+  {
+    "kp_id": "his_kp7_1",
+    "kp_name": "美国独立",
+    "chapter": "美国独立战争",
+    "subject": "历史",
+    "grade": 9,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "独立战争",
+      "独立宣言",
+      "美国宪法"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.602Z",
+    "updated_at": "2026-06-01T13:11:33.602Z"
+  },
+  {
+    "kp_id": "his_kp8_1",
+    "kp_name": "法国革命",
+    "chapter": "法国大革命",
+    "subject": "历史",
+    "grade": 9,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "大革命的爆发",
+      "人权宣言",
+      "拿破仑帝国"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.602Z",
+    "updated_at": "2026-06-01T13:11:33.602Z"
+  },
+  {
+    "kp_id": "his_kp9_1",
+    "kp_name": "工业革命",
+    "chapter": "第一次工业革命",
+    "subject": "历史",
+    "grade": 9,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "工业革命的开始",
+      "蒸汽机",
+      "工业革命的影响"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.602Z",
+    "updated_at": "2026-06-01T13:11:33.602Z"
+  },
+  {
+    "kp_id": "his_kp10_1",
+    "kp_name": "马克思主义",
+    "chapter": "马克思主义的诞生",
+    "subject": "历史",
+    "grade": 9,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "马克思主义的诞生",
+      "共产党宣言"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.602Z",
+    "updated_at": "2026-06-01T13:11:33.602Z"
+  },
+  {
+    "kp_id": "his_kp1_1",
+    "kp_name": "古埃及文明",
+    "chapter": "古代埃及",
+    "subject": "历史",
+    "grade": 9,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "尼罗河",
+      "金字塔",
+      "法老"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.602Z",
+    "updated_at": "2026-06-01T13:11:33.602Z"
+  },
+  {
+    "kp_id": "his_kp2_1",
+    "kp_name": "古巴比伦文明",
+    "chapter": "古代两河流域",
+    "subject": "历史",
+    "grade": 9,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "两河流域",
+      "汉谟拉比法典"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.602Z",
+    "updated_at": "2026-06-01T13:11:33.602Z"
+  },
+  {
+    "kp_id": "his_kp3_1",
+    "kp_name": "古印度文明",
+    "chapter": "古代印度",
+    "subject": "历史",
+    "grade": 9,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "印度河流域",
+      "种姓制度",
+      "佛教"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.602Z",
+    "updated_at": "2026-06-01T13:11:33.602Z"
+  },
+  {
+    "kp_id": "his_kp4_1",
+    "kp_name": "古希腊文明",
+    "chapter": "古代希腊",
+    "subject": "历史",
+    "grade": 9,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "雅典民主",
+      "斯巴达",
+      "希腊文化"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.602Z",
+    "updated_at": "2026-06-01T13:11:33.602Z"
+  },
+  {
+    "kp_id": "his_kp5_1",
+    "kp_name": "古罗马文明",
+    "chapter": "古代罗马",
+    "subject": "历史",
+    "grade": 9,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "罗马共和国",
+      "罗马帝国",
+      "罗马法"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.602Z",
+    "updated_at": "2026-06-01T13:11:33.602Z"
+  },
+  {
+    "kp_id": "history-high-1-1-1",
+    "kp_name": "古代中国",
+    "chapter": "第1章 古代史",
+    "subject": "历史",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "历史事件",
+      "因果分析",
+      "评价方法"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.603Z",
+    "updated_at": "2026-06-01T13:11:33.603Z"
+  },
+  {
+    "kp_id": "history-high-1-1-2",
+    "kp_name": "先秦时期",
+    "chapter": "第1章 古代史",
+    "subject": "历史",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "历史事件",
+      "因果分析",
+      "评价方法"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.603Z",
+    "updated_at": "2026-06-01T13:11:33.603Z"
+  },
+  {
+    "kp_id": "history-high-1-1-3",
+    "kp_name": "秦汉帝国",
+    "chapter": "第1章 古代史",
+    "subject": "历史",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "历史事件",
+      "因果分析",
+      "评价方法"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.603Z",
+    "updated_at": "2026-06-01T13:11:33.603Z"
+  },
+  {
+    "kp_id": "history-high-1-2-1",
+    "kp_name": "近代中国",
+    "chapter": "第2章 近代史",
+    "subject": "历史",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "历史事件",
+      "因果分析",
+      "评价方法"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.603Z",
+    "updated_at": "2026-06-01T13:11:33.603Z"
+  },
+  {
+    "kp_id": "history-high-1-2-2",
+    "kp_name": "鸦片战争",
+    "chapter": "第2章 近代史",
+    "subject": "历史",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "历史事件",
+      "因果分析",
+      "评价方法"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.603Z",
+    "updated_at": "2026-06-01T13:11:33.603Z"
+  },
+  {
+    "kp_id": "history-high-1-2-3",
+    "kp_name": "辛亥革命",
+    "chapter": "第2章 近代史",
+    "subject": "历史",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "历史事件",
+      "因果分析",
+      "评价方法"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.603Z",
+    "updated_at": "2026-06-01T13:11:33.603Z"
+  },
+  {
+    "kp_id": "history-high-1-3-1",
+    "kp_name": "现代中国",
+    "chapter": "第3章 现代史",
+    "subject": "历史",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "历史事件",
+      "因果分析",
+      "评价方法"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.603Z",
+    "updated_at": "2026-06-01T13:11:33.603Z"
+  },
+  {
+    "kp_id": "history-high-1-3-2",
+    "kp_name": "新中国成立",
+    "chapter": "第3章 现代史",
+    "subject": "历史",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "历史事件",
+      "因果分析",
+      "评价方法"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.603Z",
+    "updated_at": "2026-06-01T13:11:33.603Z"
+  },
+  {
+    "kp_id": "history-high-1-3-3",
+    "kp_name": "改革开放",
+    "chapter": "第3章 现代史",
+    "subject": "历史",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "历史事件",
+      "因果分析",
+      "评价方法"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.603Z",
+    "updated_at": "2026-06-01T13:11:33.603Z"
+  },
+  {
+    "kp_id": "history-high-1-4-1",
+    "kp_name": "世界史",
+    "chapter": "第4章 世界史",
+    "subject": "历史",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "历史事件",
+      "因果分析",
+      "评价方法"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.603Z",
+    "updated_at": "2026-06-01T13:11:33.603Z"
+  },
+  {
+    "kp_id": "history-high-1-4-2",
+    "kp_name": "文艺复兴",
+    "chapter": "第4章 世界史",
+    "subject": "历史",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "历史事件",
+      "因果分析",
+      "评价方法"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.603Z",
+    "updated_at": "2026-06-01T13:11:33.603Z"
+  },
+  {
+    "kp_id": "history-high-1-4-3",
+    "kp_name": "工业革命",
+    "chapter": "第4章 世界史",
+    "subject": "历史",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "历史事件",
+      "因果分析",
+      "评价方法"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.603Z",
+    "updated_at": "2026-06-01T13:11:33.603Z"
+  },
+  {
+    "kp_id": "history-high-2-1-1",
+    "kp_name": "古代中国",
+    "chapter": "第1章 古代史",
+    "subject": "历史",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "历史事件",
+      "因果分析",
+      "评价方法"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.604Z",
+    "updated_at": "2026-06-01T13:11:33.604Z"
+  },
+  {
+    "kp_id": "history-high-2-1-2",
+    "kp_name": "先秦时期",
+    "chapter": "第1章 古代史",
+    "subject": "历史",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "历史事件",
+      "因果分析",
+      "评价方法"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.604Z",
+    "updated_at": "2026-06-01T13:11:33.604Z"
+  },
+  {
+    "kp_id": "history-high-2-1-3",
+    "kp_name": "秦汉帝国",
+    "chapter": "第1章 古代史",
+    "subject": "历史",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "历史事件",
+      "因果分析",
+      "评价方法"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.604Z",
+    "updated_at": "2026-06-01T13:11:33.604Z"
+  },
+  {
+    "kp_id": "history-high-2-2-1",
+    "kp_name": "近代中国",
+    "chapter": "第2章 近代史",
+    "subject": "历史",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "历史事件",
+      "因果分析",
+      "评价方法"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.604Z",
+    "updated_at": "2026-06-01T13:11:33.604Z"
+  },
+  {
+    "kp_id": "history-high-2-2-2",
+    "kp_name": "鸦片战争",
+    "chapter": "第2章 近代史",
+    "subject": "历史",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "历史事件",
+      "因果分析",
+      "评价方法"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.604Z",
+    "updated_at": "2026-06-01T13:11:33.604Z"
+  },
+  {
+    "kp_id": "history-high-2-2-3",
+    "kp_name": "辛亥革命",
+    "chapter": "第2章 近代史",
+    "subject": "历史",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "历史事件",
+      "因果分析",
+      "评价方法"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.604Z",
+    "updated_at": "2026-06-01T13:11:33.604Z"
+  },
+  {
+    "kp_id": "history-high-2-3-1",
+    "kp_name": "现代中国",
+    "chapter": "第3章 现代史",
+    "subject": "历史",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "历史事件",
+      "因果分析",
+      "评价方法"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.604Z",
+    "updated_at": "2026-06-01T13:11:33.604Z"
+  },
+  {
+    "kp_id": "history-high-2-3-2",
+    "kp_name": "新中国成立",
+    "chapter": "第3章 现代史",
+    "subject": "历史",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "历史事件",
+      "因果分析",
+      "评价方法"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.604Z",
+    "updated_at": "2026-06-01T13:11:33.604Z"
+  },
+  {
+    "kp_id": "history-high-2-3-3",
+    "kp_name": "改革开放",
+    "chapter": "第3章 现代史",
+    "subject": "历史",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "历史事件",
+      "因果分析",
+      "评价方法"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.604Z",
+    "updated_at": "2026-06-01T13:11:33.604Z"
+  },
+  {
+    "kp_id": "history-high-2-4-1",
+    "kp_name": "世界史",
+    "chapter": "第4章 世界史",
+    "subject": "历史",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "历史事件",
+      "因果分析",
+      "评价方法"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.604Z",
+    "updated_at": "2026-06-01T13:11:33.604Z"
+  },
+  {
+    "kp_id": "history-high-2-4-2",
+    "kp_name": "文艺复兴",
+    "chapter": "第4章 世界史",
+    "subject": "历史",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "历史事件",
+      "因果分析",
+      "评价方法"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.604Z",
+    "updated_at": "2026-06-01T13:11:33.604Z"
+  },
+  {
+    "kp_id": "history-high-2-4-3",
+    "kp_name": "工业革命",
+    "chapter": "第4章 世界史",
+    "subject": "历史",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "历史事件",
+      "因果分析",
+      "评价方法"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.604Z",
+    "updated_at": "2026-06-01T13:11:33.604Z"
+  },
+  {
+    "kp_id": "history-high-3-1-1",
+    "kp_name": "古代中国",
+    "chapter": "第1章 古代史",
+    "subject": "历史",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "历史事件",
+      "因果分析",
+      "评价方法"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.604Z",
+    "updated_at": "2026-06-01T13:11:33.604Z"
+  },
+  {
+    "kp_id": "history-high-3-1-2",
+    "kp_name": "先秦时期",
+    "chapter": "第1章 古代史",
+    "subject": "历史",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "历史事件",
+      "因果分析",
+      "评价方法"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.604Z",
+    "updated_at": "2026-06-01T13:11:33.604Z"
+  },
+  {
+    "kp_id": "history-high-3-1-3",
+    "kp_name": "秦汉帝国",
+    "chapter": "第1章 古代史",
+    "subject": "历史",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "历史事件",
+      "因果分析",
+      "评价方法"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.604Z",
+    "updated_at": "2026-06-01T13:11:33.604Z"
+  },
+  {
+    "kp_id": "history-high-3-2-1",
+    "kp_name": "近代中国",
+    "chapter": "第2章 近代史",
+    "subject": "历史",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "历史事件",
+      "因果分析",
+      "评价方法"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.604Z",
+    "updated_at": "2026-06-01T13:11:33.604Z"
+  },
+  {
+    "kp_id": "history-high-3-2-2",
+    "kp_name": "鸦片战争",
+    "chapter": "第2章 近代史",
+    "subject": "历史",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "历史事件",
+      "因果分析",
+      "评价方法"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.604Z",
+    "updated_at": "2026-06-01T13:11:33.604Z"
+  },
+  {
+    "kp_id": "history-high-3-2-3",
+    "kp_name": "辛亥革命",
+    "chapter": "第2章 近代史",
+    "subject": "历史",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "历史事件",
+      "因果分析",
+      "评价方法"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.604Z",
+    "updated_at": "2026-06-01T13:11:33.604Z"
+  },
+  {
+    "kp_id": "history-high-3-3-1",
+    "kp_name": "现代中国",
+    "chapter": "第3章 现代史",
+    "subject": "历史",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "历史事件",
+      "因果分析",
+      "评价方法"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.604Z",
+    "updated_at": "2026-06-01T13:11:33.604Z"
+  },
+  {
+    "kp_id": "history-high-3-3-2",
+    "kp_name": "新中国成立",
+    "chapter": "第3章 现代史",
+    "subject": "历史",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "历史事件",
+      "因果分析",
+      "评价方法"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.604Z",
+    "updated_at": "2026-06-01T13:11:33.604Z"
+  },
+  {
+    "kp_id": "history-high-3-3-3",
+    "kp_name": "改革开放",
+    "chapter": "第3章 现代史",
+    "subject": "历史",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "历史事件",
+      "因果分析",
+      "评价方法"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.604Z",
+    "updated_at": "2026-06-01T13:11:33.604Z"
+  },
+  {
+    "kp_id": "history-high-3-4-1",
+    "kp_name": "世界史",
+    "chapter": "第4章 世界史",
+    "subject": "历史",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "历史事件",
+      "因果分析",
+      "评价方法"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.604Z",
+    "updated_at": "2026-06-01T13:11:33.604Z"
+  },
+  {
+    "kp_id": "history-high-3-4-2",
+    "kp_name": "文艺复兴",
+    "chapter": "第4章 世界史",
+    "subject": "历史",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "历史事件",
+      "因果分析",
+      "评价方法"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.604Z",
+    "updated_at": "2026-06-01T13:11:33.604Z"
+  },
+  {
+    "kp_id": "history-high-3-4-3",
+    "kp_name": "工业革命",
+    "chapter": "第4章 世界史",
+    "subject": "历史",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "历史事件",
+      "因果分析",
+      "评价方法"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.604Z",
+    "updated_at": "2026-06-01T13:11:33.604Z"
+  },
+  {
+    "kp_id": "history-high-4-1-1",
+    "kp_name": "古代中国",
+    "chapter": "第1章 古代史",
+    "subject": "历史",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "历史事件",
+      "因果分析",
+      "评价方法"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.604Z",
+    "updated_at": "2026-06-01T13:11:33.604Z"
+  },
+  {
+    "kp_id": "history-high-4-1-2",
+    "kp_name": "先秦时期",
+    "chapter": "第1章 古代史",
+    "subject": "历史",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "历史事件",
+      "因果分析",
+      "评价方法"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.604Z",
+    "updated_at": "2026-06-01T13:11:33.604Z"
+  },
+  {
+    "kp_id": "history-high-4-1-3",
+    "kp_name": "秦汉帝国",
+    "chapter": "第1章 古代史",
+    "subject": "历史",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "历史事件",
+      "因果分析",
+      "评价方法"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.604Z",
+    "updated_at": "2026-06-01T13:11:33.604Z"
+  },
+  {
+    "kp_id": "history-high-4-2-1",
+    "kp_name": "近代中国",
+    "chapter": "第2章 近代史",
+    "subject": "历史",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "历史事件",
+      "因果分析",
+      "评价方法"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.604Z",
+    "updated_at": "2026-06-01T13:11:33.604Z"
+  },
+  {
+    "kp_id": "history-high-4-2-2",
+    "kp_name": "鸦片战争",
+    "chapter": "第2章 近代史",
+    "subject": "历史",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "历史事件",
+      "因果分析",
+      "评价方法"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.604Z",
+    "updated_at": "2026-06-01T13:11:33.604Z"
+  },
+  {
+    "kp_id": "history-high-4-2-3",
+    "kp_name": "辛亥革命",
+    "chapter": "第2章 近代史",
+    "subject": "历史",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "历史事件",
+      "因果分析",
+      "评价方法"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.604Z",
+    "updated_at": "2026-06-01T13:11:33.604Z"
+  },
+  {
+    "kp_id": "history-high-4-3-1",
+    "kp_name": "现代中国",
+    "chapter": "第3章 现代史",
+    "subject": "历史",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "历史事件",
+      "因果分析",
+      "评价方法"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.604Z",
+    "updated_at": "2026-06-01T13:11:33.604Z"
+  },
+  {
+    "kp_id": "history-high-4-3-2",
+    "kp_name": "新中国成立",
+    "chapter": "第3章 现代史",
+    "subject": "历史",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "历史事件",
+      "因果分析",
+      "评价方法"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.604Z",
+    "updated_at": "2026-06-01T13:11:33.604Z"
+  },
+  {
+    "kp_id": "history-high-4-3-3",
+    "kp_name": "改革开放",
+    "chapter": "第3章 现代史",
+    "subject": "历史",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "历史事件",
+      "因果分析",
+      "评价方法"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.604Z",
+    "updated_at": "2026-06-01T13:11:33.604Z"
+  },
+  {
+    "kp_id": "history-high-4-4-1",
+    "kp_name": "世界史",
+    "chapter": "第4章 世界史",
+    "subject": "历史",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "历史事件",
+      "因果分析",
+      "评价方法"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.604Z",
+    "updated_at": "2026-06-01T13:11:33.604Z"
+  },
+  {
+    "kp_id": "history-high-4-4-2",
+    "kp_name": "文艺复兴",
+    "chapter": "第4章 世界史",
+    "subject": "历史",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "历史事件",
+      "因果分析",
+      "评价方法"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.604Z",
+    "updated_at": "2026-06-01T13:11:33.604Z"
+  },
+  {
+    "kp_id": "history-high-4-4-3",
+    "kp_name": "工业革命",
+    "chapter": "第4章 世界史",
+    "subject": "历史",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "历史事件",
+      "因果分析",
+      "评价方法"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.604Z",
+    "updated_at": "2026-06-01T13:11:33.604Z"
+  },
+  {
+    "kp_id": "math-grade1-down-1-1",
+    "kp_name": "认识数字",
+    "chapter": "第一单元 数的认识",
+    "subject": "数学",
+    "grade": 1,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单计算"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.75,
+      "medium": 0.25,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.604Z",
+    "updated_at": "2026-06-01T13:11:33.604Z"
+  },
+  {
+    "kp_id": "math-grade1-down-1-2",
+    "kp_name": "数的大小比较",
+    "chapter": "第一单元 数的认识",
+    "subject": "数学",
+    "grade": 1,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单计算"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.75,
+      "medium": 0.25,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.604Z",
+    "updated_at": "2026-06-01T13:11:33.604Z"
+  },
+  {
+    "kp_id": "math-grade1-down-1-3",
+    "kp_name": "加减法",
+    "chapter": "第一单元 数的认识",
+    "subject": "数学",
+    "grade": 1,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单计算"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.75,
+      "medium": 0.25,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.604Z",
+    "updated_at": "2026-06-01T13:11:33.604Z"
+  },
+  {
+    "kp_id": "math-grade1-down-2-4",
+    "kp_name": "认识图形",
+    "chapter": "第二单元 图形",
+    "subject": "数学",
+    "grade": 1,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单计算"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.75,
+      "medium": 0.25,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.604Z",
+    "updated_at": "2026-06-01T13:11:33.604Z"
+  },
+  {
+    "kp_id": "math-grade1-down-2-5",
+    "kp_name": "图形分类",
+    "chapter": "第二单元 图形",
+    "subject": "数学",
+    "grade": 1,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单计算"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.75,
+      "medium": 0.25,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.604Z",
+    "updated_at": "2026-06-01T13:11:33.604Z"
+  },
+  {
+    "kp_id": "math-grade1-down-2-6",
+    "kp_name": "图形拼组",
+    "chapter": "第二单元 图形",
+    "subject": "数学",
+    "grade": 1,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单计算"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.75,
+      "medium": 0.25,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.604Z",
+    "updated_at": "2026-06-01T13:11:33.604Z"
+  },
+  {
+    "kp_id": "math-grade1-down-3-7",
+    "kp_name": "应用题",
+    "chapter": "第三单元 应用",
+    "subject": "数学",
+    "grade": 1,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单计算"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.75,
+      "medium": 0.25,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.604Z",
+    "updated_at": "2026-06-01T13:11:33.604Z"
+  },
+  {
+    "kp_id": "math-grade1-down-3-8",
+    "kp_name": "时间认识",
+    "chapter": "第三单元 应用",
+    "subject": "数学",
+    "grade": 1,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单计算"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.75,
+      "medium": 0.25,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.604Z",
+    "updated_at": "2026-06-01T13:11:33.604Z"
+  },
+  {
+    "kp_id": "math-grade1-down-3-9",
+    "kp_name": "人民币",
+    "chapter": "第三单元 应用",
+    "subject": "数学",
+    "grade": 1,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单计算"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.75,
+      "medium": 0.25,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.604Z",
+    "updated_at": "2026-06-01T13:11:33.604Z"
+  },
+  {
+    "kp_id": "math-grade1-up-1-1",
+    "kp_name": "认识数字",
+    "chapter": "第一单元 数的认识",
+    "subject": "数学",
+    "grade": 1,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单计算"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.75,
+      "medium": 0.25,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.604Z",
+    "updated_at": "2026-06-01T13:11:33.604Z"
+  },
+  {
+    "kp_id": "math-grade1-up-1-2",
+    "kp_name": "数的大小比较",
+    "chapter": "第一单元 数的认识",
+    "subject": "数学",
+    "grade": 1,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单计算"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.75,
+      "medium": 0.25,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.604Z",
+    "updated_at": "2026-06-01T13:11:33.604Z"
+  },
+  {
+    "kp_id": "math-grade1-up-1-3",
+    "kp_name": "加减法",
+    "chapter": "第一单元 数的认识",
+    "subject": "数学",
+    "grade": 1,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单计算"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.75,
+      "medium": 0.25,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.604Z",
+    "updated_at": "2026-06-01T13:11:33.604Z"
+  },
+  {
+    "kp_id": "math-grade1-up-2-4",
+    "kp_name": "认识图形",
+    "chapter": "第二单元 图形",
+    "subject": "数学",
+    "grade": 1,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单计算"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.75,
+      "medium": 0.25,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.604Z",
+    "updated_at": "2026-06-01T13:11:33.604Z"
+  },
+  {
+    "kp_id": "math-grade1-up-2-5",
+    "kp_name": "图形分类",
+    "chapter": "第二单元 图形",
+    "subject": "数学",
+    "grade": 1,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单计算"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.75,
+      "medium": 0.25,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.604Z",
+    "updated_at": "2026-06-01T13:11:33.604Z"
+  },
+  {
+    "kp_id": "math-grade1-up-2-6",
+    "kp_name": "图形拼组",
+    "chapter": "第二单元 图形",
+    "subject": "数学",
+    "grade": 1,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单计算"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.75,
+      "medium": 0.25,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.604Z",
+    "updated_at": "2026-06-01T13:11:33.604Z"
+  },
+  {
+    "kp_id": "math-grade1-up-3-7",
+    "kp_name": "应用题",
+    "chapter": "第三单元 应用",
+    "subject": "数学",
+    "grade": 1,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单计算"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.75,
+      "medium": 0.25,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.604Z",
+    "updated_at": "2026-06-01T13:11:33.604Z"
+  },
+  {
+    "kp_id": "math-grade1-up-3-8",
+    "kp_name": "时间认识",
+    "chapter": "第三单元 应用",
+    "subject": "数学",
+    "grade": 1,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单计算"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.75,
+      "medium": 0.25,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.604Z",
+    "updated_at": "2026-06-01T13:11:33.604Z"
+  },
+  {
+    "kp_id": "math-grade1-up-3-9",
+    "kp_name": "人民币",
+    "chapter": "第三单元 应用",
+    "subject": "数学",
+    "grade": 1,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单计算"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.75,
+      "medium": 0.25,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.604Z",
+    "updated_at": "2026-06-01T13:11:33.604Z"
+  },
+  {
+    "kp_id": "math-grade2-down-1-1",
+    "kp_name": "认识数字",
+    "chapter": "第一单元 数的认识",
+    "subject": "数学",
+    "grade": 2,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单计算"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.7999999999999999,
+      "medium": 0.19999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.605Z",
+    "updated_at": "2026-06-01T13:11:33.605Z"
+  },
+  {
+    "kp_id": "math-grade2-down-1-2",
+    "kp_name": "数的大小比较",
+    "chapter": "第一单元 数的认识",
+    "subject": "数学",
+    "grade": 2,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单计算"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.7999999999999999,
+      "medium": 0.19999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.605Z",
+    "updated_at": "2026-06-01T13:11:33.605Z"
+  },
+  {
+    "kp_id": "math-grade2-down-1-3",
+    "kp_name": "加减法",
+    "chapter": "第一单元 数的认识",
+    "subject": "数学",
+    "grade": 2,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单计算"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.7999999999999999,
+      "medium": 0.19999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.605Z",
+    "updated_at": "2026-06-01T13:11:33.605Z"
+  },
+  {
+    "kp_id": "math-grade2-down-2-4",
+    "kp_name": "认识图形",
+    "chapter": "第二单元 图形",
+    "subject": "数学",
+    "grade": 2,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单计算"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.7999999999999999,
+      "medium": 0.19999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.605Z",
+    "updated_at": "2026-06-01T13:11:33.605Z"
+  },
+  {
+    "kp_id": "math-grade2-down-2-5",
+    "kp_name": "图形分类",
+    "chapter": "第二单元 图形",
+    "subject": "数学",
+    "grade": 2,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单计算"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.7999999999999999,
+      "medium": 0.19999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.605Z",
+    "updated_at": "2026-06-01T13:11:33.605Z"
+  },
+  {
+    "kp_id": "math-grade2-down-2-6",
+    "kp_name": "图形拼组",
+    "chapter": "第二单元 图形",
+    "subject": "数学",
+    "grade": 2,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单计算"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.7999999999999999,
+      "medium": 0.19999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.605Z",
+    "updated_at": "2026-06-01T13:11:33.605Z"
+  },
+  {
+    "kp_id": "math-grade2-down-3-7",
+    "kp_name": "应用题",
+    "chapter": "第三单元 应用",
+    "subject": "数学",
+    "grade": 2,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单计算"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.7999999999999999,
+      "medium": 0.19999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.605Z",
+    "updated_at": "2026-06-01T13:11:33.605Z"
+  },
+  {
+    "kp_id": "math-grade2-down-3-8",
+    "kp_name": "时间认识",
+    "chapter": "第三单元 应用",
+    "subject": "数学",
+    "grade": 2,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单计算"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.7999999999999999,
+      "medium": 0.19999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.605Z",
+    "updated_at": "2026-06-01T13:11:33.605Z"
+  },
+  {
+    "kp_id": "math-grade2-down-3-9",
+    "kp_name": "人民币",
+    "chapter": "第三单元 应用",
+    "subject": "数学",
+    "grade": 2,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单计算"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.7999999999999999,
+      "medium": 0.19999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.605Z",
+    "updated_at": "2026-06-01T13:11:33.605Z"
+  },
+  {
+    "kp_id": "math-grade2-up-1-1",
+    "kp_name": "认识数字",
+    "chapter": "第一单元 数的认识",
+    "subject": "数学",
+    "grade": 2,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单计算"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.7999999999999999,
+      "medium": 0.19999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.605Z",
+    "updated_at": "2026-06-01T13:11:33.605Z"
+  },
+  {
+    "kp_id": "math-grade2-up-1-2",
+    "kp_name": "数的大小比较",
+    "chapter": "第一单元 数的认识",
+    "subject": "数学",
+    "grade": 2,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单计算"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.7999999999999999,
+      "medium": 0.19999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.605Z",
+    "updated_at": "2026-06-01T13:11:33.605Z"
+  },
+  {
+    "kp_id": "math-grade2-up-1-3",
+    "kp_name": "加减法",
+    "chapter": "第一单元 数的认识",
+    "subject": "数学",
+    "grade": 2,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单计算"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.7999999999999999,
+      "medium": 0.19999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.605Z",
+    "updated_at": "2026-06-01T13:11:33.605Z"
+  },
+  {
+    "kp_id": "math-grade2-up-2-4",
+    "kp_name": "认识图形",
+    "chapter": "第二单元 图形",
+    "subject": "数学",
+    "grade": 2,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单计算"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.7999999999999999,
+      "medium": 0.19999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.605Z",
+    "updated_at": "2026-06-01T13:11:33.605Z"
+  },
+  {
+    "kp_id": "math-grade2-up-2-5",
+    "kp_name": "图形分类",
+    "chapter": "第二单元 图形",
+    "subject": "数学",
+    "grade": 2,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单计算"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.7999999999999999,
+      "medium": 0.19999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.605Z",
+    "updated_at": "2026-06-01T13:11:33.605Z"
+  },
+  {
+    "kp_id": "math-grade2-up-2-6",
+    "kp_name": "图形拼组",
+    "chapter": "第二单元 图形",
+    "subject": "数学",
+    "grade": 2,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单计算"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.7999999999999999,
+      "medium": 0.19999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.605Z",
+    "updated_at": "2026-06-01T13:11:33.605Z"
+  },
+  {
+    "kp_id": "math-grade2-up-3-7",
+    "kp_name": "应用题",
+    "chapter": "第三单元 应用",
+    "subject": "数学",
+    "grade": 2,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单计算"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.7999999999999999,
+      "medium": 0.19999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.605Z",
+    "updated_at": "2026-06-01T13:11:33.605Z"
+  },
+  {
+    "kp_id": "math-grade2-up-3-8",
+    "kp_name": "时间认识",
+    "chapter": "第三单元 应用",
+    "subject": "数学",
+    "grade": 2,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单计算"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.7999999999999999,
+      "medium": 0.19999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.605Z",
+    "updated_at": "2026-06-01T13:11:33.605Z"
+  },
+  {
+    "kp_id": "math-grade2-up-3-9",
+    "kp_name": "人民币",
+    "chapter": "第三单元 应用",
+    "subject": "数学",
+    "grade": 2,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "简单计算"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.7999999999999999,
+      "medium": 0.19999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.605Z",
+    "updated_at": "2026-06-01T13:11:33.605Z"
+  },
+  {
+    "kp_id": "math-grade3-down-1-1",
+    "kp_name": "认识数字",
+    "chapter": "第一单元 数的认识",
+    "subject": "数学",
+    "grade": 3,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "计算方法",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.85,
+      "medium": 0.14999999999999997,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.605Z",
+    "updated_at": "2026-06-01T13:11:33.605Z"
+  },
+  {
+    "kp_id": "math-grade3-down-1-2",
+    "kp_name": "数的大小比较",
+    "chapter": "第一单元 数的认识",
+    "subject": "数学",
+    "grade": 3,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "计算方法",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.85,
+      "medium": 0.14999999999999997,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.605Z",
+    "updated_at": "2026-06-01T13:11:33.605Z"
+  },
+  {
+    "kp_id": "math-grade3-down-1-3",
+    "kp_name": "加减法",
+    "chapter": "第一单元 数的认识",
+    "subject": "数学",
+    "grade": 3,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "计算方法",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.85,
+      "medium": 0.14999999999999997,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.605Z",
+    "updated_at": "2026-06-01T13:11:33.605Z"
+  },
+  {
+    "kp_id": "math-grade3-down-2-4",
+    "kp_name": "认识图形",
+    "chapter": "第二单元 图形",
+    "subject": "数学",
+    "grade": 3,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "计算方法",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.85,
+      "medium": 0.14999999999999997,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.605Z",
+    "updated_at": "2026-06-01T13:11:33.605Z"
+  },
+  {
+    "kp_id": "math-grade3-down-2-5",
+    "kp_name": "图形分类",
+    "chapter": "第二单元 图形",
+    "subject": "数学",
+    "grade": 3,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "计算方法",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.85,
+      "medium": 0.14999999999999997,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.605Z",
+    "updated_at": "2026-06-01T13:11:33.605Z"
+  },
+  {
+    "kp_id": "math-grade3-down-2-6",
+    "kp_name": "图形拼组",
+    "chapter": "第二单元 图形",
+    "subject": "数学",
+    "grade": 3,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "计算方法",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.85,
+      "medium": 0.14999999999999997,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.605Z",
+    "updated_at": "2026-06-01T13:11:33.605Z"
+  },
+  {
+    "kp_id": "math-grade3-down-3-7",
+    "kp_name": "应用题",
+    "chapter": "第三单元 应用",
+    "subject": "数学",
+    "grade": 3,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "计算方法",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.85,
+      "medium": 0.14999999999999997,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.605Z",
+    "updated_at": "2026-06-01T13:11:33.605Z"
+  },
+  {
+    "kp_id": "math-grade3-down-3-8",
+    "kp_name": "时间认识",
+    "chapter": "第三单元 应用",
+    "subject": "数学",
+    "grade": 3,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "计算方法",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.85,
+      "medium": 0.14999999999999997,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.605Z",
+    "updated_at": "2026-06-01T13:11:33.605Z"
+  },
+  {
+    "kp_id": "math-grade3-down-3-9",
+    "kp_name": "人民币",
+    "chapter": "第三单元 应用",
+    "subject": "数学",
+    "grade": 3,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "计算方法",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.85,
+      "medium": 0.14999999999999997,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.605Z",
+    "updated_at": "2026-06-01T13:11:33.605Z"
+  },
+  {
+    "kp_id": "math-grade3-up-1-1",
+    "kp_name": "认识数字",
+    "chapter": "第一单元 数的认识",
+    "subject": "数学",
+    "grade": 3,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "计算方法",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.85,
+      "medium": 0.14999999999999997,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.606Z",
+    "updated_at": "2026-06-01T13:11:33.606Z"
+  },
+  {
+    "kp_id": "math-grade3-up-1-2",
+    "kp_name": "数的大小比较",
+    "chapter": "第一单元 数的认识",
+    "subject": "数学",
+    "grade": 3,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "计算方法",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.85,
+      "medium": 0.14999999999999997,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.606Z",
+    "updated_at": "2026-06-01T13:11:33.606Z"
+  },
+  {
+    "kp_id": "math-grade3-up-1-3",
+    "kp_name": "加减法",
+    "chapter": "第一单元 数的认识",
+    "subject": "数学",
+    "grade": 3,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "计算方法",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.85,
+      "medium": 0.14999999999999997,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.606Z",
+    "updated_at": "2026-06-01T13:11:33.606Z"
+  },
+  {
+    "kp_id": "math-grade3-up-2-4",
+    "kp_name": "认识图形",
+    "chapter": "第二单元 图形",
+    "subject": "数学",
+    "grade": 3,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "计算方法",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.85,
+      "medium": 0.14999999999999997,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.606Z",
+    "updated_at": "2026-06-01T13:11:33.606Z"
+  },
+  {
+    "kp_id": "math-grade3-up-2-5",
+    "kp_name": "图形分类",
+    "chapter": "第二单元 图形",
+    "subject": "数学",
+    "grade": 3,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "计算方法",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.85,
+      "medium": 0.14999999999999997,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.606Z",
+    "updated_at": "2026-06-01T13:11:33.606Z"
+  },
+  {
+    "kp_id": "math-grade3-up-2-6",
+    "kp_name": "图形拼组",
+    "chapter": "第二单元 图形",
+    "subject": "数学",
+    "grade": 3,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "计算方法",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.85,
+      "medium": 0.14999999999999997,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.606Z",
+    "updated_at": "2026-06-01T13:11:33.606Z"
+  },
+  {
+    "kp_id": "math-grade3-up-3-7",
+    "kp_name": "应用题",
+    "chapter": "第三单元 应用",
+    "subject": "数学",
+    "grade": 3,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "计算方法",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.85,
+      "medium": 0.14999999999999997,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.606Z",
+    "updated_at": "2026-06-01T13:11:33.606Z"
+  },
+  {
+    "kp_id": "math-grade3-up-3-8",
+    "kp_name": "时间认识",
+    "chapter": "第三单元 应用",
+    "subject": "数学",
+    "grade": 3,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "计算方法",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.85,
+      "medium": 0.14999999999999997,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.606Z",
+    "updated_at": "2026-06-01T13:11:33.606Z"
+  },
+  {
+    "kp_id": "math-grade3-up-3-9",
+    "kp_name": "人民币",
+    "chapter": "第三单元 应用",
+    "subject": "数学",
+    "grade": 3,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "计算方法",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.85,
+      "medium": 0.14999999999999997,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.606Z",
+    "updated_at": "2026-06-01T13:11:33.606Z"
+  },
+  {
+    "kp_id": "math-grade4-down-1-1",
+    "kp_name": "认识数字",
+    "chapter": "第一单元 数的认识",
+    "subject": "数学",
+    "grade": 4,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "计算方法",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.8999999999999999,
+      "medium": 0.09999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.606Z",
+    "updated_at": "2026-06-01T13:11:33.606Z"
+  },
+  {
+    "kp_id": "math-grade4-down-1-2",
+    "kp_name": "数的大小比较",
+    "chapter": "第一单元 数的认识",
+    "subject": "数学",
+    "grade": 4,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "计算方法",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.8999999999999999,
+      "medium": 0.09999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.606Z",
+    "updated_at": "2026-06-01T13:11:33.606Z"
+  },
+  {
+    "kp_id": "math-grade4-down-1-3",
+    "kp_name": "加减法",
+    "chapter": "第一单元 数的认识",
+    "subject": "数学",
+    "grade": 4,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "计算方法",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.8999999999999999,
+      "medium": 0.09999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.606Z",
+    "updated_at": "2026-06-01T13:11:33.606Z"
+  },
+  {
+    "kp_id": "math-grade4-down-2-4",
+    "kp_name": "认识图形",
+    "chapter": "第二单元 图形",
+    "subject": "数学",
+    "grade": 4,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "计算方法",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.8999999999999999,
+      "medium": 0.09999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.606Z",
+    "updated_at": "2026-06-01T13:11:33.606Z"
+  },
+  {
+    "kp_id": "math-grade4-down-2-5",
+    "kp_name": "图形分类",
+    "chapter": "第二单元 图形",
+    "subject": "数学",
+    "grade": 4,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "计算方法",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.8999999999999999,
+      "medium": 0.09999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.606Z",
+    "updated_at": "2026-06-01T13:11:33.606Z"
+  },
+  {
+    "kp_id": "math-grade4-down-2-6",
+    "kp_name": "图形拼组",
+    "chapter": "第二单元 图形",
+    "subject": "数学",
+    "grade": 4,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "计算方法",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.8999999999999999,
+      "medium": 0.09999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.606Z",
+    "updated_at": "2026-06-01T13:11:33.606Z"
+  },
+  {
+    "kp_id": "math-grade4-down-3-7",
+    "kp_name": "应用题",
+    "chapter": "第三单元 应用",
+    "subject": "数学",
+    "grade": 4,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "计算方法",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.8999999999999999,
+      "medium": 0.09999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.606Z",
+    "updated_at": "2026-06-01T13:11:33.606Z"
+  },
+  {
+    "kp_id": "math-grade4-down-3-8",
+    "kp_name": "时间认识",
+    "chapter": "第三单元 应用",
+    "subject": "数学",
+    "grade": 4,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "计算方法",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.8999999999999999,
+      "medium": 0.09999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.606Z",
+    "updated_at": "2026-06-01T13:11:33.606Z"
+  },
+  {
+    "kp_id": "math-grade4-down-3-9",
+    "kp_name": "人民币",
+    "chapter": "第三单元 应用",
+    "subject": "数学",
+    "grade": 4,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "计算方法",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.8999999999999999,
+      "medium": 0.09999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.606Z",
+    "updated_at": "2026-06-01T13:11:33.606Z"
+  },
+  {
+    "kp_id": "math-grade4-up-1-1",
+    "kp_name": "认识数字",
+    "chapter": "第一单元 数的认识",
+    "subject": "数学",
+    "grade": 4,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "计算方法",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.8999999999999999,
+      "medium": 0.09999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.606Z",
+    "updated_at": "2026-06-01T13:11:33.606Z"
+  },
+  {
+    "kp_id": "math-grade4-up-1-2",
+    "kp_name": "数的大小比较",
+    "chapter": "第一单元 数的认识",
+    "subject": "数学",
+    "grade": 4,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "计算方法",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.8999999999999999,
+      "medium": 0.09999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.606Z",
+    "updated_at": "2026-06-01T13:11:33.606Z"
+  },
+  {
+    "kp_id": "math-grade4-up-1-3",
+    "kp_name": "加减法",
+    "chapter": "第一单元 数的认识",
+    "subject": "数学",
+    "grade": 4,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "计算方法",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.8999999999999999,
+      "medium": 0.09999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.606Z",
+    "updated_at": "2026-06-01T13:11:33.606Z"
+  },
+  {
+    "kp_id": "math-grade4-up-2-4",
+    "kp_name": "认识图形",
+    "chapter": "第二单元 图形",
+    "subject": "数学",
+    "grade": 4,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "计算方法",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.8999999999999999,
+      "medium": 0.09999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.606Z",
+    "updated_at": "2026-06-01T13:11:33.606Z"
+  },
+  {
+    "kp_id": "math-grade4-up-2-5",
+    "kp_name": "图形分类",
+    "chapter": "第二单元 图形",
+    "subject": "数学",
+    "grade": 4,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "计算方法",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.8999999999999999,
+      "medium": 0.09999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.606Z",
+    "updated_at": "2026-06-01T13:11:33.606Z"
+  },
+  {
+    "kp_id": "math-grade4-up-2-6",
+    "kp_name": "图形拼组",
+    "chapter": "第二单元 图形",
+    "subject": "数学",
+    "grade": 4,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "计算方法",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.8999999999999999,
+      "medium": 0.09999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.606Z",
+    "updated_at": "2026-06-01T13:11:33.606Z"
+  },
+  {
+    "kp_id": "math-grade4-up-3-7",
+    "kp_name": "应用题",
+    "chapter": "第三单元 应用",
+    "subject": "数学",
+    "grade": 4,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "计算方法",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.8999999999999999,
+      "medium": 0.09999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.606Z",
+    "updated_at": "2026-06-01T13:11:33.606Z"
+  },
+  {
+    "kp_id": "math-grade4-up-3-8",
+    "kp_name": "时间认识",
+    "chapter": "第三单元 应用",
+    "subject": "数学",
+    "grade": 4,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "计算方法",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.8999999999999999,
+      "medium": 0.09999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.606Z",
+    "updated_at": "2026-06-01T13:11:33.606Z"
+  },
+  {
+    "kp_id": "math-grade4-up-3-9",
+    "kp_name": "人民币",
+    "chapter": "第三单元 应用",
+    "subject": "数学",
+    "grade": 4,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "基础概念",
+      "计算方法",
+      "简单应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.8999999999999999,
+      "medium": 0.09999999999999998,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.606Z",
+    "updated_at": "2026-06-01T13:11:33.606Z"
+  },
+  {
+    "kp_id": "math-grade5-down-1-1",
+    "kp_name": "认识数字",
+    "chapter": "第一单元 数的认识",
+    "subject": "数学",
+    "grade": 5,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.95,
+      "medium": 0.04999999999999999,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.606Z",
+    "updated_at": "2026-06-01T13:11:33.606Z"
+  },
+  {
+    "kp_id": "math-grade5-down-1-2",
+    "kp_name": "数的大小比较",
+    "chapter": "第一单元 数的认识",
+    "subject": "数学",
+    "grade": 5,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.95,
+      "medium": 0.04999999999999999,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.606Z",
+    "updated_at": "2026-06-01T13:11:33.606Z"
+  },
+  {
+    "kp_id": "math-grade5-down-1-3",
+    "kp_name": "加减法",
+    "chapter": "第一单元 数的认识",
+    "subject": "数学",
+    "grade": 5,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.95,
+      "medium": 0.04999999999999999,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.606Z",
+    "updated_at": "2026-06-01T13:11:33.606Z"
+  },
+  {
+    "kp_id": "math-grade5-down-2-4",
+    "kp_name": "认识图形",
+    "chapter": "第二单元 图形",
+    "subject": "数学",
+    "grade": 5,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.95,
+      "medium": 0.04999999999999999,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.606Z",
+    "updated_at": "2026-06-01T13:11:33.606Z"
+  },
+  {
+    "kp_id": "math-grade5-down-2-5",
+    "kp_name": "图形分类",
+    "chapter": "第二单元 图形",
+    "subject": "数学",
+    "grade": 5,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.95,
+      "medium": 0.04999999999999999,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.606Z",
+    "updated_at": "2026-06-01T13:11:33.606Z"
+  },
+  {
+    "kp_id": "math-grade5-down-2-6",
+    "kp_name": "图形拼组",
+    "chapter": "第二单元 图形",
+    "subject": "数学",
+    "grade": 5,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.95,
+      "medium": 0.04999999999999999,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.606Z",
+    "updated_at": "2026-06-01T13:11:33.606Z"
+  },
+  {
+    "kp_id": "math-grade5-down-3-7",
+    "kp_name": "应用题",
+    "chapter": "第三单元 应用",
+    "subject": "数学",
+    "grade": 5,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.95,
+      "medium": 0.04999999999999999,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.606Z",
+    "updated_at": "2026-06-01T13:11:33.606Z"
+  },
+  {
+    "kp_id": "math-grade5-down-3-8",
+    "kp_name": "时间认识",
+    "chapter": "第三单元 应用",
+    "subject": "数学",
+    "grade": 5,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.95,
+      "medium": 0.04999999999999999,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.606Z",
+    "updated_at": "2026-06-01T13:11:33.606Z"
+  },
+  {
+    "kp_id": "math-grade5-down-3-9",
+    "kp_name": "人民币",
+    "chapter": "第三单元 应用",
+    "subject": "数学",
+    "grade": 5,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.95,
+      "medium": 0.04999999999999999,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.606Z",
+    "updated_at": "2026-06-01T13:11:33.606Z"
+  },
+  {
+    "kp_id": "math-grade5-up-1-1",
+    "kp_name": "认识数字",
+    "chapter": "第一单元 数的认识",
+    "subject": "数学",
+    "grade": 5,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.95,
+      "medium": 0.04999999999999999,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.606Z",
+    "updated_at": "2026-06-01T13:11:33.606Z"
+  },
+  {
+    "kp_id": "math-grade5-up-1-2",
+    "kp_name": "数的大小比较",
+    "chapter": "第一单元 数的认识",
+    "subject": "数学",
+    "grade": 5,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.95,
+      "medium": 0.04999999999999999,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.606Z",
+    "updated_at": "2026-06-01T13:11:33.606Z"
+  },
+  {
+    "kp_id": "math-grade5-up-1-3",
+    "kp_name": "加减法",
+    "chapter": "第一单元 数的认识",
+    "subject": "数学",
+    "grade": 5,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.95,
+      "medium": 0.04999999999999999,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.606Z",
+    "updated_at": "2026-06-01T13:11:33.606Z"
+  },
+  {
+    "kp_id": "math-grade5-up-2-4",
+    "kp_name": "认识图形",
+    "chapter": "第二单元 图形",
+    "subject": "数学",
+    "grade": 5,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.95,
+      "medium": 0.04999999999999999,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.606Z",
+    "updated_at": "2026-06-01T13:11:33.606Z"
+  },
+  {
+    "kp_id": "math-grade5-up-2-5",
+    "kp_name": "图形分类",
+    "chapter": "第二单元 图形",
+    "subject": "数学",
+    "grade": 5,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.95,
+      "medium": 0.04999999999999999,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.606Z",
+    "updated_at": "2026-06-01T13:11:33.606Z"
+  },
+  {
+    "kp_id": "math-grade5-up-2-6",
+    "kp_name": "图形拼组",
+    "chapter": "第二单元 图形",
+    "subject": "数学",
+    "grade": 5,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.95,
+      "medium": 0.04999999999999999,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.606Z",
+    "updated_at": "2026-06-01T13:11:33.606Z"
+  },
+  {
+    "kp_id": "math-grade5-up-3-7",
+    "kp_name": "应用题",
+    "chapter": "第三单元 应用",
+    "subject": "数学",
+    "grade": 5,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.95,
+      "medium": 0.04999999999999999,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.606Z",
+    "updated_at": "2026-06-01T13:11:33.606Z"
+  },
+  {
+    "kp_id": "math-grade5-up-3-8",
+    "kp_name": "时间认识",
+    "chapter": "第三单元 应用",
+    "subject": "数学",
+    "grade": 5,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.95,
+      "medium": 0.04999999999999999,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.606Z",
+    "updated_at": "2026-06-01T13:11:33.606Z"
+  },
+  {
+    "kp_id": "math-grade5-up-3-9",
+    "kp_name": "人民币",
+    "chapter": "第三单元 应用",
+    "subject": "数学",
+    "grade": 5,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.95,
+      "medium": 0.04999999999999999,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.606Z",
+    "updated_at": "2026-06-01T13:11:33.606Z"
+  },
+  {
+    "kp_id": "math-grade6-down-1-1",
+    "kp_name": "认识数字",
+    "chapter": "第一单元 数的认识",
+    "subject": "数学",
+    "grade": 6,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 1,
+      "medium": -5.551115123125783e-17,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.607Z",
+    "updated_at": "2026-06-01T13:11:33.607Z"
+  },
+  {
+    "kp_id": "math-grade6-down-1-2",
+    "kp_name": "数的大小比较",
+    "chapter": "第一单元 数的认识",
+    "subject": "数学",
+    "grade": 6,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 1,
+      "medium": -5.551115123125783e-17,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.607Z",
+    "updated_at": "2026-06-01T13:11:33.607Z"
+  },
+  {
+    "kp_id": "math-grade6-down-1-3",
+    "kp_name": "加减法",
+    "chapter": "第一单元 数的认识",
+    "subject": "数学",
+    "grade": 6,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 1,
+      "medium": -5.551115123125783e-17,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.607Z",
+    "updated_at": "2026-06-01T13:11:33.607Z"
+  },
+  {
+    "kp_id": "math-grade6-down-2-4",
+    "kp_name": "认识图形",
+    "chapter": "第二单元 图形",
+    "subject": "数学",
+    "grade": 6,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 1,
+      "medium": -5.551115123125783e-17,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.607Z",
+    "updated_at": "2026-06-01T13:11:33.607Z"
+  },
+  {
+    "kp_id": "math-grade6-down-2-5",
+    "kp_name": "图形分类",
+    "chapter": "第二单元 图形",
+    "subject": "数学",
+    "grade": 6,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 1,
+      "medium": -5.551115123125783e-17,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.607Z",
+    "updated_at": "2026-06-01T13:11:33.607Z"
+  },
+  {
+    "kp_id": "math-grade6-down-2-6",
+    "kp_name": "图形拼组",
+    "chapter": "第二单元 图形",
+    "subject": "数学",
+    "grade": 6,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 1,
+      "medium": -5.551115123125783e-17,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.607Z",
+    "updated_at": "2026-06-01T13:11:33.607Z"
+  },
+  {
+    "kp_id": "math-grade6-down-3-7",
+    "kp_name": "应用题",
+    "chapter": "第三单元 应用",
+    "subject": "数学",
+    "grade": 6,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 1,
+      "medium": -5.551115123125783e-17,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.607Z",
+    "updated_at": "2026-06-01T13:11:33.607Z"
+  },
+  {
+    "kp_id": "math-grade6-down-3-8",
+    "kp_name": "时间认识",
+    "chapter": "第三单元 应用",
+    "subject": "数学",
+    "grade": 6,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 1,
+      "medium": -5.551115123125783e-17,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.607Z",
+    "updated_at": "2026-06-01T13:11:33.607Z"
+  },
+  {
+    "kp_id": "math-grade6-down-3-9",
+    "kp_name": "人民币",
+    "chapter": "第三单元 应用",
+    "subject": "数学",
+    "grade": 6,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 1,
+      "medium": -5.551115123125783e-17,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.607Z",
+    "updated_at": "2026-06-01T13:11:33.607Z"
+  },
+  {
+    "kp_id": "math-grade6-up-1-1",
+    "kp_name": "认识数字",
+    "chapter": "第一单元 数的认识",
+    "subject": "数学",
+    "grade": 6,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 1,
+      "medium": -5.551115123125783e-17,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.607Z",
+    "updated_at": "2026-06-01T13:11:33.607Z"
+  },
+  {
+    "kp_id": "math-grade6-up-1-2",
+    "kp_name": "数的大小比较",
+    "chapter": "第一单元 数的认识",
+    "subject": "数学",
+    "grade": 6,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 1,
+      "medium": -5.551115123125783e-17,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.607Z",
+    "updated_at": "2026-06-01T13:11:33.607Z"
+  },
+  {
+    "kp_id": "math-grade6-up-1-3",
+    "kp_name": "加减法",
+    "chapter": "第一单元 数的认识",
+    "subject": "数学",
+    "grade": 6,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 1,
+      "medium": -5.551115123125783e-17,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.607Z",
+    "updated_at": "2026-06-01T13:11:33.607Z"
+  },
+  {
+    "kp_id": "math-grade6-up-2-4",
+    "kp_name": "认识图形",
+    "chapter": "第二单元 图形",
+    "subject": "数学",
+    "grade": 6,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 1,
+      "medium": -5.551115123125783e-17,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.607Z",
+    "updated_at": "2026-06-01T13:11:33.607Z"
+  },
+  {
+    "kp_id": "math-grade6-up-2-5",
+    "kp_name": "图形分类",
+    "chapter": "第二单元 图形",
+    "subject": "数学",
+    "grade": 6,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 1,
+      "medium": -5.551115123125783e-17,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.607Z",
+    "updated_at": "2026-06-01T13:11:33.607Z"
+  },
+  {
+    "kp_id": "math-grade6-up-2-6",
+    "kp_name": "图形拼组",
+    "chapter": "第二单元 图形",
+    "subject": "数学",
+    "grade": 6,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 1,
+      "medium": -5.551115123125783e-17,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.607Z",
+    "updated_at": "2026-06-01T13:11:33.607Z"
+  },
+  {
+    "kp_id": "math-grade6-up-3-7",
+    "kp_name": "应用题",
+    "chapter": "第三单元 应用",
+    "subject": "数学",
+    "grade": 6,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 1,
+      "medium": -5.551115123125783e-17,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.607Z",
+    "updated_at": "2026-06-01T13:11:33.607Z"
+  },
+  {
+    "kp_id": "math-grade6-up-3-8",
+    "kp_name": "时间认识",
+    "chapter": "第三单元 应用",
+    "subject": "数学",
+    "grade": 6,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 1,
+      "medium": -5.551115123125783e-17,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.607Z",
+    "updated_at": "2026-06-01T13:11:33.607Z"
+  },
+  {
+    "kp_id": "math-grade6-up-3-9",
+    "kp_name": "人民币",
+    "chapter": "第三单元 应用",
+    "subject": "数学",
+    "grade": 6,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "概念理解",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "计算题",
+      "填空题",
+      "应用题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 1,
+      "medium": -5.551115123125783e-17,
+      "hard": 0
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.607Z",
+    "updated_at": "2026-06-01T13:11:33.607Z"
+  },
+  {
+    "kp_id": "math_kp6_1",
+    "kp_name": "相交线",
+    "chapter": "相交线与平行线",
+    "subject": "数学",
+    "grade": 7,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "对顶角",
+      "邻补角",
+      "垂线",
+      "点到直线的距离"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.607Z",
+    "updated_at": "2026-06-01T13:11:33.607Z"
+  },
+  {
+    "kp_id": "math_kp6_2",
+    "kp_name": "平行线及其判定",
+    "chapter": "相交线与平行线",
+    "subject": "数学",
+    "grade": 7,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "平行线的概念",
+      "平行公理",
+      "平行线的判定"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.607Z",
+    "updated_at": "2026-06-01T13:11:33.607Z"
+  },
+  {
+    "kp_id": "math_kp6_3",
+    "kp_name": "平行线的性质",
+    "chapter": "相交线与平行线",
+    "subject": "数学",
+    "grade": 7,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "平行线的性质",
+      "平行线判定与性质的区别"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.607Z",
+    "updated_at": "2026-06-01T13:11:33.607Z"
+  },
+  {
+    "kp_id": "math_kp7_1",
+    "kp_name": "平面直角坐标系",
+    "chapter": "平面直角坐标系",
+    "subject": "数学",
+    "grade": 7,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "有序数对",
+      "平面直角坐标系",
+      "坐标平面内点的坐标"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.607Z",
+    "updated_at": "2026-06-01T13:11:33.607Z"
+  },
+  {
+    "kp_id": "math_kp7_2",
+    "kp_name": "坐标方法的简单应用",
+    "chapter": "平面直角坐标系",
+    "subject": "数学",
+    "grade": 7,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "用坐标表示地理位置",
+      "用坐标表示平移"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.607Z",
+    "updated_at": "2026-06-01T13:11:33.607Z"
+  },
+  {
+    "kp_id": "math_kp8_1",
+    "kp_name": "二元一次方程组",
+    "chapter": "二元一次方程组",
+    "subject": "数学",
+    "grade": 7,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "二元一次方程",
+      "二元一次方程组",
+      "二元一次方程的解"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.607Z",
+    "updated_at": "2026-06-01T13:11:33.607Z"
+  },
+  {
+    "kp_id": "math_kp8_2",
+    "kp_name": "消元——解二元一次方程组",
+    "chapter": "二元一次方程组",
+    "subject": "数学",
+    "grade": 7,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "代入消元法",
+      "加减消元法",
+      "二元一次方程组的解法"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.3,
+      "medium": 0.4,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.607Z",
+    "updated_at": "2026-06-01T13:11:33.607Z"
+  },
+  {
+    "kp_id": "math_kp8_3",
+    "kp_name": "实际问题与二元一次方程组",
+    "chapter": "二元一次方程组",
+    "subject": "数学",
+    "grade": 7,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "列方程组解应用题",
+      "二元一次方程组的应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "解答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.3,
+      "medium": 0.4,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.607Z",
+    "updated_at": "2026-06-01T13:11:33.607Z"
+  },
+  {
+    "kp_id": "math_kp9_1",
+    "kp_name": "不等式",
+    "chapter": "不等式与不等式组",
+    "subject": "数学",
+    "grade": 7,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "不等式及其解集",
+      "不等式的性质"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.607Z",
+    "updated_at": "2026-06-01T13:11:33.607Z"
+  },
+  {
+    "kp_id": "math_kp9_2",
+    "kp_name": "一元一次不等式",
+    "chapter": "不等式与不等式组",
+    "subject": "数学",
+    "grade": 7,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "解一元一次不等式",
+      "一元一次不等式的应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.607Z",
+    "updated_at": "2026-06-01T13:11:33.607Z"
+  },
+  {
+    "kp_id": "math_kp9_3",
+    "kp_name": "一元一次不等式组",
+    "chapter": "不等式与不等式组",
+    "subject": "数学",
+    "grade": 7,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "一元一次不等式组",
+      "不等式组的解集"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.607Z",
+    "updated_at": "2026-06-01T13:11:33.607Z"
+  },
+  {
+    "kp_id": "math_kp10_1",
+    "kp_name": "统计调查",
+    "chapter": "数据的收集、整理与描述",
+    "subject": "数学",
+    "grade": 7,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "全面调查",
+      "抽样调查",
+      "数据的收集"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.607Z",
+    "updated_at": "2026-06-01T13:11:33.607Z"
+  },
+  {
+    "kp_id": "math_kp10_2",
+    "kp_name": "直方图",
+    "chapter": "数据的收集、整理与描述",
+    "subject": "数学",
+    "grade": 7,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "频数分布直方图",
+      "数据的整理与描述"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "解答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.607Z",
+    "updated_at": "2026-06-01T13:11:33.607Z"
+  },
+  {
+    "kp_id": "math_kp1_1",
+    "kp_name": "正数和负数",
+    "chapter": "有理数",
+    "subject": "数学",
+    "grade": 7,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "正数和负数的概念",
+      "正数和负数的表示",
+      "相反意义的量",
+      "有理数的概念"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.607Z",
+    "updated_at": "2026-06-01T13:11:33.607Z"
+  },
+  {
+    "kp_id": "math_kp1_2",
+    "kp_name": "有理数及其大小比较",
+    "chapter": "有理数",
+    "subject": "数学",
+    "grade": 7,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "有理数的分类",
+      "数轴",
+      "相反数",
+      "绝对值",
+      "有理数的大小比较"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.607Z",
+    "updated_at": "2026-06-01T13:11:33.607Z"
+  },
+  {
+    "kp_id": "math_kp2_1",
+    "kp_name": "有理数的加法与减法",
+    "chapter": "有理数的运算",
+    "subject": "数学",
+    "grade": 7,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "有理数的加法法则",
+      "有理数的加法运算律",
+      "有理数的减法法则",
+      "有理数的加减混合运算"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.607Z",
+    "updated_at": "2026-06-01T13:11:33.607Z"
+  },
+  {
+    "kp_id": "math_kp2_2",
+    "kp_name": "有理数的乘法与除法",
+    "chapter": "有理数的运算",
+    "subject": "数学",
+    "grade": 7,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "有理数的乘法法则",
+      "有理数的乘法运算律",
+      "有理数的除法法则",
+      "有理数的乘除混合运算"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.607Z",
+    "updated_at": "2026-06-01T13:11:33.607Z"
+  },
+  {
+    "kp_id": "math_kp2_3",
+    "kp_name": "有理数的乘方",
+    "chapter": "有理数的运算",
+    "subject": "数学",
+    "grade": 7,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "乘方的概念",
+      "有理数的乘方法则",
+      "科学记数法",
+      "有理数的混合运算"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.3,
+      "medium": 0.4,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.607Z",
+    "updated_at": "2026-06-01T13:11:33.607Z"
+  },
+  {
+    "kp_id": "math_kp3_1",
+    "kp_name": "列代数式",
+    "chapter": "整式的加减",
+    "subject": "数学",
+    "grade": 7,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "代数式",
+      "列代数式",
+      "代数式的值"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.607Z",
+    "updated_at": "2026-06-01T13:11:33.607Z"
+  },
+  {
+    "kp_id": "math_kp3_2",
+    "kp_name": "整式",
+    "chapter": "整式的加减",
+    "subject": "数学",
+    "grade": 7,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "单项式",
+      "多项式",
+      "整式",
+      "同类项"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.607Z",
+    "updated_at": "2026-06-01T13:11:33.607Z"
+  },
+  {
+    "kp_id": "math_kp3_3",
+    "kp_name": "整式的加减",
+    "chapter": "整式的加减",
+    "subject": "数学",
+    "grade": 7,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "合并同类项",
+      "去括号与添括号",
+      "整式的加减运算"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.607Z",
+    "updated_at": "2026-06-01T13:11:33.607Z"
+  },
+  {
+    "kp_id": "math_kp4_1",
+    "kp_name": "从算式到方程",
+    "chapter": "一元一次方程",
+    "subject": "数学",
+    "grade": 7,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "方程的概念",
+      "一元一次方程",
+      "方程的解"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.607Z",
+    "updated_at": "2026-06-01T13:11:33.607Z"
+  },
+  {
+    "kp_id": "math_kp4_2",
+    "kp_name": "解一元一次方程",
+    "chapter": "一元一次方程",
+    "subject": "数学",
+    "grade": 7,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "等式的性质",
+      "解一元一次方程的步骤",
+      "移项",
+      "去括号",
+      "去分母"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.3,
+      "medium": 0.4,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.607Z",
+    "updated_at": "2026-06-01T13:11:33.607Z"
+  },
+  {
+    "kp_id": "math_kp4_3",
+    "kp_name": "实际问题与一元一次方程",
+    "chapter": "一元一次方程",
+    "subject": "数学",
+    "grade": 7,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "列方程解应用题",
+      "一元一次方程的应用",
+      "行程问题",
+      "工程问题",
+      "利润问题"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "解答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.3,
+      "medium": 0.4,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.607Z",
+    "updated_at": "2026-06-01T13:11:33.607Z"
+  },
+  {
+    "kp_id": "math_kp5_1",
+    "kp_name": "几何图形",
+    "chapter": "几何图形初步",
+    "subject": "数学",
+    "grade": 7,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "立体图形",
+      "平面图形",
+      "从不同方向看立体图形",
+      "展开图"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "作图题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.607Z",
+    "updated_at": "2026-06-01T13:11:33.607Z"
+  },
+  {
+    "kp_id": "math_kp5_2",
+    "kp_name": "直线、射线、线段",
+    "chapter": "几何图形初步",
+    "subject": "数学",
+    "grade": 7,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "直线",
+      "射线",
+      "线段",
+      "线段的长短比较",
+      "线段的中点"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "作图题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.607Z",
+    "updated_at": "2026-06-01T13:11:33.607Z"
+  },
+  {
+    "kp_id": "math_kp5_3",
+    "kp_name": "角",
+    "chapter": "几何图形初步",
+    "subject": "数学",
+    "grade": 7,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "角的概念",
+      "角的度量",
+      "角的比较与运算",
+      "角的平分线",
+      "余角和补角"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.607Z",
+    "updated_at": "2026-06-01T13:11:33.607Z"
+  },
+  {
+    "kp_id": "math_kp16_1",
+    "kp_name": "二次根式",
+    "chapter": "二次根式",
+    "subject": "数学",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "二次根式的概念",
+      "二次根式有意义的条件"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.608Z",
+    "updated_at": "2026-06-01T13:11:33.608Z"
+  },
+  {
+    "kp_id": "math_kp16_2",
+    "kp_name": "二次根式的性质",
+    "chapter": "二次根式",
+    "subject": "数学",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "二次根式的性质",
+      "最简二次根式"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.608Z",
+    "updated_at": "2026-06-01T13:11:33.608Z"
+  },
+  {
+    "kp_id": "math_kp16_3",
+    "kp_name": "二次根式的运算",
+    "chapter": "二次根式",
+    "subject": "数学",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "二次根式的乘法",
+      "二次根式的除法",
+      "分母有理化"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.608Z",
+    "updated_at": "2026-06-01T13:11:33.608Z"
+  },
+  {
+    "kp_id": "math_kp17_1",
+    "kp_name": "勾股定理",
+    "chapter": "勾股定理",
+    "subject": "数学",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "勾股定理",
+      "勾股数"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "解答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.608Z",
+    "updated_at": "2026-06-01T13:11:33.608Z"
+  },
+  {
+    "kp_id": "math_kp17_2",
+    "kp_name": "勾股定理的逆定理",
+    "chapter": "勾股定理",
+    "subject": "数学",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "勾股定理的逆定理",
+      "判定直角三角形"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.608Z",
+    "updated_at": "2026-06-01T13:11:33.608Z"
+  },
+  {
+    "kp_id": "math_kp18_1",
+    "kp_name": "平行四边形的性质",
+    "chapter": "平行四边形",
+    "subject": "数学",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "平行四边形的性质",
+      "对角线互相平分"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.608Z",
+    "updated_at": "2026-06-01T13:11:33.608Z"
+  },
+  {
+    "kp_id": "math_kp18_2",
+    "kp_name": "平行四边形的判定",
+    "chapter": "平行四边形",
+    "subject": "数学",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "平行四边形的判定定理",
+      "三角形的中位线"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.608Z",
+    "updated_at": "2026-06-01T13:11:33.608Z"
+  },
+  {
+    "kp_id": "math_kp18_3",
+    "kp_name": "特殊的平行四边形",
+    "chapter": "平行四边形",
+    "subject": "数学",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "矩形",
+      "菱形",
+      "正方形"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.3,
+      "medium": 0.4,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.608Z",
+    "updated_at": "2026-06-01T13:11:33.608Z"
+  },
+  {
+    "kp_id": "math_kp19_1",
+    "kp_name": "函数",
+    "chapter": "一次函数",
+    "subject": "数学",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "变量与函数",
+      "函数的表示方法"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.608Z",
+    "updated_at": "2026-06-01T13:11:33.608Z"
+  },
+  {
+    "kp_id": "math_kp19_2",
+    "kp_name": "一次函数",
+    "chapter": "一次函数",
+    "subject": "数学",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "一次函数的概念",
+      "一次函数的图象",
+      "一次函数的性质"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "解答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.608Z",
+    "updated_at": "2026-06-01T13:11:33.608Z"
+  },
+  {
+    "kp_id": "math_kp19_3",
+    "kp_name": "一次函数的应用",
+    "chapter": "一次函数",
+    "subject": "数学",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "待定系数法",
+      "一次函数的应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "解答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.3,
+      "medium": 0.4,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.608Z",
+    "updated_at": "2026-06-01T13:11:33.608Z"
+  },
+  {
+    "kp_id": "math_kp20_1",
+    "kp_name": "数据的集中趋势",
+    "chapter": "数据的分析",
+    "subject": "数学",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "平均数",
+      "中位数",
+      "众数"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "解答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.608Z",
+    "updated_at": "2026-06-01T13:11:33.608Z"
+  },
+  {
+    "kp_id": "math_kp20_2",
+    "kp_name": "数据的波动程度",
+    "chapter": "数据的分析",
+    "subject": "数学",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "方差",
+      "标准差"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "解答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.608Z",
+    "updated_at": "2026-06-01T13:11:33.608Z"
+  },
+  {
+    "kp_id": "math_kp11_1",
+    "kp_name": "全等三角形",
+    "chapter": "全等三角形",
+    "subject": "数学",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "全等形的概念",
+      "全等三角形的定义",
+      "全等三角形的性质"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.608Z",
+    "updated_at": "2026-06-01T13:11:33.608Z"
+  },
+  {
+    "kp_id": "math_kp11_2",
+    "kp_name": "三角形全等的判定",
+    "chapter": "全等三角形",
+    "subject": "数学",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "SSS",
+      "SAS",
+      "ASA",
+      "AAS",
+      "HL"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.3,
+      "medium": 0.4,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.608Z",
+    "updated_at": "2026-06-01T13:11:33.608Z"
+  },
+  {
+    "kp_id": "math_kp12_1",
+    "kp_name": "轴对称",
+    "chapter": "轴对称",
+    "subject": "数学",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "轴对称图形",
+      "线段垂直平分线的性质"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.608Z",
+    "updated_at": "2026-06-01T13:11:33.608Z"
+  },
+  {
+    "kp_id": "math_kp12_2",
+    "kp_name": "画轴对称图形",
+    "chapter": "轴对称",
+    "subject": "数学",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "轴对称的画法",
+      "坐标与轴对称"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "作图题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.608Z",
+    "updated_at": "2026-06-01T13:11:33.608Z"
+  },
+  {
+    "kp_id": "math_kp12_3",
+    "kp_name": "等腰三角形",
+    "chapter": "轴对称",
+    "subject": "数学",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "等腰三角形的性质",
+      "等腰三角形的判定",
+      "等边三角形的性质"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.608Z",
+    "updated_at": "2026-06-01T13:11:33.608Z"
+  },
+  {
+    "kp_id": "math_kp13_1",
+    "kp_name": "平方差公式",
+    "chapter": "乘法公式",
+    "subject": "数学",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "平方差公式",
+      "平方差公式的应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.608Z",
+    "updated_at": "2026-06-01T13:11:33.608Z"
+  },
+  {
+    "kp_id": "math_kp13_2",
+    "kp_name": "完全平方公式",
+    "chapter": "乘法公式",
+    "subject": "数学",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "完全平方公式",
+      "完全平方公式的应用",
+      "添括号法则"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.608Z",
+    "updated_at": "2026-06-01T13:11:33.608Z"
+  },
+  {
+    "kp_id": "math_kp14_1",
+    "kp_name": "分式",
+    "chapter": "分式",
+    "subject": "数学",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "分式的概念",
+      "分式的基本性质"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.608Z",
+    "updated_at": "2026-06-01T13:11:33.608Z"
+  },
+  {
+    "kp_id": "math_kp14_2",
+    "kp_name": "分式的运算",
+    "chapter": "分式",
+    "subject": "数学",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "分式的乘除",
+      "分式的加减",
+      "分式的混合运算"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.3,
+      "medium": 0.4,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.608Z",
+    "updated_at": "2026-06-01T13:11:33.608Z"
+  },
+  {
+    "kp_id": "math_kp14_3",
+    "kp_name": "分式方程",
+    "chapter": "分式",
+    "subject": "数学",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "分式方程的解法",
+      "分式方程的应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "解答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.3,
+      "medium": 0.4,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.608Z",
+    "updated_at": "2026-06-01T13:11:33.608Z"
+  },
+  {
+    "kp_id": "math_kp26_1",
+    "kp_name": "反比例函数",
+    "chapter": "反比例函数",
+    "subject": "数学",
+    "grade": 9,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "反比例函数的概念",
+      "反比例函数的图象",
+      "反比例函数的性质"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "解答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.608Z",
+    "updated_at": "2026-06-01T13:11:33.608Z"
+  },
+  {
+    "kp_id": "math_kp26_2",
+    "kp_name": "实际问题与反比例函数",
+    "chapter": "反比例函数",
+    "subject": "数学",
+    "grade": 9,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "反比例函数的应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "解答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.3,
+      "medium": 0.4,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.608Z",
+    "updated_at": "2026-06-01T13:11:33.608Z"
+  },
+  {
+    "kp_id": "math_kp27_1",
+    "kp_name": "图形的相似",
+    "chapter": "相似",
+    "subject": "数学",
+    "grade": 9,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "相似图形",
+      "相似多边形"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.608Z",
+    "updated_at": "2026-06-01T13:11:33.608Z"
+  },
+  {
+    "kp_id": "math_kp27_2",
+    "kp_name": "相似三角形",
+    "chapter": "相似",
+    "subject": "数学",
+    "grade": 9,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "相似三角形的判定",
+      "相似三角形的性质",
+      "相似三角形的应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.3,
+      "medium": 0.4,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.608Z",
+    "updated_at": "2026-06-01T13:11:33.608Z"
+  },
+  {
+    "kp_id": "math_kp28_1",
+    "kp_name": "锐角三角函数",
+    "chapter": "锐角三角函数",
+    "subject": "数学",
+    "grade": 9,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "正弦",
+      "余弦",
+      "正切",
+      "特殊角的三角函数值"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.608Z",
+    "updated_at": "2026-06-01T13:11:33.608Z"
+  },
+  {
+    "kp_id": "math_kp28_2",
+    "kp_name": "解直角三角形",
+    "chapter": "锐角三角函数",
+    "subject": "数学",
+    "grade": 9,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "解直角三角形",
+      "仰角与俯角",
+      "方位角"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "解答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.3,
+      "medium": 0.4,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.608Z",
+    "updated_at": "2026-06-01T13:11:33.608Z"
+  },
+  {
+    "kp_id": "math_kp29_1",
+    "kp_name": "投影",
+    "chapter": "投影与视图",
+    "subject": "数学",
+    "grade": 9,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "平行投影",
+      "中心投影",
+      "正投影"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.608Z",
+    "updated_at": "2026-06-01T13:11:33.608Z"
+  },
+  {
+    "kp_id": "math_kp29_2",
+    "kp_name": "三视图",
+    "chapter": "投影与视图",
+    "subject": "数学",
+    "grade": 9,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "三视图",
+      "由三视图想象几何体"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "作图题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.608Z",
+    "updated_at": "2026-06-01T13:11:33.608Z"
+  },
+  {
+    "kp_id": "math_kp21_1",
+    "kp_name": "一元二次方程",
+    "chapter": "一元二次方程",
+    "subject": "数学",
+    "grade": 9,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "一元二次方程的概念",
+      "一元二次方程的一般形式"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.609Z",
+    "updated_at": "2026-06-01T13:11:33.609Z"
+  },
+  {
+    "kp_id": "math_kp21_2",
+    "kp_name": "解一元二次方程",
+    "chapter": "一元二次方程",
+    "subject": "数学",
+    "grade": 9,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "直接开平方法",
+      "配方法",
+      "公式法",
+      "因式分解法"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.3,
+      "medium": 0.4,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.609Z",
+    "updated_at": "2026-06-01T13:11:33.609Z"
+  },
+  {
+    "kp_id": "math_kp21_3",
+    "kp_name": "实际问题与一元二次方程",
+    "chapter": "一元二次方程",
+    "subject": "数学",
+    "grade": 9,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "一元二次方程的应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "解答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.3,
+      "medium": 0.4,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.609Z",
+    "updated_at": "2026-06-01T13:11:33.609Z"
+  },
+  {
+    "kp_id": "math_kp22_1",
+    "kp_name": "二次函数的图象和性质",
+    "chapter": "二次函数",
+    "subject": "数学",
+    "grade": 9,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "二次函数的概念",
+      "二次函数的图象",
+      "二次函数的性质",
+      "二次函数的顶点式"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "解答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.3,
+      "medium": 0.4,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.609Z",
+    "updated_at": "2026-06-01T13:11:33.609Z"
+  },
+  {
+    "kp_id": "math_kp22_2",
+    "kp_name": "二次函数与一元二次方程",
+    "chapter": "二次函数",
+    "subject": "数学",
+    "grade": 9,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "二次函数与一元二次方程的关系"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "解答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.3,
+      "medium": 0.4,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.609Z",
+    "updated_at": "2026-06-01T13:11:33.609Z"
+  },
+  {
+    "kp_id": "math_kp22_3",
+    "kp_name": "实际问题与二次函数",
+    "chapter": "二次函数",
+    "subject": "数学",
+    "grade": 9,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "二次函数的应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "解答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.3,
+      "medium": 0.4,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.609Z",
+    "updated_at": "2026-06-01T13:11:33.609Z"
+  },
+  {
+    "kp_id": "math_kp23_1",
+    "kp_name": "图形的旋转",
+    "chapter": "旋转",
+    "subject": "数学",
+    "grade": 9,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "旋转的概念",
+      "旋转的性质"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "作图题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.609Z",
+    "updated_at": "2026-06-01T13:11:33.609Z"
+  },
+  {
+    "kp_id": "math_kp23_2",
+    "kp_name": "中心对称",
+    "chapter": "旋转",
+    "subject": "数学",
+    "grade": 9,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "中心对称图形",
+      "中心对称"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "作图题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.609Z",
+    "updated_at": "2026-06-01T13:11:33.609Z"
+  },
+  {
+    "kp_id": "math_kp24_1",
+    "kp_name": "圆的有关性质",
+    "chapter": "圆",
+    "subject": "数学",
+    "grade": 9,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "圆的概念",
+      "圆心角",
+      "圆周角",
+      "弧、弦、圆心角",
+      "圆周角定理"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.3,
+      "medium": 0.4,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.609Z",
+    "updated_at": "2026-06-01T13:11:33.609Z"
+  },
+  {
+    "kp_id": "math_kp24_2",
+    "kp_name": "点、直线、圆和圆的位置关系",
+    "chapter": "圆",
+    "subject": "数学",
+    "grade": 9,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "点和圆的位置关系",
+      "直线和圆的位置关系",
+      "圆和圆的位置关系"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "解答题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.3,
+      "medium": 0.4,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.609Z",
+    "updated_at": "2026-06-01T13:11:33.609Z"
+  },
+  {
+    "kp_id": "math_kp24_3",
+    "kp_name": "正多边形和圆",
+    "chapter": "圆",
+    "subject": "数学",
+    "grade": 9,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "正多边形",
+      "正多边形和圆"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.609Z",
+    "updated_at": "2026-06-01T13:11:33.609Z"
+  },
+  {
+    "kp_id": "math_kp24_4",
+    "kp_name": "弧长和扇形面积",
+    "chapter": "圆",
+    "subject": "数学",
+    "grade": 9,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "弧长公式",
+      "扇形面积公式"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.609Z",
+    "updated_at": "2026-06-01T13:11:33.609Z"
+  },
+  {
+    "kp_id": "math_kp25_1",
+    "kp_name": "随机事件与概率",
+    "chapter": "概率初步",
+    "subject": "数学",
+    "grade": 9,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "随机事件",
+      "概率的概念",
+      "概率的计算"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.609Z",
+    "updated_at": "2026-06-01T13:11:33.609Z"
+  },
+  {
+    "kp_id": "math_kp25_2",
+    "kp_name": "用列举法求概率",
+    "chapter": "概率初步",
+    "subject": "数学",
+    "grade": 9,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "列表法",
+      "树状图"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.3,
+      "medium": 0.4,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.609Z",
+    "updated_at": "2026-06-01T13:11:33.609Z"
+  },
+  {
+    "kp_id": "math_kp25_3",
+    "kp_name": "用频率估计概率",
+    "chapter": "概率初步",
+    "subject": "数学",
+    "grade": 9,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "频率与概率"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.609Z",
+    "updated_at": "2026-06-01T13:11:33.609Z"
+  },
+  {
+    "kp_id": "math-high-1-1-1",
+    "kp_name": "集合",
+    "chapter": "第1章 集合与函数",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.609Z",
+    "updated_at": "2026-06-01T13:11:33.609Z"
+  },
+  {
+    "kp_id": "math-high-1-1-2",
+    "kp_name": "函数概念",
+    "chapter": "第1章 集合与函数",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.609Z",
+    "updated_at": "2026-06-01T13:11:33.609Z"
+  },
+  {
+    "kp_id": "math-high-1-1-3",
+    "kp_name": "函数性质",
+    "chapter": "第1章 集合与函数",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.609Z",
+    "updated_at": "2026-06-01T13:11:33.609Z"
+  },
+  {
+    "kp_id": "math-high-1-2-1",
+    "kp_name": "三角函数",
+    "chapter": "第2章 三角函数",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.609Z",
+    "updated_at": "2026-06-01T13:11:33.609Z"
+  },
+  {
+    "kp_id": "math-high-1-2-2",
+    "kp_name": "三角恒等变换",
+    "chapter": "第2章 三角函数",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.609Z",
+    "updated_at": "2026-06-01T13:11:33.609Z"
+  },
+  {
+    "kp_id": "math-high-1-2-3",
+    "kp_name": "解三角形",
+    "chapter": "第2章 三角函数",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.609Z",
+    "updated_at": "2026-06-01T13:11:33.609Z"
+  },
+  {
+    "kp_id": "math-high-1-3-1",
+    "kp_name": "数列",
+    "chapter": "第3章 数列",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.609Z",
+    "updated_at": "2026-06-01T13:11:33.609Z"
+  },
+  {
+    "kp_id": "math-high-1-3-2",
+    "kp_name": "等差数列",
+    "chapter": "第3章 数列",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.609Z",
+    "updated_at": "2026-06-01T13:11:33.609Z"
+  },
+  {
+    "kp_id": "math-high-1-3-3",
+    "kp_name": "等比数列",
+    "chapter": "第3章 数列",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.609Z",
+    "updated_at": "2026-06-01T13:11:33.609Z"
+  },
+  {
+    "kp_id": "math-high-1-4-1",
+    "kp_name": "导数",
+    "chapter": "第4章 导数",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.609Z",
+    "updated_at": "2026-06-01T13:11:33.609Z"
+  },
+  {
+    "kp_id": "math-high-1-4-2",
+    "kp_name": "导数应用",
+    "chapter": "第4章 导数",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.609Z",
+    "updated_at": "2026-06-01T13:11:33.609Z"
+  },
+  {
+    "kp_id": "math-high-1-4-3",
+    "kp_name": "定积分",
+    "chapter": "第4章 导数",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.609Z",
+    "updated_at": "2026-06-01T13:11:33.609Z"
+  },
+  {
+    "kp_id": "math-high-1-5-1",
+    "kp_name": "立体几何",
+    "chapter": "第5章 立体几何",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.609Z",
+    "updated_at": "2026-06-01T13:11:33.609Z"
+  },
+  {
+    "kp_id": "math-high-1-5-2",
+    "kp_name": "解析几何",
+    "chapter": "第5章 立体几何",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.609Z",
+    "updated_at": "2026-06-01T13:11:33.609Z"
+  },
+  {
+    "kp_id": "math-high-1-5-3",
+    "kp_name": "概率统计",
+    "chapter": "第5章 立体几何",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.609Z",
+    "updated_at": "2026-06-01T13:11:33.609Z"
+  },
+  {
+    "kp_id": "math-high-2-1-1",
+    "kp_name": "集合",
+    "chapter": "第1章 集合与函数",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.609Z",
+    "updated_at": "2026-06-01T13:11:33.609Z"
+  },
+  {
+    "kp_id": "math-high-2-1-2",
+    "kp_name": "函数概念",
+    "chapter": "第1章 集合与函数",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.609Z",
+    "updated_at": "2026-06-01T13:11:33.609Z"
+  },
+  {
+    "kp_id": "math-high-2-1-3",
+    "kp_name": "函数性质",
+    "chapter": "第1章 集合与函数",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.609Z",
+    "updated_at": "2026-06-01T13:11:33.609Z"
+  },
+  {
+    "kp_id": "math-high-2-2-1",
+    "kp_name": "三角函数",
+    "chapter": "第2章 三角函数",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.609Z",
+    "updated_at": "2026-06-01T13:11:33.609Z"
+  },
+  {
+    "kp_id": "math-high-2-2-2",
+    "kp_name": "三角恒等变换",
+    "chapter": "第2章 三角函数",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.609Z",
+    "updated_at": "2026-06-01T13:11:33.609Z"
+  },
+  {
+    "kp_id": "math-high-2-2-3",
+    "kp_name": "解三角形",
+    "chapter": "第2章 三角函数",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.609Z",
+    "updated_at": "2026-06-01T13:11:33.609Z"
+  },
+  {
+    "kp_id": "math-high-2-3-1",
+    "kp_name": "数列",
+    "chapter": "第3章 数列",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.609Z",
+    "updated_at": "2026-06-01T13:11:33.609Z"
+  },
+  {
+    "kp_id": "math-high-2-3-2",
+    "kp_name": "等差数列",
+    "chapter": "第3章 数列",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.609Z",
+    "updated_at": "2026-06-01T13:11:33.609Z"
+  },
+  {
+    "kp_id": "math-high-2-3-3",
+    "kp_name": "等比数列",
+    "chapter": "第3章 数列",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.609Z",
+    "updated_at": "2026-06-01T13:11:33.609Z"
+  },
+  {
+    "kp_id": "math-high-2-4-1",
+    "kp_name": "导数",
+    "chapter": "第4章 导数",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.609Z",
+    "updated_at": "2026-06-01T13:11:33.609Z"
+  },
+  {
+    "kp_id": "math-high-2-4-2",
+    "kp_name": "导数应用",
+    "chapter": "第4章 导数",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.609Z",
+    "updated_at": "2026-06-01T13:11:33.609Z"
+  },
+  {
+    "kp_id": "math-high-2-4-3",
+    "kp_name": "定积分",
+    "chapter": "第4章 导数",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.609Z",
+    "updated_at": "2026-06-01T13:11:33.609Z"
+  },
+  {
+    "kp_id": "math-high-2-5-1",
+    "kp_name": "立体几何",
+    "chapter": "第5章 立体几何",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.609Z",
+    "updated_at": "2026-06-01T13:11:33.609Z"
+  },
+  {
+    "kp_id": "math-high-2-5-2",
+    "kp_name": "解析几何",
+    "chapter": "第5章 立体几何",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.609Z",
+    "updated_at": "2026-06-01T13:11:33.609Z"
+  },
+  {
+    "kp_id": "math-high-2-5-3",
+    "kp_name": "概率统计",
+    "chapter": "第5章 立体几何",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.609Z",
+    "updated_at": "2026-06-01T13:11:33.609Z"
+  },
+  {
+    "kp_id": "math-high-3-1-1",
+    "kp_name": "集合",
+    "chapter": "第1章 集合与函数",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.610Z",
+    "updated_at": "2026-06-01T13:11:33.610Z"
+  },
+  {
+    "kp_id": "math-high-3-1-2",
+    "kp_name": "函数概念",
+    "chapter": "第1章 集合与函数",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.610Z",
+    "updated_at": "2026-06-01T13:11:33.610Z"
+  },
+  {
+    "kp_id": "math-high-3-1-3",
+    "kp_name": "函数性质",
+    "chapter": "第1章 集合与函数",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.610Z",
+    "updated_at": "2026-06-01T13:11:33.610Z"
+  },
+  {
+    "kp_id": "math-high-3-2-1",
+    "kp_name": "三角函数",
+    "chapter": "第2章 三角函数",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.610Z",
+    "updated_at": "2026-06-01T13:11:33.610Z"
+  },
+  {
+    "kp_id": "math-high-3-2-2",
+    "kp_name": "三角恒等变换",
+    "chapter": "第2章 三角函数",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.610Z",
+    "updated_at": "2026-06-01T13:11:33.610Z"
+  },
+  {
+    "kp_id": "math-high-3-2-3",
+    "kp_name": "解三角形",
+    "chapter": "第2章 三角函数",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.610Z",
+    "updated_at": "2026-06-01T13:11:33.610Z"
+  },
+  {
+    "kp_id": "math-high-3-3-1",
+    "kp_name": "数列",
+    "chapter": "第3章 数列",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.610Z",
+    "updated_at": "2026-06-01T13:11:33.610Z"
+  },
+  {
+    "kp_id": "math-high-3-3-2",
+    "kp_name": "等差数列",
+    "chapter": "第3章 数列",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.610Z",
+    "updated_at": "2026-06-01T13:11:33.610Z"
+  },
+  {
+    "kp_id": "math-high-3-3-3",
+    "kp_name": "等比数列",
+    "chapter": "第3章 数列",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.610Z",
+    "updated_at": "2026-06-01T13:11:33.610Z"
+  },
+  {
+    "kp_id": "math-high-3-4-1",
+    "kp_name": "导数",
+    "chapter": "第4章 导数",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.610Z",
+    "updated_at": "2026-06-01T13:11:33.610Z"
+  },
+  {
+    "kp_id": "math-high-3-4-2",
+    "kp_name": "导数应用",
+    "chapter": "第4章 导数",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.610Z",
+    "updated_at": "2026-06-01T13:11:33.610Z"
+  },
+  {
+    "kp_id": "math-high-3-4-3",
+    "kp_name": "定积分",
+    "chapter": "第4章 导数",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.610Z",
+    "updated_at": "2026-06-01T13:11:33.610Z"
+  },
+  {
+    "kp_id": "math-high-3-5-1",
+    "kp_name": "立体几何",
+    "chapter": "第5章 立体几何",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.610Z",
+    "updated_at": "2026-06-01T13:11:33.610Z"
+  },
+  {
+    "kp_id": "math-high-3-5-2",
+    "kp_name": "解析几何",
+    "chapter": "第5章 立体几何",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.610Z",
+    "updated_at": "2026-06-01T13:11:33.610Z"
+  },
+  {
+    "kp_id": "math-high-3-5-3",
+    "kp_name": "概率统计",
+    "chapter": "第5章 立体几何",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.610Z",
+    "updated_at": "2026-06-01T13:11:33.610Z"
+  },
+  {
+    "kp_id": "math-high-4-1-1",
+    "kp_name": "集合",
+    "chapter": "第1章 集合与函数",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.610Z",
+    "updated_at": "2026-06-01T13:11:33.610Z"
+  },
+  {
+    "kp_id": "math-high-4-1-2",
+    "kp_name": "函数概念",
+    "chapter": "第1章 集合与函数",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.610Z",
+    "updated_at": "2026-06-01T13:11:33.610Z"
+  },
+  {
+    "kp_id": "math-high-4-1-3",
+    "kp_name": "函数性质",
+    "chapter": "第1章 集合与函数",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.610Z",
+    "updated_at": "2026-06-01T13:11:33.610Z"
+  },
+  {
+    "kp_id": "math-high-4-2-1",
+    "kp_name": "三角函数",
+    "chapter": "第2章 三角函数",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.610Z",
+    "updated_at": "2026-06-01T13:11:33.610Z"
+  },
+  {
+    "kp_id": "math-high-4-2-2",
+    "kp_name": "三角恒等变换",
+    "chapter": "第2章 三角函数",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.610Z",
+    "updated_at": "2026-06-01T13:11:33.610Z"
+  },
+  {
+    "kp_id": "math-high-4-2-3",
+    "kp_name": "解三角形",
+    "chapter": "第2章 三角函数",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.610Z",
+    "updated_at": "2026-06-01T13:11:33.610Z"
+  },
+  {
+    "kp_id": "math-high-4-3-1",
+    "kp_name": "数列",
+    "chapter": "第3章 数列",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.610Z",
+    "updated_at": "2026-06-01T13:11:33.610Z"
+  },
+  {
+    "kp_id": "math-high-4-3-2",
+    "kp_name": "等差数列",
+    "chapter": "第3章 数列",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.610Z",
+    "updated_at": "2026-06-01T13:11:33.610Z"
+  },
+  {
+    "kp_id": "math-high-4-3-3",
+    "kp_name": "等比数列",
+    "chapter": "第3章 数列",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.610Z",
+    "updated_at": "2026-06-01T13:11:33.610Z"
+  },
+  {
+    "kp_id": "math-high-4-4-1",
+    "kp_name": "导数",
+    "chapter": "第4章 导数",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.610Z",
+    "updated_at": "2026-06-01T13:11:33.610Z"
+  },
+  {
+    "kp_id": "math-high-4-4-2",
+    "kp_name": "导数应用",
+    "chapter": "第4章 导数",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.610Z",
+    "updated_at": "2026-06-01T13:11:33.610Z"
+  },
+  {
+    "kp_id": "math-high-4-4-3",
+    "kp_name": "定积分",
+    "chapter": "第4章 导数",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.610Z",
+    "updated_at": "2026-06-01T13:11:33.610Z"
+  },
+  {
+    "kp_id": "math-high-4-5-1",
+    "kp_name": "立体几何",
+    "chapter": "第5章 立体几何",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.610Z",
+    "updated_at": "2026-06-01T13:11:33.610Z"
+  },
+  {
+    "kp_id": "math-high-4-5-2",
+    "kp_name": "解析几何",
+    "chapter": "第5章 立体几何",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.610Z",
+    "updated_at": "2026-06-01T13:11:33.610Z"
+  },
+  {
+    "kp_id": "math-high-4-5-3",
+    "kp_name": "概率统计",
+    "chapter": "第5章 立体几何",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.610Z",
+    "updated_at": "2026-06-01T13:11:33.610Z"
+  },
+  {
+    "kp_id": "math-high-5-1-1",
+    "kp_name": "集合",
+    "chapter": "第1章 集合与函数",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修5",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.610Z",
+    "updated_at": "2026-06-01T13:11:33.610Z"
+  },
+  {
+    "kp_id": "math-high-5-1-2",
+    "kp_name": "函数概念",
+    "chapter": "第1章 集合与函数",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修5",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.610Z",
+    "updated_at": "2026-06-01T13:11:33.610Z"
+  },
+  {
+    "kp_id": "math-high-5-1-3",
+    "kp_name": "函数性质",
+    "chapter": "第1章 集合与函数",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修5",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.610Z",
+    "updated_at": "2026-06-01T13:11:33.610Z"
+  },
+  {
+    "kp_id": "math-high-5-2-1",
+    "kp_name": "三角函数",
+    "chapter": "第2章 三角函数",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修5",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.610Z",
+    "updated_at": "2026-06-01T13:11:33.610Z"
+  },
+  {
+    "kp_id": "math-high-5-2-2",
+    "kp_name": "三角恒等变换",
+    "chapter": "第2章 三角函数",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修5",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.610Z",
+    "updated_at": "2026-06-01T13:11:33.610Z"
+  },
+  {
+    "kp_id": "math-high-5-2-3",
+    "kp_name": "解三角形",
+    "chapter": "第2章 三角函数",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修5",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.610Z",
+    "updated_at": "2026-06-01T13:11:33.611Z"
+  },
+  {
+    "kp_id": "math-high-5-3-1",
+    "kp_name": "数列",
+    "chapter": "第3章 数列",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修5",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.611Z",
+    "updated_at": "2026-06-01T13:11:33.611Z"
+  },
+  {
+    "kp_id": "math-high-5-3-2",
+    "kp_name": "等差数列",
+    "chapter": "第3章 数列",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修5",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.611Z",
+    "updated_at": "2026-06-01T13:11:33.611Z"
+  },
+  {
+    "kp_id": "math-high-5-3-3",
+    "kp_name": "等比数列",
+    "chapter": "第3章 数列",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修5",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.611Z",
+    "updated_at": "2026-06-01T13:11:33.611Z"
+  },
+  {
+    "kp_id": "math-high-5-4-1",
+    "kp_name": "导数",
+    "chapter": "第4章 导数",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修5",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.611Z",
+    "updated_at": "2026-06-01T13:11:33.611Z"
+  },
+  {
+    "kp_id": "math-high-5-4-2",
+    "kp_name": "导数应用",
+    "chapter": "第4章 导数",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修5",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.611Z",
+    "updated_at": "2026-06-01T13:11:33.611Z"
+  },
+  {
+    "kp_id": "math-high-5-4-3",
+    "kp_name": "定积分",
+    "chapter": "第4章 导数",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修5",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.611Z",
+    "updated_at": "2026-06-01T13:11:33.611Z"
+  },
+  {
+    "kp_id": "math-high-5-5-1",
+    "kp_name": "立体几何",
+    "chapter": "第5章 立体几何",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修5",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.611Z",
+    "updated_at": "2026-06-01T13:11:33.611Z"
+  },
+  {
+    "kp_id": "math-high-5-5-2",
+    "kp_name": "解析几何",
+    "chapter": "第5章 立体几何",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修5",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.611Z",
+    "updated_at": "2026-06-01T13:11:33.611Z"
+  },
+  {
+    "kp_id": "math-high-5-5-3",
+    "kp_name": "概率统计",
+    "chapter": "第5章 立体几何",
+    "subject": "数学",
+    "grade": 10,
+    "semester": "必修5",
+    "version": "人教版",
+    "sub_topics": [
+      "定义定理",
+      "解题方法",
+      "综合应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.611Z",
+    "updated_at": "2026-06-01T13:11:33.611Z"
+  },
+  {
+    "kp_id": "phy_kp7_1",
+    "kp_name": "力的认识",
+    "chapter": "力",
+    "subject": "物理",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "力的概念",
+      "力的作用效果",
+      "力的三要素"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.611Z",
+    "updated_at": "2026-06-01T13:11:33.611Z"
+  },
+  {
+    "kp_id": "phy_kp7_2",
+    "kp_name": "弹力",
+    "chapter": "力",
+    "subject": "物理",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "弹力",
+      "弹簧测力计"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.611Z",
+    "updated_at": "2026-06-01T13:11:33.611Z"
+  },
+  {
+    "kp_id": "phy_kp7_3",
+    "kp_name": "重力",
+    "chapter": "力",
+    "subject": "物理",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "重力",
+      "重力的计算",
+      "重心"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.611Z",
+    "updated_at": "2026-06-01T13:11:33.611Z"
+  },
+  {
+    "kp_id": "phy_kp8_1",
+    "kp_name": "牛顿第一定律",
+    "chapter": "运动和力",
+    "subject": "物理",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "牛顿第一定律",
+      "惯性"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.611Z",
+    "updated_at": "2026-06-01T13:11:33.611Z"
+  },
+  {
+    "kp_id": "phy_kp8_2",
+    "kp_name": "二力平衡",
+    "chapter": "运动和力",
+    "subject": "物理",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "二力平衡的条件",
+      "平衡力与相互作用力"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.611Z",
+    "updated_at": "2026-06-01T13:11:33.611Z"
+  },
+  {
+    "kp_id": "phy_kp9_1",
+    "kp_name": "压强",
+    "chapter": "压强",
+    "subject": "物理",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "压力",
+      "压强",
+      "压强的计算",
+      "增大和减小压强的方法"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.611Z",
+    "updated_at": "2026-06-01T13:11:33.611Z"
+  },
+  {
+    "kp_id": "phy_kp9_2",
+    "kp_name": "液体的压强",
+    "chapter": "压强",
+    "subject": "物理",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "液体压强的特点",
+      "液体压强的计算",
+      "连通器"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.3,
+      "medium": 0.4,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.611Z",
+    "updated_at": "2026-06-01T13:11:33.611Z"
+  },
+  {
+    "kp_id": "phy_kp9_3",
+    "kp_name": "大气压强",
+    "chapter": "压强",
+    "subject": "物理",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "大气压的存在",
+      "大气压的测量",
+      "大气压的应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.611Z",
+    "updated_at": "2026-06-01T13:11:33.611Z"
+  },
+  {
+    "kp_id": "phy_kp10_1",
+    "kp_name": "浮力",
+    "chapter": "浮力",
+    "subject": "物理",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "浮力的概念",
+      "浮力的方向",
+      "称重法测浮力"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.611Z",
+    "updated_at": "2026-06-01T13:11:33.611Z"
+  },
+  {
+    "kp_id": "phy_kp10_2",
+    "kp_name": "阿基米德原理",
+    "chapter": "浮力",
+    "subject": "物理",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "阿基米德原理",
+      "浮力的计算"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.611Z",
+    "updated_at": "2026-06-01T13:11:33.611Z"
+  },
+  {
+    "kp_id": "phy_kp10_3",
+    "kp_name": "浮沉条件",
+    "chapter": "浮力",
+    "subject": "物理",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "物体的浮沉条件",
+      "浮力的应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.3,
+      "medium": 0.4,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.611Z",
+    "updated_at": "2026-06-01T13:11:33.611Z"
+  },
+  {
+    "kp_id": "phy_kp11_1",
+    "kp_name": "功",
+    "chapter": "功和机械能",
+    "subject": "物理",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "功的概念",
+      "功的计算",
+      "功的单位"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.611Z",
+    "updated_at": "2026-06-01T13:11:33.611Z"
+  },
+  {
+    "kp_id": "phy_kp11_2",
+    "kp_name": "功率",
+    "chapter": "功和机械能",
+    "subject": "物理",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "功率的概念",
+      "功率的计算",
+      "功率的单位"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.611Z",
+    "updated_at": "2026-06-01T13:11:33.611Z"
+  },
+  {
+    "kp_id": "phy_kp11_3",
+    "kp_name": "动能和势能",
+    "chapter": "功和机械能",
+    "subject": "物理",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "动能",
+      "势能",
+      "机械能"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.611Z",
+    "updated_at": "2026-06-01T13:11:33.611Z"
+  },
+  {
+    "kp_id": "phy_kp12_1",
+    "kp_name": "杠杆",
+    "chapter": "简单机械",
+    "subject": "物理",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "杠杆",
+      "杠杆的平衡条件",
+      "杠杆的应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "作图题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.611Z",
+    "updated_at": "2026-06-01T13:11:33.611Z"
+  },
+  {
+    "kp_id": "phy_kp12_2",
+    "kp_name": "滑轮",
+    "chapter": "简单机械",
+    "subject": "物理",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "定滑轮",
+      "动滑轮",
+      "滑轮组"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.611Z",
+    "updated_at": "2026-06-01T13:11:33.611Z"
+  },
+  {
+    "kp_id": "phy_kp1_1",
+    "kp_name": "长度和时间的测量",
+    "chapter": "机械运动",
+    "subject": "物理",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "长度的单位",
+      "时间的测量",
+      "误差"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.611Z",
+    "updated_at": "2026-06-01T13:11:33.611Z"
+  },
+  {
+    "kp_id": "phy_kp1_2",
+    "kp_name": "运动的描述",
+    "chapter": "机械运动",
+    "subject": "物理",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "机械运动",
+      "参照物",
+      "运动和静止的相对性"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.611Z",
+    "updated_at": "2026-06-01T13:11:33.611Z"
+  },
+  {
+    "kp_id": "phy_kp1_3",
+    "kp_name": "运动的快慢",
+    "chapter": "机械运动",
+    "subject": "物理",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "速度",
+      "匀速直线运动",
+      "变速运动"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.611Z",
+    "updated_at": "2026-06-01T13:11:33.611Z"
+  },
+  {
+    "kp_id": "phy_kp2_1",
+    "kp_name": "声音的产生与传播",
+    "chapter": "声现象",
+    "subject": "物理",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "声音的产生",
+      "声音的传播",
+      "声速"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.611Z",
+    "updated_at": "2026-06-01T13:11:33.611Z"
+  },
+  {
+    "kp_id": "phy_kp2_2",
+    "kp_name": "声音的特性",
+    "chapter": "声现象",
+    "subject": "物理",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "音调",
+      "响度",
+      "音色"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.611Z",
+    "updated_at": "2026-06-01T13:11:33.611Z"
+  },
+  {
+    "kp_id": "phy_kp2_3",
+    "kp_name": "声的利用",
+    "chapter": "声现象",
+    "subject": "物理",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "超声波",
+      "次声波",
+      "声的利用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.611Z",
+    "updated_at": "2026-06-01T13:11:33.611Z"
+  },
+  {
+    "kp_id": "phy_kp3_1",
+    "kp_name": "温度",
+    "chapter": "物态变化",
+    "subject": "物理",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "温度",
+      "温度计",
+      "温度的单位"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.611Z",
+    "updated_at": "2026-06-01T13:11:33.611Z"
+  },
+  {
+    "kp_id": "phy_kp3_2",
+    "kp_name": "物态变化",
+    "chapter": "物态变化",
+    "subject": "物理",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "熔化和凝固",
+      "汽化和液化",
+      "升华和凝华"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "实验题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.611Z",
+    "updated_at": "2026-06-01T13:11:33.611Z"
+  },
+  {
+    "kp_id": "phy_kp4_1",
+    "kp_name": "光的直线传播",
+    "chapter": "光现象",
+    "subject": "物理",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "光源",
+      "光的直线传播",
+      "光速"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.611Z",
+    "updated_at": "2026-06-01T13:11:33.611Z"
+  },
+  {
+    "kp_id": "phy_kp4_2",
+    "kp_name": "光的反射",
+    "chapter": "光现象",
+    "subject": "物理",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "光的反射定律",
+      "镜面反射",
+      "漫反射"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "作图题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.611Z",
+    "updated_at": "2026-06-01T13:11:33.611Z"
+  },
+  {
+    "kp_id": "phy_kp4_3",
+    "kp_name": "平面镜成像",
+    "chapter": "光现象",
+    "subject": "物理",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "平面镜成像的特点",
+      "平面镜成像的原理"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "实验题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.611Z",
+    "updated_at": "2026-06-01T13:11:33.611Z"
+  },
+  {
+    "kp_id": "phy_kp4_4",
+    "kp_name": "光的折射",
+    "chapter": "光现象",
+    "subject": "物理",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "光的折射定律",
+      "折射成像"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "作图题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.611Z",
+    "updated_at": "2026-06-01T13:11:33.611Z"
+  },
+  {
+    "kp_id": "phy_kp5_1",
+    "kp_name": "透镜",
+    "chapter": "透镜及其应用",
+    "subject": "物理",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "凸透镜",
+      "凹透镜",
+      "透镜对光的作用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.611Z",
+    "updated_at": "2026-06-01T13:11:33.611Z"
+  },
+  {
+    "kp_id": "phy_kp5_2",
+    "kp_name": "凸透镜成像的规律",
+    "chapter": "透镜及其应用",
+    "subject": "物理",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "凸透镜成像规律",
+      "物距与像距"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "实验题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.3,
+      "medium": 0.4,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.611Z",
+    "updated_at": "2026-06-01T13:11:33.611Z"
+  },
+  {
+    "kp_id": "phy_kp5_3",
+    "kp_name": "眼睛和眼镜",
+    "chapter": "透镜及其应用",
+    "subject": "物理",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "眼睛的构造",
+      "近视眼",
+      "远视眼"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.611Z",
+    "updated_at": "2026-06-01T13:11:33.611Z"
+  },
+  {
+    "kp_id": "phy_kp6_1",
+    "kp_name": "质量",
+    "chapter": "质量与密度",
+    "subject": "物理",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "质量的概念",
+      "质量的测量",
+      "质量的单位"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.611Z",
+    "updated_at": "2026-06-01T13:11:33.611Z"
+  },
+  {
+    "kp_id": "phy_kp6_2",
+    "kp_name": "密度",
+    "chapter": "质量与密度",
+    "subject": "物理",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "密度的概念",
+      "密度的公式",
+      "密度的测量"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.611Z",
+    "updated_at": "2026-06-01T13:11:33.611Z"
+  },
+  {
+    "kp_id": "phy_kp13_1",
+    "kp_name": "分子热运动",
+    "chapter": "内能",
+    "subject": "物理",
+    "grade": 9,
+    "version": "人教版",
+    "sub_topics": [
+      "分子动理论",
+      "扩散现象"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.612Z",
+    "updated_at": "2026-06-01T13:11:33.612Z"
+  },
+  {
+    "kp_id": "phy_kp13_2",
+    "kp_name": "内能",
+    "chapter": "内能",
+    "subject": "物理",
+    "grade": 9,
+    "version": "人教版",
+    "sub_topics": [
+      "内能的概念",
+      "物体内能的改变",
+      "热量"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.612Z",
+    "updated_at": "2026-06-01T13:11:33.612Z"
+  },
+  {
+    "kp_id": "phy_kp14_1",
+    "kp_name": "热机",
+    "chapter": "内能的利用",
+    "subject": "物理",
+    "grade": 9,
+    "version": "人教版",
+    "sub_topics": [
+      "热机",
+      "热机的效率"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.612Z",
+    "updated_at": "2026-06-01T13:11:33.612Z"
+  },
+  {
+    "kp_id": "phy_kp14_2",
+    "kp_name": "能量的转化和守恒",
+    "chapter": "内能的利用",
+    "subject": "物理",
+    "grade": 9,
+    "version": "人教版",
+    "sub_topics": [
+      "能量的转化",
+      "能量的守恒"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.612Z",
+    "updated_at": "2026-06-01T13:11:33.612Z"
+  },
+  {
+    "kp_id": "phy_kp15_1",
+    "kp_name": "电荷",
+    "chapter": "电流和电路",
+    "subject": "物理",
+    "grade": 9,
+    "version": "人教版",
+    "sub_topics": [
+      "摩擦起电",
+      "电荷间的相互作用",
+      "验电器"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.612Z",
+    "updated_at": "2026-06-01T13:11:33.612Z"
+  },
+  {
+    "kp_id": "phy_kp15_2",
+    "kp_name": "电流和电路",
+    "chapter": "电流和电路",
+    "subject": "物理",
+    "grade": 9,
+    "version": "人教版",
+    "sub_topics": [
+      "电流",
+      "电路的组成",
+      "电路图"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "作图题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.612Z",
+    "updated_at": "2026-06-01T13:11:33.612Z"
+  },
+  {
+    "kp_id": "phy_kp15_3",
+    "kp_name": "串联和并联",
+    "chapter": "电流和电路",
+    "subject": "物理",
+    "grade": 9,
+    "version": "人教版",
+    "sub_topics": [
+      "串联电路",
+      "并联电路",
+      "电路的连接"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "作图题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.612Z",
+    "updated_at": "2026-06-01T13:11:33.612Z"
+  },
+  {
+    "kp_id": "phy_kp16_1",
+    "kp_name": "电压",
+    "chapter": "电压 电阻",
+    "subject": "物理",
+    "grade": 9,
+    "version": "人教版",
+    "sub_topics": [
+      "电压",
+      "电压的测量",
+      "电压的单位"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.612Z",
+    "updated_at": "2026-06-01T13:11:33.612Z"
+  },
+  {
+    "kp_id": "phy_kp16_2",
+    "kp_name": "电阻",
+    "chapter": "电压 电阻",
+    "subject": "物理",
+    "grade": 9,
+    "version": "人教版",
+    "sub_topics": [
+      "电阻",
+      "决定电阻大小的因素",
+      "滑动变阻器"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "实验题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.612Z",
+    "updated_at": "2026-06-01T13:11:33.612Z"
+  },
+  {
+    "kp_id": "phy_kp17_1",
+    "kp_name": "欧姆定律",
+    "chapter": "欧姆定律",
+    "subject": "物理",
+    "grade": 9,
+    "version": "人教版",
+    "sub_topics": [
+      "欧姆定律",
+      "欧姆定律的应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.3,
+      "medium": 0.4,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.612Z",
+    "updated_at": "2026-06-01T13:11:33.612Z"
+  },
+  {
+    "kp_id": "phy_kp17_2",
+    "kp_name": "电阻的测量",
+    "chapter": "欧姆定律",
+    "subject": "物理",
+    "grade": 9,
+    "version": "人教版",
+    "sub_topics": [
+      "伏安法测电阻",
+      "电阻的测量"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "实验题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.612Z",
+    "updated_at": "2026-06-01T13:11:33.612Z"
+  },
+  {
+    "kp_id": "phy_kp18_1",
+    "kp_name": "电能 电功",
+    "chapter": "电功率",
+    "subject": "物理",
+    "grade": 9,
+    "version": "人教版",
+    "sub_topics": [
+      "电能",
+      "电功",
+      "电能的测量"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.612Z",
+    "updated_at": "2026-06-01T13:11:33.612Z"
+  },
+  {
+    "kp_id": "phy_kp18_2",
+    "kp_name": "电功率",
+    "chapter": "电功率",
+    "subject": "物理",
+    "grade": 9,
+    "version": "人教版",
+    "sub_topics": [
+      "电功率",
+      "额定功率",
+      "实际功率"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.3,
+      "medium": 0.4,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.612Z",
+    "updated_at": "2026-06-01T13:11:33.612Z"
+  },
+  {
+    "kp_id": "phy_kp18_3",
+    "kp_name": "焦耳定律",
+    "chapter": "电功率",
+    "subject": "物理",
+    "grade": 9,
+    "version": "人教版",
+    "sub_topics": [
+      "焦耳定律",
+      "电热的计算",
+      "电热的利用和防止"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.612Z",
+    "updated_at": "2026-06-01T13:11:33.612Z"
+  },
+  {
+    "kp_id": "phy_kp19_1",
+    "kp_name": "家庭电路",
+    "chapter": "生活用电",
+    "subject": "物理",
+    "grade": 9,
+    "version": "人教版",
+    "sub_topics": [
+      "家庭电路的组成",
+      "火线和零线",
+      "三线插头和漏电保护"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.612Z",
+    "updated_at": "2026-06-01T13:11:33.612Z"
+  },
+  {
+    "kp_id": "phy_kp19_2",
+    "kp_name": "家庭电路中电流过大的原因",
+    "chapter": "生活用电",
+    "subject": "物理",
+    "grade": 9,
+    "version": "人教版",
+    "sub_topics": [
+      "家庭电路中电流过大的原因",
+      "保险丝的作用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.612Z",
+    "updated_at": "2026-06-01T13:11:33.612Z"
+  },
+  {
+    "kp_id": "phy_kp20_1",
+    "kp_name": "磁现象 磁场",
+    "chapter": "电与磁",
+    "subject": "物理",
+    "grade": 9,
+    "version": "人教版",
+    "sub_topics": [
+      "磁现象",
+      "磁场",
+      "磁感线"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.612Z",
+    "updated_at": "2026-06-01T13:11:33.612Z"
+  },
+  {
+    "kp_id": "phy_kp20_2",
+    "kp_name": "电生磁",
+    "chapter": "电与磁",
+    "subject": "物理",
+    "grade": 9,
+    "version": "人教版",
+    "sub_topics": [
+      "电流的磁效应",
+      "电磁铁",
+      "电磁继电器"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "作图题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.612Z",
+    "updated_at": "2026-06-01T13:11:33.612Z"
+  },
+  {
+    "kp_id": "phy_kp20_3",
+    "kp_name": "电动机",
+    "chapter": "电与磁",
+    "subject": "物理",
+    "grade": 9,
+    "version": "人教版",
+    "sub_topics": [
+      "磁场对通电导线的作用",
+      "电动机"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.612Z",
+    "updated_at": "2026-06-01T13:11:33.612Z"
+  },
+  {
+    "kp_id": "phy_kp20_4",
+    "kp_name": "磁生电",
+    "chapter": "电与磁",
+    "subject": "物理",
+    "grade": 9,
+    "version": "人教版",
+    "sub_topics": [
+      "电磁感应",
+      "发电机的原理"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.4,
+      "medium": 0.4,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.612Z",
+    "updated_at": "2026-06-01T13:11:33.612Z"
+  },
+  {
+    "kp_id": "phy_kp21_1",
+    "kp_name": "电磁波",
+    "chapter": "信息的传递",
+    "subject": "物理",
+    "grade": 9,
+    "version": "人教版",
+    "sub_topics": [
+      "电磁波",
+      "电磁波的传播",
+      "电磁波的应用"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.612Z",
+    "updated_at": "2026-06-01T13:11:33.612Z"
+  },
+  {
+    "kp_id": "phy_kp21_2",
+    "kp_name": "广播、电视和移动通信",
+    "chapter": "信息的传递",
+    "subject": "物理",
+    "grade": 9,
+    "version": "人教版",
+    "sub_topics": [
+      "无线电广播",
+      "电视",
+      "移动通信"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.612Z",
+    "updated_at": "2026-06-01T13:11:33.612Z"
+  },
+  {
+    "kp_id": "physics-high-1-1-1",
+    "kp_name": "运动学",
+    "chapter": "第1章 力学",
+    "subject": "物理",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "物理概念",
+      "公式推导",
+      "应用计算"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.614Z",
+    "updated_at": "2026-06-01T13:11:33.614Z"
+  },
+  {
+    "kp_id": "physics-high-1-1-2",
+    "kp_name": "匀变速运动",
+    "chapter": "第1章 力学",
+    "subject": "物理",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "物理概念",
+      "公式推导",
+      "应用计算"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.614Z",
+    "updated_at": "2026-06-01T13:11:33.614Z"
+  },
+  {
+    "kp_id": "physics-high-1-1-3",
+    "kp_name": "自由落体",
+    "chapter": "第1章 力学",
+    "subject": "物理",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "物理概念",
+      "公式推导",
+      "应用计算"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.614Z",
+    "updated_at": "2026-06-01T13:11:33.614Z"
+  },
+  {
+    "kp_id": "physics-high-1-2-1",
+    "kp_name": "牛顿定律",
+    "chapter": "第2章 电磁学",
+    "subject": "物理",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "物理概念",
+      "公式推导",
+      "应用计算"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.614Z",
+    "updated_at": "2026-06-01T13:11:33.614Z"
+  },
+  {
+    "kp_id": "physics-high-1-2-2",
+    "kp_name": "受力分析",
+    "chapter": "第2章 电磁学",
+    "subject": "物理",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "物理概念",
+      "公式推导",
+      "应用计算"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.614Z",
+    "updated_at": "2026-06-01T13:11:33.614Z"
+  },
+  {
+    "kp_id": "physics-high-1-2-3",
+    "kp_name": "动量守恒",
+    "chapter": "第2章 电磁学",
+    "subject": "物理",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "物理概念",
+      "公式推导",
+      "应用计算"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.614Z",
+    "updated_at": "2026-06-01T13:11:33.614Z"
+  },
+  {
+    "kp_id": "physics-high-1-3-1",
+    "kp_name": "电场",
+    "chapter": "第3章 热学",
+    "subject": "物理",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "物理概念",
+      "公式推导",
+      "应用计算"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.614Z",
+    "updated_at": "2026-06-01T13:11:33.614Z"
+  },
+  {
+    "kp_id": "physics-high-1-3-2",
+    "kp_name": "电势",
+    "chapter": "第3章 热学",
+    "subject": "物理",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "物理概念",
+      "公式推导",
+      "应用计算"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.614Z",
+    "updated_at": "2026-06-01T13:11:33.614Z"
+  },
+  {
+    "kp_id": "physics-high-1-3-3",
+    "kp_name": "电容器",
+    "chapter": "第3章 热学",
+    "subject": "物理",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "物理概念",
+      "公式推导",
+      "应用计算"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.614Z",
+    "updated_at": "2026-06-01T13:11:33.614Z"
+  },
+  {
+    "kp_id": "physics-high-1-4-1",
+    "kp_name": "磁场",
+    "chapter": "第4章 光学",
+    "subject": "物理",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "物理概念",
+      "公式推导",
+      "应用计算"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.614Z",
+    "updated_at": "2026-06-01T13:11:33.614Z"
+  },
+  {
+    "kp_id": "physics-high-1-4-2",
+    "kp_name": "电磁感应",
+    "chapter": "第4章 光学",
+    "subject": "物理",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "物理概念",
+      "公式推导",
+      "应用计算"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.614Z",
+    "updated_at": "2026-06-01T13:11:33.614Z"
+  },
+  {
+    "kp_id": "physics-high-1-4-3",
+    "kp_name": "交流电",
+    "chapter": "第4章 光学",
+    "subject": "物理",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "物理概念",
+      "公式推导",
+      "应用计算"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.614Z",
+    "updated_at": "2026-06-01T13:11:33.614Z"
+  },
+  {
+    "kp_id": "physics-high-2-1-1",
+    "kp_name": "运动学",
+    "chapter": "第1章 力学",
+    "subject": "物理",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "物理概念",
+      "公式推导",
+      "应用计算"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.614Z",
+    "updated_at": "2026-06-01T13:11:33.614Z"
+  },
+  {
+    "kp_id": "physics-high-2-1-2",
+    "kp_name": "匀变速运动",
+    "chapter": "第1章 力学",
+    "subject": "物理",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "物理概念",
+      "公式推导",
+      "应用计算"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.614Z",
+    "updated_at": "2026-06-01T13:11:33.614Z"
+  },
+  {
+    "kp_id": "physics-high-2-1-3",
+    "kp_name": "自由落体",
+    "chapter": "第1章 力学",
+    "subject": "物理",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "物理概念",
+      "公式推导",
+      "应用计算"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.614Z",
+    "updated_at": "2026-06-01T13:11:33.614Z"
+  },
+  {
+    "kp_id": "physics-high-2-2-1",
+    "kp_name": "牛顿定律",
+    "chapter": "第2章 电磁学",
+    "subject": "物理",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "物理概念",
+      "公式推导",
+      "应用计算"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.614Z",
+    "updated_at": "2026-06-01T13:11:33.614Z"
+  },
+  {
+    "kp_id": "physics-high-2-2-2",
+    "kp_name": "受力分析",
+    "chapter": "第2章 电磁学",
+    "subject": "物理",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "物理概念",
+      "公式推导",
+      "应用计算"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.614Z",
+    "updated_at": "2026-06-01T13:11:33.614Z"
+  },
+  {
+    "kp_id": "physics-high-2-2-3",
+    "kp_name": "动量守恒",
+    "chapter": "第2章 电磁学",
+    "subject": "物理",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "物理概念",
+      "公式推导",
+      "应用计算"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.614Z",
+    "updated_at": "2026-06-01T13:11:33.614Z"
+  },
+  {
+    "kp_id": "physics-high-2-3-1",
+    "kp_name": "电场",
+    "chapter": "第3章 热学",
+    "subject": "物理",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "物理概念",
+      "公式推导",
+      "应用计算"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.614Z",
+    "updated_at": "2026-06-01T13:11:33.614Z"
+  },
+  {
+    "kp_id": "physics-high-2-3-2",
+    "kp_name": "电势",
+    "chapter": "第3章 热学",
+    "subject": "物理",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "物理概念",
+      "公式推导",
+      "应用计算"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.614Z",
+    "updated_at": "2026-06-01T13:11:33.614Z"
+  },
+  {
+    "kp_id": "physics-high-2-3-3",
+    "kp_name": "电容器",
+    "chapter": "第3章 热学",
+    "subject": "物理",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "物理概念",
+      "公式推导",
+      "应用计算"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.614Z",
+    "updated_at": "2026-06-01T13:11:33.614Z"
+  },
+  {
+    "kp_id": "physics-high-2-4-1",
+    "kp_name": "磁场",
+    "chapter": "第4章 光学",
+    "subject": "物理",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "物理概念",
+      "公式推导",
+      "应用计算"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.614Z",
+    "updated_at": "2026-06-01T13:11:33.614Z"
+  },
+  {
+    "kp_id": "physics-high-2-4-2",
+    "kp_name": "电磁感应",
+    "chapter": "第4章 光学",
+    "subject": "物理",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "物理概念",
+      "公式推导",
+      "应用计算"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.614Z",
+    "updated_at": "2026-06-01T13:11:33.614Z"
+  },
+  {
+    "kp_id": "physics-high-2-4-3",
+    "kp_name": "交流电",
+    "chapter": "第4章 光学",
+    "subject": "物理",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "物理概念",
+      "公式推导",
+      "应用计算"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.614Z",
+    "updated_at": "2026-06-01T13:11:33.614Z"
+  },
+  {
+    "kp_id": "physics-high-3-1-1",
+    "kp_name": "运动学",
+    "chapter": "第1章 力学",
+    "subject": "物理",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "物理概念",
+      "公式推导",
+      "应用计算"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.615Z",
+    "updated_at": "2026-06-01T13:11:33.615Z"
+  },
+  {
+    "kp_id": "physics-high-3-1-2",
+    "kp_name": "匀变速运动",
+    "chapter": "第1章 力学",
+    "subject": "物理",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "物理概念",
+      "公式推导",
+      "应用计算"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.615Z",
+    "updated_at": "2026-06-01T13:11:33.615Z"
+  },
+  {
+    "kp_id": "physics-high-3-1-3",
+    "kp_name": "自由落体",
+    "chapter": "第1章 力学",
+    "subject": "物理",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "物理概念",
+      "公式推导",
+      "应用计算"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.615Z",
+    "updated_at": "2026-06-01T13:11:33.615Z"
+  },
+  {
+    "kp_id": "physics-high-3-2-1",
+    "kp_name": "牛顿定律",
+    "chapter": "第2章 电磁学",
+    "subject": "物理",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "物理概念",
+      "公式推导",
+      "应用计算"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.615Z",
+    "updated_at": "2026-06-01T13:11:33.615Z"
+  },
+  {
+    "kp_id": "physics-high-3-2-2",
+    "kp_name": "受力分析",
+    "chapter": "第2章 电磁学",
+    "subject": "物理",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "物理概念",
+      "公式推导",
+      "应用计算"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.615Z",
+    "updated_at": "2026-06-01T13:11:33.615Z"
+  },
+  {
+    "kp_id": "physics-high-3-2-3",
+    "kp_name": "动量守恒",
+    "chapter": "第2章 电磁学",
+    "subject": "物理",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "物理概念",
+      "公式推导",
+      "应用计算"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.615Z",
+    "updated_at": "2026-06-01T13:11:33.615Z"
+  },
+  {
+    "kp_id": "physics-high-3-3-1",
+    "kp_name": "电场",
+    "chapter": "第3章 热学",
+    "subject": "物理",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "物理概念",
+      "公式推导",
+      "应用计算"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.615Z",
+    "updated_at": "2026-06-01T13:11:33.615Z"
+  },
+  {
+    "kp_id": "physics-high-3-3-2",
+    "kp_name": "电势",
+    "chapter": "第3章 热学",
+    "subject": "物理",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "物理概念",
+      "公式推导",
+      "应用计算"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.615Z",
+    "updated_at": "2026-06-01T13:11:33.615Z"
+  },
+  {
+    "kp_id": "physics-high-3-3-3",
+    "kp_name": "电容器",
+    "chapter": "第3章 热学",
+    "subject": "物理",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "物理概念",
+      "公式推导",
+      "应用计算"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.615Z",
+    "updated_at": "2026-06-01T13:11:33.615Z"
+  },
+  {
+    "kp_id": "physics-high-3-4-1",
+    "kp_name": "磁场",
+    "chapter": "第4章 光学",
+    "subject": "物理",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "物理概念",
+      "公式推导",
+      "应用计算"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.615Z",
+    "updated_at": "2026-06-01T13:11:33.615Z"
+  },
+  {
+    "kp_id": "physics-high-3-4-2",
+    "kp_name": "电磁感应",
+    "chapter": "第4章 光学",
+    "subject": "物理",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "物理概念",
+      "公式推导",
+      "应用计算"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.615Z",
+    "updated_at": "2026-06-01T13:11:33.615Z"
+  },
+  {
+    "kp_id": "physics-high-3-4-3",
+    "kp_name": "交流电",
+    "chapter": "第4章 光学",
+    "subject": "物理",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "物理概念",
+      "公式推导",
+      "应用计算"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.615Z",
+    "updated_at": "2026-06-01T13:11:33.615Z"
+  },
+  {
+    "kp_id": "physics-high-4-1-1",
+    "kp_name": "运动学",
+    "chapter": "第1章 力学",
+    "subject": "物理",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "物理概念",
+      "公式推导",
+      "应用计算"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.615Z",
+    "updated_at": "2026-06-01T13:11:33.615Z"
+  },
+  {
+    "kp_id": "physics-high-4-1-2",
+    "kp_name": "匀变速运动",
+    "chapter": "第1章 力学",
+    "subject": "物理",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "物理概念",
+      "公式推导",
+      "应用计算"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.615Z",
+    "updated_at": "2026-06-01T13:11:33.615Z"
+  },
+  {
+    "kp_id": "physics-high-4-1-3",
+    "kp_name": "自由落体",
+    "chapter": "第1章 力学",
+    "subject": "物理",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "物理概念",
+      "公式推导",
+      "应用计算"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.615Z",
+    "updated_at": "2026-06-01T13:11:33.615Z"
+  },
+  {
+    "kp_id": "physics-high-4-2-1",
+    "kp_name": "牛顿定律",
+    "chapter": "第2章 电磁学",
+    "subject": "物理",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "物理概念",
+      "公式推导",
+      "应用计算"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.615Z",
+    "updated_at": "2026-06-01T13:11:33.615Z"
+  },
+  {
+    "kp_id": "physics-high-4-2-2",
+    "kp_name": "受力分析",
+    "chapter": "第2章 电磁学",
+    "subject": "物理",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "物理概念",
+      "公式推导",
+      "应用计算"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.615Z",
+    "updated_at": "2026-06-01T13:11:33.615Z"
+  },
+  {
+    "kp_id": "physics-high-4-2-3",
+    "kp_name": "动量守恒",
+    "chapter": "第2章 电磁学",
+    "subject": "物理",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "物理概念",
+      "公式推导",
+      "应用计算"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.615Z",
+    "updated_at": "2026-06-01T13:11:33.615Z"
+  },
+  {
+    "kp_id": "physics-high-4-3-1",
+    "kp_name": "电场",
+    "chapter": "第3章 热学",
+    "subject": "物理",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "物理概念",
+      "公式推导",
+      "应用计算"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.615Z",
+    "updated_at": "2026-06-01T13:11:33.615Z"
+  },
+  {
+    "kp_id": "physics-high-4-3-2",
+    "kp_name": "电势",
+    "chapter": "第3章 热学",
+    "subject": "物理",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "物理概念",
+      "公式推导",
+      "应用计算"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.615Z",
+    "updated_at": "2026-06-01T13:11:33.615Z"
+  },
+  {
+    "kp_id": "physics-high-4-3-3",
+    "kp_name": "电容器",
+    "chapter": "第3章 热学",
+    "subject": "物理",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "物理概念",
+      "公式推导",
+      "应用计算"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.615Z",
+    "updated_at": "2026-06-01T13:11:33.615Z"
+  },
+  {
+    "kp_id": "physics-high-4-4-1",
+    "kp_name": "磁场",
+    "chapter": "第4章 光学",
+    "subject": "物理",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "物理概念",
+      "公式推导",
+      "应用计算"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.615Z",
+    "updated_at": "2026-06-01T13:11:33.615Z"
+  },
+  {
+    "kp_id": "physics-high-4-4-2",
+    "kp_name": "电磁感应",
+    "chapter": "第4章 光学",
+    "subject": "物理",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "物理概念",
+      "公式推导",
+      "应用计算"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.615Z",
+    "updated_at": "2026-06-01T13:11:33.615Z"
+  },
+  {
+    "kp_id": "physics-high-4-4-3",
+    "kp_name": "交流电",
+    "chapter": "第4章 光学",
+    "subject": "物理",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "物理概念",
+      "公式推导",
+      "应用计算"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "计算题",
+      "证明题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.615Z",
+    "updated_at": "2026-06-01T13:11:33.615Z"
+  },
+  {
+    "kp_id": "pol_kp4_1",
+    "kp_name": "青春的邀约",
+    "chapter": "青春时光",
+    "subject": "道德与法治",
+    "grade": 7,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "悄悄变化的我",
+      "成长的不仅仅是身体"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.615Z",
+    "updated_at": "2026-06-01T13:11:33.615Z"
+  },
+  {
+    "kp_id": "pol_kp4_2",
+    "kp_name": "青春的心弦",
+    "chapter": "青春时光",
+    "subject": "道德与法治",
+    "grade": 7,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "异性朋友",
+      "青春萌动"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.615Z",
+    "updated_at": "2026-06-01T13:11:33.615Z"
+  },
+  {
+    "kp_id": "pol_kp4_3",
+    "kp_name": "青春的证明",
+    "chapter": "青春时光",
+    "subject": "道德与法治",
+    "grade": 7,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "青春飞扬",
+      "青春有格"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.615Z",
+    "updated_at": "2026-06-01T13:11:33.615Z"
+  },
+  {
+    "kp_id": "pol_kp5_1",
+    "kp_name": "情绪的管理",
+    "chapter": "做情绪情感的主人",
+    "subject": "道德与法治",
+    "grade": 7,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "情绪的表达",
+      "情绪的调节"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.615Z",
+    "updated_at": "2026-06-01T13:11:33.615Z"
+  },
+  {
+    "kp_id": "pol_kp5_2",
+    "kp_name": "在品味情感中成长",
+    "chapter": "做情绪情感的主人",
+    "subject": "道德与法治",
+    "grade": 7,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "情感的作用",
+      "传递情感正能量"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.615Z",
+    "updated_at": "2026-06-01T13:11:33.615Z"
+  },
+  {
+    "kp_id": "pol_kp1_1",
+    "kp_name": "中学序曲",
+    "chapter": "成长的节拍",
+    "subject": "道德与法治",
+    "grade": 7,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "新的起点",
+      "成长的礼物"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.615Z",
+    "updated_at": "2026-06-01T13:11:33.615Z"
+  },
+  {
+    "kp_id": "pol_kp1_2",
+    "kp_name": "学习新天地",
+    "chapter": "成长的节拍",
+    "subject": "道德与法治",
+    "grade": 7,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "学习伴成长",
+      "享受学习"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.615Z",
+    "updated_at": "2026-06-01T13:11:33.615Z"
+  },
+  {
+    "kp_id": "pol_kp1_3",
+    "kp_name": "发现自己",
+    "chapter": "成长的节拍",
+    "subject": "道德与法治",
+    "grade": 7,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "认识自己",
+      "做更好的自己"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.615Z",
+    "updated_at": "2026-06-01T13:11:33.615Z"
+  },
+  {
+    "kp_id": "pol_kp2_1",
+    "kp_name": "友谊与成长同行",
+    "chapter": "友谊与成长同行",
+    "subject": "道德与法治",
+    "grade": 7,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "友谊的特质",
+      "友谊的澄清"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.615Z",
+    "updated_at": "2026-06-01T13:11:33.615Z"
+  },
+  {
+    "kp_id": "pol_kp2_2",
+    "kp_name": "交友的智慧",
+    "chapter": "友谊与成长同行",
+    "subject": "道德与法治",
+    "grade": 7,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "建立友谊",
+      "呵护友谊"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.615Z",
+    "updated_at": "2026-06-01T13:11:33.615Z"
+  },
+  {
+    "kp_id": "pol_kp3_1",
+    "kp_name": "师生交往",
+    "chapter": "师长情谊",
+    "subject": "道德与法治",
+    "grade": 7,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "走近老师",
+      "师生交往新观念"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.615Z",
+    "updated_at": "2026-06-01T13:11:33.615Z"
+  },
+  {
+    "kp_id": "pol_kp3_2",
+    "kp_name": "亲情之爱",
+    "chapter": "师长情谊",
+    "subject": "道德与法治",
+    "grade": 7,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "家的意味",
+      "爱在家人间",
+      "让家更美好"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.615Z",
+    "updated_at": "2026-06-01T13:11:33.615Z"
+  },
+  {
+    "kp_id": "pol_kp4_1",
+    "kp_name": "责任与角色",
+    "chapter": "责任与角色同在",
+    "subject": "道德与法治",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "责任的含义",
+      "角色与责任"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.616Z",
+    "updated_at": "2026-06-01T13:11:33.616Z"
+  },
+  {
+    "kp_id": "pol_kp4_2",
+    "kp_name": "做负责任的人",
+    "chapter": "责任与角色同在",
+    "subject": "道德与法治",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "承担责任的代价与回报",
+      "不言代价与回报"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.616Z",
+    "updated_at": "2026-06-01T13:11:33.616Z"
+  },
+  {
+    "kp_id": "pol_kp5_1",
+    "kp_name": "关爱他人",
+    "chapter": "积极奉献社会",
+    "subject": "道德与法治",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "关爱的意义",
+      "关爱他人的做法"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.616Z",
+    "updated_at": "2026-06-01T13:11:33.616Z"
+  },
+  {
+    "kp_id": "pol_kp5_2",
+    "kp_name": "服务社会",
+    "chapter": "积极奉献社会",
+    "subject": "道德与法治",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "服务社会的意义",
+      "服务社会的做法"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.616Z",
+    "updated_at": "2026-06-01T13:11:33.616Z"
+  },
+  {
+    "kp_id": "pol_kp6_1",
+    "kp_name": "国家好大家才会好",
+    "chapter": "国家利益至上",
+    "subject": "道德与法治",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "国家利益",
+      "国家利益与人民利益"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.616Z",
+    "updated_at": "2026-06-01T13:11:33.616Z"
+  },
+  {
+    "kp_id": "pol_kp6_2",
+    "kp_name": "坚持国家利益至上",
+    "chapter": "国家利益至上",
+    "subject": "道德与法治",
+    "grade": 8,
+    "semester": "down",
+    "version": "人教版",
+    "sub_topics": [
+      "树立维护国家利益意识",
+      "捍卫国家利益"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.616Z",
+    "updated_at": "2026-06-01T13:11:33.616Z"
+  },
+  {
+    "kp_id": "pol_kp1_1",
+    "kp_name": "我与社会",
+    "chapter": "丰富的社会生活",
+    "subject": "道德与法治",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "感受社会生活",
+      "个人与社会的关系"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.616Z",
+    "updated_at": "2026-06-01T13:11:33.616Z"
+  },
+  {
+    "kp_id": "pol_kp1_2",
+    "kp_name": "在社会中成长",
+    "chapter": "丰富的社会生活",
+    "subject": "道德与法治",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "社会化",
+      "亲社会行为"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.616Z",
+    "updated_at": "2026-06-01T13:11:33.616Z"
+  },
+  {
+    "kp_id": "pol_kp2_1",
+    "kp_name": "网络改变世界",
+    "chapter": "网络生活新空间",
+    "subject": "道德与法治",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "网络的积极作用",
+      "网络的消极影响"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.616Z",
+    "updated_at": "2026-06-01T13:11:33.616Z"
+  },
+  {
+    "kp_id": "pol_kp2_2",
+    "kp_name": "合理利用网络",
+    "chapter": "网络生活新空间",
+    "subject": "道德与法治",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "理性参与网络生活",
+      "传播网络正能量"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.616Z",
+    "updated_at": "2026-06-01T13:11:33.616Z"
+  },
+  {
+    "kp_id": "pol_kp3_1",
+    "kp_name": "尊重他人",
+    "chapter": "社会生活讲道德",
+    "subject": "道德与法治",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "尊重的重要性",
+      "尊重他人的做法"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.616Z",
+    "updated_at": "2026-06-01T13:11:33.616Z"
+  },
+  {
+    "kp_id": "pol_kp3_2",
+    "kp_name": "以礼待人",
+    "chapter": "社会生活讲道德",
+    "subject": "道德与法治",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "礼的重要性",
+      "文明有礼的要求"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.616Z",
+    "updated_at": "2026-06-01T13:11:33.616Z"
+  },
+  {
+    "kp_id": "pol_kp3_3",
+    "kp_name": "诚实守信",
+    "chapter": "社会生活讲道德",
+    "subject": "道德与法治",
+    "grade": 8,
+    "semester": "up",
+    "version": "人教版",
+    "sub_topics": [
+      "诚信的重要性",
+      "践行诚信"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.5,
+      "medium": 0.3,
+      "hard": 0.2
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.616Z",
+    "updated_at": "2026-06-01T13:11:33.616Z"
+  },
+  {
+    "kp_id": "politics-high-1-1-1",
+    "kp_name": "经济生活",
+    "chapter": "第1章 经济生活",
+    "subject": "思想政治",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "理论概念",
+      "实际应用",
+      "分析评价"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.616Z",
+    "updated_at": "2026-06-01T13:11:33.616Z"
+  },
+  {
+    "kp_id": "politics-high-1-1-2",
+    "kp_name": "商品货币",
+    "chapter": "第1章 经济生活",
+    "subject": "思想政治",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "理论概念",
+      "实际应用",
+      "分析评价"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.616Z",
+    "updated_at": "2026-06-01T13:11:33.616Z"
+  },
+  {
+    "kp_id": "politics-high-1-1-3",
+    "kp_name": "价值规律",
+    "chapter": "第1章 经济生活",
+    "subject": "思想政治",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "理论概念",
+      "实际应用",
+      "分析评价"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.616Z",
+    "updated_at": "2026-06-01T13:11:33.616Z"
+  },
+  {
+    "kp_id": "politics-high-1-2-1",
+    "kp_name": "政治生活",
+    "chapter": "第2章 政治生活",
+    "subject": "思想政治",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "理论概念",
+      "实际应用",
+      "分析评价"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.616Z",
+    "updated_at": "2026-06-01T13:11:33.616Z"
+  },
+  {
+    "kp_id": "politics-high-1-2-2",
+    "kp_name": "公民权利",
+    "chapter": "第2章 政治生活",
+    "subject": "思想政治",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "理论概念",
+      "实际应用",
+      "分析评价"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.616Z",
+    "updated_at": "2026-06-01T13:11:33.616Z"
+  },
+  {
+    "kp_id": "politics-high-1-2-3",
+    "kp_name": "政府职能",
+    "chapter": "第2章 政治生活",
+    "subject": "思想政治",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "理论概念",
+      "实际应用",
+      "分析评价"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.616Z",
+    "updated_at": "2026-06-01T13:11:33.616Z"
+  },
+  {
+    "kp_id": "politics-high-1-3-1",
+    "kp_name": "文化生活",
+    "chapter": "第3章 文化生活",
+    "subject": "思想政治",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "理论概念",
+      "实际应用",
+      "分析评价"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.616Z",
+    "updated_at": "2026-06-01T13:11:33.616Z"
+  },
+  {
+    "kp_id": "politics-high-1-3-2",
+    "kp_name": "文化传承",
+    "chapter": "第3章 文化生活",
+    "subject": "思想政治",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "理论概念",
+      "实际应用",
+      "分析评价"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.616Z",
+    "updated_at": "2026-06-01T13:11:33.616Z"
+  },
+  {
+    "kp_id": "politics-high-1-3-3",
+    "kp_name": "文化创新",
+    "chapter": "第3章 文化生活",
+    "subject": "思想政治",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "理论概念",
+      "实际应用",
+      "分析评价"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.616Z",
+    "updated_at": "2026-06-01T13:11:33.616Z"
+  },
+  {
+    "kp_id": "politics-high-1-4-1",
+    "kp_name": "生活与哲学",
+    "chapter": "第4章 生活与哲学",
+    "subject": "思想政治",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "理论概念",
+      "实际应用",
+      "分析评价"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.616Z",
+    "updated_at": "2026-06-01T13:11:33.616Z"
+  },
+  {
+    "kp_id": "politics-high-1-4-2",
+    "kp_name": "唯物论",
+    "chapter": "第4章 生活与哲学",
+    "subject": "思想政治",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "理论概念",
+      "实际应用",
+      "分析评价"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.616Z",
+    "updated_at": "2026-06-01T13:11:33.616Z"
+  },
+  {
+    "kp_id": "politics-high-1-4-3",
+    "kp_name": "辩证法",
+    "chapter": "第4章 生活与哲学",
+    "subject": "思想政治",
+    "grade": 10,
+    "semester": "必修1",
+    "version": "人教版",
+    "sub_topics": [
+      "理论概念",
+      "实际应用",
+      "分析评价"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.616Z",
+    "updated_at": "2026-06-01T13:11:33.616Z"
+  },
+  {
+    "kp_id": "politics-high-2-1-1",
+    "kp_name": "经济生活",
+    "chapter": "第1章 经济生活",
+    "subject": "思想政治",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "理论概念",
+      "实际应用",
+      "分析评价"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.617Z",
+    "updated_at": "2026-06-01T13:11:33.617Z"
+  },
+  {
+    "kp_id": "politics-high-2-1-2",
+    "kp_name": "商品货币",
+    "chapter": "第1章 经济生活",
+    "subject": "思想政治",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "理论概念",
+      "实际应用",
+      "分析评价"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.617Z",
+    "updated_at": "2026-06-01T13:11:33.617Z"
+  },
+  {
+    "kp_id": "politics-high-2-1-3",
+    "kp_name": "价值规律",
+    "chapter": "第1章 经济生活",
+    "subject": "思想政治",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "理论概念",
+      "实际应用",
+      "分析评价"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.617Z",
+    "updated_at": "2026-06-01T13:11:33.617Z"
+  },
+  {
+    "kp_id": "politics-high-2-2-1",
+    "kp_name": "政治生活",
+    "chapter": "第2章 政治生活",
+    "subject": "思想政治",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "理论概念",
+      "实际应用",
+      "分析评价"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.617Z",
+    "updated_at": "2026-06-01T13:11:33.617Z"
+  },
+  {
+    "kp_id": "politics-high-2-2-2",
+    "kp_name": "公民权利",
+    "chapter": "第2章 政治生活",
+    "subject": "思想政治",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "理论概念",
+      "实际应用",
+      "分析评价"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.617Z",
+    "updated_at": "2026-06-01T13:11:33.617Z"
+  },
+  {
+    "kp_id": "politics-high-2-2-3",
+    "kp_name": "政府职能",
+    "chapter": "第2章 政治生活",
+    "subject": "思想政治",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "理论概念",
+      "实际应用",
+      "分析评价"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.617Z",
+    "updated_at": "2026-06-01T13:11:33.617Z"
+  },
+  {
+    "kp_id": "politics-high-2-3-1",
+    "kp_name": "文化生活",
+    "chapter": "第3章 文化生活",
+    "subject": "思想政治",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "理论概念",
+      "实际应用",
+      "分析评价"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.617Z",
+    "updated_at": "2026-06-01T13:11:33.617Z"
+  },
+  {
+    "kp_id": "politics-high-2-3-2",
+    "kp_name": "文化传承",
+    "chapter": "第3章 文化生活",
+    "subject": "思想政治",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "理论概念",
+      "实际应用",
+      "分析评价"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.617Z",
+    "updated_at": "2026-06-01T13:11:33.617Z"
+  },
+  {
+    "kp_id": "politics-high-2-3-3",
+    "kp_name": "文化创新",
+    "chapter": "第3章 文化生活",
+    "subject": "思想政治",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "理论概念",
+      "实际应用",
+      "分析评价"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.617Z",
+    "updated_at": "2026-06-01T13:11:33.617Z"
+  },
+  {
+    "kp_id": "politics-high-2-4-1",
+    "kp_name": "生活与哲学",
+    "chapter": "第4章 生活与哲学",
+    "subject": "思想政治",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "理论概念",
+      "实际应用",
+      "分析评价"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.617Z",
+    "updated_at": "2026-06-01T13:11:33.617Z"
+  },
+  {
+    "kp_id": "politics-high-2-4-2",
+    "kp_name": "唯物论",
+    "chapter": "第4章 生活与哲学",
+    "subject": "思想政治",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "理论概念",
+      "实际应用",
+      "分析评价"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.617Z",
+    "updated_at": "2026-06-01T13:11:33.617Z"
+  },
+  {
+    "kp_id": "politics-high-2-4-3",
+    "kp_name": "辩证法",
+    "chapter": "第4章 生活与哲学",
+    "subject": "思想政治",
+    "grade": 10,
+    "semester": "必修2",
+    "version": "人教版",
+    "sub_topics": [
+      "理论概念",
+      "实际应用",
+      "分析评价"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.617Z",
+    "updated_at": "2026-06-01T13:11:33.617Z"
+  },
+  {
+    "kp_id": "politics-high-3-1-1",
+    "kp_name": "经济生活",
+    "chapter": "第1章 经济生活",
+    "subject": "思想政治",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "理论概念",
+      "实际应用",
+      "分析评价"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.617Z",
+    "updated_at": "2026-06-01T13:11:33.617Z"
+  },
+  {
+    "kp_id": "politics-high-3-1-2",
+    "kp_name": "商品货币",
+    "chapter": "第1章 经济生活",
+    "subject": "思想政治",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "理论概念",
+      "实际应用",
+      "分析评价"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.617Z",
+    "updated_at": "2026-06-01T13:11:33.617Z"
+  },
+  {
+    "kp_id": "politics-high-3-1-3",
+    "kp_name": "价值规律",
+    "chapter": "第1章 经济生活",
+    "subject": "思想政治",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "理论概念",
+      "实际应用",
+      "分析评价"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.617Z",
+    "updated_at": "2026-06-01T13:11:33.617Z"
+  },
+  {
+    "kp_id": "politics-high-3-2-1",
+    "kp_name": "政治生活",
+    "chapter": "第2章 政治生活",
+    "subject": "思想政治",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "理论概念",
+      "实际应用",
+      "分析评价"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.617Z",
+    "updated_at": "2026-06-01T13:11:33.617Z"
+  },
+  {
+    "kp_id": "politics-high-3-2-2",
+    "kp_name": "公民权利",
+    "chapter": "第2章 政治生活",
+    "subject": "思想政治",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "理论概念",
+      "实际应用",
+      "分析评价"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.617Z",
+    "updated_at": "2026-06-01T13:11:33.617Z"
+  },
+  {
+    "kp_id": "politics-high-3-2-3",
+    "kp_name": "政府职能",
+    "chapter": "第2章 政治生活",
+    "subject": "思想政治",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "理论概念",
+      "实际应用",
+      "分析评价"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.617Z",
+    "updated_at": "2026-06-01T13:11:33.617Z"
+  },
+  {
+    "kp_id": "politics-high-3-3-1",
+    "kp_name": "文化生活",
+    "chapter": "第3章 文化生活",
+    "subject": "思想政治",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "理论概念",
+      "实际应用",
+      "分析评价"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.617Z",
+    "updated_at": "2026-06-01T13:11:33.617Z"
+  },
+  {
+    "kp_id": "politics-high-3-3-2",
+    "kp_name": "文化传承",
+    "chapter": "第3章 文化生活",
+    "subject": "思想政治",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "理论概念",
+      "实际应用",
+      "分析评价"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.617Z",
+    "updated_at": "2026-06-01T13:11:33.617Z"
+  },
+  {
+    "kp_id": "politics-high-3-3-3",
+    "kp_name": "文化创新",
+    "chapter": "第3章 文化生活",
+    "subject": "思想政治",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "理论概念",
+      "实际应用",
+      "分析评价"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.617Z",
+    "updated_at": "2026-06-01T13:11:33.617Z"
+  },
+  {
+    "kp_id": "politics-high-3-4-1",
+    "kp_name": "生活与哲学",
+    "chapter": "第4章 生活与哲学",
+    "subject": "思想政治",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "理论概念",
+      "实际应用",
+      "分析评价"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.617Z",
+    "updated_at": "2026-06-01T13:11:33.617Z"
+  },
+  {
+    "kp_id": "politics-high-3-4-2",
+    "kp_name": "唯物论",
+    "chapter": "第4章 生活与哲学",
+    "subject": "思想政治",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "理论概念",
+      "实际应用",
+      "分析评价"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.617Z",
+    "updated_at": "2026-06-01T13:11:33.617Z"
+  },
+  {
+    "kp_id": "politics-high-3-4-3",
+    "kp_name": "辩证法",
+    "chapter": "第4章 生活与哲学",
+    "subject": "思想政治",
+    "grade": 10,
+    "semester": "必修3",
+    "version": "人教版",
+    "sub_topics": [
+      "理论概念",
+      "实际应用",
+      "分析评价"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.617Z",
+    "updated_at": "2026-06-01T13:11:33.617Z"
+  },
+  {
+    "kp_id": "politics-high-4-1-1",
+    "kp_name": "经济生活",
+    "chapter": "第1章 经济生活",
+    "subject": "思想政治",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "理论概念",
+      "实际应用",
+      "分析评价"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.617Z",
+    "updated_at": "2026-06-01T13:11:33.617Z"
+  },
+  {
+    "kp_id": "politics-high-4-1-2",
+    "kp_name": "商品货币",
+    "chapter": "第1章 经济生活",
+    "subject": "思想政治",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "理论概念",
+      "实际应用",
+      "分析评价"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.617Z",
+    "updated_at": "2026-06-01T13:11:33.617Z"
+  },
+  {
+    "kp_id": "politics-high-4-1-3",
+    "kp_name": "价值规律",
+    "chapter": "第1章 经济生活",
+    "subject": "思想政治",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "理论概念",
+      "实际应用",
+      "分析评价"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.617Z",
+    "updated_at": "2026-06-01T13:11:33.617Z"
+  },
+  {
+    "kp_id": "politics-high-4-2-1",
+    "kp_name": "政治生活",
+    "chapter": "第2章 政治生活",
+    "subject": "思想政治",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "理论概念",
+      "实际应用",
+      "分析评价"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.617Z",
+    "updated_at": "2026-06-01T13:11:33.617Z"
+  },
+  {
+    "kp_id": "politics-high-4-2-2",
+    "kp_name": "公民权利",
+    "chapter": "第2章 政治生活",
+    "subject": "思想政治",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "理论概念",
+      "实际应用",
+      "分析评价"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.617Z",
+    "updated_at": "2026-06-01T13:11:33.617Z"
+  },
+  {
+    "kp_id": "politics-high-4-2-3",
+    "kp_name": "政府职能",
+    "chapter": "第2章 政治生活",
+    "subject": "思想政治",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "理论概念",
+      "实际应用",
+      "分析评价"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.617Z",
+    "updated_at": "2026-06-01T13:11:33.617Z"
+  },
+  {
+    "kp_id": "politics-high-4-3-1",
+    "kp_name": "文化生活",
+    "chapter": "第3章 文化生活",
+    "subject": "思想政治",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "理论概念",
+      "实际应用",
+      "分析评价"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.617Z",
+    "updated_at": "2026-06-01T13:11:33.617Z"
+  },
+  {
+    "kp_id": "politics-high-4-3-2",
+    "kp_name": "文化传承",
+    "chapter": "第3章 文化生活",
+    "subject": "思想政治",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "理论概念",
+      "实际应用",
+      "分析评价"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.617Z",
+    "updated_at": "2026-06-01T13:11:33.617Z"
+  },
+  {
+    "kp_id": "politics-high-4-3-3",
+    "kp_name": "文化创新",
+    "chapter": "第3章 文化生活",
+    "subject": "思想政治",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "理论概念",
+      "实际应用",
+      "分析评价"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.617Z",
+    "updated_at": "2026-06-01T13:11:33.617Z"
+  },
+  {
+    "kp_id": "politics-high-4-4-1",
+    "kp_name": "生活与哲学",
+    "chapter": "第4章 生活与哲学",
+    "subject": "思想政治",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "理论概念",
+      "实际应用",
+      "分析评价"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.617Z",
+    "updated_at": "2026-06-01T13:11:33.617Z"
+  },
+  {
+    "kp_id": "politics-high-4-4-2",
+    "kp_name": "唯物论",
+    "chapter": "第4章 生活与哲学",
+    "subject": "思想政治",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "理论概念",
+      "实际应用",
+      "分析评价"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.617Z",
+    "updated_at": "2026-06-01T13:11:33.617Z"
+  },
+  {
+    "kp_id": "politics-high-4-4-3",
+    "kp_name": "辩证法",
+    "chapter": "第4章 生活与哲学",
+    "subject": "思想政治",
+    "grade": 10,
+    "semester": "必修4",
+    "version": "人教版",
+    "sub_topics": [
+      "理论概念",
+      "实际应用",
+      "分析评价"
+    ],
+    "typical_questions": [
+      "选择题",
+      "填空题",
+      "问答题",
+      "材料分析题"
+    ],
+    "knowledge_context": "",
+    "related_concepts": [],
+    "typical_mistakes": [],
+    "difficulty_weight": {
+      "easy": 0.2,
+      "medium": 0.5,
+      "hard": 0.3
+    },
+    "source": "jiaocai_import",
+    "created_at": "2026-06-01T13:11:33.617Z",
+    "updated_at": "2026-06-01T13:11:33.617Z"
+  }
+];
+
+module.exports = ALL_KP_DATA;

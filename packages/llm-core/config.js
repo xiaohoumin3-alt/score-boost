@@ -3,20 +3,13 @@
  *
  * 从环境变量读取配置，提供默认值和验证。
  *
- * 环境变量（支持两种命名方式）：
- * 标准命名：
- * - LLM_PROVIDER: Provider 类型（目前仅支持 minimax）
- * - LLM_API_KEY: API 密钥（必需）
- * - LLM_BASE_URL: API 端点（可选）
+ * 环境变量：
+ * - LLM_API_KEY: DeepSeek API 密钥（必需）
+ * - LLM_BASE_URL: API 端点
  * - LLM_MODEL: 模型名称
  * - LLM_MAX_RETRIES: 最大重试次数
  * - LLM_TIMEOUT_MS: 超时时间（毫秒）
  * - LLM_RETRY_DELAY_MS: 基础重试延迟（毫秒）
- *
- * MiniMax 专用命名（兼容现有配置）：
- * - MINIMAX_API_KEY: API 密钥
- * - MINIMAX_MODEL: 模型名称
- * - MINIMAX_BASE_URL: API 端点（可选）
  */
 
 const { LLMConfigError } = require('./exceptions')
@@ -30,32 +23,24 @@ const { LLMConfigError } = require('./exceptions')
  * @throws {LLMConfigError} 缺少必需配置时抛出
  */
 function getConfig() {
-  // 在微信云函数环境中，从云函数配置读取
-  // 在本地测试环境中，从 process.env 读取
   const env = typeof process !== 'undefined' ? process.env : {}
 
   const config = {
-    // Provider 配置（支持两种命名方式）
-    provider: env.LLM_PROVIDER || 'minimax',
-    apiKey: env.LLM_API_KEY || env.LLM_API_KEY_MINIMAX || env.MINIMAX_API_KEY || '',
-    baseUrl: env.LLM_BASE_URL || env.MINIMAX_BASE_URL || 'https://token-plan-cn.xiaomimimo.com/v1',
-    model: env.LLM_MODEL || env.MINIMAX_MODEL || 'mimo-v2-flash',
+    // DeepSeek API (国内可用)
+    apiKey: env.LLM_API_KEY || '',
+    baseUrl: env.LLM_BASE_URL || 'https://api.deepseek.com',
+    model: env.LLM_MODEL || 'deepseek-chat',
 
-    // 重试与超时配置
-    maxRetries: parseInt(env.LLM_MAX_RETRIES || '3', 10),
-    timeout: parseInt(env.LLM_TIMEOUT_MS || '120000', 10),  // 2分钟默认超时（推理模型需要更长时间）
+    // 重试与超时配置（云函数60秒超时，LLM请求45秒 + 2次重试）
+    maxRetries: parseInt(env.LLM_MAX_RETRIES || '2', 10),
+    timeout: parseInt(env.LLM_TIMEOUT_MS || '45000', 10),
     retryDelay: parseInt(env.LLM_RETRY_DELAY_MS || '1000', 10),
-    maxDelay: parseInt(env.LLM_MAX_RETRY_DELAY_MS || '60000', 10)
+    maxDelay: parseInt(env.LLM_MAX_RETRY_DELAY_MS || '10000', 10)
   }
 
-  // 验证必需的 API Key
-  if (!config.apiKey) {
-    throw new LLMConfigError('LLM_API_KEY 环境变量未设置')
-  }
+  // 不在 getConfig 校验 apiKey — 部分调用方无 key 时需优雅降级
 
   // 验证数值配置
-  console.log('[Config] Final config timeout:', config.timeout, 'ms')
-
   if (config.maxRetries < 0 || config.maxRetries > 10) {
     throw new LLMConfigError('LLM_MAX_RETRIES 必须在 0-10 之间')
   }

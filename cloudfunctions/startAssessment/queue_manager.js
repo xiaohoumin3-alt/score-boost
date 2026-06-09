@@ -18,21 +18,41 @@ function shouldUseQueueMode(poolQuestionCount, totalNeeded) {
  * 检查学生是否有活跃的队列任务
  * @param {Object} db - 数据库实例
  * @param {string} studentId - 学生ID
+ * @param {Object} filters - 过滤条件 { subject, grade }
  * @returns {Promise<Object>} 队列状态
  */
-async function checkQueueForStudent(db, studentId) {
+async function checkQueueForStudent(db, studentId, filters = {}) {
   try {
-    // 查询学生的活跃任务（pending或processing状态）
-    const result = await db.collection('question_queue')
-      .where({
-        student_id: studentId,
-        status: db.command.in(['pending', 'processing', 'completed'])
-      })
-      .orderBy('created_at', 'desc')
-      .limit(1)
-      .get();
+    // 查询学生的活跃任务（pending或processing状态），按 subject/grade 过滤
+    const where = {
+      student_id: studentId,
+      status: db.command.in(['pending', 'processing', 'completed'])
+    };
+    if (filters.subject) where.subject = filters.subject;
+    if (filters.grade) where.grade = filters.grade;
 
-    if (result.data.length === 0) {
+    let result;
+    try {
+      result = await db.collection('question_queue')
+        .where(where)
+        .orderBy('created_at', 'desc')
+        .limit(1)
+        .get();
+    } catch (queryErr) {
+      // 降级：不带 orderBy（可能缺少复合索引）
+      console.warn('[checkQueueForStudent] orderBy failed, using fallback:', queryErr.message);
+      result = await db.collection('question_queue')
+        .where(where)
+        .limit(10)
+        .get();
+      // 手动排序：取最新的一条
+      if (result.data && result.data.length > 0) {
+        result.data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+        result.data = [result.data[0]];
+      }
+    }
+
+    if (!result.data || result.data.length === 0) {
       return { found: false };
     }
 
@@ -85,7 +105,10 @@ async function createQueueTask(db, taskData) {
       retry_count: 0,
       created_at: now,
       updated_at: now,
-      expires_at: expiresAt
+      expires_at: expiresAt,
+      timeline: {
+        queued_at: now
+      }
     };
 
     const result = await db.collection('question_queue').add({

@@ -134,16 +134,15 @@ const KP_NAME_MAP = {
 
 function formatOptions(options) {
   if (!options || !Array.isArray(options)) return [];
-  const keys = ['A', 'B', 'C', 'D', 'E', 'F'];
-  return options.map((opt, idx) => {
+  return options.map((opt) => {
     if (typeof opt === 'string') {
-      const dotIdx = opt.indexOf('. ');
-      if (dotIdx > 0) {
-        return { key: opt.substring(0, dotIdx), value: opt.substring(dotIdx + 2) };
-      }
-      return { key: keys[idx], value: opt };
+      // Remove leading "A. " prefix if present
+      return opt.replace(/^[A-F][.、)\s]\s*/, '');
     }
-    return { key: opt.key || keys[idx], value: opt.value || opt };
+    if (typeof opt === 'object' && opt !== null) {
+      return opt.value || opt.text || opt.content || String(opt);
+    }
+    return String(opt);
   });
 }
 

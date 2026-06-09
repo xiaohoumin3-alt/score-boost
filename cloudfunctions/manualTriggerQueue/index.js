@@ -29,27 +29,6 @@ exports.main = async (event, context) => {
 
     console.log('[manualTriggerQueue] Pending tasks count:', pendingCount.total || 0);
 
-    // 2. 获取目标任务状态
-    const TARGET_QUEUE_ID = '669eebf36a17092800eea1aa0a8c721b';
-    const targetTask = await db.collection('question_queue').doc(TARGET_QUEUE_ID).get();
-
-    if (targetTask.data) {
-      console.log('[manualTriggerQueue] Target task status:', targetTask.data.status);
-
-      // 如果任务是 pending 状态，提高优先级
-      if (targetTask.data.status === 'pending') {
-        console.log('[manualTriggerQueue] Boosting target task priority to 999');
-        await db.collection('question_queue').doc(TARGET_QUEUE_ID).update({
-          data: {
-            priority: 999,
-            updated_at: new Date()
-          }
-        });
-      }
-    } else {
-      console.log('[manualTriggerQueue] Target task not found');
-    }
-
     // 3. 调用 questionGenerator 处理队列
     console.log('[manualTriggerQueue] Calling questionGenerator...');
     const triggerResult = await cloud.callFunction({

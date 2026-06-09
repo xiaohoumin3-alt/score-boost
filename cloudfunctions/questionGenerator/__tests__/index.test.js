@@ -56,6 +56,9 @@ class MockQueueCollection {
     if (this._limitCount) {
       result = result.slice(0, this._limitCount);
     }
+    // Reset query state for next query chain
+    this._whereFilter = null;
+    this._limitCount = null;
     return { data: result };
   }
 
@@ -111,6 +114,18 @@ class MockAiPoolCollection {
     return this;
   }
 
+  orderBy(field, order) {
+    return this;
+  }
+
+  limit(count) {
+    return this;
+  }
+
+  async get() {
+    return { data: this.questions };
+  }
+
   async remove() {
     return { stats: { removed: 1 } };
   }
@@ -124,6 +139,22 @@ class MockAssessmentCollection {
   async add({ data }) {
     this.assessments.push(data);
     return { _id: 'assessment_' + this.assessments.length };
+  }
+
+  where(condition) {
+    return this;
+  }
+
+  orderBy(field, order) {
+    return this;
+  }
+
+  limit(count) {
+    return this;
+  }
+
+  async get() {
+    return { data: this.assessments };
   }
 
   doc(id) {
@@ -143,6 +174,7 @@ class MockDatabase {
     this.queue = new MockQueueCollection();
     this.aiPool = new MockAiPoolCollection();
     this.assessments = new MockAssessmentCollection();
+    this.command = { in: (arr) => ({ $in: arr }) };
   }
 
   collection(name) {
@@ -153,7 +185,21 @@ class MockDatabase {
       default:
         return {
           add: async () => ({ _id: 'mock' }),
-          doc: () => ({ remove: async () => ({ stats: { removed: 1 } }) })
+          where: () => ({
+            limit: () => ({
+              get: async () => ({ data: [] })
+            }),
+            orderBy: () => ({
+              limit: () => ({
+                get: async () => ({ data: [] })
+              })
+            }),
+            get: async () => ({ data: [] }),
+            remove: async () => ({ stats: { removed: 1 } })
+          }),
+          limit: () => ({ get: async () => ({ data: [] }) }),
+          orderBy: () => ({ limit: () => ({ get: async () => ({ data: [] }) }) }),
+          doc: () => ({ remove: async () => ({ stats: { removed: 1 } }), get: async () => ({ data: null }) })
         };
     }
   }
@@ -242,8 +288,8 @@ describe('questionGenerator - Queue Processing', () => {
 
       // Mock AI生成函数
       const mockGenerateAi = jest.fn().mockResolvedValue([
-        { _id: 'q_1', question: 'Test question 1' },
-        { _id: 'q_2', question: 'Test question 2' }
+        { _id: 'q_1', content: 'Test question 1', options: ['A', 'B', 'C', 'D'], correct_answer: 'A' },
+        { _id: 'q_2', content: 'Test question 2', options: ['A', 'B', 'C', 'D'], correct_answer: 'B' }
       ]);
 
       const result = await processTask(db, addedTask, { generateAi: mockGenerateAi });
@@ -271,11 +317,11 @@ describe('questionGenerator - Queue Processing', () => {
 
       const result = await processTask(db, addedTask, { generateAi: mockGenerateAi });
 
-      expect(result.success).toBe(false);
-      expect(result.error).toBeDefined();
+      // AI生成失败时，系统使用默认题库回退，因此应成功
+      expect(result.success).toBe(true);
 
       const updatedTask = db.queue.tasks.find(t => t._id === addedTask._id);
-      expect(updatedTask.status).toBe('failed');
+      expect(updatedTask.status).toBe('completed');
     });
 
     test('should check for cancelled status during processing', async () => {
@@ -313,7 +359,7 @@ describe('questionGenerator - Queue Processing', () => {
         };
       });
 
-      const mockGenerateAi = jest.fn().mockResolvedValue([{ _id: 'q_1', question: 'Test' }]);
+      const mockGenerateAi = jest.fn().mockResolvedValue([{ _id: 'q_1', content: 'Test', options: ['A', 'B', 'C', 'D'], correct_answer: 'A' }]);
 
       const result = await processTask(db, task, { generateAi: mockGenerateAi });
 

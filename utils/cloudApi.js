@@ -40,7 +40,7 @@ function initCloud() {
 /**
  * 调用云函数
  */
-function callCloudFunction(name, data) {
+function callCloudFunction(name, data, timeoutMs = 15000) {
   return new Promise((resolve, reject) => {
     console.log(`[cloudApi] calling ${name}:`, data);
 
@@ -54,27 +54,45 @@ function callCloudFunction(name, data) {
 
     initCloud();
 
+    // 超时保护
+    let timeoutHit = false;
+    const timeoutId = setTimeout(() => {
+      timeoutHit = true;
+      console.error(`[cloudApi] ${name} timeout after ${timeoutMs}ms`);
+      reject(new Error('请求超时，请检查网络连接'));
+    }, timeoutMs);
+
     _wx.cloud.callFunction({
       name: name,
       data: data,
       success: res => {
-        console.log(`[cloudApi] ${name} success:`, res);
+        if (timeoutHit) return;
+        clearTimeout(timeoutId);
+        console.log(`[cloudApi] ${name} success - errMsg:`, res.errMsg);
+        console.log(`[cloudApi] ${name} success - result:`, JSON.stringify(res.result));
         if (res.errMsg && res.errMsg.includes('ok')) {
-          if (res.result && res.result.success) {
+          if (res.result && res.result.success === true) {
+            console.log(`[cloudApi] ${name} resolving with res.result.data:`, JSON.stringify(res.result.data));
             resolve(res.result.data);
           } else if (res.result && res.result.error) {
+            console.log(`[cloudApi] ${name} rejecting with error:`, res.result.error);
             reject(new Error(res.result.error));
-          } else if (res.result && !res.result.success) {
+          } else if (res.result && res.result.success === false) {
+            console.log(`[cloudApi] ${name} success=false, rejecting`);
             // 处理 success: false 的情况
             reject(new Error(res.result.error || '云函数返回失败'));
           } else {
+            console.log(`[cloudApi] ${name} unexpected format, resolving with res.result:`, JSON.stringify(res.result));
             resolve(res.result);
           }
         } else {
+          console.log(`[cloudApi] ${name} errMsg not ok, rejecting:`, res.errMsg);
           reject(new Error(res.errMsg || '云函数调用失败'));
         }
       },
       fail: err => {
+        if (timeoutHit) return;
+        clearTimeout(timeoutId);
         console.error(`[cloudApi] ${name} failed:`, err);
         reject(new Error(err.errMsg || '网络错误'));
       }
@@ -84,8 +102,8 @@ function callCloudFunction(name, data) {
 
 // ========== 测评 API ==========
 
-function startAssessment(grade, subject, mode, retestOptions) {
-  console.log('[cloudApi] startAssessment:', grade, subject, mode, retestOptions);
+function startAssessment(grade, subject, mode, retestOptions, options) {
+  console.log('[cloudApi] startAssessment:', grade, subject, mode, retestOptions, options);
 
   // 会考模式不需要年级
   const isHuikao = mode === 'huikao';
@@ -96,14 +114,18 @@ function startAssessment(grade, subject, mode, retestOptions) {
     return Promise.reject(new Error('请先设置科目'));
   }
 
-  const gradeMap = { '七年级': '7', '八年级': '8', '九年级': '9' };
-  const subjectMap = { '数学': 'math', '生物': 'biology', '地理': 'geography' };
+  const gradeMap = { '一年级': '1', '二年级': '2', '三年级': '3', '四年级': '4', '五年级': '5', '六年级': '6', '七年级': '7', '八年级': '8', '九年级': '9' };
+  const subjectMap = { '语文': 'chinese', '数学': 'math', '英语': 'english', '物理': 'physics', '化学': 'chemistry', '生物': 'biology', '历史': 'history', '地理': 'geography', '政治': 'politics' };
+
+  // 根据当前月份判断学期：2-7月=下学期，8-1月=上学期
+  const currentMonth = new Date().getMonth() + 1;
+  const semester = (currentMonth >= 2 && currentMonth <= 7) ? '下' : '上';
 
   // 会考模式固定参数
   const payload = {
     subject: subjectMap[subject] || subject,
     grade: isHuikao ? '7-8' : (gradeMap[grade] || String(grade)),
-    semester: isHuikao ? 'all' : '下',
+    semester: isHuikao ? 'all' : semester,
     mode: mode || 'quick',
     num_questions: isHuikao ? 50 : 20,
     student_id: app.globalData.studentId || null,
@@ -113,6 +135,11 @@ function startAssessment(grade, subject, mode, retestOptions) {
   if (retestOptions) {
     payload.previousScore = retestOptions.previousScore;
     payload.targetDifficulty = retestOptions.targetDifficulty;
+  }
+
+  // 强制同步模式（跳过队列直接生成）
+  if (options && options.forceSync) {
+    payload.force_sync = true;
   }
 
   return callCloudFunction('startAssessment', payload);
@@ -172,7 +199,7 @@ function finishAssessment(assessmentId) {
 
 function startPractice(knowledgePointId, knowledgePointName, numQuestions, weakPoints, assessmentId, studentProfile) {
   // 科目映射：显示名→存储名
-  const subjectMapDb = { '生物': 'biology', '地理': 'geography', '数学': 'math' };
+  const subjectMapDb = { '语文': 'chinese', '数学': 'math', '英语': 'english', '物理': 'physics', '化学': 'chemistry', '生物': 'biology', '历史': 'history', '地理': 'geography', '政治': 'politics' };
   const currentSubject = app.globalData.subject || '数学';
   const dbSubject = subjectMapDb[currentSubject] || currentSubject;
 
@@ -190,10 +217,6 @@ function startPractice(knowledgePointId, knowledgePointName, numQuestions, weakP
 
   console.log('[cloudApi] startPractice payload:', JSON.stringify(payload));
   return callCloudFunction('practice_v2', payload);
-}
-
-function finishPractice(sessionId) {
-  return Promise.resolve({ session_id: sessionId, status: 'completed' });
 }
 
 /**
@@ -221,8 +244,13 @@ function checkRetestEligibility(assessmentId, score) {
 
 /**
  * 获取知识点进度
+ * @param {string} subject - 可选，科目名称（如 '数学'）
+ * @param {string} grade - 可选，年级名称（如 '一年级'）
+ *
+ * 修复说明：即使 kp_progress 记录缺少 grade/subject 字段，
+ * 也会通过 knowledge_points 集合获取权威数据进行过滤
  */
-function getKpProgress() {
+function getKpProgress(subject, grade) {
   return new Promise((resolve, reject) => {
     initCloud();
     if (!wx || !wx.cloud) {
@@ -232,19 +260,93 @@ function getKpProgress() {
     }
     const db = wx.cloud.database();
 
-    console.log('[cloudApi] getKpProgress fetching...');
+    // 科目映射：显示名→存储名（1-9年级全科）
+    const subjectMapDb = { '语文': 'chinese', '数学': 'math', '英语': 'english', '物理': 'physics', '化学': 'chemistry', '生物': 'biology', '历史': 'history', '地理': 'geography', '政治': 'politics' };
+    // 年级映射：显示名→存储名（1-9年级全覆盖）
+    const gradeMapDb = { '一年级': '1', '二年级': '2', '三年级': '3', '四年级': '4', '五年级': '5', '六年级': '6', '七年级': '7', '八年级': '8', '九年级': '9' };
+
+    const dbSubject = subject ? (subjectMapDb[subject] || subject) : null;
+    const dbGrade = grade ? (gradeMapDb[grade] || grade) : null;
+
+    console.log('[cloudApi] getKpProgress:', { subject, grade, dbSubject, dbGrade });
+
+    // 第一步：查询所有 kp_progress 记录（按 student_id）
+    // 不依赖 grade/subject 字段，因为这些字段可能缺失
+    const baseQuery = { student_id: app.globalData.studentId || null };
+    const query = { ...baseQuery };
+
+    // 从 knowledge_points 获取 grade/subject 信息用于过滤
+    if (dbSubject || dbGrade) {
+      query.grade = dbGrade;
+      query.subject = dbSubject;
+    }
 
     db.collection('kp_progress')
-      .where({
-        student_id: app.globalData.studentId || null,
-      })
+      .where(baseQuery)
       .get()
       .then(res => {
-        console.log('[cloudApi] getKpProgress result:', res.data);
-        resolve({
-          success: true,
-          data: res.data || [],
-        });
+        const allRecords = res.data || [];
+        console.log('[cloudApi] getKpProgress 查询到记录数:', allRecords.length);
+
+        // 如果没有提供科目年级过滤条件，返回全部
+        if (!dbSubject && !dbGrade) {
+          console.log('[cloudApi] getKpProgress 无过滤条件，返回全部');
+          resolve({ success: true, data: allRecords });
+          return;
+        }
+
+        // 第二步：批量查询 knowledge_points 获取权威的 grade/subject 数据
+        const kpIds = allRecords.map(r => r.kp_id).filter(Boolean);
+        if (kpIds.length === 0) {
+          console.log('[cloudApi] getKpProgress 无有效 kp_id');
+          resolve({ success: true, data: [] });
+          return;
+        }
+
+        // 使用 db.command.in 批量查询
+        const _ = db.command;
+        db.collection('knowledge_points')
+          .where({ kp_id: _.in(kpIds) })
+          .field({ kp_id: true, grade: true, subject: true })
+          .get()
+          .then(kpRes => {
+            // 构建 kp_id → {grade, subject} 映射
+            const kpInfoMap = {};
+            (kpRes.data || []).forEach(kp => {
+              kpInfoMap[kp.kp_id] = {
+                grade: kp.grade,
+                subject: kp.subject
+              };
+            });
+
+            console.log('[cloudApi] getKpProgress knowledge_points 查询结果数:', Object.keys(kpInfoMap).length);
+
+            // 第三步：在内存中过滤，使用 knowledge_points 的权威数据
+            const filtered = allRecords.filter(record => {
+              const kpInfo = kpInfoMap[record.kp_id];
+              if (!kpInfo) {
+                console.log('[cloudApi] getKpProgress kp_id 在 knowledge_points 中未找到:', record.kp_id);
+                return false;
+              }
+
+              // subject 映射：中文名 → 存储名
+              const subjectToDb = { '语文': 'chinese', '数学': 'math', '英语': 'english', '物理': 'physics', '化学': 'chemistry', '生物': 'biology', '历史': 'history', '地理': 'geography', '政治': 'politics' };
+              const kpSubjectDb = subjectToDb[kpInfo.subject] || kpInfo.subject;
+
+              const gradeMatch = !dbGrade || String(kpInfo.grade) === String(dbGrade);
+              const subjectMatch = !dbSubject || kpSubjectDb === dbSubject;
+
+              return gradeMatch && subjectMatch;
+            });
+
+            console.log('[cloudApi] getKpProgress 过滤后记录数:', filtered.length);
+            resolve({ success: true, data: filtered });
+          })
+          .catch(err => {
+            console.error('[cloudApi] getKpProgress knowledge_points 查询失败:', err);
+            // 如果 knowledge_points 查询失败，返回空数组而不是失败
+            resolve({ success: true, data: [], error: 'knowledge_points 查询失败' });
+          });
       })
       .catch(err => {
         console.error('[cloudApi] getKpProgress error:', err);
@@ -277,6 +379,8 @@ function analyzeWeakPoints(kpStats) {
     .map(kp => ({
       kp_id: kp.kp_id,
       kp_name: kp.kp_name,
+      correct: kp.correct,
+      total: kp.total,
       chapter: '',
     }));
 
@@ -299,14 +403,21 @@ function getLatestDiagnosis(subject, grade) {
     const db = wx.cloud.database();
 
     // 科目映射：显示名→存储名
-    const subjectMapDb = { '生物': 'biology', '地理': 'geography', '数学': 'math' };
-    // 年级映射：显示名→存储名
-    const gradeMapDb = { '七年级': '7', '八年级': '8', '九年级': '9' };
+    const subjectMapDb = { '语文': 'chinese', '数学': 'math', '英语': 'english', '物理': 'physics', '化学': 'chemistry', '生物': 'biology', '历史': 'history', '地理': 'geography', '政治': 'politics' };
+    // 年级映射：显示名→存储名（1-9年级全覆盖）
+    const gradeMapDb = { '一年级': '1', '二年级': '2', '三年级': '3', '四年级': '4', '五年级': '5', '六年级': '6', '七年级': '7', '八年级': '8', '九年级': '9' };
 
     const dbSubject = subject ? (subjectMapDb[subject] || subject) : null;
     const dbGrade = grade ? (gradeMapDb[grade] || grade) : null;
 
     console.log('[cloudApi] getLatestDiagnosis:', { subject, grade, dbSubject, dbGrade });
+    console.log('[cloudApi] getLatestDiagnosis - 构建的查询条件详情:', {
+      '原始subject': subject,
+      '原始grade': grade,
+      '映射后subject': dbSubject,
+      '映射后grade': dbGrade,
+      '最终查询条件': { status: 'completed', ...(dbGrade && { grade: dbGrade }), ...(dbSubject && { subject: dbSubject }) }
+    });
 
     // 构建查询条件
     const query = { status: 'completed' };
@@ -360,9 +471,9 @@ function getAssessmentList(subject, grade) {
     const db = wx.cloud.database();
 
     // 科目映射：显示名→存储名
-    const subjectMapDb = { '生物': 'biology', '地理': 'geography', '数学': 'math' };
-    // 年级映射：显示名→存储名
-    const gradeMapDb = { '七年级': '7', '八年级': '8', '九年级': '9' };
+    const subjectMapDb = { '语文': 'chinese', '数学': 'math', '英语': 'english', '物理': 'physics', '化学': 'chemistry', '生物': 'biology', '历史': 'history', '地理': 'geography', '政治': 'politics' };
+    // 年级映射：显示名→存储名（1-9年级全覆盖）
+    const gradeMapDb = { '一年级': '1', '二年级': '2', '三年级': '3', '四年级': '4', '五年级': '5', '六年级': '6', '七年级': '7', '八年级': '8', '九年级': '9' };
 
     const dbSubject = subject ? (subjectMapDb[subject] || subject) : null;
     const dbGrade = grade ? (gradeMapDb[grade] || grade) : null;
@@ -512,13 +623,75 @@ function cancelQueueTask(queueId) {
 
 // ========== 导出 ==========
 
+
+// ========== 数据埋点 API ==========
+
+/**
+ * 追踪用户行为事件（非阻塞，静默失败）
+ * @param {string} event - 事件名称
+ * @param {Object} data - 事件数据
+ */
+function track(event, data) {
+  try {
+    const _wx = getWx();
+    if (!_wx || !_wx.cloud) return;
+
+    initCloud();
+
+    _wx.cloud.callFunction({
+      name: 'analytics',
+      data: {
+        action: 'track',
+        event: event,
+        data: data || {}
+      },
+      success: function() { /* silent */ },
+      fail: function() { /* silent */ }
+    });
+  } catch (e) {
+    // 埋点永远不应影响主流程
+  }
+}
+
+/**
+ * 批量追踪事件（非阻塞）
+ * @param {Array<{event: string, data: Object}>} events
+ */
+function trackBatch(events) {
+  try {
+    const _wx = getWx();
+    if (!_wx || !_wx.cloud) return;
+
+    initCloud();
+
+    _wx.cloud.callFunction({
+      name: 'analytics',
+      data: {
+        action: 'batch',
+        events: events
+      },
+      success: function() { /* silent */ },
+      fail: function() { /* silent */ }
+    });
+  } catch (e) {
+    // 埋点永远不应影响主流程
+  }
+}
+
+/**
+ * 查询统计数据（管理后台用）
+ * @param {Object} params - { start_date, end_date, event, group_by }
+ */
+function getAnalyticsStats(params) {
+  return callCloudFunction('analytics', { action: 'stats', ...params });
+}
+
 module.exports = {
   // 核心 API
   startAssessment,
   submitAssessmentAnswer,
   finishAssessment,
   startPractice,
-  finishPractice,
   getAssessmentList,
 
   // 诊断 API
@@ -539,4 +712,9 @@ module.exports = {
 
   // 直接调用云函数
   callCloudFunction,
+
+  // 数据埋点
+  track,
+  trackBatch,
+  getAnalyticsStats,
 };

@@ -1,7 +1,0 @@
-{
-  "permissions": {
-    "cloudDb": {
-      "COLLECTION": ["practices"]
-    }
-  }
-}

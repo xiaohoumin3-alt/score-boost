@@ -18,36 +18,40 @@ score-boost-mini/
 │   ├── pages/                 # 页面组件
 │   ├── utils/                 # 工具函数
 │   └── __tests__/             # 前端测试
-├── cloudfunctions/            # 云函数
+├── cloudfunctions/            # 云函数 (68个)
 │   ├── shared/                # 共享模块
 │   │   ├── llm-core/          # LLM客户端 (DeepSeek)
 │   │   ├── question_bank.js   # 题库管理
 │   │   └── queue-manager.js   # 队列管理
 │   ├── questionGenerator/    # 题目生成引擎
 │   ├── startAssessment/       # 评估启动
+│   │   └── data/              # 知识点数据 (1-9年级全科)
 │   ├── generateAiQuestion/    # AI题目生成
 │   ├── practice_v2/           # 练习提交
 │   └── studentMemory/         # 学生记忆系统
 ├── docs/                      # 文档
+├── data/                      # 知识点数据副本
 └── e2e/                       # E2E测试
 ```
 
 ## 核心云函数
 
-| 云函数 | 功能 | 超时 | 内存 |
-|--------|------|------|------|
-| questionGenerator | 后台队列处理（定时触发） | 600s | 512MB |
-| generateAiQuestion | AI单题生成 | 60s | 512MB |
-| startAssessment | 启动评估（创建队列任务） | 60s | 256MB |
-| practice_v2 | 练习结果处理 | 60s | 256MB |
-| studentMemory | 学生记忆系统 | - | - |
+| 云函数 | 功能 | 超时 | 内存 | 触发器 |
+|--------|------|------|------|--------|
+| questionGenerator | 后台队列处理 | 90s | 512MB | 定时(每分钟) |
+| generateAiQuestion | AI单题生成 | 60s | 512MB | - |
+| startAssessment | 启动评估 | 60s | 256MB | - |
+| practice_v2 | 练习结果处理 | 60s | 256MB | - |
+| studentMemory | 学生记忆系统 | - | - | - |
+| getAssessment | 获取评估详情 | 60s | 256MB | - |
+| submitAnswer | 提交答案 | 60s | 256MB | - |
 
 ## LLM 配置
 
-### DeepSeek API (国内可用)
+### DeepSeek API
 - **Base URL**: `https://api.deepseek.com`
 - **Model**: `deepseek-chat`
-- **LLM超时**: 45秒（云函数超时60秒）
+- **LLM超时**: 45秒
 - **重试**: 2次
 
 ### 环境变量
@@ -67,12 +71,32 @@ score-boost-mini/
 
 ## 数据库集合
 - `assessments` - 评估记录
-- `questions` - 题目库
+- `ai_question_pool` - AI题目池
 - `question_queue` - 题目生成队列
 - `student_memory` - 学生记忆
 - `knowledge_points` - 知识点
 - `pregen_queue` - 预生成队列
 - `generation_tasks` - 生成任务
+- `user_feedback` - 用户反馈
+
+## 知识点覆盖
+
+### 支持科目
+- 数学 (1-9年级)
+- 语文 (1-9年级)
+- 英语 (1-6年级)
+- 物理 (8-9年级)
+- 化学 (9年级)
+- 生物 (7-9年级)
+- 地理 (7-9年级)
+- 历史 (7-9年级)
+- 政治 (7-9年级)
+
+### 知识点组织
+知识点按年级和学期组织，存储在 `cloudfunctions/startAssessment/data/` 目录：
+- `math-grade{1-9}-{up|down}.json` - 数学各年级上下学期
+- `chinese-grade{1-9}-{up|down}.json` - 语文各年级上下学期
+- 等等...
 
 ## 关键命令
 
@@ -85,7 +109,7 @@ npm install
 npm test
 npm run test:coverage
 
-# 云函数部署
+# 部署所有云函数
 node deploy-cloud-functions.js
 ```
 
@@ -114,22 +138,38 @@ tcb fn trigger create questionGenerator \
 
 ## AI题目生成流程
 ```
-startAssessment (创建队列任务)
+小程序前端 (选择年级/科目)
+    ↓
+startAssessment (创建队列任务，传递grade/subject)
+    ↓
+question_queue (存储任务参数)
     ↓
 questionGenerator (定时触发，处理队列)
-    ├─ InitStateStep (初始化状态)
+    ├─ 根据grade选择对应年级知识点
     ├─ GenerateStep (生成题目，调用generateAiQuestion)
-    ├─ SaveQuestionsStep (保存题目)
-    ├─ CreateAssessmentStep (创建评估)
+    ├─ SaveQuestionsStep (保存题目到ai_question_pool)
+    ├─ CreateAssessmentStep (创建评估记录)
     └─ CompleteStep (完成队列任务)
     ↓
 小程序轮询 checkQueueStatus
     ↓
-返回 assessment_id
+返回 assessment_id + 题目列表
 ```
 
-## 当前已知问题
-- **定时触发器**: 需要通过微信开发者工具右键"上传并部署：云端安装依赖"才能生效
+## 最近修复 (2025-06)
+**问题**: 2年级测评出现高难度题目（二次根式、勾股定理等8-9年级内容）
+
+**根因**: `questionGenerator` 使用硬编码的8年级知识点，未根据grade参数动态选择
+
+**修复**:
+- 将知识点结构改为嵌套（按年级组织）
+- `questionGenerator` 根据grade动态选择对应年级知识点
+- `startAssessment` 传递grade参数到队列任务
+- 添加1-9年级全科知识点数据
+
+**验证**: 2年级测评现在显示正确的低年级知识点：
+- 100以内加减法、乘法口诀、除法初步
+- 长度单位、认识角
 
 ## 部署检查清单
 - [ ] CloudBase CLI版本最新 (`tcb --version`)

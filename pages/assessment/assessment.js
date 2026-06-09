@@ -1,9 +1,7 @@
 const app = getApp();
 
-// 使用云函数API（USE_CLOUD = true 时启用云函数）
-// 开发调试时改为 false 使用本地后端
-const USE_CLOUD = true;
-const api = USE_CLOUD ? require('../../utils/cloudApi.js') : require('../../utils/api.js');
+// 使用云函数API（统一使用cloudApi.js）
+const api = require('../../utils/cloudApi.js');
 
 Page({
   data: {
@@ -29,6 +27,8 @@ Page({
       app.loginRedirectTo = '/pages/assessment/assessment';
       app.requireLogin();
       return;
+
+    api.track('assessment_view', { mode: options.mode || 'grade', retest: options.retest === 'true' });
     }
 
     // 复测模式：仅记录标志，不信任任何参数

@@ -1,5 +1,9 @@
 /**
  * 知识树加载和题目规划
+ * 
+ * 合并来源：
+ *   - practice_v2/knowledge_tree.js (loadKnowledgeTreeFromDb, 完整科目映射)
+ *   - startAssessment/knowledge_tree.js (loadExamKnowledgeTree)
  */
 
 const fs = require('fs');
@@ -7,53 +11,139 @@ const path = require('path');
 
 function loadKnowledgeTree(subject, grade, semester = '下') {
   // 微信云函数环境：从云存储或本地打包文件读取
+  const subjectMap = {
+    'math': 'math', '数学': 'math',
+    'biology': 'biology', '生物': 'biology',
+    'geography': 'geography', '地理': 'geography',
+    'chinese': 'chinese', '语文': 'chinese',
+    'english': 'english', '英语': 'english',
+    'physics': 'physics', '物理': 'physics',
+    'chemistry': 'chemistry', '化学': 'chemistry',
+    'history': 'history', '历史': 'history',
+    'politics': 'politics', '政治': 'politics'
+  };
+  const dbSubject = subjectMap[subject] || subject || 'math';
+
   try {
     const dataDir = path.dirname(__dirname);
-    const dataFile = path.join(dataDir, 'data', `math-grade${grade}-${semester}.json`);
+    // 尝试加载科目对应的数据文件
+    const dataFile = path.join(dataDir, 'data', `${dbSubject}-grade${grade}-${semester}.json`);
 
     if (fs.existsSync(dataFile)) {
       const content = fs.readFileSync(dataFile, 'utf-8');
       return JSON.parse(content);
     }
 
-    return getEmbeddedData(grade);
+    // 回退到内嵌数据，根据科目返回不同知识树
+    const embedded = getEmbeddedData(dbSubject, grade);
+    if (embedded && embedded.chapters && embedded.chapters.length > 0) {
+      return embedded;
+    }
+
+    // 内嵌数据也没有，返回空树（调用方会处理）
+    return { subject: dbSubject, grade, semester, chapters: [] };
   } catch (e) {
-    return getEmbeddedData(grade);
+    return getEmbeddedData(dbSubject, grade) || { subject: dbSubject, grade, semester, chapters: [] };
   }
 }
 
-function getEmbeddedData(grade) {
-  return {
-    subject: '数学',
-    grade: grade,
-    semester: '下',
-    chapters: [
-      { id: 'ch1', name: '二次根式', knowledge_points: [
-        { id: 'kp1_1', name: '二次根式的概念', difficulty_weight: { easy: 0.5, medium: 0.3, hard: 0.2 } },
-        { id: 'kp1_2', name: '二次根式的性质', difficulty_weight: { easy: 0.4, medium: 0.4, hard: 0.2 } },
-        { id: 'kp1_3', name: '二次根式的运算', difficulty_weight: { easy: 0.3, medium: 0.5, hard: 0.2 } },
-      ]},
-      { id: 'ch2', name: '勾股定理', knowledge_points: [
-        { id: 'kp2_1', name: '勾股定理', difficulty_weight: { easy: 0.4, medium: 0.4, hard: 0.2 } },
-        { id: 'kp2_2', name: '勾股定理的逆定理', difficulty_weight: { easy: 0.3, medium: 0.5, hard: 0.2 } },
-        { id: 'kp2_3', name: '勾股定理的应用', difficulty_weight: { easy: 0.3, medium: 0.4, hard: 0.3 } },
-      ]},
-      { id: 'ch3', name: '平行四边形', knowledge_points: [
-        { id: 'kp3_1', name: '平行四边形的性质', difficulty_weight: { easy: 0.4, medium: 0.4, hard: 0.2 } },
-        { id: 'kp3_2', name: '平行四边形的判定', difficulty_weight: { easy: 0.3, medium: 0.4, hard: 0.3 } },
-        { id: 'kp3_3', name: '特殊的平行四边形', difficulty_weight: { easy: 0.4, medium: 0.4, hard: 0.2 } },
-      ]},
-      { id: 'ch4', name: '一次函数', knowledge_points: [
-        { id: 'kp4_1', name: '函数的概念', difficulty_weight: { easy: 0.5, medium: 0.3, hard: 0.2 } },
-        { id: 'kp4_2', name: '一次函数的图像', difficulty_weight: { easy: 0.3, medium: 0.4, hard: 0.3 } },
-        { id: 'kp4_3', name: '一次函数的应用', difficulty_weight: { easy: 0.3, medium: 0.4, hard: 0.3 } },
-      ]},
-      { id: 'ch5', name: '数据的分析', knowledge_points: [
-        { id: 'kp5_1', name: '数据的集中趋势', difficulty_weight: { easy: 0.5, medium: 0.3, hard: 0.2 } },
-        { id: 'kp5_2', name: '数据的波动程度', difficulty_weight: { easy: 0.4, medium: 0.4, hard: 0.2 } },
-      ]},
-    ]
-  };
+/**
+ * 从数据库动态加载知识树（异步版本）
+ * 用于没有内嵌数据的科目
+ */
+async function loadKnowledgeTreeFromDb(db, subject, grade) {
+  try {
+    const subjectMap = {
+      'math': 'math', '数学': 'math',
+      'biology': 'biology', '生物': 'biology',
+      'geography': 'geography', '地理': 'geography',
+      'chinese': 'chinese', '语文': 'chinese',
+      'english': 'english', '英语': 'english',
+      'physics': 'physics', '物理': 'physics',
+      'chemistry': 'chemistry', '化学': 'chemistry',
+      'history': 'history', '历史': 'history',
+      'politics': 'politics', '政治': 'politics'
+    };
+    const dbSubject = subjectMap[subject] || subject;
+
+    const result = await db.collection('knowledge_points')
+      .where({ subject: dbSubject })
+      .limit(100)
+      .get();
+
+    if (!result.data || result.data.length === 0) {
+      return null;
+    }
+
+    // 按 chapter 分组
+    const chapterMap = {};
+    for (const kp of result.data) {
+      const chId = kp.chapter_id || kp.chapter || 'default';
+      const chName = kp.chapter || kp.chapter_name || '未分类';
+      if (!chapterMap[chId]) {
+        chapterMap[chId] = { id: chId, name: chName, knowledge_points: [] };
+      }
+      chapterMap[chId].knowledge_points.push({
+        id: kp.kp_id,
+        name: kp.kp_name,
+        difficulty_weight: kp.difficulty_weight || { easy: 0.5, medium: 0.3, hard: 0.2 }
+      });
+    }
+
+    return {
+      subject: dbSubject,
+      grade: grade,
+      chapters: Object.values(chapterMap)
+    };
+  } catch (e) {
+    console.error('[loadKnowledgeTreeFromDb] Error:', e.message);
+    return null;
+  }
+}
+
+function getEmbeddedData(subject, grade) {
+  // 兼容旧版单参数调用（grade 作为第一个参数传入）
+  if (arguments.length === 1 && typeof subject !== 'string') {
+    grade = subject;
+    subject = 'math';
+  }
+
+  // 数学知识树（覆盖 8 年级下）
+  if (subject === 'math') {
+    return {
+      subject: 'math',
+      grade: grade,
+      semester: '下',
+      chapters: [
+        { id: 'kp1', name: '二次根式', knowledge_points: [
+          { id: 'kp1_1', name: '二次根式的概念', difficulty_weight: { easy: 0.5, medium: 0.3, hard: 0.2 } },
+          { id: 'kp1_2', name: '二次根式的性质', difficulty_weight: { easy: 0.4, medium: 0.4, hard: 0.2 } },
+        ]},
+        { id: 'kp2', name: '勾股定理', knowledge_points: [
+          { id: 'kp2_1', name: '勾股定理', difficulty_weight: { easy: 0.4, medium: 0.4, hard: 0.2 } },
+          { id: 'kp2_3', name: '勾股定理的应用', difficulty_weight: { easy: 0.3, medium: 0.4, hard: 0.3 } },
+        ]},
+      ]
+    };
+  }
+
+  // 生物知识树（覆盖 7 年级下）
+  if (subject === 'biology') {
+    return {
+      subject: 'biology',
+      grade: grade,
+      semester: '下',
+      chapters: [
+        { id: 'bio_ch1', name: '动物的主要类群', knowledge_points: [
+          { id: 'bio_kp1', name: '腔肠动物', difficulty_weight: { easy: 0.5, medium: 0.3, hard: 0.2 } },
+          { id: 'bio_kp2', name: '扁形动物', difficulty_weight: { easy: 0.5, medium: 0.3, hard: 0.2 } },
+        ]},
+      ]
+    };
+  }
+
+  // 其他科目暂无内嵌数据
+  return null;
 }
 
 function shuffle(array) {
@@ -110,7 +200,88 @@ function generateQuestionPlan(tree, numQuestions, difficultyDistribution = null)
   return shuffle(plan).slice(0, numQuestions);
 }
 
+/**
+ * 加载考试知识树（合并多个年级）
+ * @param {string} subject - 科目
+ * @param {string} examType - 考试类型: huikao | zhongkao | gaokao
+ * @returns {Object} 合并后的知识树
+ */
+function loadExamKnowledgeTree(subject, examType = 'huikao') {
+  const subjectMap = {
+    'math': 'math', '数学': 'math',
+    'biology': 'biology', '生物': 'biology',
+    'geography': 'geography', '地理': 'geography',
+    'chinese': 'chinese', '语文': 'chinese',
+    'english': 'english', '英语': 'english',
+    'physics': 'physics', '物理': 'physics',
+    'chemistry': 'chemistry', '化学': 'chemistry',
+    'history': 'history', '历史': 'history',
+    'politics': 'politics', '政治': 'politics'
+  };
+  const subjectKey = subjectMap[subject] || 'biology';
+
+  // 根据考试类型确定年级范围
+  let grades = [];
+  if (examType === 'huikao') {
+    grades = ['7', '8'];
+  } else if (examType === 'zhongkao') {
+    grades = ['7', '8', '9'];
+  } else if (examType === 'gaokao') {
+    grades = ['10', '11', '12'];
+  }
+
+  const semesters = ['up', 'down'];
+  const allChapters = [];
+
+  // 遍历所有年级和学期，合并知识点
+  for (const grade of grades) {
+    for (const semester of semesters) {
+      try {
+        const tree = loadKnowledgeTree(subjectKey, grade, semester);
+        if (tree && tree.chapters) {
+          const prefixedChapters = tree.chapters.map(chapter => ({
+            ...chapter,
+            id: `${grade}_${semester}_${chapter.id}`,
+            grade: grade,
+            semester: semester
+          }));
+          allChapters.push(...prefixedChapters);
+        }
+      } catch (e) {
+        console.log(`[loadExamKnowledgeTree] 跳过不存在的数据: ${subjectKey}-grade${grade}-${semester}`);
+      }
+    }
+  }
+
+  return {
+    subject: subjectKey,
+    exam_type: examType,
+    grade_range: grades,
+    chapters: allChapters,
+    total_chapters: allChapters.length
+  };
+}
+
+/**
+ * 加载会考知识树（别名函数，兼容 index.js）
+ */
+function loadHuikaoTree(subject) {
+  return loadExamKnowledgeTree(subject, 'huikao');
+}
+
+/**
+ * 生成会考模式题目计划
+ */
+function generateHuikaoPlan(tree, numQuestions) {
+  const difficultyDistribution = { easy: 0.3, medium: 0.4, hard: 0.3 };
+  return generateQuestionPlan(tree, numQuestions, difficultyDistribution);
+}
+
 module.exports = {
   loadKnowledgeTree,
+  loadKnowledgeTreeFromDb,
+  loadExamKnowledgeTree,
+  loadHuikaoTree,
   generateQuestionPlan,
+  generateHuikaoPlan,
 };

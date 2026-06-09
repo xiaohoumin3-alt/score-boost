@@ -33,6 +33,11 @@ async function generateQuestions(plan, numQuestions, callAiGenerate, options = {
     // 从题池获取已验证题目
     for (const item of plan) {
       if (questions.length >= numQuestions) break;
+      // 防御：确保 item.kp 存在且有 kp_id
+      if (!item.kp || !item.kp.kp_id) {
+        console.error('[Generator] Invalid plan item:', JSON.stringify(item));
+        continue;
+      }
       const poolQuestions = await fetchQuestionsFromPool(
         db,
         item.kp.kp_id,
@@ -68,6 +73,11 @@ async function generateQuestions(plan, numQuestions, callAiGenerate, options = {
     // 获取已验证题目
     for (const item of plan) {
       if (questions.filter(q => q.source === 'pool_verified').length >= verifiedCount) break;
+      // 防御：确保 item.kp 存在且有 kp_id
+      if (!item.kp || !item.kp.kp_id) {
+        console.error('[Generator] Invalid plan item in verified:', JSON.stringify(item));
+        continue;
+      }
       const poolQuestions = await fetchQuestionsFromPool(
         db,
         item.kp.kp_id,
@@ -96,6 +106,11 @@ async function generateQuestions(plan, numQuestions, callAiGenerate, options = {
     // 获取未验证题目
     for (const item of plan) {
       if (questions.filter(q => q.source === 'pool_unverified').length >= unverifiedCount) break;
+      // 防御：确保 item.kp 存在且有 kp_id
+      if (!item.kp || !item.kp.kp_id) {
+        console.error('[Generator] Invalid plan item in unverified:', JSON.stringify(item));
+        continue;
+      }
       const poolQuestions = await fetchQuestionsFromPool(
         db,
         item.kp.kp_id,
@@ -126,6 +141,10 @@ async function generateQuestions(plan, numQuestions, callAiGenerate, options = {
       const aiNeeded = aiCount - questions.filter(q => q.source === 'ai').length;
       for (let i = 0; i < Math.min(aiNeeded, plan.length); i++) {
         const item = plan[i];
+        if (!item.kp || !item.kp.kp_id) {
+          console.error('[Generator] Invalid plan item in AI:', JSON.stringify(item));
+          continue;
+        }
         try {
           const timeoutPromise = new Promise((_, reject) =>
             setTimeout(() => reject(new Error('AI timeout')), 35000)
@@ -173,6 +192,10 @@ async function generateQuestions(plan, numQuestions, callAiGenerate, options = {
   // 如果还是不够，从题池补足
   while (questions.length < numQuestions && questions.length < plan.length * 2) {
     const item = plan[questions.length % plan.length];
+    if (!item.kp || !item.kp.kp_id) {
+      console.error('[Generator] Invalid plan item in fallback:', JSON.stringify(item));
+      break;
+    }
     const poolQuestions = await fetchQuestionsFromPool(
       db,
       item.kp.kp_id,

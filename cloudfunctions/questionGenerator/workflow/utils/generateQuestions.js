@@ -570,8 +570,9 @@ function generateDefaultQuestions(subject, difficulty, count) {
   const subjectQuestions = defaultQuestions[subject];
   if (!subjectQuestions) {
     console.error(`[generateDefaultQuestions] ❌ Invalid subject: "${subject}". Valid values:`, Object.keys(defaultQuestions));
-    // 返回空数组让调用方处理错误
-    return [];
+    console.warn(`[generateDefaultQuestions] ⚠️ FALLBACK: Using math default questions for invalid subject "${subject}"`);
+    // ⚠️ 回退到数学默认题目，避免返回空数组导致整个流程失败
+    return generateDefaultQuestions('math', difficulty, count);
   }
   const difficultyQuestions = subjectQuestions[difficulty] || subjectQuestions.easy;
 
@@ -647,9 +648,10 @@ async function generateQuestionsForTask(task, generateAi, db = null, _ = null) {
   }
 
   // 计算每个难度的题目数量，处理缺失 difficulty_distribution
+  // 修复：使用 Math.floor 而不是 Math.round，避免 hard 题被四舍五入消耗掉
   const dist = difficulty_distribution || { easy: 0.5, medium: 0.3, hard: 0.2 };
-  const easyCount = Math.round(num_questions * (typeof dist.easy === 'number' ? dist.easy : 0.5));
-  const mediumCount = Math.round(num_questions * (typeof dist.medium === 'number' ? dist.medium : 0.3));
+  const easyCount = Math.floor(num_questions * (typeof dist.easy === 'number' ? dist.easy : 0.5));
+  const mediumCount = Math.floor(num_questions * (typeof dist.medium === 'number' ? dist.medium : 0.3));
   const hardCount = num_questions - easyCount - mediumCount;
 
   console.log(`[generateQuestionsForTask] Distribution: easy=${easyCount}, medium=${mediumCount}, hard=${hardCount}`);

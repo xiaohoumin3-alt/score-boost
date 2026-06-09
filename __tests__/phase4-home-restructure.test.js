@@ -26,8 +26,8 @@ describe('Phase 4: 首页重构', () => {
       expect(homeWxml).toMatch(/pendingReviews|hasPendingReviews/);
     });
 
-    test('首页包含"自己选知识点"', () => {
-      expect(homeWxml).toMatch(/showAllTopics|自己选知识点/);
+    test('首页包含 score-bar 分数显示', () => {
+      expect(homeWxml).toMatch(/score-bar/);
     });
 
     test('首页包含最近记录', () => {

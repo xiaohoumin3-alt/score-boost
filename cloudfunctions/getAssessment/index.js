@@ -5,6 +5,10 @@
 const cloud = require('wx-server-sdk');
 cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV });
 
+const { formatQuestionForApi, normalizeOptions, normalizeQuestion } = require('./shared/question-normalizer');
+const { CURRENT_SCHEMA_VERSION } = require('./shared/schema-version');
+const { success, error } = require('./shared/response-helper');
+
 exports.main = async (event, context) => {
   try {
     const params = event.data || event || {};
@@ -23,55 +27,57 @@ exports.main = async (event, context) => {
 
     const session = doc.data[0];
 
-    // 优先从 assessments.questions 字段读取（startAssessment 直接保存的）
-    // 如果没有 questions 字段，再从 ai_question_pool 加载
+    // 优先读取内嵌题目（startAssessment 同步路径保存的）
     let questions = session.questions || [];
     console.log('[getAssessment] session.questions length:', questions.length);
-    if (questions.length > 0) {
-      console.log('[getAssessment] session question keys:', Object.keys(questions[0]));
-      console.log('[getAssessment] session question sample:', JSON.stringify(questions[0]).substring(0, 300));
-    }
+    console.log('[getAssessment] session.question_ids:', session.question_ids);
+    console.log('[getAssessment] session.question_ids length:', session.question_ids?.length || 0);
 
-    // 如果 assessments 没有 questions 字段，从 ai_question_pool 加载
-    if (questions.length === 0 && session.question_ids && session.question_ids.length > 0) {
+    // 回退：从 question_ids 引用加载（questionGenerator 队列路径创建的）
+    if (questions.length === 0 && session.question_ids && Array.isArray(session.question_ids) && session.question_ids.length > 0) {
+      console.log('[getAssessment] No embedded questions, loading from question_ids:', session.question_ids.length);
       try {
-        console.log('[getAssessment] Loading from pool, question_ids count:', session.question_ids.length);
-        const questionsResult = await db.collection('ai_question_pool')
-          .where({
-            _id: db.command.in(session.question_ids)
-          })
+        const _ = db.command;
+        const poolQuery = await db.collection('ai_question_pool')
+          .where({ _id: _.in(session.question_ids) })
           .get();
-        questions = questionsResult.data || [];
-        console.log('[getAssessment] Pool loaded:', questions.length, 'questions');
-        if (questions.length > 0) {
-          console.log('[getAssessment] Pool question keys:', Object.keys(questions[0]));
-          console.log('[getAssessment] Pool question sample:', JSON.stringify(questions[0]).substring(0, 300));
-        }
+        console.log('[getAssessment] Pool query result:', poolQuery.data?.length || 0);
+        questions = (poolQuery.data || []).map(q => {
+          // Re-normalize if schema_version doesn't match current
+          if (!q.schema_version || q.schema_version !== CURRENT_SCHEMA_VERSION) {
+            const normalized = normalizeQuestion(q);
+            return formatQuestionForApi(normalized);
+          }
+          return formatQuestionForApi(q);
+        });
+        console.log('[getAssessment] Loaded questions from pool:', questions.length);
       } catch (e) {
-        console.error('[getAssessment] Failed to load questions from pool:', e.message);
+        console.error('[getAssessment] Error loading from question_ids:', e);
+        questions = [];
       }
+    } else {
+      console.log('[getAssessment] Skip fallback, conditions:', {
+        questionsEmpty: questions.length === 0,
+        hasQuestionIds: !!(session.question_ids),
+        isArray: Array.isArray(session.question_ids),
+        questionIdsLength: session.question_ids?.length || 0
+      });
     }
 
-    if (questions.length === 0) {
-      console.error('[getAssessment] No questions found! session keys:', Object.keys(session));
-    }
-
-    const isCompleted = session.status === 'completed';
-    const assessmentSubject = session.subject || 'math';
-
-    // 内容验证关键词
+    // 内容验证关键词（防止跨科目题目）
     const SUBJECT_KW = {
       geography: /地理位置|气候|地形|行政区划|省级|地球|大洲|大洋|自然资源|人口|疆域|板块|等高线|经纬度|季风|西北地区|青藏|南方地区|北方地区|河流|湖泊|山脉|高原|盆地|平原|工业|农业|交通|城市化|区域发展/,
       biology: /细胞|光合|呼吸作用|遗传|生态|消化|血液循环|神经|免疫|DNA|基因|染色体|显微镜|组织|器官|蒸腾|分裂|蛋白质|酶|激素|反射弧|抗体|抗原|微生物|细菌|病毒|真菌/,
       math: /二次根式|勾股定理|一次函数|平行四边形|三角形|方程|因式分解|不等式|概率|圆的|直径|半径|面积|周长|平方根|绝对值|整式|分式|全等|轴对称|相似|一元二次|韦达|完全平方|平方差|直角|锐角|钝角|内角|外角/
     };
 
+    const assessmentSubject = session.subject || 'math';
+
     // 过滤掉内容不匹配科目的题目
     const validQuestions = questions.filter(q => {
       const text = q.content || q.question || q.text || '';
       const kw = SUBJECT_KW[assessmentSubject];
       if (!kw) return true;
-      // 如果内容匹配其他科目关键词，直接过滤掉
       const matchesOther = Object.entries(SUBJECT_KW)
         .filter(([k]) => k !== assessmentSubject)
         .some(([, v]) => v.test(text));
@@ -82,36 +88,14 @@ exports.main = async (event, context) => {
       console.log(`[getAssessment] Filtered ${questions.length - validQuestions.length} questions with wrong subject`);
     }
 
-    // 标准化选项格式：统一为字符串数组 ["A. 选项1", "B. 选项2", ...]
-    const normalizeOptions = (options) => {
-      if (!options || options.length === 0) return [];
-      return options.map((opt, idx) => {
-        if (typeof opt === 'string') return opt;
-        if (typeof opt === 'object' && opt !== null) {
-          // 对象格式：{key: "A", value: "选项1"} → "A. 选项1"
-          const key = opt.key || String.fromCharCode(65 + idx);
-          const value = opt.value || opt.text || '';
-          return value.includes(`${key}. `) ? value : `${key}. ${value}`;
-        }
-        return String(opt);
-      });
-    };
+    const isCompleted = session.status === 'completed';
 
     return {
       success: true,
       data: {
         assessment_id: assessmentId,
         status: session.status || 'in_progress',
-        questions: validQuestions.map(q => ({
-          id: q.id || q._id,  // 优先使用 id，回退到 _id（保持与 startAssessment 一致）
-          type: q.type || 'choice',
-          content: q.content || q.question || q.text || q.title || '',
-          options: normalizeOptions(q.options),
-          knowledge_point: q.knowledge_point || q.kp_name,
-          knowledge_point_id: q.knowledge_point_id || q.kp_id,
-          difficulty: q.difficulty,
-          explanation: q.explanation,
-        })),
+        questions: validQuestions.map(q => formatQuestionForApi(q)),
         time_limit_minutes: session.time_limit_minutes || 45,
         created_at: session.created_at,
         // 返回分数（如果有）

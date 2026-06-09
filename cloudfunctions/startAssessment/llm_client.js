@@ -3,7 +3,7 @@
  * 基于 llm-core 统一 LLM 调用层
  */
 
-const { createLLMClient } = require('./llm-core');
+const { createLLMClient } = require('../shared/llm-core');
 
 /**
  * LlmClient 类 - llm-core 的薄包装
@@ -11,16 +11,18 @@ const { createLLMClient } = require('./llm-core');
  */
 class LlmClient {
   constructor(apiKey) {
-    this.apiKey = apiKey || process.env.MINIMAX_API_KEY;
-    this.model = process.env.MINIMAX_MODEL || 'mimo-v2-flash';
+    this.apiKey = apiKey || process.env.LLM_API_KEY;
+    this.baseUrl = process.env.LLM_BASE_URL || 'https://api.deepseek.com';
+    this.model = process.env.LLM_MODEL || 'deepseek-chat';
     this.timeout = 45000;
 
     // 创建 llm-core 客户端
     this._client = createLLMClient({
       apiKey: this.apiKey,
+      baseUrl: this.baseUrl,
       model: this.model,
       timeout: this.timeout,
-      maxRetries: 3
+      maxRetries: 2
     });
   }
 
@@ -31,7 +33,7 @@ class LlmClient {
    */
   async generate(params) {
     if (!this.apiKey) {
-      throw new Error('MINIMAX_API_KEY not configured');
+      throw new Error('LLM_API_KEY not configured');
     }
 
     const prompt = this._buildPrompt(params);

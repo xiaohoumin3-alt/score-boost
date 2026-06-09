@@ -5,6 +5,9 @@
 
 const app = getApp();
 
+// 积分规则（与 pointsManager 云函数中的规则保持同步）
+const POINTS_GUIDE = '积分获取：\n- 注册：+100\n- 签到：+10/天\n- 邀请好友：+50\n- 好友注册：+30\n\n积分消耗：\n- AI测评：-30\n- AI练习：-20\n- 家长测评：-50';
+
 Page({
   data: {
     points: 0,
@@ -23,6 +26,7 @@ Page({
 
   onLoad() {
     this.loadPoints();
+    api.track('page_view', { page: 'points' });
   },
 
   onShow() {
@@ -214,8 +218,12 @@ Page({
     // 可以跳转到说明页面，或者弹窗显示
     wx.showModal({
       title: '积分说明',
-      content: '积分获取：\n- 注册：+100\n- 签到：+10/天\n- 邀请好友：+50\n- 好友注册：+30\n\n积分消耗：\n- AI测评：-30\n- AI练习：-20\n- 家长测评：-50',
+      content: POINTS_GUIDE,
       showCancel: false
     });
+  },
+
+  goToVip() {
+    wx.navigateTo({ url: '/pages/vip/vip' });
   }
 });

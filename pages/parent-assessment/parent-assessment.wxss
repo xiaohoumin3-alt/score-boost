@@ -537,3 +537,137 @@
   border-radius: 50rpx;
   font-size: 28rpx;
 }
+
+/* 贴图社区区域 */
+.tie-zi-community-section {
+  margin-top: 40rpx;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 20rpx;
+  padding: 30rpx;
+}
+
+.tie-zi-community-section .section-title {
+  margin-bottom: 20rpx;
+  text-align: center;
+}
+
+.tie-zi-community-section .section-title-text {
+  display: block;
+  font-size: 32rpx;
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.tie-zi-community-section .section-title-sub {
+  display: block;
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: 8rpx;
+}
+
+/* 公众号一键发帖区域 */
+.share-to-oa-section {
+  text-align: center;
+  margin-top: 30rpx;
+  padding: 30rpx;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20rpx;
+}
+
+.btn-post-oa {
+  background: linear-gradient(135deg, #00D9A5, #00B386);
+  color: #ffffff;
+  padding: 24rpx 60rpx;
+  border-radius: 50rpx;
+  font-size: 30rpx;
+  font-weight: bold;
+  display: inline-block;
+}
+
+.btn-post-oa[disabled] {
+  background: rgba(0, 217, 165, 0.4);
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.post-oa-hint {
+  display: block;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 22rpx;
+  margin-top: 16rpx;
+}
+
+.post-oa-success {
+  display: block;
+  color: #00D9A5;
+  font-size: 24rpx;
+  margin-top: 16rpx;
+  font-weight: bold;
+}
+
+/* Canvas隐藏但可操作 */
+.battle-report-canvas {
+  position: fixed;
+  left: -9999px;
+  top: -9999px;
+  width: 750px;
+  height: 1000px;
+}
+
+/* 海报预览浮层 */
+.poster-preview {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+}
+
+.poster-mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.poster-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 60rpx;
+  box-sizing: border-box;
+}
+
+.poster-image {
+  width: 600rpx;
+  border-radius: 20rpx;
+  box-shadow: 0 8rpx 40rpx rgba(0, 0, 0, 0.5);
+}
+
+.poster-actions {
+  display: flex;
+  gap: 30rpx;
+  margin-top: 40rpx;
+}
+
+.btn-save-poster {
+  background: #00D9A5;
+  color: #ffffff;
+  padding: 20rpx 50rpx;
+  border-radius: 50rpx;
+  font-size: 28rpx;
+  font-weight: bold;
+}
+
+.btn-close-poster {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  padding: 20rpx 50rpx;
+  border-radius: 50rpx;
+  font-size: 28rpx;
+}

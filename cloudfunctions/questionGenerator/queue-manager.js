@@ -13,19 +13,41 @@
 async function fetchPendingTasks(db, maxTasks = 3, queueType = 'question_queue') {
   const collection = queueType === 'pregen_queue' ? 'pregen_queue' : 'question_queue';
 
+  console.log('[QueueManager] fetchPendingTasks START, collection=' + collection + ', maxTasks=' + maxTasks);
+
   try {
+    // 使用 created_at 排序（只需要 status + created_at 索引）
+    // 不使用 priority 排序，避免需要三字段复合索引
+    // 微信云数据库要求 where + orderBy 的字段必须有索引
     const result = await db.collection(collection)
       .where({ status: 'pending' })
-      .orderBy('priority', 'desc')
       .orderBy('created_at', 'asc')
       .limit(maxTasks)
       .get();
 
-    console.log(`[QueueManager] Fetched ${result.data?.length || 0} tasks from ${collection}`);
+    console.log('[QueueManager] Fetched ' + (result.data?.length || 0) + ' tasks from ' + collection);
+    if (result.data && result.data.length > 0) {
+      console.log('[QueueManager] First task: _id=' + result.data[0]._id + ', subject=' + result.data[0].subject + ', grade=' + result.data[0].grade + ', retry_count=' + (result.data[0].retry_count || 0));
+    }
     return result.data || [];
   } catch (e) {
-    console.error(`[QueueManager] Failed to fetch tasks:`, e.message);
-    return [];
+    console.error('[QueueManager] Failed to fetch tasks:', e.message);
+    console.error('[QueueManager] Error details:', e.code, e.errMsg || '');
+    // 降级：不使用 orderBy，直接查询（微信云数据库默认按 _id 排序）
+    try {
+      const fallback = await db.collection(collection)
+        .where({ status: 'pending' })
+        .limit(maxTasks)
+        .get();
+      console.log('[QueueManager] Fallback fetched ' + (fallback.data?.length || 0) + ' tasks from ' + collection);
+      if (fallback.data && fallback.data.length > 0) {
+        console.log('[QueueManager] Fallback first task: _id=' + fallback.data[0]._id + ', subject=' + fallback.data[0].subject + ', grade=' + fallback.data[0].grade);
+      }
+      return fallback.data || [];
+    } catch (e2) {
+      console.error('[QueueManager] Fallback also failed:', e2.message, e2.code, e2.errMsg || '');
+      return [];
+    }
   }
 }
 
@@ -49,10 +71,10 @@ async function updateTaskStatus(db, taskId, status, updates = {}, queueType = 'q
         ...updates
       }
     });
-    console.log(`[QueueManager] Updated task ${taskId} status to ${status}`);
+    console.log('[QueueManager] Updated task ' + taskId + ' status to ' + status);
     return true;
   } catch (e) {
-    console.error(`[QueueManager] Failed to update task ${taskId}:`, e.message);
+    console.error('[QueueManager] Failed to update task ' + taskId + ':', e.message);
     return false;
   }
 }
@@ -71,7 +93,7 @@ async function getTaskById(db, taskId, queueType = 'question_queue') {
     const result = await db.collection(collection).doc(taskId).get();
     return result.data || null;
   } catch (e) {
-    console.error(`[QueueManager] Failed to get task ${taskId}:`, e.message);
+    console.error('[QueueManager] Failed to get task ' + taskId + ':', e.message);
     return null;
   }
 }
@@ -96,10 +118,10 @@ async function createGenerationTask(db, params) {
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString()
     });
-    console.log(`[QueueManager] Created generation task ${result._id}`);
+    console.log('[QueueManager] Created generation task ' + result._id);
     return result._id;
   } catch (e) {
-    console.error(`[QueueManager] Failed to create generation task:`, e.message);
+    console.error('[QueueManager] Failed to create generation task:', e.message);
     throw e;
   }
 }
@@ -122,7 +144,7 @@ async function updateGenerationTaskStatus(db, taskId, status, result = {}) {
     });
     return true;
   } catch (e) {
-    console.error(`[QueueManager] Failed to update generation task ${taskId}:`, e.message);
+    console.error('[QueueManager] Failed to update generation task ' + taskId + ':', e.message);
     return false;
   }
 }

@@ -69,6 +69,7 @@ Page({
       this.checkAndUnlockPerfectAchievement();
       this.triggerConfetti();
     }
+    api.track('result_view', { mode: this.data.mode, score: this.data.score, total: this.data.total, accuracy: this.data.accuracy });
   },
 
   async loadNextReviewTime() {

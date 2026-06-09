@@ -120,7 +120,10 @@ class CompleteStep extends BaseStep {
       // 使用 updateQueueStatus 函数
       const { updateQueueStatus } = require('../utils/updateQueueStatus');
       const result = await updateQueueStatus(db, task._id, 'completed', {
-        generated_assessment_id: assessmentId
+        generated_assessment_id: assessmentId,
+        timeline: {
+          completed_at: new Date().toISOString()
+        }
       });
 
       if (!result.success) {

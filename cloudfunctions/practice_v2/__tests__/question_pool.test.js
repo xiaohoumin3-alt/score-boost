@@ -107,6 +107,7 @@ class MockDatabase {
     // command 是对象，不是函数
     this.command = {
       gt: (val) => val,  // 返回阈值，用于后续比较
+    gte: (val) => val, // 大于等于
       nin: (arr) => arr  // 返回排除数组
     };
   }

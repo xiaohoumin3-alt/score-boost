@@ -4,140 +4,83 @@
   padding-bottom: 180rpx;
 }
 
-.header {
-  padding: 120rpx 40rpx 30rpx;
+.nav-safe-area {
+  display: flex;
+  align-items: flex-end;
+  padding: 0 32rpx 16rpx;
+  background: var(--bg-base, #0A0F14);
 }
 
-.title {
-  font-size: 48rpx;
-  font-weight: bold;
+.nav-title {
+  font-size: 34rpx;
+  font-weight: 700;
   color: var(--text-primary, #fff);
 }
 
-.subtitle-row {
+/* Score Bar (matches design spec) */
+.score-bar {
   display: flex;
   align-items: center;
-  gap: 16rpx;
-  margin-top: 10rpx;
+  justify-content: space-between;
+  padding: 24rpx 28rpx;
+  background: var(--bg-surface, rgba(255, 255, 255, 0.04));
+  border: 1rpx solid var(--border-subtle, rgba(255, 255, 255, 0.06));
+  border-radius: var(--radius-md, 20rpx);
+  margin: 20rpx 0;
 }
 
-.subtitle {
-  font-size: 26rpx;
-  color: var(--text-secondary, #666);
+.score-bar-left .score-bar-title {
+  font-size: 36rpx;
+  font-weight: 700;
+  display: block;
+  color: var(--text-primary, #fff);
 }
 
-.divider {
-  color: var(--text-tertiary, #444);
+.score-bar-left .score-bar-sub {
+  font-size: 20rpx;
+  color: var(--text-tertiary, #666);
+  display: block;
+  margin-top: 4rpx;
 }
 
-/* Score Display */
-.score-display {
+.score-bar-right {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 20rpx;
-  padding: 40rpx;
+  gap: 24rpx;
 }
 
-.score-arrow {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-left: -10rpx;
-  margin-right: 20rpx;
-}
-
-.score-ring {
-  width: 200rpx;
-  height: 200rpx;
-  position: relative;
-}
-
-.ring-outer {
-  width: 200rpx;
-  height: 200rpx;
-  border-radius: 50%;
-  background: conic-gradient(from 0deg, var(--accent, #00E5A0) {{currentScore * 3.6}}deg, #222 {{currentScore * 3.6}}deg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.ring-inner {
-  width: 160rpx;
-  height: 160rpx;
-  border-radius: 50%;
-  background: var(--bg-base, #0A0F14);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.score-value {
-  font-size: 56rpx;
-  font-weight: bold;
+.score-bar-value {
+  font-size: 48rpx;
+  font-weight: 700;
   color: var(--accent, #00E5A0);
+  font-variant-numeric: tabular-nums;
 }
 
-.score-label {
-  font-size: 22rpx;
-  color: var(--text-secondary, #666);
+.score-bar-target {
+  text-align: right;
 }
 
-.score-arrow {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.score-bar-tv {
+  font-size: 28rpx;
+  font-weight: 700;
+  display: block;
+  color: var(--text-primary, #fff);
 }
 
-.arrow-icon {
-  width: 60rpx;
-  height: 60rpx;
+.score-bar-tl {
+  font-size: 18rpx;
+  color: var(--text-tertiary, #666);
+  display: block;
 }
 
-.score-target {
-  display: flex;
-  flex-direction: column;
-  gap: 8rpx;
-}
-
-.target-value {
-  font-size: 44rpx;
-  font-weight: bold;
-  color: #fff;
-}
-
-.target-label {
-  font-size: 24rpx;
-  color: #666;
-}
-
-.gap-badge {
-  font-size: 22rpx;
+.score-bar-gap {
+  font-size: 18rpx;
   color: var(--danger, #FF6B6B);
   background: rgba(255, 107, 107, 0.1);
-  padding: 8rpx 16rpx;
-  border-radius: 20rpx;
-  margin-top: 8rpx;
+  padding: 2rpx 10rpx;
+  border-radius: var(--radius-full, 9999rpx);
   display: inline-block;
-}
-
-.score-status {
-  display: flex;
-  flex-direction: column;
-  gap: 8rpx;
-}
-
-.score-status.achieved .status-text {
-  font-size: 32rpx;
-  font-weight: bold;
-  color: var(--accent, #00E5A0);
-}
-
-.score-status.achieved .status-detail {
-  font-size: 24rpx;
-  color: #666;
+  margin-top: 4rpx;
 }
 
 /* Action Card */
@@ -162,7 +105,7 @@
 
 .action-label {
   font-size: 36rpx;
-  color: #fff;
+  color: var(--text-primary, #fff);
   font-weight: bold;
   display: block;
   margin-bottom: 8rpx;
@@ -170,7 +113,7 @@
 
 .action-desc {
   font-size: 26rpx;
-  color: #888;
+  color: var(--text-secondary, #888);
   display: block;
 }
 
@@ -206,6 +149,19 @@
   font-size: 24rpx;
   color: var(--text-secondary, #888);
 }
+
+/* Section Labels */
+.sec-label {
+  font-size: 18rpx;
+  font-weight: 700;
+  letter-spacing: 3rpx;
+  text-transform: uppercase;
+  display: block;
+  margin: 20rpx 40rpx 12rpx;
+}
+.sec-label--accent { color: var(--accent, #00E5A0); }
+.sec-label--purple { color: var(--purple, #8B5CF6); }
+.sec-label--dim { color: var(--text-tertiary, #666); }
 
 /* History Section */
 .history-section {
@@ -255,7 +211,7 @@
 
 .loading-text {
   font-size: 28rpx;
-  color: #666;
+  color: var(--text-tertiary, #666);
 }
 
 /* Feedback Entry */
@@ -276,12 +232,12 @@
 .feedback-text {
   flex: 1;
   font-size: 28rpx;
-  color: #888;
+  color: var(--text-secondary, #888);
 }
 
 .feedback-arrow {
   font-size: 40rpx;
-  color: #444;
+  color: var(--text-tertiary, #444);
   font-weight: bold;
 }
 
@@ -307,7 +263,7 @@
   padding: 20rpx 24rpx;
   background: linear-gradient(135deg, #2a2a4a 0%, var(--bg-surface, rgba(255, 255, 255, 0.04)) 100%);
   border-radius: 20rpx;
-  border: 2rpx solid #333;
+  border: 2rpx solid var(--border-subtle, #333);
   min-width: 120rpx;
   position: relative;
   overflow: hidden;
@@ -336,7 +292,7 @@
 
 .badge-name {
   font-size: 22rpx;
-  color: #888;
+  color: var(--text-secondary, #888);
   white-space: nowrap;
 }
 
@@ -345,64 +301,44 @@
   font-weight: bold;
 }
 
-/* 复习卡片 */
-.review-card {
-  margin: 0 40rpx 40rpx;
-  padding: 28rpx;
-  background: linear-gradient(135deg, #2a1a3e 0%, #1a2a3e 100%);
-  border-radius: 20rpx;
-  border: 2rpx solid var(--purple, #8B5CF6);
-}
-
-.review-header {
+/* Review Rows (matches design: individual items, no card wrapper) */
+.review-row {
   display: flex;
   align-items: center;
   gap: 12rpx;
-  margin-bottom: 20rpx;
+  padding: 20rpx 24rpx;
+  background: var(--bg-surface, rgba(255, 255, 255, 0.04));
+  border: 1rpx solid rgba(139, 92, 246, 0.12);
+  border-radius: var(--radius-sm, 12rpx);
+  margin: 0 0 12rpx;
 }
 
-.review-icon {
-  font-size: 32rpx;
-}
-
-.review-title {
-  font-size: 28rpx;
-  color: #fff;
-  font-weight: bold;
-  flex: 1;
-}
-
-.review-count {
-  font-size: 22rpx;
-  color: var(--purple, #8B5CF6);
-  background: rgba(139, 92, 246, 0.1);
-  padding: 6rpx 12rpx;
-  border-radius: 12rpx;
-}
-
-.review-list {
-  display: flex;
-  flex-direction: column;
-  gap: 8rpx;
-}
-
-.review-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16rpx 20rpx;
-  background: rgba(255, 255, 255, 0.03);
-  border-radius: 12rpx;
+.review-dot {
+  width: 8rpx;
+  height: 8rpx;
+  border-radius: 50%;
+  background: var(--purple, #8B5CF6);
+  flex-shrink: 0;
 }
 
 .review-kp {
-  font-size: 26rpx;
-  color: #ccc;
+  flex: 1;
+  font-size: 24rpx;
+  color: var(--text-secondary, #ccc);
+}
+
+.review-badge {
+  font-size: 20rpx;
+  color: var(--purple, #8B5CF6);
+  background: rgba(139, 92, 246, 0.1);
+  padding: 2rpx 12rpx;
+  border-radius: var(--radius-full, 9999rpx);
 }
 
 .review-action {
-  font-size: 24rpx;
+  font-size: 22rpx;
   color: var(--purple, #8B5CF6);
+  font-weight: 600;
 }
 
 /* 连续正确卡片 */
@@ -430,7 +366,7 @@
 
 .streak-label {
   font-size: 24rpx;
-  color: #888;
+  color: var(--text-secondary, #888);
 }
 
 /* 进度入口 */
@@ -451,12 +387,12 @@
 .entry-text {
   flex: 1;
   font-size: 28rpx;
-  color: #ccc;
+  color: var(--text-secondary, #ccc);
 }
 
 .entry-arrow {
   font-size: 40rpx;
-  color: #444;
+  color: var(--text-tertiary, #444);
   font-weight: bold;
 }
 
@@ -483,7 +419,7 @@
 
 .task-title {
   font-size: 32rpx;
-  color: #fff;
+  color: var(--text-primary, #fff);
   font-weight: bold;
 }
 
@@ -502,7 +438,7 @@
 
 .task-reason {
   font-size: 24rpx;
-  color: #888;
+  color: var(--text-secondary, #888);
   line-height: 1.5;
 }
 
@@ -514,7 +450,7 @@
 
 .task-time {
   font-size: 24rpx;
-  color: #666;
+  color: var(--text-tertiary, #666);
 }
 
 .task-action {
@@ -532,7 +468,7 @@
   padding: 20rpx 24rpx;
   background: rgba(255, 255, 255, 0.03);
   border-radius: 16rpx;
-  border: 2rpx dashed #444;
+  border: 2rpx dashed var(--text-tertiary, #444);
 }
 
 .other-text {
@@ -583,4 +519,52 @@
 .loop-arrow {
   font-size: 36rpx;
   color: var(--accent, #00E5A0);
+}
+/* Signin Bar */
+.signin-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(135deg, rgba(255, 184, 77, 0.12), rgba(255, 107, 107, 0.08));
+  border: 1px solid rgba(255, 184, 77, 0.2);
+  border-radius: var(--radius-md, 20rpx);
+  padding: 16rpx 24rpx;
+  margin-bottom: 24rpx;
+}
+
+.signin-left {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.signin-icon {
+  font-size: 32rpx;
+}
+
+.signin-text {
+  color: var(--text-primary, rgba(255,255,255,0.92));
+  font-size: 26rpx;
+  font-weight: 500;
+}
+
+.signin-btn {
+  background: var(--accent, #00E5A0);
+  border-radius: var(--radius-full, 9999rpx);
+  padding: 8rpx 24rpx;
+}
+
+.signin-btn.signed {
+  background: var(--bg-surface, rgba(255,255,255,0.04));
+  border: 1px solid var(--border-subtle, rgba(255,255,255,0.06));
+}
+
+.signin-btn-text {
+  font-size: 24rpx;
+  font-weight: 600;
+  color: var(--bg-base, #0A0F14);
+}
+
+.signed .signin-btn-text {
+  color: var(--text-secondary, rgba(255,255,255,0.5));
 }

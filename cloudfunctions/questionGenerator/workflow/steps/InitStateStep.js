@@ -31,7 +31,11 @@ class InitStateStep extends BaseStep {
       // 使用 updateQueueStatus 函数
       const { updateQueueStatus } = require('../utils/updateQueueStatus');
       console.log('[InitStateStep] Calling updateQueueStatus...');
-      const result = await updateQueueStatus(db, task._id, 'processing');
+      const result = await updateQueueStatus(db, task._id, 'processing', {
+        timeline: {
+          started_at: new Date().toISOString()
+        }
+      });
 
       if (!result.success) {
         console.log('[InitStateStep] FAILED:', result.error);

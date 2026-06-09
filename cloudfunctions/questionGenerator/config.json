@@ -3,7 +3,7 @@
     {
       "name": "processQueueTimer",
       "type": "timer",
-      "config": "0 */1 * * * * *"
+      "config": "*/15 * * * * * *"
     }
   ]
 }

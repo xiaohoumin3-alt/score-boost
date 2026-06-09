@@ -6,9 +6,22 @@
 
 .debug-section {
   padding: 20rpx;
-  background: #ff0;
-  color: #000;
+  background: var(--warning, #FFB84D);
+  color: var(--bg-base, #0A0F14);
   margin: 20rpx;
+}
+
+.nav-safe-area {
+  display: flex;
+  align-items: flex-end;
+  padding: 0 32rpx 16rpx;
+  background: var(--bg-base, #0A0F14);
+}
+
+.nav-title {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: var(--text-primary, rgba(255, 255, 255, 0.92));
 }
 
 .header {
@@ -47,7 +60,7 @@
   width: 200rpx;
   height: 200rpx;
   border-radius: 50%;
-  background: conic-gradient(from 0deg, var(--accent, #00E5A0) {{currentScore * 3.6}}deg, var(--border-subtle, rgba(255, 255, 255, 0.06)) {{currentScore * 3.6}}deg);
+  background: conic-gradient(from 0deg, var(--accent, #00E5A0) 0deg, var(--border-subtle, rgba(255, 255, 255, 0.06)) 0deg);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -129,6 +142,18 @@
   font-size: 24rpx;
   color: var(--text-tertiary, rgba(255, 255, 255, 0.25));
 }
+
+/* Section Labels */
+.sec-label {
+  font-size: 18rpx;
+  font-weight: 700;
+  letter-spacing: 3rpx;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 16rpx;
+}
+.sec-label--accent { color: var(--accent, #00E5A0); }
+.sec-label--info { color: var(--info, #5BA3F5); }
 
 /* Path Section */
 .path-section {
@@ -325,35 +350,43 @@
 /* Progress Section */
 .progress-section {
   display: flex;
-  justify-content: space-around;
-  padding: 40rpx;
-  background: var(--bg-surface, rgba(255, 255, 255, 0.04));
-  margin: 0 40rpx;
-  border-radius: 16rpx;
+  gap: 4rpx;
+  padding: 0 40rpx;
+  margin: 16rpx 0;
 }
 
 .progress-item {
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8rpx;
+  gap: 4rpx;
+  padding: 20rpx 8rpx;
+  background: var(--bg-surface, rgba(255, 255, 255, 0.04));
+  border-radius: var(--radius-sm, 12rpx);
+}
+
+.progress-item:first-child {
+  border-radius: var(--radius-sm, 12rpx) 0 0 var(--radius-sm, 12rpx);
+}
+
+.progress-item:last-child {
+  border-radius: 0 var(--radius-sm, 12rpx) var(--radius-sm, 12rpx) 0;
 }
 
 .progress-value {
-  font-size: 48rpx;
+  font-size: 34rpx;
   font-weight: bold;
-  color: var(--accent, #00E5A0);
+  font-variant-numeric: tabular-nums;
 }
+
+.progress-value--accent { color: var(--accent, #00E5A0); }
+.progress-value--warning { color: var(--warning, #FFB84D); }
+.progress-value--danger { color: var(--danger, #FF6B6B); }
 
 .progress-label {
-  font-size: 22rpx;
+  font-size: 18rpx;
   color: var(--text-tertiary, rgba(255, 255, 255, 0.25));
-}
-
-.progress-divider {
-  width: 2rpx;
-  height: 60rpx;
-  background: var(--border-subtle, rgba(255, 255, 255, 0.06));
 }
 
 /* Loading */
@@ -414,4 +447,50 @@
   padding: 0 8rpx;
   font-size: 32rpx;
   color: var(--info, #5BA3F5);
+}
+/* Empty State */
+.empty-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 80rpx 40rpx;
+}
+
+.empty-icon {
+  font-size: 64rpx;
+  margin-bottom: 16rpx;
+}
+
+.empty-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: var(--text-primary, rgba(255, 255, 255, 0.92));
+  margin-bottom: 8rpx;
+}
+
+.empty-desc {
+  font-size: 26rpx;
+  color: var(--text-secondary, rgba(255, 255, 255, 0.5));
+  text-align: center;
+  margin-bottom: 32rpx;
+  line-height: 1.6;
+}
+
+.empty-action {
+  background: var(--accent, #00E5A0);
+  padding: 16rpx 48rpx;
+  border-radius: 999rpx;
+}
+
+.empty-action-text {
+  color: var(--bg-base, #0A0F14);
+  font-size: 28rpx;
+  font-weight: 600;
+}
+
+/* Step accuracy label */
+.step-accuracy {
+  font-size: 24rpx;
+  color: var(--text-secondary, rgba(255, 255, 255, 0.5));
+  font-variant-numeric: tabular-nums;
 }

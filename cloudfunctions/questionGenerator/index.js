@@ -23,6 +23,8 @@ const { CompleteStep } = require('./workflow/steps/CompleteStep');
 
 // ========== 辅助函数导入 ==========
 const { updateQueueStatus } = require('./workflow/utils/updateQueueStatus');
+const { formatQuestionForApi, normalizeQuestion } = require('./shared/question-normalizer');
+const { getConfig, loadConfig } = require('../shared/llm-core/config');
 
 /**
  * 统一选项格式
@@ -78,7 +80,7 @@ const { fetchPendingTasks: fetchQueueTasks, updateTaskStatus } = require('./queu
  */
 async function fetchPendingTasks(db, maxTasks = 3) {
   try {
-    // 诊断：查询最近20个任务
+    // 诊断：查询最近20个任务（仅用 orderBy created_at，不需复合索引）
     const allTasks = await db.collection('question_queue')
       .orderBy('created_at', 'desc')
       .limit(20)
@@ -87,31 +89,32 @@ async function fetchPendingTasks(db, maxTasks = 3) {
 
     // 统计各状态数量
     const statusCount = {};
-    const targetId = '669eebf36a17092800eea1aa0a8c721b';
-    let targetFound = false;
-
     allTasks.data?.forEach(t => {
       statusCount[t.status] = (statusCount[t.status] || 0) + 1;
-      if (t._id === targetId) {
-        targetFound = true;
-        console.log('[fetchPendingTasks] *** TARGET TASK FOUND ***:', t._id, 'Status:', t.status, 'created:', t.created_at);
-      }
     });
 
     console.log('[fetchPendingTasks] Status distribution:', JSON.stringify(statusCount));
-    if (!targetFound) {
-      console.log('[fetchPendingTasks] *** TARGET TASK NOT FOUND in recent 20 ***');
+
+    // 使用 where + orderBy(created_at)，避免三字段复合索引依赖
+    // 如果此查询失败（无索引），降级为不带 orderBy 的查询
+    try {
+      const result = await db.collection('question_queue')
+        .where({ status: 'pending' })
+        .orderBy('created_at', 'asc')
+        .limit(maxTasks)
+        .get();
+
+      console.log('[fetchPendingTasks] Pending tasks count:', result.data?.length || 0);
+      return result.data || [];
+    } catch (queryErr) {
+      console.warn('[fetchPendingTasks] orderBy query failed, trying without orderBy:', queryErr.message);
+      const fallback = await db.collection('question_queue')
+        .where({ status: 'pending' })
+        .limit(maxTasks)
+        .get();
+      console.log('[fetchPendingTasks] Fallback pending tasks count:', fallback.data?.length || 0);
+      return fallback.data || [];
     }
-
-    const result = await db.collection('question_queue')
-      .where({ status: 'pending' })
-      .orderBy('priority', 'desc')  // 高优先级先处理
-      .orderBy('created_at', 'asc')  // 同优先级按创建时间
-      .limit(maxTasks)
-      .get();
-
-    console.log('[fetchPendingTasks] Pending tasks count:', result.data?.length || 0);
-    return result.data || [];
   } catch (e) {
     console.error('[fetchPendingTasks] Error:', e);
     return [];
@@ -166,14 +169,20 @@ function getDefaultSteps(options = {}) {
 async function processTask(db, task, options = {}) {
   const { generateAi } = options;
   const startTime = Date.now();
+  const PROCESS_TIMEOUT = 70 * 1000;  // 70秒总超时（云函数90秒，预留20秒给清理）
 
   try {
     console.log(`[processTask] START task:${task._id} student:${task.student_id} subject:${task.subject} num:${task.num_questions}`);
 
-    // 使用工作流引擎执行
+    // 使用工作流引擎执行，带超时保护
     // Phase 7: 传递 db.command 用于 RAG 上下文查询
     const workflow = new TaskWorkflow(getDefaultSteps({ generateAi }));
-    const result = await workflow.execute(task, db, db.command);
+    const result = await Promise.race([
+      workflow.execute(task, db, db.command),
+      new Promise((_, reject) =>
+        setTimeout(() => reject(new Error('processTask timeout after ' + PROCESS_TIMEOUT + 'ms')), PROCESS_TIMEOUT)
+      )
+    ]);
 
     if (result.success) {
       const { STEP_OUTPUT_KEYS } = require('./workflow/constants');
@@ -261,10 +270,11 @@ async function generateAi(task, difficulty, count) {
     throw new Error(`任务科目参数缺失 (task._id: ${task._id})，无法生成题目`);
   }
 
-  const validSubjects = ['math', 'biology', 'geography', '数学', '生物', '地理'];
+  const validSubjects = ['math', 'biology', 'geography', 'chinese', 'english', 'physics', 'chemistry', 'history', 'politics',
+    '数学', '生物', '地理', '语文', '英语', '物理', '化学', '历史', '政治'];
   if (!validSubjects.includes(task.subject)) {
-    console.error(`[generateAi] ❌ CRITICAL: invalid subject "${task.subject}" for task ${task._id}`);
-    throw new Error(`无效的科目参数: "${task.subject}"，有效值为: ${validSubjects.join(', ')}`);
+    console.warn(`[generateAi] ⚠️ Unrecognized subject "${task.subject}", proceeding anyway for task ${task._id}`);
+    // 不再 throw，允许未知科目继续执行（题池回退兜底）
   }
 
   console.log(`[generateAi] ✅ Subject validated: ${task.subject}`);
@@ -281,9 +291,23 @@ async function generateAi(task, difficulty, count) {
     console.log(`[generateAi] MIXED STRATEGY: ${minAiCount} AI + ${poolCount} pool (total: ${count})`);
 
     // 第一步：先从题池取 poolCount 道题目（快速，无需API调用）
+    // 修复：添加随机偏移，避免每次返回相同题目
     try {
+      // 先获取题池中符合条件的题目总数
+      const countResult = await db.collection('ai_question_pool')
+        .where({ difficulty: difficulty, subject: task.subject })
+        .count();
+      const totalQuestions = countResult.total || 0;
+
+      // 计算随机偏移（确保有足够题目可取）
+      const maxOffset = Math.max(0, totalQuestions - poolCount * 2);
+      const randomOffset = maxOffset > 0 ? Math.floor(Math.random() * maxOffset) : 0;
+
+      console.log(`[generateAi] Pool query: total=${totalQuestions}, offset=${randomOffset}/${maxOffset}`);
+
       const poolResult = await db.collection('ai_question_pool')
         .where({ difficulty: difficulty, subject: task.subject })
+        .skip(randomOffset)
         .limit(poolCount * 2)  // 多取一些，过滤掉可能的脏数据
         .get();
 
@@ -297,18 +321,8 @@ async function generateAi(task, difficulty, count) {
           return subjectMatch && hasContent && hasOptions && contentMatch;
         })
         .slice(0, poolCount)  // 只取需要的数量
-        .map((q, i) => ({
-          id: q.pool_id || q._id || `pool_${Date.now()}_${i}`,
-          type: 'choice',
-          content: q.content || q.question || '',
-          options: normalizeOptions(q.options),
-          correct_answer: q.correct_answer,
-          knowledge_point: q.knowledge_point || q.kp_name || '未知',
-          knowledge_point_id: q.kp_id || 'unknown',
-          difficulty: q.difficulty || difficulty,
-          explanation: q.explanation || '',
-          subject: q.subject || task.subject,
-          chapter: q.chapter || task.chapter || '',
+        .map((q) => ({
+          ...formatQuestionForApi(q),
           source: 'pool'
         }));
 
@@ -318,12 +332,11 @@ async function generateAi(task, difficulty, count) {
       console.warn(`[generateAi] Pool query failed: ${poolErr.message}`);
     }
 
-    // 第二步：生成 minAiCount 道 AI 题目（必须生成）
-    // 如果题池不足，增加AI生成数量来补足
-    const poolShortfall = Math.max(0, poolCount - allQuestions.filter(q => q.source === 'pool').length);
-    const actualAiNeeded = minAiCount + poolShortfall;
+    // 第二步：生成 minAiCount 道 AI 题目（固定2题）
+    // 修复：不再根据题池不足补足，有多少题就展示多少题
+    const actualAiNeeded = minAiCount;
 
-    console.log(`[generateAi] Pool got ${allQuestions.filter(q => q.source === 'pool').length}/${poolCount}, AI needed: ${actualAiNeeded} (min:${minAiCount} + shortfall:${poolShortfall})`);
+    console.log(`[generateAi] Pool got ${allQuestions.filter(q => q.source === 'pool').length}/${poolCount}, AI needed: ${actualAiNeeded} (fixed)`);
 
     if (actualAiNeeded <= 0) {
       console.log(`[generateAi] Pool sufficient, no AI needed`);
@@ -332,9 +345,10 @@ async function generateAi(task, difficulty, count) {
 
     console.log(`[generateAi] Generating ${actualAiNeeded} AI questions...`);
 
-    const apiKey = process.env.LLM_API_KEY;
-    const baseUrl = process.env.LLM_BASE_URL || 'https://api.deepseek.com';
-    const model = process.env.LLM_MODEL || 'deepseek-chat';
+    const config = getConfig();
+    const apiKey = config.apiKey;
+    const baseUrl = config.baseUrl;
+    const model = config.model;
 
     if (!apiKey) {
       console.error('[generateAi] LLM_API_KEY not set!');
@@ -342,14 +356,35 @@ async function generateAi(task, difficulty, count) {
     }
 
     const difficultyText = { easy: '简单', medium: '中等', hard: '困难' }[difficulty] || '中等';
-    const gradeText = task.grade ? `${task.grade}年级` : '八年级';
-    const subjectText = { math: '数学', biology: '生物', geography: '地理' }[task.subject] || task.subject || '数学';
-    const knowledgePoints = {
-      math: ['二次根式', '勾股定理', '一次函数', '平行四边形', '数据的分析', '全等三角形', '轴对称', '整式的乘法', '分式', '概率'],
-      biology: ['细胞结构', '光合作用', '呼吸作用', '遗传规律', '生态系统', '人体的消化', '人体的呼吸', '血液循环', '神经调节', '免疫与健康'],
-      geography: ['中国的地理位置', '中国的地形', '中国的气候', '中国的人口', '中国的自然资源', '地球的运动', '大洲和大洋', '天气与气候', '世界的居民', '发展与合作']
+    // 年级文本：支持数字和中文两种格式
+    const normalizedGrade = String(task.grade || '8').replace(/[^0-9]/g, '') || '8';
+    const gradeText = normalizedGrade + '年级';
+    const subjectText = { math: '数学', biology: '生物', geography: '地理', chinese: '语文', english: '英语', physics: '物理', chemistry: '化学', history: '历史', politics: '政治' }[task.subject] || task.subject || '数学';
+    // 根据年级动态选择知识点（之前硬编码8年级知识点导致低年级出现高中题目）
+    const gradeKpMap = {
+      '1': { math: ['10以内加减法', '20以内加减法', '认识图形', '认识钟表', '分类与整理', '100以内数的认识', '认识人民币', '比较大小'] },
+      '2': { math: ['乘法口诀', '100以内加减法', '长度单位', '认识角', '表内乘法', '表内除法', '克和千克', '统计'] },
+      '3': { math: ['除法初步', '万以内的加减法', '有余数的除法', '多位数乘一位数', '分数初步', '面积', '认识小数'] },
+      '4': { math: ['四则运算', '运算定律', '小数的意义和性质', '三角形', '小数的加减法', '平均数与条形统计图', '位置与方向'] },
+      '5': { math: ['小数乘除法', '简易方程', '多边形的面积', '因数与倍数', '分数的意义和性质', '分数加减法'] },
+      '6': { math: ['分数乘除法', '比的认识', '圆', '百分数', '负数的认识', '比例', '圆柱与圆锥'] },
+      '7': { math: ['有理数', '整式的加减', '一元一次方程', '几何图形初步', '相交线与平行线', '实数', '平面直角坐标系', '二元一次方程组'] },
+      '8': { math: ['一次函数', '勾股定理', '平行四边形', '数据的分析', '全等三角形', '轴对称', '整式的乘法', '分式'] },
+      '9': { math: ['二次根式', '一元二次方程', '旋转', '圆', '概率', '反比例函数', '相似三角形', '锐角三角函数'] },
     };
-    const kpList = knowledgePoints[task.subject] || knowledgePoints.math;
+    const defaultKpMap = {
+      biology: ['细胞结构', '光合作用', '呼吸作用', '遗传规律', '生态系统', '血液循环', '神经调节', '免疫与健康'],
+      geography: ['中国的地理位置', '中国的地形', '中国的气候', '中国的人口', '地球的运动', '大洲和大洋'],
+      chinese: ['阅读理解', '古诗文', '词语运用', '病句修改', '修辞手法', '写作技巧'],
+      english: ['词汇辨析', '时态语态', '情景交际', '完形填空', '阅读理解'],
+      physics: ['力学基础', '电学基础', '光学', '热学', '运动和力', '压强', '浮力', '简单机械'],
+      chemistry: ['空气和氧气', '水和溶液', '碳和碳的氧化物', '金属和金属材料', '酸碱盐', '化学方程式'],
+      history: ['中国古代史', '中国近代史', '中国现代史', '世界古代史', '改革与革命'],
+      politics: ['道德与法治', '宪法与法律', '公民权利', '国家制度', '经济制度']
+    };
+    const gradeKps = gradeKpMap[normalizedGrade] && gradeKpMap[normalizedGrade][task.subject];
+    const kpList = gradeKps || defaultKpMap[task.subject] || gradeKpMap['8'].math;
+
 
     // 排除已有题目的知识点（避免重复）
     const existingKps = allQuestions.map(q => q.knowledge_point);
@@ -377,6 +412,10 @@ async function generateAi(task, difficulty, count) {
     console.log(`[generateAi] Calling DeepSeek API for ${actualAiNeeded} questions...`);
     const fetchStart = Date.now();
 
+    // AbortController 超时保护：45秒超时（与LLM_TIMEOUT_MS一致）
+    const controller = new AbortController();
+    const apiTimeout = setTimeout(() => controller.abort(), parseInt(process.env.LLM_TIMEOUT_MS) || 45000);
+
     const response = await fetch(`${baseUrl}/chat/completions`, {
       method: 'POST',
       headers: {
@@ -392,8 +431,10 @@ async function generateAi(task, difficulty, count) {
         max_tokens: 8000,
         temperature: 0.8,
         thinking: { type: 'disabled' }
-      })
+      }),
+      signal: controller.signal
     });
+    clearTimeout(apiTimeout);
 
     const fetchDuration = Date.now() - fetchStart;
     console.log(`[generateAi] API response in ${fetchDuration}ms, status: ${response.status}`);
@@ -545,9 +586,10 @@ async function generateSingleQuestion(kpName, difficulty, task) {
       }
 
       const question = {
-        id: questionData.pool_id || `ai_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+        ...normalizeQuestion(questionData),
+        id: questionData.pool_id || questionData._id || `ai_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
         type: 'choice',
-        content: questionData.question,
+        content: questionData.question || questionData.content,
         options: questionData.options || [],
         correct_answer: questionData.correct_answer,
         knowledge_point: questionData.kp_name || kpName,
@@ -555,7 +597,8 @@ async function generateSingleQuestion(kpName, difficulty, task) {
         difficulty: questionData.difficulty || difficulty,
         explanation: questionData.explanation,
         subject: task.subject || 'biology',
-        chapter: task.chapter || ''
+        chapter: task.chapter || '',
+        source: 'ai'
       };
 
       console.log(`[generateSingleQuestion] SUCCESS: ${kpName} (total ${Date.now() - questionStart}ms)`);
@@ -573,99 +616,92 @@ async function generateSingleQuestion(kpName, difficulty, task) {
 }
 
 /**
- * 清理卡住的任务 + 优先处理目标任务
+ * 清理卡住的任务
  * @param {Object} db - 数据库实例
  * @returns {Promise<Object>} 清理结果
  */
 async function cleanupStuckTasks(db) {
   try {
-    const STUCK_THRESHOLD = 55 * 1000; // 55秒阈值（函数60秒超时后，下一轮立即清理续跑）
-    const FAILED_CLEANUP_THRESHOLD = 60 * 60 * 1000; // 1小时阈值 - 清理旧失败任务
-    const TARGET_QUEUE_ID = '669eebf36a17092800eea1aa0a8c721b';
+    const PROCESSING_THRESHOLD = 3 * 60 * 1000;  // processing 超过3分钟视为卡死
+    const PENDING_THRESHOLD = 5 * 60 * 1000;     // pending 超过5分钟视为可能漏处理
+    const MAX_RETRY_COUNT = 3;
     const now = Date.now();
-
     let cleanedCount = 0;
-    let failedCleanedCount = 0;
 
-    // 1. 查询 processing 状态超过阈值的任务
-    const stuckTasks = await db.collection('question_queue')
+    // 1. 清理卡在 processing 的任务
+    const stuckProcessing = await db.collection('question_queue')
       .where({ status: 'processing' })
       .limit(50)
       .get();
-
-    for (const task of stuckTasks.data || []) {
+    for (const task of stuckProcessing.data || []) {
       const createdTime = new Date(task.created_at).getTime();
       const stuckDuration = now - createdTime;
-
-      if (stuckDuration > STUCK_THRESHOLD) {
-        // 检查是否有部分进度（progress.generated > 0）
-        const hasProgress = task.progress && task.progress.generated > 0;
-        if (hasProgress) {
-          // 有进度的任务：设为pending但保留进度，让下次运行续跑
-          console.log(`[cleanup] Task:${task._id} has progress (${task.progress.generated}/${task.progress.total}), resetting to pending for resume`);
-          await updateQueueStatus(db, task._id, 'pending', {
-            _resumable: true,
-            retry_count: (task.retry_count || 0) + 1
+      if (stuckDuration > PROCESSING_THRESHOLD) {
+        const currentRetryCount = task.retry_count || 0;
+        if (currentRetryCount >= MAX_RETRY_COUNT) {
+          console.log('[cleanup] Task:' + task._id + ' exceeded max retries, marking as failed');
+          await updateQueueStatus(db, task._id, 'failed', {
+            error: 'Exceeded max retries (' + MAX_RETRY_COUNT + ')',
           });
           cleanedCount++;
           continue;
         }
-        console.log(`[cleanup] Found stuck task:${task._id} (no progress), stuck for ${Math.floor(stuckDuration / 1000)}s`);
+        const hasProgress = task.progress && task.progress.generated > 0;
+        if (hasProgress) {
+          console.log('[cleanup] Task:' + task._id + ' has progress, resetting to pending for resume');
+          await updateQueueStatus(db, task._id, 'pending', {
+            _resumable: true,
+            retry_count: currentRetryCount + 1
+          });
+          cleanedCount++;
+          continue;
+        }
+        console.log('[cleanup] Found stuck processing task:' + task._id + ', retry ' + (currentRetryCount + 1) + '/' + MAX_RETRY_COUNT);
         await updateQueueStatus(db, task._id, 'pending', {
-          error: `Task stuck in processing for ${Math.floor(stuckDuration / 60000)}min, reset to pending`,
-          retry_count: (task.retry_count || 0) + 1
+          error: 'Task stuck in processing, reset to pending',
+          retry_count: currentRetryCount + 1
         });
         cleanedCount++;
       }
     }
 
-    // 2. 查询并删除超过1小时的failed任务（避免堆积）
-    const failedTasks = await db.collection('question_queue')
-      .where({ status: 'failed' })
-      .limit(100)
+    // 2. 清理长时间 pending 的任务（定时触发器可能跳过了它们）
+    const stuckPending = await db.collection('question_queue')
+      .where({ status: 'pending' })
+      .limit(50)
       .get();
-
-    for (const task of failedTasks.data || []) {
+    for (const task of stuckPending.data || []) {
       const createdTime = new Date(task.created_at).getTime();
-      const age = now - createdTime;
-
-      if (age > FAILED_CLEANUP_THRESHOLD) {
-        console.log(`[cleanup] Removing old failed task:${task._id}, age:${Math.floor(age / 60000)}min`);
-        await db.collection('question_queue').doc(task._id).remove();
-        failedCleanedCount++;
-      }
-    }
-
-    // 3. 特殊处理：如果目标任务在 pending 队列中，提高它的优先级
-    try {
-      const targetTask = await db.collection('question_queue').doc(TARGET_QUEUE_ID).get();
-      if (targetTask.data && targetTask.data.status === 'pending') {
-        console.log(`[priority] Found target task in pending, boosting priority`);
-        await updateQueueStatus(db, TARGET_QUEUE_ID, 'pending', {
-          priority: 999  // 最高优先级
+      const pendingDuration = now - createdTime;
+      if (pendingDuration > PENDING_THRESHOLD) {
+        const currentRetryCount = task.retry_count || 0;
+        if (currentRetryCount >= MAX_RETRY_COUNT) {
+          console.log('[cleanup] Pending task:' + task._id + ' exceeded max retries (' + MAX_RETRY_COUNT + '), marking as failed');
+          await updateQueueStatus(db, task._id, 'failed', {
+            error: 'Pending too long, exceeded max retries',
+          });
+          cleanedCount++;
+          continue;
+        }
+        console.log('[cleanup] Found stale pending task:' + task._id + ', age=' + Math.floor(pendingDuration / 1000) + 's, incrementing retry');
+        await updateQueueStatus(db, task._id, 'pending', {
+          error: 'Stale pending task, retry ' + (currentRetryCount + 1),
+          retry_count: currentRetryCount + 1,
+          updated_at: new Date().toISOString()  // 刷新 updated_at 让排序靠前
         });
-        return { cleanedCount, failedCleanedCount, targetBoosted: true };
-      }
-    } catch (e) {
-      // 忽略文档不存在错误
-      if (!e.message.includes('does not exist')) {
-        console.log('[cleanup] Target task check failed (ignoring):', e.message);
+        cleanedCount++;
       }
     }
-
     if (cleanedCount > 0) {
-      console.log(`[cleanup] Cleaned ${cleanedCount} stuck tasks`);
+      console.log('[cleanup] Cleaned ' + cleanedCount + ' stuck tasks');
     }
-    if (failedCleanedCount > 0) {
-      console.log(`[cleanup] Removed ${failedCleanedCount} old failed tasks`);
-    }
-
-    return { cleanedCount, failedCleanedCount, targetBoosted: false };
+    return { cleanedCount };
   } catch (e) {
     console.error('[cleanup] Error:', e);
-    return { cleanedCount: 0, failedCleanedCount: 0, targetBoosted: false };
+    return { cleanedCount: 0 };
   }
 }
+
 
 /**
  * 云函数入口
@@ -673,6 +709,7 @@ async function cleanupStuckTasks(db) {
 exports.main = async (event, context) => {
   const startTime = Date.now();
   const db = cloud.database();
+  await loadConfig(db);
 
   try {
     console.log('=== questionGenerator === started at', new Date().toISOString());

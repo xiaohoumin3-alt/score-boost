@@ -1,12 +1,7 @@
 <view class="page">
-  <!-- Header -->
-  <view class="header">
-    <text class="title">提分神器</text>
-    <view class="subtitle-row">
-      <text class="subtitle">{{subject}}</text>
-      <text class="divider">|</text>
-      <text class="subtitle">{{grade}}</text>
-    </view>
+  <!-- 自定义导航栏安全区 -->
+  <view class="nav-safe-area" style="height: {{navHeight}}rpx;">
+    <text class="nav-title">日日守护</text>
   </view>
 
   <view class="loading" wx:if="{{loading}}">
@@ -14,28 +9,31 @@
   </view>
 
   <block wx:else>
-    <!-- Score Display -->
-    <view class="score-display">
-      <view class="score-ring">
-        <view class="ring-outer">
-          <view class="ring-progress" style="transform: rotate({{currentScore * 3.6 - 90}}deg);"></view>
-          <view class="ring-inner">
-            <text class="score-value">{{currentScore}}</text>
-            <text class="score-label">当前</text>
-          </view>
+  <!-- 连续签到 -->
+  <view class="signin-bar" bindtap="quickSignin">
+    <view class="signin-left">
+      <text class="signin-icon">🔥</text>
+      <text class="signin-text">{{signinStreak}}天连续签到</text>
+    </view>
+    <view class="signin-btn {{canSignin ? '' : 'signed'}}">
+      <text class="signin-btn-text">{{canSignin ? '签到+10' : '已签到'}}</text>
+    </view>
+  </view>
+
+
+    <!-- Score Bar -->
+    <view class="score-bar">
+      <view class="score-bar-left">
+        <text class="score-bar-title">提分神器</text>
+        <text class="score-bar-sub">{{subject}} | {{grade}}</text>
+      </view>
+      <view class="score-bar-right">
+        <text class="score-bar-value">{{currentScore}}</text>
+        <view class="score-bar-target" wx:if="{{currentScore < targetScore}}">
+          <text class="score-bar-tv">{{targetScore}}</text>
+          <text class="score-bar-tl">目标</text>
+          <text class="score-bar-gap" wx:if="{{totalGap > 0}}">差{{totalGap}}分</text>
         </view>
-      </view>
-      <view class="score-arrow" wx:if="{{currentScore < targetScore}}">
-        <image class="arrow-icon" src="/components/icons/arrow_up.png" mode="widthFix"></image>
-      </view>
-      <view class="score-target" wx:if="{{currentScore < targetScore}}">
-        <text class="target-value">{{targetScore}}分</text>
-        <text class="target-label">目标</text>
-        <text class="gap-badge" wx:if="{{totalGap > 0}}">差 {{totalGap}} 分</text>
-      </view>
-      <view class="score-status achieved" wx:if="{{currentScore >= targetScore}}">
-        <text class="status-text">已达成目标</text>
-        <text class="status-detail">超越 {{currentScore - targetScore}} 分</text>
       </view>
     </view>
 
@@ -43,7 +41,7 @@
     <view class="task-card" wx:if="{{todayTask}}" bindtap="startTodayTask">
       <view class="task-header">
         <text class="task-icon">🎯</text>
-        <text class="task-title">今日任务</text>
+        <text class="task-title">AI 今日任务</text>
       </view>
       <view class="task-content">
         <text class="task-name">{{todayTask.title}}</text>
@@ -55,13 +53,8 @@
       </view>
     </view>
 
-    <!-- 次要入口（折叠） -->
-    <view class="other-entry" bindtap="showAllTopics" wx:if="{{!showTopics}}">
-      <text class="other-text">我想自己选知识点</text>
-      <text class="other-arrow">›</text>
-    </view>
-
     <!-- 重新测评 -->
+    <text class="sec-label sec-label--accent">学习闭环</text>
     <view class="loop-card" bindtap="startAssessment">
       <text class="loop-icon">↻</text>
       <view class="loop-body">
@@ -71,41 +64,21 @@
       <text class="loop-arrow">›</text>
     </view>
 
-    <!-- Main Action Card -->
-    <view class="action-card" bindtap="handleAction" wx:if="{{!todayTask}}">
-      <view class="action-icon">
-        <text wx:if="{{nextAction.type === 'start_assessment'}}">🎯</text>
-        <text wx:elif="{{nextAction.type === 'practice'}}">📚</text>
-        <text wx:else>🏆</text>
+    <!-- 待复习 -->
+    <text class="sec-label sec-label--purple" wx:if="{{hasPendingReviews}}">待复习</text>
+    <block wx:if="{{hasPendingReviews}}">
+      <view class="review-row" wx:for="{{pendingReviews}}" wx:key="kp_id" bindtap="goReview" data-kp="{{item}}">
+        <view class="review-dot"></view>
+        <text class="review-kp">{{item.kp_name || item.kp_id}}</text>
+        <text class="review-badge" wx:if="{{item.current_difficulty}}">{{item.current_difficulty === 'hard' ? '薄弱' : item.current_difficulty === 'medium' ? '复习' : '巩固'}}</text>
+        <text class="review-action">去复习 ›</text>
       </view>
-      <view class="action-content">
-        <text class="action-label">{{nextAction.label}}</text>
-        <text class="action-desc">{{nextAction.desc}}</text>
-      </view>
-      <view class="action-arrow">⇢</view>
-    </view>
-
-    <!-- 今日复习卡片 -->
-    <view class="review-card" wx:if="{{hasPendingReviews}}">
-      <view class="review-header">
-        <text class="review-icon">📝</text>
-        <text class="review-title">今日复习</text>
-        <text class="review-count">{{pendingReviews.length}}个知识点</text>
-      </view>
-      <view class="review-list">
-        <block wx:for="{{pendingReviews}}" wx:key="kp_id">
-          <view class="review-item" bindtap="goReview" data-kp="{{item}}">
-            <text class="review-kp">{{item.kp_name || item.kp_id}}</text>
-            <text class="review-action">去复习 ›</text>
-          </view>
-        </block>
-      </view>
-    </view>
+    </block>
 
 
     <!-- Recent History -->
+    <text class="sec-label sec-label--dim" wx:if="{{recentAssessments.length > 0}}">最近记录</text>
     <view class="history-section" wx:if="{{recentAssessments.length > 0}}">
-      <text class="section-title">最近记录</text>
       <view class="history-list">
         <view wx:for="{{recentAssessments}}" wx:key="assessment_id" class="history-item">
           <text class="history-score">{{item.score_percent || 0}}</text>

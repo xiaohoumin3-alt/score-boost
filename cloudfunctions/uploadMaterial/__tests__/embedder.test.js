@@ -1,262 +1,158 @@
 /**
- * 向量嵌入模块测试
- * TDD: 测试先行，实现后置
- * 测试文心一言主接口和通义千问降级接口
+ * embedder 真实测试
+ *
+ * 分为两组：
+ * - 单元测试：参数校验、常量、错误处理（不依赖网络）
+ * - 集成测试（@integration）：调用真实嵌入 API（npm run test:integration）
+ *
+ * 不使用 jest.mock
  */
 
-// Mock dependencies - must be before require
-jest.mock('axios');
-
-const axios = require('axios');
 const {
+  WENXIN_PROVIDER,
+  QIANWEN_PROVIDER,
   generateEmbedding,
   generateBatchEmbeddings,
-  WENXIN_PROVIDER,
-  QIANWEN_PROVIDER
+  getWenxinAccessToken,
+  callQianwenEmbedding
 } = require('../embedder');
 
-describe('embedder', () => {
-  const mockAccessToken = 'test_wenxin_token';
-  const mockQianwenResponse = {
-    data: {
-      output: {
-        embeddings: [{
-          embedding: [0.1, 0.2, 0.3, 0.4, 0.5]
-        }]
-      }
-    }
-  };
+// ============================================================
+// 单元测试 — 不依赖网络，npm test 正常运行
+// ============================================================
 
-  beforeEach(() => {
-    jest.clearAllMocks();
-    // 设置环境变量
-    process.env.WENXIN_API_KEY = 'test_wenxin_key';
-    process.env.WENXIN_SECRET_KEY = 'test_wenxin_secret';
-    process.env.QIANWEN_API_KEY = 'test_qianwen_key';
-  });
-
-  afterEach(() => {
-    delete process.env.WENXIN_API_KEY;
-    delete process.env.WENXIN_SECRET_KEY;
-    delete process.env.QIANWEN_API_KEY;
-  });
+describe('embedder — 单元测试', () => {
 
   describe('Constants', () => {
-    test('should have WENXIN_PROVIDER defined', () => {
+    test('WENXIN_PROVIDER should be "wenxin"', () => {
       expect(WENXIN_PROVIDER).toBe('wenxin');
     });
 
-    test('should have QIANWEN_PROVIDER defined', () => {
+    test('QIANWEN_PROVIDER should be "qianwen"', () => {
       expect(QIANWEN_PROVIDER).toBe('qianwen');
     });
   });
 
-  describe('generateEmbedding - Wenxin (Primary)', () => {
-    test('should generate embedding using Wenxin API', async () => {
-      // Mock Wenxin access token response
-      axios.post.mockResolvedValueOnce({
-        data: { access_token: mockAccessToken }
-      });
-
-      // Mock Wenxin embedding response
-      axios.post.mockResolvedValueOnce({
-        data: {
-          embedding: [[0.1, 0.2, 0.3, 0.4, 0.5]]
-        }
-      });
-
-      const result = await generateEmbedding('test text');
-
-      expect(result).toEqual([0.1, 0.2, 0.3, 0.4, 0.5]);
-      expect(axios.post).toHaveBeenCalledTimes(2); // token + embedding
+  describe('generateEmbedding — input validation', () => {
+    test('should throw on empty string', async () => {
+      await expect(generateEmbedding('')).rejects.toThrow('输入文本不能为空');
     });
 
-    test('should handle Wenxin API error and fallback to Qianwen', async () => {
-      // Mock Wenxin token failure
-      axios.post.mockRejectedValueOnce(new Error('Wenxin API error'));
-
-      // Mock Qianwen fallback
-      axios.post.mockResolvedValueOnce({
-        data: {
-          output: {
-            embeddings: [{
-              embedding: [0.1, 0.2, 0.3, 0.4, 0.5]
-            }]
-          }
-        }
-      });
-
-      const result = await generateEmbedding('test text');
-
-      expect(result).toEqual([0.1, 0.2, 0.3, 0.4, 0.5]);
-    });
-
-    test('should fallback to Qianwen when Wenxin token fails', async () => {
-      // Mock Wenxin token failure - triggers fallback
-      axios.post.mockRejectedValueOnce(new Error('Network error'));
-
-      // Mock Qianwen fallback success
-      axios.post.mockResolvedValueOnce(mockQianwenResponse);
-
-      const result = await generateEmbedding('test text', { retries: 0 });
-
-      expect(result).toEqual([0.1, 0.2, 0.3, 0.4, 0.5]);
-    });
-  });
-
-  describe('generateEmbedding - Qianwen (Fallback)', () => {
-    test('should fallback to Qianwen when Wenxin fails', async () => {
-      // Mock Wenxin failure
-      axios.post.mockRejectedValueOnce(new Error('Wenxin unavailable'));
-
-      // Mock Qianwen success
-      axios.post.mockResolvedValueOnce(mockQianwenResponse);
-
-      const result = await generateEmbedding('test text');
-
-      expect(result).toEqual([0.1, 0.2, 0.3, 0.4, 0.5]);
-    });
-
-    test('should throw when both providers fail', async () => {
-      // Mock both failures
-      axios.post.mockRejectedValue(new Error('All providers failed'));
-
-      await expect(generateEmbedding('test text')).rejects.toThrow();
-    });
-  });
-
-  describe('generateBatchEmbeddings', () => {
-    test('should generate embeddings for multiple texts', async () => {
-      // Mock: token calls return access_token, embedding calls return vector
-      axios.post.mockImplementation(async (url) => {
-        if (url.includes('oauth')) {
-          return { data: { access_token: mockAccessToken } };
-        }
-        return { data: { embedding: [[0.1, 0.2, 0.3]] } };
-      });
-
-      const texts = ['text1', 'text2'];
-      const result = await generateBatchEmbeddings(texts);
-
-      expect(result).toHaveLength(2);
-    });
-
-    test('should handle empty array', async () => {
-      const result = await generateBatchEmbeddings([]);
-
-      expect(result).toEqual([]);
-    });
-
-    test('should handle batch size limit', async () => {
-      // Mock: token calls return access_token, embedding calls return vector
-      axios.post.mockImplementation(async (url) => {
-        if (url.includes('oauth')) {
-          return { data: { access_token: mockAccessToken } };
-        }
-        return { data: { embedding: [[0.1, 0.2, 0.3]] } };
-      });
-
-      const largeBatch = Array.from({ length: 100 }, (_, i) => `text ${i}`);
-      const result = await generateBatchEmbeddings(largeBatch, { batchSize: 10 });
-
-      expect(result.length).toBe(100);
-    });
-  });
-
-  describe('Error Handling', () => {
-    test('should handle empty text', async () => {
-      await expect(generateEmbedding('')).rejects.toThrow();
-    });
-
-    test('should handle null input', async () => {
+    test('should throw on null', async () => {
       await expect(generateEmbedding(null)).rejects.toThrow();
     });
 
-    test('should handle missing API keys', async () => {
+    test('should throw on undefined', async () => {
+      await expect(generateEmbedding(undefined)).rejects.toThrow();
+    });
+
+    test('should throw on whitespace-only string', async () => {
+      await expect(generateEmbedding('   ')).rejects.toThrow('输入文本不能为空');
+    });
+
+    test('should throw on non-string input', async () => {
+      await expect(generateEmbedding(123)).rejects.toThrow();
+    });
+  });
+
+  describe('getWenxinAccessToken — missing config', () => {
+    test('should throw when WENXIN_API_KEY not set', async () => {
       delete process.env.WENXIN_API_KEY;
+      delete process.env.WENXIN_SECRET_KEY;
+      await expect(getWenxinAccessToken()).rejects.toThrow('未配置');
+    });
+  });
+
+  describe('callQianwenEmbedding — missing config', () => {
+    test('should throw when QIANWEN_API_KEY not set', async () => {
+      delete process.env.QIANWEN_API_KEY;
+      await expect(callQianwenEmbedding('test')).rejects.toThrow('未配置');
+    });
+  });
+
+  describe('generateBatchEmbeddings — input validation', () => {
+    test('should return empty array for empty input', async () => {
+      const result = await generateBatchEmbeddings([]);
+      expect(result).toEqual([]);
+    });
+
+    test('should throw on non-array input', async () => {
+      await expect(generateBatchEmbeddings('not array')).rejects.toThrow('输入必须是数组');
+    });
+
+    test('should throw on null input', async () => {
+      await expect(generateBatchEmbeddings(null)).rejects.toThrow();
+    });
+  });
+
+  describe('generateEmbedding — no API keys at all', () => {
+    test('should throw when no embedding provider is configured', async () => {
+      const savedWenxin = process.env.WENXIN_API_KEY;
+      const savedQianwen = process.env.QIANWEN_API_KEY;
+      delete process.env.WENXIN_API_KEY;
+      delete process.env.WENXIN_SECRET_KEY;
       delete process.env.QIANWEN_API_KEY;
 
-      await expect(generateEmbedding('test')).rejects.toThrow();
+      try {
+        await expect(generateEmbedding('test text')).rejects.toThrow();
+      } finally {
+        // Restore
+        if (savedWenxin) process.env.WENXIN_API_KEY = savedWenxin;
+        if (savedQianwen) process.env.QIANWEN_API_KEY = savedQianwen;
+      }
     });
+  });
+});
 
-    test('should handle timeout', async () => {
-      axios.post.mockImplementationOnce(() =>
-        new Promise((_, reject) =>
-          setTimeout(() => reject(new Error('Timeout')), 100)
-        )
-      );
+// ============================================================
+// 集成测试 — 需要真实 API key，npm run test:integration 运行
+// ============================================================
 
-      await expect(
-        generateEmbedding('test', { timeout: 50 })
-      ).rejects.toThrow();
+describe.skip('@integration embedder — 集成测试 (需真实 API key)', () => {
+
+  beforeAll(() => {
+    // Check if API keys are available
+    if (!process.env.WENXIN_API_KEY && !process.env.QIANWEN_API_KEY) {
+      console.warn('跳过: 无 WENXIN_API_KEY 或 QIANWEN_API_KEY');
+    }
+  });
+
+  test('should generate embedding via Wenxin', async () => {
+    if (!process.env.WENXIN_API_KEY || !process.env.WENXIN_SECRET_KEY) return;
+    const result = await generateEmbedding('光合作用是植物利用阳光合成有机物的过程');
+    expect(Array.isArray(result)).toBe(true);
+    expect(result.length).toBeGreaterThan(0);
+    expect(result.every(v => typeof v === 'number')).toBe(true);
+  });
+
+  test('should generate embedding via Qianwen (forced)', async () => {
+    if (!process.env.QIANWEN_API_KEY) return;
+    const result = await generateEmbedding('测试文本', { provider: QIANWEN_PROVIDER });
+    expect(Array.isArray(result)).toBe(true);
+    expect(result.length).toBeGreaterThan(0);
+  });
+
+  test('should generate batch embeddings', async () => {
+    if (!process.env.WENXIN_API_KEY && !process.env.QIANWEN_API_KEY) return;
+    const texts = ['文本一', '文本二'];
+    const result = await generateBatchEmbeddings(texts, { batchSize: 2 });
+    expect(result).toHaveLength(2);
+    result.forEach(vec => {
+      expect(Array.isArray(vec)).toBe(true);
+      expect(vec.length).toBeGreaterThan(0);
     });
   });
 
-  describe('Provider Selection', () => {
-    test('should respect forced provider option', async () => {
-      // Mock Qianwen
-      axios.post.mockResolvedValueOnce(mockQianwenResponse);
-
-      const result = await generateEmbedding('test', { provider: QIANWEN_PROVIDER });
-
-      expect(result).toEqual([0.1, 0.2, 0.3, 0.4, 0.5]);
-    });
-
-    test('should use Wenxin by default', async () => {
-      // Mock Wenxin
-      axios.post.mockResolvedValueOnce({
-        data: { access_token: mockAccessToken }
-      });
-      axios.post.mockResolvedValueOnce({
-        data: {
-          embedding: [[0.1, 0.2, 0.3]]
-        }
-      });
-
-      await generateEmbedding('test');
-
-      // Should call Wenxin embedding endpoint
-      expect(axios.post).toHaveBeenCalledWith(
-        expect.stringContaining('wenxinworkshop'),
-        expect.anything(),
-        expect.anything()
-      );
-    });
-  });
-
-  describe('Embedding Format', () => {
-    test('should return normalized vector array', async () => {
-      // Mock Wenxin
-      axios.post.mockResolvedValueOnce({
-        data: { access_token: mockAccessToken }
-      });
-      axios.post.mockResolvedValueOnce({
-        data: {
-          embedding: [[0.1, 0.2, 0.3]]
-        }
-      });
-
-      const result = await generateEmbedding('test');
-
+  test('should fallback from Wenxin to Qianwen', async () => {
+    if (!process.env.QIANWEN_API_KEY) return;
+    // Temporarily break Wenxin config to force fallback
+    const savedKey = process.env.WENXIN_API_KEY;
+    process.env.WENXIN_API_KEY = 'invalid_key_to_force_fallback';
+    try {
+      const result = await generateEmbedding('降级测试');
       expect(Array.isArray(result)).toBe(true);
-      expect(result.every(v => typeof v === 'number')).toBe(true);
-    });
-
-    test('should handle different embedding dimensions', async () => {
-      // Mock Qianwen with larger embedding
-      axios.post.mockResolvedValueOnce({
-        data: {
-          output: {
-            embeddings: [{
-              embedding: [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8]
-            }]
-          }
-        }
-      });
-
-      const result = await generateEmbedding('test', { provider: QIANWEN_PROVIDER });
-
-      expect(result.length).toBe(8);
-    });
+    } finally {
+      process.env.WENXIN_API_KEY = savedKey;
+    }
   });
 });

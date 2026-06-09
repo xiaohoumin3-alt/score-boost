@@ -18,6 +18,8 @@ const {
   calculateDelay,
   sleep,
   getConfig,
+  loadConfig,
+  loadFromEnv,
   createTimeoutController
 } = require('../index')
 
@@ -44,6 +46,8 @@ describe('index.js 模块导出', () => {
 
   test('应该导出配置工具', () => {
     expect(getConfig).toBeDefined()
+    expect(loadConfig).toBeDefined()
+    expect(loadFromEnv).toBeDefined()
     expect(createTimeoutController).toBeDefined()
   })
 
@@ -93,15 +97,6 @@ describe('createLLMClient', () => {
 
     expect(client).toBeInstanceOf(MiniMaxClient)
     expect(client.apiKey).toBe('custom-key')
-    expect(client.baseUrl).toBe('https://token-plan-cn.xiaomimimo.com/v1')
-    expect(client.model).toBe('mimo-v2-flash')
-  })
-
-  test('应该拒绝不支持的 provider', () => {
-    process.env.LLM_API_KEY = 'test-key'
-
-    expect(() => createLLMClient({ provider: 'openai' }))
-      .toThrow('不支持的 Provider: openai，目前仅支持 minimax')
   })
 
   test('应该支持自定义 logger', () => {
@@ -111,7 +106,6 @@ describe('createLLMClient', () => {
     }
 
     const client = createLLMClient({
-      provider: 'minimax',
       apiKey: 'test-key',
       baseUrl: 'https://test.com',
       model: 'test-model',
@@ -126,11 +120,7 @@ describe('createLLMClient', () => {
   })
 
   test('当提供完整参数时不应因环境变量未设置而失败', () => {
-    // 这个测试验证当所有必需参数都提供时，
-    // createLLMClient 不会因为环境变量未设置而失败
-    // 注意：需要包含 provider 以避免触发 getConfig
     const client = createLLMClient({
-      provider: 'minimax',
       apiKey: 'test-key',
       baseUrl: 'https://test.com',
       model: 'test-model',

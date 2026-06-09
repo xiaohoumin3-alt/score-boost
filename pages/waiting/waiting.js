@@ -2,6 +2,9 @@
 const api = require('../../utils/cloudApi.js');
 
 Page({
+  // 超过2分钟仍然 pending 时显示重试按钮
+  FORCE_SYNC_THRESHOLD_ATTEMPTS: 24,  // 24次 × 5秒 = 2分钟
+
   data: {
     queueId: null,
     statusText: '题目正在生成中...',
@@ -10,6 +13,7 @@ Page({
     progressText: '预计需要 1-2 分钟',
     tipText: 'AI正在根据您的学习情况智能生成题目，请耐心等待',
     allowCancel: true,
+    showRetryButton: false,
     polling: false,
     maxAttempts: 300,
     currentAttempt: 0
@@ -81,6 +85,15 @@ Page({
 
     // 根据状态更新提示文字
     this.updateStatusText(status);
+
+    // 超过阈值仍然 pending 时，显示直接重试按钮
+    if (status === 'pending' && attempt >= this.FORCE_SYNC_THRESHOLD_ATTEMPTS && !this.data.showRetryButton) {
+      console.log('[waiting] Pending too long, showing retry button');
+      this.setData({
+        showRetryButton: true,
+        tipText: '生成时间较长，可以尝试直接重新生成'
+      });
+    }
   },
 
   /**
@@ -187,6 +200,57 @@ Page({
         }
       }
     });
+  },
+
+  /**
+   * 强制同步重试（跳过队列）
+   */
+  async forceSyncRetry() {
+    wx.showLoading({ title: '重新生成中...' });
+
+    try {
+      // 取消当前队列任务
+      await api.cancelQueueTask(this.data.queueId).catch(() => {});
+      wx.removeStorageSync('currentQueueId');
+
+      // 以 force_sync=true 重新发起
+      const storageQueueId = this.data.queueId;
+      // 读取当前测评参数（从 storage 获取）
+      const lastParams = wx.getStorageSync('lastAssessmentParams') || {};
+      const result = await api.startAssessment(
+        lastParams.grade || '',
+        lastParams.subject || '',
+        lastParams.mode || 'quick',
+        null,
+        { forceSync: true }
+      );
+
+      wx.hideLoading();
+
+      if (result && result.status === 'ready') {
+        // 直接拿到题目，跳转到测评
+        wx.reLaunch({
+          url: '/pages/assessment/assessment?assessmentId=' + result.assessment_id
+        });
+      } else if (result && result.status === 'queued') {
+        // 新队列任务
+        this.setData({
+          queueId: result.queue_id,
+          showRetryButton: false,
+          progressPercent: 0,
+          currentAttempt: 0,
+          statusText: '题目正在生成中...',
+          tipText: 'AI正在根据您的学习情况智能生成题目，请耐心等待'
+        });
+        this.startPolling();
+      } else {
+        wx.showToast({ title: '重试失败，请稍后再试', icon: 'none' });
+      }
+    } catch (e) {
+      wx.hideLoading();
+      console.error('[waiting] forceSyncRetry error:', e);
+      wx.showToast({ title: '重试失败', icon: 'none' });
+    }
   },
 
   /**

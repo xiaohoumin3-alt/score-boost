@@ -6,7 +6,7 @@ Page({
   data: {
     loading: true,
     kpList: [],
-    totalKp: 15,
+    totalKp: 0,
     masteredKp: 0,
     learningKp: 0,
     weakKp: 0,
@@ -40,7 +40,7 @@ Page({
       this.setData({
         loading: false,
         kpList,
-        totalKp: kpList.length || 15,
+        totalKp: kpList.length,
         masteredKp,
         learningKp,
         weakKp,

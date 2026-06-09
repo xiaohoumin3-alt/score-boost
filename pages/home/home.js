@@ -18,17 +18,38 @@ Page({
     hasPendingReviews: false,
     pendingReviews: [],
     todayTask: null,  // AI原生Phase 2: 今日任务
+    signinStreak: 0,
+    canSignin: true,
     showTopics: false,  // 是否显示知识点选择
-    homeLoaded: false  // 防止重复加载
+    homeLoaded: false,  // 防止重复加载
+    navHeight: 128  // 导航区域高度(rpx)，onLoad中动态计算
   },
 
   onLoad() {
+    // 动态计算导航区域高度（状态栏 + 标题栏）
+    try {
+      const sysInfo = wx.getSystemInfoSync();
+      const statusBarHeight = sysInfo.statusBarHeight || 20;
+      // 标题栏高度：iOS 44px, Android 48px
+      const titleBarHeight = sysInfo.platform === 'android' ? 48 : 44;
+      this.setData({
+        navHeight: (statusBarHeight + titleBarHeight) * 2  // px → rpx
+      });
+    } catch (e) { /* use default */ }
+
     console.log('[home] onLoad - 首次加载');
     this.setData({ homeLoaded: false });
     this.loadHome();
   },
 
   onShow() {
+    // 检查并修复 studentId
+    const app = getApp();
+    if (!app.globalData.studentId && app.globalData.openid) {
+      console.log('[home] No studentId, using openid as studentId');
+      app.saveSession({ studentId: app.globalData.openid });
+    }
+
     // 只在首次加载或数据可能变化时加载
     if (!this.data.homeLoaded) {
       console.log('[home] onShow - 首次加载');
@@ -39,22 +60,23 @@ Page({
   },
 
   async loadHome() {
+    const currentSubject = app.globalData.subject || '数学';
+    const currentGrade = app.globalData.grade || '八年级';
+
+    api.track('page_view', { page: 'home', subject: currentSubject, grade: currentGrade });
     this.setData({
       loading: true,
-      subject: app.globalData.subject || '数学',
-      grade: app.globalData.grade || '八年级'
+      subject: currentSubject,
+      grade: currentGrade
     });
     try {
-      // 传入当前选择的科目和年级用于过滤
-      const currentSubject = app.globalData.subject || '数学';
-      const currentGrade = app.globalData.grade || '八年级';
-      const res = await api.getAssessmentList(currentSubject, currentGrade);
-      const list = res.assessments || [];
+      // 按当前科目年级查询最新测评
+      const diagnosis = await api.getLatestDiagnosis(currentSubject, currentGrade);
 
       // 计算当前水平
       let currentScore = 0;
-      if (list.length > 0) {
-        currentScore = list[0].score_percent || 0;
+      if (diagnosis && diagnosis.score_percent > 0) {
+        currentScore = diagnosis.score_percent;
       }
 
       // 计算目标差距
@@ -65,17 +87,28 @@ Page({
       let nextAction = null;
       let currentStep = null;
 
-      if (list.length === 0) {
-        // 从未测评
+      // 从最新测评中提取真实薄弱点
+      const kpStats = diagnosis?.kp_stats || [];
+      const weakPoints = api.analyzeWeakPoints(kpStats);
+
+      if (!diagnosis || !diagnosis.score_percent) {
+        // 该科目年级从未测评
         nextAction = { type: 'start_assessment', label: '开始测评', desc: '找到你的薄弱点' };
       } else if (currentScore >= 85) {
         // 已达成目标
         nextAction = { type: 'maintain', label: '保持领先', desc: '继续巩固所学' };
       } else {
-        // 需要继续练习
-        currentStep = this.getNextStep(currentScore);
+        // 需要继续练习 —— 从真实薄弱点取最弱的一个
+        currentStep = this.getNextStep(weakPoints);
         nextAction = { type: 'practice', label: '继续练习', desc: currentStep ? currentStep.name : '针对性训练' };
       }
+
+      // 最近记录（按当前科目年级）
+      let recentAssessments = [];
+      try {
+        const historyRes = await api.getAssessmentList(currentSubject, currentGrade);
+        recentAssessments = (historyRes.assessments || []).slice(0, 3);
+      } catch (e) { /* non-critical */ }
 
       this.setData({
         loading: false,
@@ -84,7 +117,7 @@ Page({
         totalGap,
         currentStep,
         nextAction,
-        recentAssessments: list.slice(0, 3)
+        recentAssessments
       });
 
       // 加载成就数据
@@ -93,6 +126,9 @@ Page({
       await this.loadPendingReviews();
       // AI原生Phase 2: 加载今日任务
       await this.loadTodayTask();
+
+      // 加载签到信息
+      await this.loadSigninInfo();
 
       // 标记为已加载
       this.setData({ homeLoaded: true });
@@ -157,7 +193,12 @@ Page({
 
   async loadPendingReviews() {
     try {
-      const res = await api.getKpProgress();
+      // 获取当前科目年级（与首页其他部分保持一致）
+      const currentSubject = app.globalData.subject || '数学';
+      const currentGrade = app.globalData.grade || '八年级';
+
+      // 传递科目年级参数，确保只返回当前科目年级的知识点
+      const res = await api.getKpProgress(currentSubject, currentGrade);
       if (res.success && res.data) {
         const kpList = Array.isArray(res.data) ? res.data : [res.data];
         const now = new Date();
@@ -193,17 +234,11 @@ Page({
     }
   },
 
-  getNextStep(score) {
-    // 根据分数确定下一步
-    if (score < 60) {
-      return { id: 1, name: '二次根式', score: 8 };
-    } else if (score < 70) {
-      return { id: 2, name: '勾股定理', score: 5 };
-    } else if (score < 80) {
-      return { id: 3, name: '平行四边形', score: 4 };
-    } else {
-      return { id: 4, name: '一次函数', score: 3 };
-    }
+  getNextStep(weakPoints) {
+    if (!weakPoints || weakPoints.length === 0) return null;
+    // 返回最薄弱的知识点（analyzeWeakPoints 已按正确率从低到高排序）
+    const wp = weakPoints[0];
+    return { id: wp.kp_id, name: wp.kp_name || resolveKpName(wp.kp_id), score: 0 };
   },
 
   handleAction() {
@@ -214,9 +249,11 @@ Page({
     }
 
     if (nextAction.type === 'start_assessment') {
+      api.track('assessment_start', { source: 'home_action' });
       wx.navigateTo({ url: '/pages/onboarding/onboarding' });
     } else if (nextAction.type === 'practice') {
       if (currentStep) {
+        api.track('practice_start', { source: 'home_action', kp_id: currentStep ? currentStep.id : null });
         // 跳转到路径页，让用户点击具体知识点
         wx.switchTab({ url: '/pages/path/path' });
       } else {
@@ -240,6 +277,7 @@ Page({
   goReview(e) {
     const kp = e.currentTarget.dataset.kp;
     app.targetKpId = kp.kp_id;
+    api.track('review_start', { kp_id: kp.kp_id, kp_name: kp.kp_name });
     app.targetKpName = kp.kp_name || resolveKpName(kp.kp_id);
     wx.switchTab({ url: '/pages/practice/practice' });
   },
@@ -247,6 +285,23 @@ Page({
   /**
    * 加载今日任务（AI原生Phase 2）
    */
+  async loadSigninInfo() {
+    try {
+      const res = await api.callCloudFunction('pointsManager', { action: 'getPoints' });
+      if (res && res.success !== false) {
+        const data = res.data || res;
+        const today = new Date().toISOString().split('T')[0];
+        this.setData({
+          signinStreak: data.signin_streak || 0,
+          canSignin: data.last_signin !== today
+        });
+      }
+    } catch (e) {
+      console.log('[home] loadSigninInfo failed (non-critical):', e.message);
+    }
+  },
+
+
   async loadTodayTask() {
     try {
       const studentId = app.globalData.studentId;
@@ -260,9 +315,17 @@ Page({
         return;
       }
 
+      // 获取当前科目年级
+      const currentSubject = app.globalData.subject || '数学';
+      const currentGrade = app.globalData.grade || '八年级';
+
       const result = await wx.cloud.callFunction({
         name: 'generateDailyTask',
-        data: { student_id: studentId }
+        data: {
+          student_id: studentId,
+          subject: currentSubject,
+          grade: currentGrade
+        }
       });
 
       if (result.result && result.result.success && result.result.data) {
@@ -281,6 +344,13 @@ Page({
   startTodayTask() {
     const { todayTask } = this.data;
     if (!todayTask) return;
+    api.track('today_task_start', { task_title: todayTask.title, kp_id: todayTask.kp_id });
+
+    // 引导任务：跳转到测评页面
+    if (todayTask.action === 'start_assessment') {
+      wx.navigateTo({ url: '/pages/onboarding/onboarding' });
+      return;
+    }
 
     // 设置目标知识点
     app.targetKpId = todayTask.kp_id;
@@ -295,5 +365,23 @@ Page({
    */
   showAllTopics() {
     wx.switchTab({ url: '/pages/path/path' });
+  },
+
+  async quickSignin() {
+    if (!this.data.canSignin) {
+      wx.showToast({ title: '今天已签到', icon: 'none' });
+      return;
+    }
+    try {
+      const res = await api.callCloudFunction('pointsManager', { action: 'signin' });
+      if (res && res.success !== false) {
+        const pointsEarned = res.points_earned || res.data && res.data.points_earned || 10;
+        wx.showToast({ title: `签到成功！+${pointsEarned}积分 连续${(this.data.signinStreak || 0) + 1}天`, icon: 'success' });
+        this.setData({ canSignin: false, signinStreak: (this.data.signinStreak || 0) + 1 });
+        api.track('signin', { source: 'home', points_earned: pointsEarned });
+      }
+    } catch (e) {
+      wx.showToast({ title: '签到失败', icon: 'none' });
+    }
   }
 });

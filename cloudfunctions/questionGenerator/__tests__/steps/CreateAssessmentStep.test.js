@@ -44,7 +44,7 @@ describe('CreateAssessmentStep - 回滚逻辑', () => {
   });
 
   describe('rollback - 精确回滚测试', () => {
-    test('应只删除本任务创建的assessment（使用question_ids精确匹配）', async () => {
+    test('应只删除本任务创建的assessment（使用assessment_id精确匹配）', async () => {
       const mockCollection = {
         where: jest.fn().mockReturnThis(),
         remove: jest.fn().mockResolvedValue({ stats: { removed: 1 } })
@@ -52,20 +52,19 @@ describe('CreateAssessmentStep - 回滚逻辑', () => {
 
       mockDb.collection.mockReturnValue(mockCollection);
 
+      // State 中设置 assessment_id
+      mockCtx.state.set(STEP_OUTPUT_KEYS.ASSESSMENT_ID, 'assessment_abc');
       await step.rollback(mockCtx);
 
-      // 验证调用where时使用了精确的question_ids条件
+      // 验证调用where时使用了精确的assessment_id条件
       expect(mockDb.collection).toHaveBeenCalledWith('assessments');
       expect(mockCollection.where).toHaveBeenCalledWith({
-        student_id: 'student_456',
-        status: 'ready',
-        question_ids: { $in: ['q1', 'q2', 'q3'] }  // db.command.in()返回{$in: Array}格式
+        assessment_id: 'assessment_abc'
       });
       expect(mockCollection.remove).toHaveBeenCalled();
     });
 
     test('并发场景下不应误删其他任务的assessment', async () => {
-      // 模拟数据库中有多个assessment记录
       const mockCollection = {
         where: jest.fn().mockReturnThis(),
         remove: jest.fn().mockResolvedValue({ stats: { removed: 1 } })
@@ -73,41 +72,31 @@ describe('CreateAssessmentStep - 回滚逻辑', () => {
 
       mockDb.collection.mockReturnValue(mockCollection);
 
-      // 任务A的question_ids
-      const taskAQuestionIds = ['q1', 'q2', 'q3'];
-      mockCtx.getRequired.mockReturnValue(taskAQuestionIds);
-
+      mockCtx.state.set(STEP_OUTPUT_KEYS.ASSESSMENT_ID, 'assessment_xyz');
       await step.rollback(mockCtx);
 
-      // 验证只删除了匹配question_ids的assessment
-      // 如果只使用student_id和status，会删除所有学生的ready状态assessment
+      // 验证使用 assessment_id 精确匹配，不会误删其他任务
       const whereClause = mockCollection.where.mock.calls[0][0];
-
-      expect(whereClause).toHaveProperty('student_id');
-      expect(whereClause).toHaveProperty('status');
-      expect(whereClause).toHaveProperty('question_ids');
-      // db.command.in()返回{$in: Array}格式
-      expect(whereClause.question_ids).toEqual({ $in: taskAQuestionIds });
+      expect(whereClause).toHaveProperty('assessment_id');
+      expect(whereClause.assessment_id).toBe('assessment_xyz');
     });
   });
 
   describe('execute - 正常流程', () => {
     test('应成功创建assessment并返回assessment_id', async () => {
-      const assessmentId = 'assessment_789';
       const mockCollection = {
-        add: jest.fn().mockResolvedValue({ _id: assessmentId })
+        add: jest.fn().mockResolvedValue({ _id: 'db_record_id' })
       };
 
       mockDb.collection.mockReturnValue(mockCollection);
 
       const result = await step.execute(mockCtx);
 
-      expect(result).toEqual({
-        success: true,
-        data: {
-          [STEP_OUTPUT_KEYS.ASSESSMENT_ID]: assessmentId
-        }
-      });
+      expect(result.success).toBe(true);
+      // 返回的是生成的UUID格式assessment_id, 不是传入的固定值
+      expect(result.data[STEP_OUTPUT_KEYS.ASSESSMENT_ID]).toMatch(
+        /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/
+      );
 
       expect(mockCollection.add).toHaveBeenCalledWith({
         data: {
@@ -118,6 +107,7 @@ describe('CreateAssessmentStep - 回滚逻辑', () => {
           mode: undefined,
           question_ids: ['q1', 'q2', 'q3'],
           status: 'ready',
+          assessment_id: expect.any(String),
           created_at: expect.any(String)
         }
       });

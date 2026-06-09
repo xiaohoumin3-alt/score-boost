@@ -17,7 +17,7 @@ try {
 // 导入知识树（用于冷启动）
 let loadKnowledgeTree;
 try {
-  const kt = require('../practice_v2/knowledge_tree');
+  const kt = require('./shared/knowledge_tree');
   loadKnowledgeTree = kt.loadKnowledgeTree;
 } catch (e) {
   // 测试环境，使用mock

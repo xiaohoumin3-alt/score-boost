@@ -1,4 +1,5 @@
 const app = getApp();
+const api = require('../../utils/cloudApi.js');
 
 // 年级列表
 const GRADES = ['一年级', '二年级', '三年级', '四年级', '五年级', '六年级', '七年级', '八年级', '九年级'];
@@ -69,6 +70,7 @@ Page({
       app.globalData.subject = selectedSubject;
       app.globalData.examMode = 'huikao';
       app.saveSession({ subject: selectedSubject, examMode: 'huikao' });
+      api.track('onboarding_complete', { grade: '会考', subject: selectedSubject, mode: 'huikao' });
 
       wx.reLaunch({ url: '/pages/assessment/assessment?mode=huikao' });
     } else {
@@ -82,6 +84,7 @@ Page({
       app.globalData.examMode = 'grade';
 
       app.saveSession({ grade: selectedGrade, subject: selectedSubject, examMode: 'grade' });
+      api.track('onboarding_complete', { grade: selectedGrade, subject: selectedSubject, mode: 'grade' });
 
       wx.reLaunch({ url: '/pages/assessment/assessment' });
     }

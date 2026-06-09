@@ -186,6 +186,51 @@
       </view>
     </view>
 
+      <!-- ========== 贴图社区：official-account-publish 组件 ========== -->
+      <view class="tie-zi-community-section">
+        <view class="section-title">
+          <text class="section-title-text">擂台战报圈</text>
+          <text class="section-title-sub">看看其他家庭的战况</text>
+        </view>
+        <official-account-publish
+          wx:if="{{canUsePublish}}"
+          topic="亲子擂台赛"
+          limit="4"
+          path="/pages/parent-assessment/parent-assessment"
+          placeholder="来发表你的战报吧..."
+          background-color="#1a1a2e"
+          color-unity="{{true}}"
+          bindempty="onPublishListEmpty"
+          bindpublishsuccess="onPublishSuccess"
+          bindpublishfail="onPublishFail"
+          binderror="onPublishError"
+        ></official-account-publish>
+      </view>
+
+      <!-- ========== 一键发帖到公众号（wx.shareToOfficialAccount） ========== -->
+      <view class="share-to-oa-section">
+        <button class="btn-post-oa" bindtap="postToOfficialAccount" disabled="{{postingOA}}">
+          {{postingOA ? '发帖中...' : '一键战报发公众号'}}
+        </button>
+        <text class="post-oa-hint" wx:if="{{!hasOAPosted}}">生成战报海报，一键发到公众号</text>
+        <text class="post-oa-success" wx:if="{{hasOAPosted}}">已发帖成功！</text>
+      </view>
+
+      <!-- 战报海报预览（隐藏canvas，用于生成图片） -->
+      <canvas type="2d" id="battleReportCanvas" class="battle-report-canvas"></canvas>
+
+      <!-- 海报预览浮层 -->
+      <view class="poster-preview" wx:if="{{showPosterPreview}}" bindtap="closePosterPreview">
+        <view class="poster-mask"></view>
+        <view class="poster-content" catchtap="">
+          <image class="poster-image" src="{{posterImagePath}}" mode="widthFix"></image>
+          <view class="poster-actions">
+            <button class="btn-save-poster" bindtap="savePoster">保存图片</button>
+            <button class="btn-close-poster" bindtap="closePosterPreview">关闭</button>
+          </view>
+        </view>
+      </view>
+
     <view class="comparison-footer">
       <button class="btn-share" open-type="share">
         分享结果

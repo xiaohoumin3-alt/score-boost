@@ -122,10 +122,10 @@ Page({
           resolve({
             weak_points: [],
             mastered: [],
-            learning_style: 'visual',
+            learning_style: null,
             error_patterns: [],
             recent_mistakes: [],
-            avg_time_per_question: 90
+            avg_time_per_question: null
           });
         }
       }).catch(function(e) {
@@ -133,10 +133,10 @@ Page({
         resolve({
           weak_points: [],
           mastered: [],
-          learning_style: 'visual',
+          learning_style: null,
           error_patterns: [],
           recent_mistakes: [],
-          avg_time_per_question: 90
+          avg_time_per_question: null
         });
       });
     });
@@ -144,6 +144,7 @@ Page({
 
   initPractice: function() {
     var self = this;
+    api.track('practice_start', { kp_id: self.data.kpId, kp_name: self.data.kpName, source: self.data.weakPoints ? 'path' : 'direct' });
     wx.showLoading({ title: '加载中...' });
     console.log('[Practice] initPractice called with:', {
       kpId: self.data.kpId,
@@ -232,7 +233,6 @@ Page({
     answers[currentQuestion.id] = {
       question_id: currentQuestion.id,
       answer: option,
-      is_correct: isCorrect
     };
 
     // 记录结果用于显示标记
@@ -241,6 +241,7 @@ Page({
       correctAnswer: currentQuestion.correct_answer
     };
 
+    api.track('question_answer', { question_id: currentQuestion.id, is_correct: isCorrect });
     this.setData({ selectedOption: option, answers, questionResults });
 
     // 显示反馈
@@ -343,6 +344,11 @@ Page({
 
   submitAll: function() {
     this.setData({ loading: true });
+    var practiceAnswers = this.data.answers;
+    var correctCount = 0;
+    var total = this.data.questions.length;
+    for (var k in practiceAnswers) { if (practiceAnswers[k].is_correct) correctCount++; }
+    api.track('practice_complete', { correct: correctCount, total: total });
 
     // 批量提交答案到 kp_progress
     var submitPromises = [];

@@ -1,7 +1,6 @@
 <view class="page">
-  <!-- Header -->
-  <view class="header">
-    <text class="title">提分路径</text>
+  <view class="nav-safe-area" style="height: {{navHeight}}rpx;">
+    <text class="nav-title">提分路径</text>
   </view>
 
   <view class="loading" wx:if="{{loading}}">
@@ -12,7 +11,7 @@
   <view class="score-section" wx:if="{{!loading}}">
     <view class="score-display">
       <view class="score-ring">
-        <view class="ring-outer">
+        <view class="ring-outer" style="background: conic-gradient(from 0deg, #00E5A0 {{currentScore * 3.6}}deg, rgba(255,255,255,0.06) {{currentScore * 3.6}}deg);">
           <view class="ring-progress" style="transform: rotate({{currentScore * 3.6 - 90}}deg);"></view>
           <view class="ring-inner">
             <text class="score-value">{{currentScore}}</text>
@@ -35,9 +34,26 @@
     </view>
   </view>
 
+  <!-- No Assessment State -->
+  <view class="empty-section" wx:if="{{!loading && !hasAssessment}}">
+    <text class="empty-icon">📋</text>
+    <text class="empty-title">还没有测评记录</text>
+    <text class="empty-desc">完成一次测评后，AI 将为你生成个性化提分路径</text>
+    <view class="empty-action" bindtap="startAssessment">
+      <text class="empty-action-text">开始测评</text>
+    </view>
+  </view>
+
+  <!-- Has assessment but no weak points -->
+  <view class="empty-section" wx:if="{{!loading && hasAssessment && path.length === 0}}">
+    <text class="empty-icon">🎉</text>
+    <text class="empty-title">表现优秀</text>
+    <text class="empty-desc">当前没有明显薄弱点，继续保持！</text>
+  </view>
+
   <!-- Path Steps -->
-  <view class="path-section" wx:if="{{!loading}}">
-    <text class="section-title">最短提分路径</text>
+  <view class="path-section" wx:if="{{!loading && path.length > 0}}">
+    <text class="sec-label sec-label--accent">最短提分路径</text>
     <view class="path-list">
       <block wx:for="{{path}}" wx:key="id">
         <view class="path-step step-{{item.status}}">
@@ -49,7 +65,7 @@
           <view class="step-content">
             <view class="step-header">
               <text class="step-name">{{item.name}}</text>
-              <text class="step-score" wx:if="{{item.status !== 'locked'}}">+{{item.score}}分</text>
+              <text class="step-accuracy" wx:if="{{item.status !== 'locked'}}">正确率 {{item.accuracy}}%</text>
             </view>
             <view class="step-bar">
               <view class="bar-fill bar-{{item.status}}" style="width: {{item.status === 'completed' ? '100%' : (item.status === 'current' ? '60%' : '0%')}}"></view>
@@ -62,52 +78,50 @@
 
   <!-- Current Action -->
   <view class="action-section" wx:if="{{!loading && currentStep}}">
-      <view class="current-card">
-        <view class="card-header">
-          <text class="card-label">当前任务</text>
-          <text class="card-badge">进行中</text>
-        </view>
-        <text class="card-title">{{currentStep.name}}</text>
-        <text class="card-desc">完成此知识点预计提升 {{currentStep.score}} 分</text>
-        <view class="card-action" bindtap="startStep">
-          <text>开始练习 →</text>
-        </view>
+    <view class="current-card">
+      <view class="card-header">
+        <text class="card-label">当前任务</text>
+        <text class="card-badge">进行中</text>
+      </view>
+      <text class="card-title">{{currentStep.name}}</text>
+      <text class="card-desc">正确率 {{currentStep.accuracy}}%，错题 {{currentStep.wrongCount}} 道</text>
+      <view class="card-action" bindtap="startStep">
+        <text>开始练习 →</text>
       </view>
     </view>
+  </view>
 
-    <!-- Progress Summary -->
-    <view class="progress-section" wx:if="{{!loading}}">
-      <view class="progress-item">
-        <text class="progress-value">{{completedSteps}}</text>
-        <text class="progress-label">已完成</text>
-      </view>
-      <view class="progress-divider"></view>
-      <view class="progress-item">
-        <text class="progress-value">{{path.length - completedSteps}}</text>
-        <text class="progress-label">待完成</text>
-      </view>
-      <view class="progress-divider"></view>
-      <view class="progress-item">
-        <text class="progress-value">{{totalGap}}</text>
-        <text class="progress-label">分差距</text>
-      </view>
+  <!-- Progress Summary -->
+  <view class="progress-section" wx:if="{{!loading && path.length > 0}}">
+    <view class="progress-item">
+      <text class="progress-value progress-value--accent">{{completedSteps}}</text>
+      <text class="progress-label">已完成</text>
     </view>
+    <view class="progress-item">
+      <text class="progress-value progress-value--warning">{{path.length - completedSteps}}</text>
+      <text class="progress-label">待完成</text>
+    </view>
+    <view class="progress-item">
+      <text class="progress-value progress-value--danger">{{totalGap}}</text>
+      <text class="progress-label">分差距</text>
+    </view>
+  </view>
 
-    <!-- 个性化学习 -->
-    <view class="personalized-section" wx:if="{{!loading}}">
-      <text class="section-title">个性化学习</text>
-      <view class="chain-card">
-        <view class="chain-item" bindtap="goToUpload">
-          <text class="chain-icon">📤</text>
-          <text class="chain-name">上传资料</text>
-          <text class="chain-desc">PDF/文档</text>
-        </view>
-        <text class="chain-arrow">›</text>
-        <view class="chain-item" bindtap="goToExclusiveExam">
-          <text class="chain-icon">🎯</text>
-          <text class="chain-name">专属测评</text>
-          <text class="chain-desc">基于你的资料</text>
-        </view>
+  <!-- 个性化学习 -->
+  <view class="personalized-section" wx:if="{{!loading}}">
+    <text class="sec-label sec-label--info">个性化学习</text>
+    <view class="chain-card">
+      <view class="chain-item" bindtap="goToUpload">
+        <text class="chain-icon">📤</text>
+        <text class="chain-name">上传资料</text>
+        <text class="chain-desc">PDF/文档</text>
+      </view>
+      <text class="chain-arrow">›</text>
+      <view class="chain-item" bindtap="goToExclusiveExam">
+        <text class="chain-icon">🎯</text>
+        <text class="chain-name">专属测评</text>
+        <text class="chain-desc">基于你的资料</text>
       </view>
     </view>
+  </view>
 </view>

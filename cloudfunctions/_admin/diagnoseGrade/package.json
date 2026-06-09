@@ -1,0 +1,9 @@
+{
+  "name": "diagnoseGrade",
+  "version": "1.0.0",
+  "description": "诊断 ai_question_pool 中的 grade 字段分布",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

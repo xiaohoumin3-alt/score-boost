@@ -70,7 +70,7 @@ class MiniMaxClient {
     this.maxDelay = options.maxDelay ?? config.maxDelay ?? 60000
 
     if (!this.apiKey) {
-      throw new LLMConfigError('MiniMax API Key 未设置')
+      throw new LLMConfigError('LLM API Key 未设置')
     }
   }
 

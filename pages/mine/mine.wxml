@@ -32,7 +32,7 @@
       </view>
       <view class="signin-right">
         <view class="signin-btn {{can_signin ? '' : 'signed'}}" bindtap="signin">
-          <text class="signin-btn-text">{{can_signin ? '签到' : '已签到'}}</text>
+          <text class="signin-btn-text">{{can_signin ? '签到 +10积分' : '已签到'}}</text>
         </view>
         <text class="signin-tip">连续7天额外+100积分</text>
       </view>
@@ -78,6 +78,16 @@
         </view>
         <text class="menu-arrow">›</text>
       </view>
+      <view class="menu-card" bindtap="goToMistakes">
+        <view class="menu-icon-wrap">
+          <text class="menu-icon">📝</text>
+        </view>
+        <view class="menu-info">
+          <text class="menu-name">错题本</text>
+          <text class="menu-desc">复习做错的题目</text>
+        </view>
+        <text class="menu-arrow">›</text>
+      </view>
       <view class="menu-card" bindtap="goToPoints">
         <view class="menu-icon-wrap">
           <text class="menu-icon">💰</text>
@@ -85,6 +95,16 @@
         <view class="menu-info">
           <text class="menu-name">积分中心</text>
           <text class="menu-desc">{{points}}积分</text>
+        </view>
+        <text class="menu-arrow">›</text>
+      </view>
+      <view class="menu-card" bindtap="goToVip">
+        <view class="menu-icon-wrap">
+          <text class="menu-icon">👑</text>
+        </view>
+        <view class="menu-info">
+          <text class="menu-name">充值中心</text>
+          <text class="menu-desc">兑换码充值积分</text>
         </view>
         <text class="menu-arrow">›</text>
       </view>
@@ -105,13 +125,33 @@
       <text class="section-title">邀请好友</text>
       <view class="invite-card">
         <view class="invite-row">
-          <text class="invite-code-label">邀请码</text>
+          <text class="invite-code-label">我的邀请码</text>
           <text class="invite-code-value">{{invite_code || '---'}}</text>
         </view>
         <view class="invite-actions">
-          <button class="invite-btn share-btn" open-type="share">分享给好友</button>
+          <button class="invite-btn share-btn" open-type="share">分享邀请码</button>
+          <button class="invite-btn input-btn" bindtap="inputInviteCode">输入邀请码</button>
         </view>
-        <text class="invite-reward">好友注册得50积分，好友完成测评额外得30积分</text>
+        <text class="invite-reward">邀请人 +50 | 被邀请人 +30</text>
+      </view>
+    </view>
+
+    <!-- 积分消耗 -->
+    <view class="section-block">
+      <text class="section-title">积分消耗</text>
+      <view class="cost-table">
+        <view class="cost-row">
+          <text class="cost-name">AI测评</text>
+          <text class="cost-value">-30</text>
+        </view>
+        <view class="cost-row">
+          <text class="cost-name">AI练习</text>
+          <text class="cost-value">-20</text>
+        </view>
+        <view class="cost-row">
+          <text class="cost-name">家长测评</text>
+          <text class="cost-value">-50</text>
+        </view>
       </view>
     </view>
   </block>

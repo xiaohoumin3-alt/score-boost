@@ -6,6 +6,9 @@
 
 // 引入个性化Prompt模板
 const { buildPersonalizedPrompt } = require('./prompt-templates.js');
+const { normalizeQuestion } = require('./shared/question-normalizer');
+const { createLLMClient } = require('../shared/llm-core');
+const { loadConfig } = require('../shared/llm-core/config');
 
 let cloud = null;
 let db = null;
@@ -240,223 +243,81 @@ class ImageClient {
 }
 
 /**
- * LLM客户端 - 封装MIMO/MiniMax API调用（OpenAI兼容接口）
+ * 构建LLM提示词
  */
-class LlmClient {
-  constructor(config = {}) {
-    // DeepSeek API (国内可用，上海机房5秒内响应)
-    this.apiKey = config.apiKey || process.env.LLM_API_KEY;
-    this.baseUrl = config.baseUrl || process.env.LLM_BASE_URL || 'https://api.deepseek.com';
-    this.model = config.model || process.env.LLM_MODEL || 'deepseek-chat';
-    this.timeout = config.timeout || parseInt(process.env.LLM_TIMEOUT_MS || '45000', 10);
-    this.maxRetries = config.maxRetries || parseInt(process.env.LLM_MAX_RETRIES || '2', 10);
-    this.retryDelay = config.retryDelay || parseInt(process.env.LLM_RETRY_DELAY_MS || '1000', 10);
+function buildLlmPrompt(params) {
+  const { student_profile } = params;
+
+  if (student_profile && Object.keys(student_profile).length > 0) {
+    console.log('[LLM] Using personalized prompt with student profile');
+    return buildPersonalizedPrompt(params);
   }
 
-  async generate(params) {
-    console.log('[LLM] === GENERATE START ===');
-    console.log('[LLM] params:', JSON.stringify(params));
-    console.log('[LLM] apiKey present:', !!this.apiKey);
-    console.log('[LLM] apiKey prefix:', this.apiKey ? this.apiKey.substring(0, 10) + '...' : 'N/A');
-    console.log('[LLM] baseUrl:', this.baseUrl);
-    console.log('[LLM] model:', this.model);
+  return buildGenericPrompt(params);
+}
 
-    if (!this.apiKey) {
-      console.error('[LLM] API key missing!');
-      throw new Error('MINIMAX_API_KEY not configured');
-    }
+/**
+ * 构建通用Prompt（原有逻辑）
+ */
+function buildGenericPrompt(params) {
+  const { kp_name, difficulty, chapter, question_type = 'choice', knowledge_context = '', exclude_questions = [] } = params;
 
-    const prompt = this._buildPrompt(params);
-    console.log('[LLM] Prompt built, length:', prompt.length);
+  const difficultyText = {
+    easy: '简单',
+    medium: '中等',
+    hard: '困难'
+  }[difficulty] || '中等';
 
-    // 使用OpenAI兼容接口（https fetch）
-    const requestStart = Date.now();
-    console.log('[LLM] Calling API:', `${this.baseUrl}/chat/completions`);
-
-    try {
-      const response = await safeFetch(`${this.baseUrl}/chat/completions`, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${this.apiKey}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          model: this.model,
-          stream: false,
-          max_tokens: 1000,
-          temperature: 0.7,
-          thinking: { type: 'disabled' },
-          messages: [
-            {
-              role: 'system',
-              content: `你是一个专业的数学题目生成助手。
-
-**难度控制原则**：
-1. 严格按照用户要求的难度级别生成题目
-2. 简单题：90%的学生应能独立完成
-3. 中等题：60%的学生经过思考能完成
-4. 困难题：30%的学生能完成，需要深度思考
-
-请严格按照用户要求的JSON格式返回题目，不要添加任何其他文字或说明。`
-            },
-            {
-              role: 'user',
-              content: prompt
-            }
-          ]
-        })
-      });
-
-      const requestDuration = Date.now() - requestStart;
-      console.log('[LLM] API response received in', requestDuration, 'ms');
-      console.log('[LLM] response.ok:', response.ok);
-      console.log('[LLM] response.status:', response.status);
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error('[LLM] API error:', response.status, errorText);
-        throw new Error(`MIMO API error: ${response.status} ${errorText}`);
-      }
-
-      const result = await response.json();
-      console.log('[LLM] Response JSON parsed');
-      console.log('[LLM] has choices:', !!result.choices);
-      console.log('[LLM] has error:', !!result.error);
-
-      // 检查API错误
-      if (result.error) {
-        console.error('[LLM] API error:', JSON.stringify(result.error));
-        throw new Error(`MIMO API error: ${result.error.message || JSON.stringify(result.error)}`);
-      }
-
-      // OpenAI兼容格式
-      // MIMO推理模型: reasoning_content是推理过程，content是最终JSON答案
-      const message = result.choices?.[0]?.message || {};
-
-      // 诊断：打印完整message结构
-      console.log('[LLM] === MESSAGE STRUCTURE ===');
-      console.log('[LLM] message keys:', Object.keys(message));
-      console.log('[LLM] message.content exists:', !!message.content);
-      console.log('[LLM] message.content length:', message.content?.length || 0);
-      console.log('[LLM] message.reasoning_content exists:', !!message.reasoning_content);
-      console.log('[LLM] message.reasoning_content length:', message.reasoning_content?.length || 0);
-      if (message.content) {
-        console.log('[LLM] content preview:', message.content.substring(0, 100));
-      }
-      if (message.reasoning_content) {
-        console.log('[LLM] reasoning_content preview:', message.reasoning_content.substring(0, 100));
-      }
-
-      // 优先使用content（最终JSON答案）
-      let content = message.content || '';
-
-      // 兜底：如果content为空但reasoning_content有值，尝试从中提取
-      // （thinking:disabled应该避免这种情况，但以防万一）
-      if (!content && message.reasoning_content) {
-        console.log('[LLM] content为空，尝试从reasoning_content中提取JSON...');
-        const rc = message.reasoning_content;
-        const jsonMatch = rc.match(/\{[\s\S]*\}/);
-        if (jsonMatch) {
-          content = jsonMatch[0];
-          console.log('[LLM] 从reasoning_content中提取到JSON，length:', content.length);
-        }
-      }
-
-      if (!content) {
-        console.error('[LLM] ERROR: content field is empty!');
-        console.error('[LLM] Full message:', JSON.stringify(message).substring(0, 1000));
-        throw new Error('LLM API returned empty content field. Check model configuration.');
-      }
-
-      console.log('[LLM] === SUCCESS === using content field, length:', content.length);
-      console.log('[LLM] content preview:', content.substring(0, 100));
-      return { content, usage: result.usage };
-
-    } catch (e) {
-      const requestDuration = Date.now() - requestStart;
-      console.error('[LLM] === FAILED === duration:', requestDuration, 'ms error:', e.message);
-      console.error('[LLM] error stack:', e.stack);
-      throw e;
-    }
-  }
-
-  _buildPrompt(params) {
-    const { kp_name, difficulty, chapter, question_type = 'choice', knowledge_context = '', exclude_questions = [], student_profile } = params;
-
-    // 新增：优先使用个性化Prompt（AI原生核心）
-    if (student_profile && Object.keys(student_profile).length > 0) {
-      console.log('[LLM] Using personalized prompt with student profile');
-      return buildPersonalizedPrompt(params);
-    }
-
-    // 保留：原有通用Prompt（fallback）
-    return this._buildGenericPrompt(params);
-  }
-
-  // 通用Prompt（原有逻辑，重命名）
-  _buildGenericPrompt(params) {
-    const { kp_name, difficulty, chapter, question_type = 'choice', knowledge_context = '', exclude_questions = [] } = params;
-
-    const difficultyText = {
-      easy: '简单',
-      medium: '中等',
-      hard: '困难'
-    }[difficulty] || '中等';
-
-    // 难度标准说明
-    const difficultyGuidance = {
-      easy: `【难度标准 - 简单】
+  const difficultyGuidance = {
+    easy: `【难度标准 - 简单】
 - 直接套用公式或基本概念即可解答
 - 单步推理，不需要复杂变换
 - 数据简单，计算量小
 - 选项中只有一个明显正确答案，干扰项较弱
 - 示例题型：√16的值是？选项：["2", "4", "8", "16"]；直角三角形两直角边为3和4，斜边长为？选项：["5", "6", "7", "8"]`,
 
-      medium: `【难度标准 - 中等】
+    medium: `【难度标准 - 中等】
 - 需要对公式或概念进行适度变形或转换
 - 需要2-3步推理才能得出答案
 - 可能涉及多个知识点的综合应用
 - 选项设计有一定迷惑性，需要仔细辨别
 - 示例题型：√(a²)=|a|，当a<0时，√(a²)等于？选项：["a", "-a", "0", "±a"]；等边三角形边长为6，高为？选项：["3", "3√3", "6", "12"]`,
 
-      hard: `【难度标准 - 困难】
+    hard: `【难度标准 - 困难】
 - 需要多步推理，或涉及抽象概念理解
 - 可能需要逆向思维或特殊情况分析
 - 结果可能具有反直觉性，容易误判
 - 选项高度相似，每个选项都有一定的合理性
 - 可能涉及陷阱题型或边界条件
 - 示例题型：判断下列关于二次根式的说法是否正确（多知识点综合）；需要分类讨论的复杂情况`
-    };
+  };
 
-    const questionTypeText = {
-      choice: '选择题',
-      written: '简答题',
-      coding: '编程题'
-    }[question_type] || '选择题';
+  const questionTypeText = {
+    choice: '选择题',
+    written: '简答题',
+    coding: '编程题'
+  }[question_type] || '选择题';
 
-    let prompt = `请为以下知识点生成一道${difficultyText}难度的${questionTypeText}：
+  let prompt = `请为以下知识点生成一道${difficultyText}难度的${questionTypeText}：
 
 ${difficultyGuidance[difficulty] || difficultyGuidance.medium}
 
 知识点：${kp_name}
 章节：${chapter || '通用'}`;
 
-    // RAG知识上下文注入
-    if (knowledge_context) {
-      prompt += `\n\n知识上下文：\n${knowledge_context}`;
-    }
+  if (knowledge_context) {
+    prompt += `\n\n知识上下文：\n${knowledge_context}`;
+  }
 
-    // 防重复：已生成的相似题目
-    if (exclude_questions && exclude_questions.length > 0) {
-      prompt += `\n\n已生成的相似题目（请避免生成相同或高度相似的）：\n`;
-      exclude_questions.forEach((q, i) => {
-        prompt += `${i + 1}. ${q}\n`;
-      });
-    }
+  if (exclude_questions && exclude_questions.length > 0) {
+    prompt += `\n\n已生成的相似题目（请避免生成相同或高度相似的）：\n`;
+    exclude_questions.forEach((q, i) => {
+      prompt += `${i + 1}. ${q}\n`;
+    });
+  }
 
-    // 题型特定要求
-    if (question_type === 'choice') {
-      prompt += `\n\n要求：
+  if (question_type === 'choice') {
+    prompt += `\n\n要求：
 1. 必须提供恰好 4 个选项且仅 1 个正确答案
 2. **选项长度均衡**：所有选项长度应大致相同，不要让正确选项明显比干扰项更长或更详细
 3. 所有选项应具有合理的迷惑性，风格和长度相近，避免考生通过选项长度猜出答案
@@ -471,48 +332,46 @@ ${difficultyGuidance[difficulty] || difficultyGuidance.medium}
 6. **【重要】禁止生成需要图片/图形/数轴的题目！所有几何信息必须用文字描述
    - 错误示例："已知实数a在数轴上的对应点如图所示"
    - 正确示例："已知实数a满足-3<a<2，化简:|a+3|+|a-2|"`;
-    } else if (question_type === 'written') {
-      prompt += `\n\n要求：
+  } else if (question_type === 'written') {
+    prompt += `\n\n要求：
 1. 不要提供选项
 2. 作答方式应为简答、解释或分析
 3. 给出清晰解释
 4. **数学符号格式**：使用Unicode数学符号（√ ≤ ≥ π ² ³ 等），不要使用LaTeX格式`;
-    } else if (question_type === 'coding') {
-      prompt += `\n\n要求：
+  } else if (question_type === 'coding') {
+    prompt += `\n\n要求：
 1. 不要提供选项
 2. 作答方式应为编写代码、伪代码或算法步骤
 3. 给出清晰解释`;
-    }
+  }
 
-    // JSON格式要求
-    prompt += `\n\n**严格返回纯JSON格式，不要任何其他文字**`;
+  prompt += `\n\n**严格返回纯JSON格式，不要任何其他文字**`;
 
-    if (question_type === 'choice') {
-      prompt += `\n\nJSON格式：
+  if (question_type === 'choice') {
+    prompt += `\n\nJSON格式：
 {
   "question": "题目内容",
   "options": ["选项A", "选项B", "选项C", "选项D"],
   "correct_answer": 0,
   "explanation": "解析内容"
 }`;
-    } else if (question_type === 'written') {
-      prompt += `\n\nJSON格式：
+  } else if (question_type === 'written') {
+    prompt += `\n\nJSON格式：
 {
   "question": "题目内容",
   "sample_answer": "参考答案",
   "explanation": "解析内容"
 }`;
-    } else if (question_type === 'coding') {
-      prompt += `\n\nJSON格式：
+  } else if (question_type === 'coding') {
+    prompt += `\n\nJSON格式：
 {
   "question": "题目内容",
   "expected_code": "期望代码或算法步骤",
   "explanation": "解析内容"
 }`;
-    }
-
-    return prompt;
   }
+
+  return prompt;
 }
 
 /**
@@ -721,7 +580,7 @@ function postProcessLatex(text) {
  */
 async function generateQuestion(kp, difficulty, options = {}) {
   const {
-    llm = new LlmClient(),
+    llm = createLLMClient(),
     maxRetries = 2
   } = options;
 
@@ -731,13 +590,28 @@ async function generateQuestion(kp, difficulty, options = {}) {
   for (let attempt = 0; attempt <= maxRetries; attempt++) {
     console.log(`[generateQuestion] Attempt ${attempt + 1}/${maxRetries + 1}`);
     try {
-      const response = await llm.generate({
+      const promptParams = {
         kp_name: kp.kp_name,
         difficulty,
         chapter: kp.chapter,
         question_type: options.question_type || 'choice',
         knowledge_context: options.knowledge_context || '',
-        exclude_questions: options.exclude_questions || []
+        exclude_questions: options.exclude_questions || [],
+        student_profile: options.student_profile
+      };
+      const response = await llm.complete({
+        systemPrompt: `你是一个专业的数学题目生成助手。
+
+**难度控制原则**：
+1. 严格按照用户要求的难度级别生成题目
+2. 简单题：90%的学生应能独立完成
+3. 中等题：60%的学生经过思考能完成
+4. 困难题：30%的学生能完成，需要深度思考
+
+请严格按照用户要求的JSON格式返回题目，不要添加任何其他文字或说明。`,
+        userPrompt: buildLlmPrompt(promptParams),
+        temperature: 0.7,
+        maxTokens: 1000
       });
 
       console.log('[generateQuestion] LLM response received, content length:', response.content?.length || 0);
@@ -885,6 +759,9 @@ exports.main = async (event, context) => {
 
   // 如果没有提供kp信息，从数据库查询
   const database = getDb();
+  if (database) {
+    await loadConfig(database);
+  }
   let kp;
   if (kp_name) {
     kp = { kp_id: kp_id || 'unknown', kp_name, chapter: chapter || '' };
@@ -937,21 +814,21 @@ exports.main = async (event, context) => {
     if (database) {
       try {
         const now = new Date().toISOString();
-        const record = {
+        const record = normalizeQuestion({
           ...question,
           kp_id: kp.kp_id,
           kp_name: kp.kp_name,
           chapter: kp.chapter || '',
           difficulty,
           question_type: question.question_type,
-          subject: subject,  // 必须保存科目
-          grade: grade,  // 保存年级，用于按年级筛选题目
+          subject: subject,
+          grade: grade,
           verified: false,
           usage_count: 0,
           correct_count: 0,
           created_at: now,
           updated_at: now
-        };
+        });
         const result = await database.collection('ai_question_pool').add({ data: record });
         console.log('[ENTRY] Question saved to ai_question_pool, id:', result._id);
         question.pool_id = result._id;
@@ -988,7 +865,6 @@ exports.main = async (event, context) => {
  */
 async function generateQuestionBatch(tasks, options = {}) {
   const { skip_image = true } = options;
-  const llm = new LlmClient();
   const results = [];
 
   for (const task of tasks) {
@@ -1012,3 +888,6 @@ module.exports.generateQuestion = generateQuestion;
 module.exports.generateQuestionBatch = generateQuestionBatch;
 module.exports.parseLlmResponse = parseLlmResponse;
 module.exports.validateQuestion = validateQuestion;
+
+module.exports.buildLlmPrompt = buildLlmPrompt;
+module.exports.buildGenericPrompt = buildGenericPrompt;

@@ -23,15 +23,15 @@ describe('Timer Trigger Configuration', () => {
     const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
     const timerTrigger = config.triggers.find(t => t.type === 'timer');
     expect(timerTrigger).toBeDefined();
-    expect(timerTrigger.name).toBe('queueProcessor');
+    expect(timerTrigger.name).toBe('processQueueTimer');
   });
 
-  test('定时触发器应配置为每秒执行', () => {
+  test('定时触发器应配置为每15秒执行', () => {
     const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
     const timerTrigger = config.triggers.find(t => t.type === 'timer');
-    // 每分钟的第0秒触发（每秒执行一次，0 * * * * * * 是crontab格式，每分钟）
+    // 每15秒触发一次（*/15 * * * * * * 是crontab格式）
     // 微信云开发timer格式：秒 分 时 日 月 周
-    expect(timerTrigger.config).toBe('0 * * * * * *');
+    expect(timerTrigger.config).toBe('*/15 * * * * * *');
   });
 
   test('触发器名称应唯一', () => {

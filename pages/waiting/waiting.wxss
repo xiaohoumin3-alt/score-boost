@@ -105,3 +105,21 @@
 .cancel-btn:active {
   background-color: rgba(255, 255, 255, 0.3);
 }
+
+/* 重试按钮 */
+.retry-btn {
+  width: 300rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  border-radius: 40rpx;
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #764ba2;
+  font-size: 28rpx;
+  font-weight: 500;
+  margin-bottom: 24rpx;
+  border: none;
+}
+
+.retry-btn:active {
+  background-color: rgba(255, 255, 255, 0.7);
+}
