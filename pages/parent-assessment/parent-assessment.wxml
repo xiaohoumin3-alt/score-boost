@@ -31,8 +31,8 @@
 
       <view class="grade-selector">
         <text class="grade-label">选择孩子年级：</text>
-        <picker mode="selector" range="{{grades}}" range-key="label" value="{{gradeIndex}}" bindchange="onGradeChange">
-          <view class="grade-picker">
+        <picker mode="selector" range="{{grades}}" range-key="label" value="{{gradeIndex !== null ? gradeIndex : 0}}" bindchange="onGradeChange">
+          <view class="grade-picker" bindtap="onGradePickerTap">
             <text class="grade-value">{{gradeIndex !== null ? grades[gradeIndex].label : '请选择年级'}}</text>
             <text class="grade-arrow">▼</text>
           </view>
@@ -41,15 +41,15 @@
 
       <view class="subject-selector">
         <text class="subject-label">选择科目：</text>
-        <picker mode="selector" range="{{subjects}}" range-key="label" value="{{subjectIndex}}" bindchange="onSubjectChange">
-          <view class="subject-picker">
+        <picker mode="selector" range="{{subjects}}" range-key="label" value="{{subjectIndex !== null ? subjectIndex : 0}}" bindchange="onSubjectChange">
+          <view class="subject-picker" bindtap="onSubjectPickerTap">
             <text class="subject-value">{{subjectIndex !== null ? subjects[subjectIndex].label : '请选择科目'}}</text>
             <text class="subject-arrow">▼</text>
           </view>
         </picker>
       </view>
 
-      <button class="btn-start" bindtap="startAssessment" disabled="{{gradeIndex === null || subjectIndex === null}}">
+      <button class="btn-start" bindtap="startAssessment" disabled="{{!grade || !subject}}">
         开始测评
       </button>
     </view>

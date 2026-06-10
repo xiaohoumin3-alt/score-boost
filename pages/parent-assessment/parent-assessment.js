@@ -13,7 +13,7 @@ Page({
 
     // 年级选择
     grade: '',
-    gradeIndex: null, // picker索引 (0-8)
+    gradeIndex: null, // picker索引 (0-8)，null表示未选择
     grades: [
       { value: '1', label: '一年级' },
       { value: '2', label: '二年级' },
@@ -26,9 +26,9 @@ Page({
       { value: '9', label: '初三' }
     ],
 
-    // 科目选择
+    // 科目选择 - 默认选中数学
     subject: 'math',
-    subjectIndex: 0, // 默认数学
+    subjectIndex: 0, // 默认数学（索引0）
     subjects: [
       { value: 'math', label: '数学' },
       { value: 'chinese', label: '语文' },
@@ -70,7 +70,11 @@ Page({
 
     // 如果有预设年级
     if (options.grade) {
-      this.setData({ grade: options.grade });
+      const gradeIndex = this.data.grades.findIndex(g => g.value === options.grade);
+      if (gradeIndex !== -1) {
+        this.setData({ grade: options.grade, gradeIndex });
+        console.log('[parentAssessment] 预设年级:', options.grade, '索引:', gradeIndex);
+      }
     }
 
     // Load invite code for share tracking
@@ -110,25 +114,39 @@ Page({
     return 0;
   },
 
+  // 点击年级选择器（调试用）
+  onGradePickerTap() {
+    console.log('[onGradePickerTap] 年级选择器被点击, current gradeIndex:', this.data.gradeIndex);
+  },
+
+  // 点击科目选择器（调试用）
+  onSubjectPickerTap() {
+    console.log('[onSubjectPickerTap] 科目选择器被点击, current subjectIndex:', this.data.subjectIndex);
+  },
+
   // 选择年级
   onGradeChange(e) {
+    console.log('[onGradeChange] raw e.detail.value:', e.detail.value, 'type:', typeof e.detail.value);
     const index = parseInt(e.detail.value);
     const selectedGrade = this.data.grades[index];
-    console.log('[onGradeChange] index:', index, 'grade:', selectedGrade.value);
+    console.log('[onGradeChange] index:', index, 'grade:', selectedGrade);
     this.setData({
       gradeIndex: index,
       grade: selectedGrade.value
     });
+    console.log('[onGradeChange] after setData, gradeIndex:', this.data.gradeIndex, 'grade:', this.data.grade);
   },
 
   onSubjectChange(e) {
+    console.log('[onSubjectChange] raw e.detail.value:', e.detail.value, 'type:', typeof e.detail.value);
     const index = parseInt(e.detail.value);
     const selectedSubject = this.data.subjects[index];
-    console.log('[onSubjectChange] index:', index, 'subject:', selectedSubject.value);
+    console.log('[onSubjectChange] index:', index, 'subject:', selectedSubject);
     this.setData({
       subjectIndex: index,
       subject: selectedSubject.value
     });
+    console.log('[onSubjectChange] after setData, subjectIndex:', this.data.subjectIndex, 'subject:', this.data.subject);
   },
 
   // 开始测评
