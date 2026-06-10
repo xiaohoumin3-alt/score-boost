@@ -13,6 +13,7 @@ Page({
 
     // 年级选择
     grade: '',
+    gradeIndex: null, // picker索引 (0-8)
     grades: [
       { value: '1', label: '一年级' },
       { value: '2', label: '二年级' },
@@ -23,6 +24,15 @@ Page({
       { value: '7', label: '初一' },
       { value: '8', label: '初二' },
       { value: '9', label: '初三' }
+    ],
+
+    // 科目选择
+    subject: 'math',
+    subjectIndex: 0, // 默认数学
+    subjects: [
+      { value: 'math', label: '数学' },
+      { value: 'chinese', label: '语文' },
+      { value: 'english', label: '英语' }
     ],
 
     // 题目相关
@@ -102,16 +112,38 @@ Page({
 
   // 选择年级
   onGradeChange(e) {
-    this.setData({ grade: e.detail.value });
+    const index = parseInt(e.detail.value);
+    const selectedGrade = this.data.grades[index];
+    console.log('[onGradeChange] index:', index, 'grade:', selectedGrade.value);
+    this.setData({
+      gradeIndex: index,
+      grade: selectedGrade.value
+    });
+  },
+
+  onSubjectChange(e) {
+    const index = parseInt(e.detail.value);
+    const selectedSubject = this.data.subjects[index];
+    console.log('[onSubjectChange] index:', index, 'subject:', selectedSubject.value);
+    this.setData({
+      subjectIndex: index,
+      subject: selectedSubject.value
+    });
   },
 
   // 开始测评
   async startAssessment() {
-    const { grade } = this.data;
+    const { grade, subject } = this.data;
 
     if (!grade) {
       wx.showToast({ title: '请选择年级', icon: 'none' });
-    api.track('parent_assessment_start', { grade: grade });
+      api.track('parent_assessment_start', { grade, subject });
+      return;
+    }
+
+    if (!subject) {
+      wx.showToast({ title: '请选择科目', icon: 'none' });
+      api.track('parent_assessment_start', { grade, subject });
       return;
     }
 
@@ -123,7 +155,7 @@ Page({
         data: {
           action: 'start',
           grade: grade,
-          subject: 'math'
+          subject: subject
         }
       });
 

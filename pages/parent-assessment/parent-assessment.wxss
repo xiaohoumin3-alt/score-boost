@@ -137,6 +137,37 @@
   color: #999;
 }
 
+/* 科目选择器 */
+.subject-selector {
+  margin-bottom: 40rpx;
+}
+
+.subject-label {
+  display: block;
+  color: var(--text-primary, rgba(255, 255, 255, 0.92));
+  font-size: 28rpx;
+  margin-bottom: 20rpx;
+}
+
+.subject-picker {
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 30rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.subject-value {
+  font-size: 28rpx;
+  color: var(--border-subtle, rgba(255, 255, 255, 0.06));
+}
+
+.subject-arrow {
+  font-size: 24rpx;
+  color: #999;
+}
+
 .btn-start {
   background: #fff;
   color: #764ba2;
