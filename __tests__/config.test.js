@@ -68,11 +68,12 @@ describe('cloudbaserc.json 配置测试', () => {
     expect(generateAiQuestion.timeout).toBe(60);
   });
 
-  test('practice_v2 timeout 应为 60', () => {
-    const practice = config.functions.find(fn => fn.name === 'practice_v2');
-    expect(practice).toBeDefined();
-    expect(practice.timeout).toBe(60);
-  });
+  // practice_v2 已废弃，功能已迁移到其他云函数
+  // test('practice_v2 timeout 应为 60', () => {
+  //   const practice = config.functions.find(fn => fn.name === 'practice_v2');
+  //   expect(practice).toBeDefined();
+  //   expect(practice.timeout).toBe(60);
+  // });
 
   test('startAssessment timeout 应为 60', () => {
     const startAssessment = config.functions.find(fn => fn.name === 'startAssessment');

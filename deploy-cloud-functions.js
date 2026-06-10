@@ -36,7 +36,7 @@ const cloudFunctions = null; // auto-discover
 
 // 需要复制 shared 模块的云函数（引用了 ../shared/ 的函数）
 const FUNCTIONS_USING_SHARED = [
-  'startAssessment', 'practice_v2', 'practice', 'initDatabase',
+  'startAssessment', 'practice', 'initDatabase',
   'generateAiQuestion', 'questionGenerator', 'getAssessment',
   'submitAnswer', 'scheduledTaskGenerator', 'startExclusiveExam',
   'uploadMaterial', 'initQuestionBank', 'studentMemory', 'recordKpRequest', 'migrateQuestionBank',

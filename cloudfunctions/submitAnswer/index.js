@@ -45,10 +45,28 @@ exports.main = async (event, context) => {
     }
 
     console.log('[submitAnswer] Session questions count:', questions.length);
+    console.log('[submitAnswer] Session has question_ids:', !!(session.question_ids && session.question_ids.length > 0));
+    console.log('[submitAnswer] question_ids count:', session.question_ids?.length || 0);
+
+    // 诊断：打印第一个题目的结构
+    if (questions.length > 0) {
+      console.log('[submitAnswer] First question sample:', JSON.stringify({
+        id: questions[0].id,
+        _id: questions[0]._id,
+        content: questions[0].content?.substring(0, 30),
+        has_correct_answer: 'correct_answer' in questions[0]
+      }));
+    }
 
     // 构建题目映射
     const questionMap = {};
-    (questions || []).forEach(q => { questionMap[q.id || q._id] = q; });
+    (questions || []).forEach(q => {
+      const key = q.id || q._id;
+      questionMap[key] = q;
+    });
+
+    console.log('[submitAnswer] questionMap keys:', Object.keys(questionMap).slice(0, 5));
+    console.log('[submitAnswer] questionMap size:', Object.keys(questionMap).length);
 
     // 合并已有答案和新答案
     const existingAnswers = session.answers || [];
@@ -62,10 +80,13 @@ exports.main = async (event, context) => {
 
     const allAnswers = Object.values(existingAnswerMap);
     console.log('[submitAnswer] Total answers after merge:', allAnswers.length);
+    console.log('[submitAnswer] Answer question_ids:', allAnswers.map(a => a.question_id || a.questionId));
 
     // 判分
     let totalCorrect = 0;
     const allResults = [];
+
+    console.log('[submitAnswer] Starting grading loop...');
 
     for (const answer of allAnswers) {
       const questionId = answer.question_id || answer.questionId;
@@ -75,7 +96,8 @@ exports.main = async (event, context) => {
 
       const question = questionMap[questionId];
       if (!question) {
-        console.log('[submitAnswer] Question not found for answer:', questionId);
+        console.log('[submitAnswer] Question not found in questionMap:', questionId);
+        console.log('[submitAnswer] Available keys:', Object.keys(questionMap));
         continue;
       }
 

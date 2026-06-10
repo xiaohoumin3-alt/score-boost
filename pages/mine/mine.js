@@ -158,10 +158,6 @@ Page({
     wx.navigateTo({ url: '/pages/progress/progress' });
   },
 
-  goToMistakes() {
-    wx.navigateTo({ url: '/pages/mistakes/mistakes' });
-  },
-
   /**
    * 跳转到积分中心
    */

@@ -3,21 +3,6 @@
   "region": "ap-shanghai",
   "functions": [
     {
-      "name": "practice_v2",
-      "runtime": "Nodejs16.13",
-      "handler": "index.main",
-      "timeout": 60,
-      "memorySize": 256,
-      "envVariables": {
-        "LLM_API_KEY": "${LLM_API_KEY}",
-        "LLM_BASE_URL": "https://api.deepseek.com",
-        "LLM_MODEL": "deepseek-chat",
-        "LLM_TIMEOUT_MS": "45000",
-        "LLM_MAX_RETRIES": "2",
-        "LLM_RETRY_DELAY_MS": "1000"
-      }
-    },
-    {
       "name": "generateAiQuestion",
       "runtime": "Nodejs16.13",
       "handler": "index.main",

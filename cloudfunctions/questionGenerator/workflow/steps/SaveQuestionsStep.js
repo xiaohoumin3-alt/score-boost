@@ -93,6 +93,7 @@ class SaveQuestionsStep extends BaseStep {
         const normalizedQ = normalizeQuestion({
           ...questionData,
           subject: task.subject || questionData.subject || 'math',
+          grade: task.grade || questionData.grade || '',
           temp_task_id: task._id,
         });
 

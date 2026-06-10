@@ -2,8 +2,10 @@
  * practice-v1-deprecated.test.js
  * P1-03 验收测试：Practice v1 废弃
  *
+ * 架构更新：practice_v2 已废弃，练习功能已迁移到 startAssessment 云函数
+ *
  * 覆盖验收标准：
- *   A2: 调用 v1 practice 自动转发到 practice_v2
+ *   A2: 前端调用 startAssessment（而非旧的 practice/practice_v2）
  *   A3: QUESTION_BANK 为空
  *   A4: 低年级不返回8年级题目
  */
@@ -35,21 +37,23 @@ describe('P1-03: Practice v1 废弃 — 源码验证', () => {
     expect(content).toMatch(/@deprecated|DEPRECATED|废弃/i);
   });
 
-  test('前端 cloudApi.js 调用的是 practice_v2 而非 practice', () => {
+  test('前端调用 startAssessment 而非旧的 practice/practice_v2', () => {
     const cloudApi = fs.readFileSync(
       path.join(__dirname, '..', '..', '..', 'utils', 'cloudApi.js'),
       'utf-8'
     );
 
-    // startPractice 应调用 practice_v2
-    const practiceCallMatch = cloudApi.match(/callCloudFunction\(\s*['"](\w+)['"]/g);
-    if (practiceCallMatch) {
-      const startPracticeSection = cloudApi.substring(
-        cloudApi.indexOf('function startPractice'),
-        cloudApi.indexOf('function startPractice') + 2000
-      );
-      expect(startPracticeSection).toContain("'practice_v2'");
-      expect(startPracticeSection).not.toContain("'practice'");
-    }
+    // startPractice 应调用 startAssessment（架构重构后）
+    // 检查实际调用的云函数，而非函数名本身
+    const callFunctionMatches = cloudApi.match(/callCloudFunction\(['"](\w+)['"]/g) || [];
+    const startPracticeCalls = callFunctionMatches.filter(call =>
+      cloudApi.substring(cloudApi.indexOf('function startPractice'), cloudApi.indexOf('function startPractice') + 2000).includes(call)
+    );
+
+    // 应该调用 startAssessment
+    expect(startPracticeCalls.some(call => call.includes("'startAssessment'"))).toBe(true);
+    // 不应该调用旧的 practice 或 practice_v2
+    expect(startPracticeCalls.some(call => call.includes("'practice'"))).toBe(false);
+    expect(startPracticeCalls.some(call => call.includes("'practice_v2'"))).toBe(false);
   });
 });

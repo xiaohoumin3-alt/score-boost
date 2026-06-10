@@ -52,15 +52,22 @@ async function generateUniqueInviteCode() {
  * 获取或创建用户积分记录
  */
 async function getOrCreateUserPoints(openid) {
+  if (!openid) {
+    throw new Error('openid is required');
+  }
+
   try {
+    console.log('[getOrCreateUserPoints] Fetching for openid:', openid.substring(0, 10) + '...');
     const result = await db.collection('user_points')
       .where({ openid })
       .get();
 
     if (result.data.length > 0) {
+      console.log('[getOrCreateUserPoints] Found existing user');
       return result.data[0];
     }
 
+    console.log('[getOrCreateUserPoints] Creating new user');
     // 创建新用户积分记录（使用唯一邀请码）
     const inviteCode = await generateUniqueInviteCode();
     const newUser = {
@@ -79,23 +86,30 @@ async function getOrCreateUserPoints(openid) {
 
     const addResult = await db.collection('user_points').add({ data: newUser });
     newUser._id = addResult._id;
+    console.log('[getOrCreateUserPoints] Created user with _id:', newUser._id);
 
     // 记录积分获取
-    await db.collection('point_records').add({
-      data: {
-        user_id: newUser._id,
-        openid,
-        type: 'earn',
-        amount: 100,
-        source: 'register',
-        description: '新用户注册奖励',
-        created_at: new Date().toISOString()
-      }
-    });
+    try {
+      await db.collection('point_records').add({
+        data: {
+          user_id: newUser._id,
+          openid,
+          type: 'earn',
+          amount: 100,
+          source: 'register',
+          description: '新用户注册奖励',
+          created_at: new Date().toISOString()
+        }
+      });
+    } catch (recordErr) {
+      console.error('[getOrCreateUserPoints] Failed to create point record:', recordErr);
+    }
 
     return newUser;
   } catch (e) {
     console.error('[getOrCreateUserPoints] Error:', e);
+    console.error('[getOrCreateUserPoints] Error code:', e.errCode);
+    console.error('[getOrCreateUserPoints] Error message:', e.errMsg);
     throw e;
   }
 }
@@ -105,6 +119,11 @@ async function getOrCreateUserPoints(openid) {
  */
 async function getPoints(event) {
   const { openid } = event;
+
+  if (!openid) {
+    console.error('[getPoints] No openid provided');
+    return { success: false, error: '用户信息缺失，请重新登录' };
+  }
 
   try {
     const user = await getOrCreateUserPoints(openid);
@@ -123,7 +142,17 @@ async function getPoints(event) {
     };
   } catch (e) {
     console.error('[getPoints] Error:', e);
-    return { success: false, error: '获取积分失败' };
+    console.error('[getPoints] Error code:', e.errCode);
+    console.error('[getPoints] Error message:', e.errMsg);
+
+    // 根据错误类型返回不同的错误信息
+    if (e.errCode === -1 || e.errMsg?.includes('collection not exists')) {
+      return { success: false, error: '数据库集合不存在，请联系管理员' };
+    } else if (e.errMsg?.includes('permission')) {
+      return { success: false, error: '数据库权限不足' };
+    } else {
+      return { success: false, error: e.errMsg || '获取积分失败' };
+    }
   }
 }
 
@@ -504,6 +533,48 @@ async function getPointRecords(event) {
 }
 
 /**
+ * 测试数据库集合访问（用于诊断）
+ */
+async function testCollections(event) {
+  try {
+    const results = {};
+
+    // 测试 user_points 集合
+    try {
+      const userPointsResult = await db.collection('user_points').limit(1).get();
+      results.user_points = { exists: true, count: userPointsResult.data.length };
+    } catch (e) {
+      results.user_points = { exists: false, error: e.message, errCode: e.errCode };
+    }
+
+    // 测试 point_records 集合
+    try {
+      const pointRecordsResult = await db.collection('point_records').limit(1).get();
+      results.point_records = { exists: true, count: pointRecordsResult.data.length };
+    } catch (e) {
+      results.point_records = { exists: false, error: e.message, errCode: e.errCode };
+    }
+
+    // 测试 invite_records 集合
+    try {
+      const inviteRecordsResult = await db.collection('invite_records').limit(1).get();
+      results.invite_records = { exists: true, count: inviteRecordsResult.data.length };
+    } catch (e) {
+      results.invite_records = { exists: false, error: e.message, errCode: e.errCode };
+    }
+
+    return {
+      success: true,
+      data: results,
+      message: '数据库集合测试完成'
+    };
+  } catch (e) {
+    console.error('[testCollections] Error:', e);
+    return { success: false, error: '数据库测试失败: ' + e.message };
+  }
+}
+
+/**
  * 云函数入口
  */
 exports.main = async (event, context) => {
@@ -515,6 +586,8 @@ exports.main = async (event, context) => {
 
   try {
     switch (action) {
+      case 'testCollections':
+        return await testCollections({ ...event, openid });
       case 'getPoints':
         return await getPoints({ ...event, openid });
       case 'signin':

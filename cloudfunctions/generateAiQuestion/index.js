@@ -143,7 +143,7 @@ function safeFetch(url, options) {
  */
 class ImageClient {
   constructor() {
-    this.apiKey = process.env.MINIMAX_API_KEY;
+    this.apiKey = process.env.LLM_API_KEY;
     this.baseUrl = 'api.minimax.chat';
     this.model = 'image-01';
     this.timeout = 60000;
@@ -711,7 +711,7 @@ async function generateQuestion(kp, difficulty, options = {}) {
 exports.main = async (event, context) => {
   console.log('[ENTRY] generateAiQuestion called');
   console.log('[ENTRY] event:', JSON.stringify(event));
-  console.log('[ENTRY] MINIMAX_API_KEY:', process.env.MINIMAX_API_KEY ? 'SET' : 'NOT SET');
+  console.log('[ENTRY] LLM_API_KEY:', process.env.LLM_API_KEY ? 'SET' : 'NOT SET');
 
   // 兼容多种 event 格式：event.data, event, 或解析后的 event
   let eventData = event;

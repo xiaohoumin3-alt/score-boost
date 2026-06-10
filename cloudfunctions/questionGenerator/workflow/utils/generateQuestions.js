@@ -32,9 +32,9 @@ async function fetchFallbackQuestions(db, subject, difficulty, count, grade) {
         console.log(`[fetchFallbackQuestions] Pool check: ${checkResult.data?.length || 0} records found`);
 
         if (checkResult.data && checkResult.data.length > 0) {
-          // 题库有数据，执行查询
+          // 题库查询必须带 grade，避免一年级练习捞到八年级题目
           const result = await db.collection('ai_question_pool')
-            .where({ difficulty: difficulty, subject: subject })
+            .where({ difficulty: difficulty, subject: subject, grade: String(grade || '') })
             .limit(count)
             .get();
           questions = result.data || [];
@@ -48,7 +48,7 @@ async function fetchFallbackQuestions(db, subject, difficulty, count, grade) {
     // 如果题库为空或查询失败，返回默认题目
     if (questions.length === 0) {
       console.warn(`[fetchFallbackQuestions] Pool empty or query failed, using DEFAULT questions`);
-      questions = generateDefaultQuestions(subject, difficulty, count);
+      questions = generateDefaultQuestions(subject, difficulty, count, grade);
       console.log(`[fetchFallbackQuestions] Generated ${questions.length} default questions`);
     }
 
@@ -78,8 +78,54 @@ async function fetchFallbackQuestions(db, subject, difficulty, count, grade) {
  * @param {number} count - 数量
  * @returns {Array} 默认题目列表
  */
-function generateDefaultQuestions(subject, difficulty, count) {
-  console.log(`[generateDefaultQuestions] START subject=${subject} difficulty=${difficulty} count=${count}`);
+function normalizeGrade(grade) {
+  const gradeMap = {
+    '一年级': '1', '二年级': '2', '三年级': '3',
+    '四年级': '4', '五年级': '5', '六年级': '6',
+    '七年级': '7', '八年级': '8', '九年级': '9'
+  };
+  const rawGrade = grade || '8';
+  return gradeMap[rawGrade] || String(rawGrade).replace(/[^0-9]/g, '') || '8';
+}
+
+function generateDefaultQuestions(subject, difficulty, count, grade) {
+  const normalizedGrade = normalizeGrade(grade);
+  console.log(`[generateDefaultQuestions] START subject=${subject} grade=${normalizedGrade} difficulty=${difficulty} count=${count}`);
+
+  const gradeDefaultQuestions = {
+    math: {
+      '1': {
+        easy: [
+          { content: '计算：3 + 4 = ?', options: ['5', '6', '7', '8'], correct_answer: 2, explanation: '3 加 4 等于 7。', type: 'choice', difficulty: 'easy', subject: 'math', grade: '1', knowledge_point: '10以内加减法' },
+          { content: '计算：9 - 5 = ?', options: ['3', '4', '5', '6'], correct_answer: 1, explanation: '9 减 5 等于 4。', type: 'choice', difficulty: 'easy', subject: 'math', grade: '1', knowledge_point: '10以内加减法' }
+        ],
+        medium: [
+          { content: '计算：12 + 6 = ?', options: ['16', '17', '18', '19'], correct_answer: 2, explanation: '12 加 6 等于 18。', type: 'choice', difficulty: 'medium', subject: 'math', grade: '1', knowledge_point: '20以内加减法' },
+          { content: '15 比 9 多多少？', options: ['4', '5', '6', '7'], correct_answer: 2, explanation: '15 - 9 = 6。', type: 'choice', difficulty: 'medium', subject: 'math', grade: '1', knowledge_point: '20以内加减法' }
+        ],
+        hard: [
+          { content: '小明有 8 个苹果，又买了 7 个，一共有多少个？', options: ['13', '14', '15', '16'], correct_answer: 2, explanation: '8 + 7 = 15。', type: 'choice', difficulty: 'hard', subject: 'math', grade: '1', knowledge_point: '20以内加减法' },
+          { content: '20 个气球飞走了 6 个，还剩多少个？', options: ['12', '13', '14', '15'], correct_answer: 2, explanation: '20 - 6 = 14。', type: 'choice', difficulty: 'hard', subject: 'math', grade: '1', knowledge_point: '20以内加减法' }
+        ]
+      }
+    }
+  };
+
+  const gradeQuestions = gradeDefaultQuestions[subject]?.[normalizedGrade]?.[difficulty];
+  if (gradeQuestions && gradeQuestions.length > 0) {
+    const result = [];
+    for (let i = 0; i < count; i++) {
+      const q = gradeQuestions[i % gradeQuestions.length];
+      result.push({
+        ...q,
+        _id: `default_${Date.now()}_${i}`,
+        created_at: new Date().toISOString(),
+        is_default: true
+      });
+    }
+    console.log(`[generateDefaultQuestions] Generated ${result.length} grade-aware questions`);
+    return result;
+  }
 
   const defaultQuestions = {
     math: {

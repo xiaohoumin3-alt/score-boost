@@ -7,6 +7,7 @@ Page({
 
   data: {
     queueId: null,
+    from: null,  // 来源: 'assessment' | 'practice'
     statusText: '题目正在生成中...',
     showProgress: true,
     progressPercent: 0,
@@ -21,13 +22,14 @@ Page({
 
   onLoad(options) {
     const queueId = options.queueId;
+    const from = options.from || 'assessment';  // 默认 assessment
     if (!queueId) {
       wx.showToast({ title: '参数错误', icon: 'none' });
       setTimeout(() => wx.navigateBack(), 1500);
       return;
     }
 
-    this.setData({ queueId });
+    this.setData({ queueId, from });
     this.startPolling();
   },
 
@@ -42,22 +44,34 @@ Page({
   async startPolling() {
     if (this.data.polling) return;
 
+    const pollingQueueId = this.data.queueId;
     this.setData({ polling: true });
 
     try {
-      const result = await api.pollQueueStatus(this.data.queueId, {
+      const result = await api.pollQueueStatus(pollingQueueId, {
         maxAttempts: this.data.maxAttempts,
         intervalMs: 5000,
         onProgress: this.onProgress.bind(this)
       });
 
+      if (this.data.queueId !== pollingQueueId) {
+        console.log('[waiting] 忽略旧队列轮询结果:', pollingQueueId);
+        return;
+      }
+
       this.handlePollResult(result);
     } catch (e) {
+      if (this.data.queueId !== pollingQueueId) {
+        console.log('[waiting] 忽略旧队列轮询错误:', pollingQueueId);
+        return;
+      }
       console.error('[waiting] 轮询错误:', e);
       wx.showToast({ title: '网络错误', icon: 'none' });
       setTimeout(() => wx.navigateBack(), 2000);
     } finally {
-      this.setData({ polling: false });
+      if (this.data.queueId === pollingQueueId) {
+        this.setData({ polling: false });
+      }
     }
   },
 
@@ -131,6 +145,7 @@ Page({
    */
   handlePollResult(result) {
     console.log('[waiting] 轮询结果:', result);
+    console.log('[waiting] 来源:', this.data.from);
 
     if (result.status === 'completed' && result.assessment_id) {
       // 清除队列ID（防止重复进入）
@@ -139,11 +154,30 @@ Page({
 
       wx.showToast({ title: '题目生成完成', icon: 'success' });
 
-      // 跳转到测评页面（清除页面栈，防止返回到旧页面）
+      // 根据来源跳转
       setTimeout(() => {
-        wx.reLaunch({
-          url: '/pages/assessment/assessment?assessmentId=' + result.assessment_id
-        });
+        if (this.data.from === 'practice') {
+          // 练习模式：先读取练习参数，再清除 storage
+          const pendingParams = wx.getStorageSync('pendingPracticeParams') || {};
+          wx.removeStorageSync('currentPracticeQueueId');
+          wx.removeStorageSync('pendingPracticeParams');
+
+          // 构建跳转参数
+          const params = [
+            'assessmentId=' + result.assessment_id,
+            pendingParams.kpId ? 'kpId=' + pendingParams.kpId : '',
+            pendingParams.kpName ? 'kpName=' + encodeURIComponent(pendingParams.kpName) : ''
+          ].filter(Boolean).join('&');
+
+          wx.reLaunch({
+            url: '/pages/practice/practice?' + params
+          });
+        } else {
+          // 测评模式：跳转到 assessment
+          wx.reLaunch({
+            url: '/pages/assessment/assessment?assessmentId=' + result.assessment_id
+          });
+        }
       }, 500);
     } else if (result.status === 'failed') {
       const errorMsg = result.error || '题目生成失败';
@@ -212,10 +246,51 @@ Page({
       // 取消当前队列任务
       await api.cancelQueueTask(this.data.queueId).catch(() => {});
       wx.removeStorageSync('currentQueueId');
+      wx.removeStorageSync('currentPracticeQueueId');
+
+      if (this.data.from === 'practice') {
+        const pendingParams = wx.getStorageSync('pendingPracticeParams') || {};
+        const result = await api.startPractice(
+          pendingParams.kpId || null,
+          pendingParams.kpName || '专项练习',
+          5,
+          pendingParams.weakPoints || null,
+          null,
+          null
+        );
+
+        wx.hideLoading();
+
+        if (result && result.status === 'ready' && result.assessment_id) {
+          const params = [
+            'assessmentId=' + result.assessment_id,
+            pendingParams.kpId ? 'kpId=' + pendingParams.kpId : '',
+            pendingParams.kpName ? 'kpName=' + encodeURIComponent(pendingParams.kpName) : ''
+          ].filter(Boolean).join('&');
+
+          wx.reLaunch({
+            url: '/pages/practice/practice?' + params
+          });
+        } else if (result && result.status === 'queued') {
+          wx.setStorageSync('currentPracticeQueueId', result.queue_id);
+          wx.setStorageSync('pendingPracticeParams', pendingParams);
+          this.setData({
+            queueId: result.queue_id,
+            polling: false,
+            showRetryButton: false,
+            progressPercent: 0,
+            currentAttempt: 0,
+            statusText: '题目正在生成中...',
+            tipText: 'AI正在根据您的学习情况智能生成题目，请耐心等待'
+          });
+          this.startPolling();
+        } else {
+          wx.showToast({ title: '重试失败，请稍后再试', icon: 'none' });
+        }
+        return;
+      }
 
       // 以 force_sync=true 重新发起
-      const storageQueueId = this.data.queueId;
-      // 读取当前测评参数（从 storage 获取）
       const lastParams = wx.getStorageSync('lastAssessmentParams') || {};
       const result = await api.startAssessment(
         lastParams.grade || '',
@@ -264,6 +339,7 @@ Page({
 
       // 清除队列ID
       wx.removeStorageSync('currentQueueId');
+      wx.removeStorageSync('currentPracticeQueueId');
 
       wx.hideLoading();
       wx.showToast({ title: '已取消', icon: 'none' });

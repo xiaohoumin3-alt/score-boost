@@ -78,16 +78,6 @@
         </view>
         <text class="menu-arrow">›</text>
       </view>
-      <view class="menu-card" bindtap="goToMistakes">
-        <view class="menu-icon-wrap">
-          <text class="menu-icon">📝</text>
-        </view>
-        <view class="menu-info">
-          <text class="menu-name">错题本</text>
-          <text class="menu-desc">复习做错的题目</text>
-        </view>
-        <text class="menu-arrow">›</text>
-      </view>
       <view class="menu-card" bindtap="goToPoints">
         <view class="menu-icon-wrap">
           <text class="menu-icon">💰</text>

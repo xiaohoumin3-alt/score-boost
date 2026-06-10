@@ -75,7 +75,13 @@ exports.main = async (event, context) => {
 
     const rawSubject = params.subject || 'math';
     const subject = subjectMap[rawSubject] || rawSubject;
-    const grade = String(params.grade || '8');
+    const gradeMap = {
+      '一年级': '1', '二年级': '2', '三年级': '3',
+      '四年级': '4', '五年级': '5', '六年级': '6',
+      '七年级': '7', '八年级': '8', '九年级': '9'
+    };
+    const rawGrade = params.grade || '8';
+    const grade = gradeMap[rawGrade] || String(rawGrade);
     const semesterMap = { '上': 'up', '下': 'down', up: 'up', down: 'down' };
     const semester = semesterMap[params.semester] || params.semester || 'down';
     const mode = params.mode || 'pre_test';

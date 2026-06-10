@@ -31,6 +31,11 @@ Page({
 
     // 优先从 URL 参数获取
     var kpName = query.kpName || null;
+    if (kpName) {
+      try {
+        kpName = decodeURIComponent(kpName);
+      } catch (e) {}
+    }
     var kpId = query.kpId || null;
     var assessmentId = query.assessmentId || null;
     var weakPoints = null;
@@ -142,6 +147,66 @@ Page({
     });
   },
 
+  loadGeneratedAssessment: function(assessmentId) {
+    var self = this;
+    console.log('[Practice] Loading generated assessment:', assessmentId);
+
+    return wx.cloud.callFunction({
+      name: 'getAssessment',
+      data: { assessment_id: assessmentId }
+    }).then(function(res) {
+      console.log('[Practice] getAssessment result:', res.result);
+
+      if (!res.result || !res.result.success) {
+        throw new Error(res.result && res.result.error || '题目不存在');
+      }
+
+      var assessment = res.result.data || {};
+      var questions = assessment.questions || [];
+      if (questions.length === 0) {
+        throw new Error('题目为空');
+      }
+
+      var keys = ['A', 'B', 'C', 'D', 'E', 'F'];
+      questions.forEach(function(q) {
+        if (!q.options) {
+          q.parsedOptions = [];
+          return;
+        }
+        if (typeof q.options[0] === 'string') {
+          q.parsedOptions = q.options.map(function(opt, idx) {
+            var dotIdx = opt.indexOf('. ');
+            if (dotIdx > 0) {
+              return { key: opt.substring(0, dotIdx), value: opt.substring(dotIdx + 2) };
+            }
+            return { key: keys[idx] || String.fromCharCode(65 + idx), value: opt };
+          });
+        } else if (typeof q.options[0] === 'object') {
+          q.parsedOptions = q.options.map(function(opt) {
+            return { key: opt.key || opt.label || '', value: opt.value || opt.text || '' };
+          });
+        }
+      });
+
+      wx.hideLoading();
+      self.setData({
+        sessionId: assessmentId,
+        assessmentId: assessmentId,
+        questions: questions,
+        currentQuestion: questions[0],
+        loading: false,
+        questionStartTime: Date.now(),
+        kpName: self.data.kpName,
+        progress: 0
+      });
+    }).catch(function(e) {
+      wx.hideLoading();
+      console.error('[Practice] Load generated assessment error:', e);
+      wx.showToast({ title: '加载失败: ' + (e.message || '未知错误'), icon: 'none' });
+      setTimeout(function() { wx.navigateBack(); }, 1500);
+    });
+  },
+
   initPractice: function() {
     var self = this;
     api.track('practice_start', { kp_id: self.data.kpId, kp_name: self.data.kpName, source: self.data.weakPoints ? 'path' : 'direct' });
@@ -149,8 +214,15 @@ Page({
     console.log('[Practice] initPractice called with:', {
       kpId: self.data.kpId,
       kpName: self.data.kpName,
-      weakPoints: self.data.weakPoints
+      weakPoints: self.data.weakPoints,
+      assessmentId: self.data.assessmentId
     });
+
+    // 如果已有 assessmentId（从 waiting 页面跳转回来），直接加载已生成题目
+    if (self.data.assessmentId) {
+      self.loadGeneratedAssessment(self.data.assessmentId);
+      return;
+    }
 
     // 新增：获取学生画像（AI原生核心）
     this.getStudentProfile().then(function(studentProfile) {
@@ -166,11 +238,39 @@ Page({
       );
     }).then(function(res) {
       console.log('[Practice] startPractice response:', res);
+      console.log('[Practice] response status:', res?.status);
+
+      // 处理队列模式响应
+      if (res.status === 'queued') {
+        console.log('[Practice] Questions queued, queue_id:', res.queue_id);
+        wx.hideLoading();
+        // 跳转到等待页面
+        wx.setStorageSync('currentPracticeQueueId', res.queue_id);
+        wx.setStorageSync('pendingPracticeParams', {
+          kpId: self.data.kpId,
+          kpName: self.data.kpName,
+          weakPoints: self.data.weakPoints,
+          assessmentId: self.data.assessmentId
+        });
+        wx.redirectTo({
+          url: '/pages/waiting/waiting?queueId=' + res.queue_id + '&from=practice'
+        });
+        return;
+      }
+
+      // 处理ready响应（已有assessment_id）
+      if (res.status === 'ready' && res.assessment_id) {
+        console.log('[Practice] Assessment ready, loading...');
+        self.loadGeneratedAssessment(res.assessment_id);
+        return;
+      }
+
+      // 兼容原有直接返回questions的响应
       var questions = res.questions || [];
       console.log('[Practice] questions count:', questions.length);
       if (questions.length === 0) {
         wx.hideLoading();
-        wx.showToast({ title: '加载失败', icon: 'none' });
+        wx.showToast({ title: '加载失败，请重试', icon: 'none' });
         setTimeout(function() {
           wx.navigateBack();
         }, 1500);
@@ -229,10 +329,13 @@ Page({
     var questionResults = this.data.questionResults;
     var isCorrect = option === currentQuestion.correct_answer;
 
-    // 记录答案
+    // 记录答案（包含 is_correct 用于评分统计）
+    // 注意：is_correct 是派生数据，存储以避免 submitAll 中的 O(n²) 查找
+    // 理想情况下应使用后端评分（如 assessment 页面），但练习模式需要前端即时反馈
     answers[currentQuestion.id] = {
       question_id: currentQuestion.id,
       answer: option,
+      is_correct: isCorrect
     };
 
     // 记录结果用于显示标记

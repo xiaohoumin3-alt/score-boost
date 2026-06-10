@@ -65,6 +65,16 @@ function validateSubject(content, expectedSubject) {
     .some(([, v]) => v.test(content));
   return matchesExpected || !matchesOther;
 }
+
+function normalizeGrade(grade) {
+  const gradeMap = {
+    '一年级': '1', '二年级': '2', '三年级': '3',
+    '四年级': '4', '五年级': '5', '六年级': '6',
+    '七年级': '7', '八年级': '8', '九年级': '9'
+  };
+  const rawGrade = grade || '8';
+  return gradeMap[rawGrade] || String(rawGrade).replace(/[^0-9]/g, '') || '8';
+}
 const { checkTaskCancelled } = require('./workflow/utils/checkTaskCancelled');
 const { cleanupPartialQuestionsByTask } = require('./workflow/utils/cleanupPartialQuestionsByTask');
 const { generateQuestionsForTask } = require('./workflow/utils/generateQuestions');
@@ -293,9 +303,15 @@ async function generateAi(task, difficulty, count) {
     // 第一步：先从题池取 poolCount 道题目（快速，无需API调用）
     // 修复：添加随机偏移，避免每次返回相同题目
     try {
-      // 先获取题池中符合条件的题目总数
+      // 修复：添加 grade 过滤，避免低年级出现高年级题目
+      const poolQuery = { difficulty: difficulty, subject: task.subject };
+      if (task.grade) {
+        poolQuery.grade = String(task.grade);
+      }
+
+      // 先获取题池中符合条件的题目总数，count 和 get 必须使用同一过滤条件
       const countResult = await db.collection('ai_question_pool')
-        .where({ difficulty: difficulty, subject: task.subject })
+        .where(poolQuery)
         .count();
       const totalQuestions = countResult.total || 0;
 
@@ -306,7 +322,7 @@ async function generateAi(task, difficulty, count) {
       console.log(`[generateAi] Pool query: total=${totalQuestions}, offset=${randomOffset}/${maxOffset}`);
 
       const poolResult = await db.collection('ai_question_pool')
-        .where({ difficulty: difficulty, subject: task.subject })
+        .where(poolQuery)
         .skip(randomOffset)
         .limit(poolCount * 2)  // 多取一些，过滤掉可能的脏数据
         .get();
@@ -357,7 +373,7 @@ async function generateAi(task, difficulty, count) {
 
     const difficultyText = { easy: '简单', medium: '中等', hard: '困难' }[difficulty] || '中等';
     // 年级文本：支持数字和中文两种格式
-    const normalizedGrade = String(task.grade || '8').replace(/[^0-9]/g, '') || '8';
+    const normalizedGrade = normalizeGrade(task.grade);
     const gradeText = normalizedGrade + '年级';
     const subjectText = { math: '数学', biology: '生物', geography: '地理', chinese: '语文', english: '英语', physics: '物理', chemistry: '化学', history: '历史', politics: '政治' }[task.subject] || task.subject || '数学';
     // 根据年级动态选择知识点（之前硬编码8年级知识点导致低年级出现高中题目）
@@ -400,8 +416,7 @@ async function generateAi(task, difficulty, count) {
 2. 不要生成填空题、计算题、解答题等非选择题
 3. 选项长度均衡，正确选项不要比干扰项更长
 4. 提供简短解析
-5. 数学符号用Unicode（√ ² ³ ≤ ≥），不用LaTeX
-6. 题目之间不要重复或高度相似
+5. 题目之间不要重复或高度相似
 
 返回JSON数组格式（不要添加其他文字）：
 [

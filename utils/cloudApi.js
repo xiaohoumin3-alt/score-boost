@@ -13,6 +13,26 @@ try {
 // 云环境ID
 const CLOUD_ENV = 'cloud1-7gg9y9tjb2b867b6';
 
+// 云函数超时配置（单位：毫秒）
+// 与云函数实际超时配置保持一致，避免前端超时而云函数仍在执行
+const FUNCTION_TIMEOUTS = {
+  // 默认超时（简单查询操作）
+  default: 15000,
+
+  // AI相关操作（需要等待LLM响应）
+  startAssessment: 60000,       // 启动评估，可能触发AI生成
+  submitAnswer: 60000,           // 提交答案，可能需要AI分析
+  submitPracticeResult: 60000,  // 提交练习结果
+
+  // 队列操作
+  checkQueueStatus: 30000,      // 检查队列状态，可能需要等待
+  cancelQueueTask: 15000,        // 取消队列任务
+
+  // 查询操作
+  checkRetestEligibility: 15000, // 检查重测资格
+  analytics: 15000,              // 统计分析
+};
+
 let cloudInitialized = false;
 
 // 兼容测试环境：wx可能不存在
@@ -142,7 +162,7 @@ function startAssessment(grade, subject, mode, retestOptions, options) {
     payload.force_sync = true;
   }
 
-  return callCloudFunction('startAssessment', payload);
+  return callCloudFunction('startAssessment', payload, FUNCTION_TIMEOUTS.startAssessment);
 }
 
 function submitAssessmentAnswer(assessmentId, answersOrQuestionId, answer, timeSpent) {
@@ -162,7 +182,7 @@ function submitAssessmentAnswer(assessmentId, answersOrQuestionId, answer, timeS
   return callCloudFunction('submitAnswer', {
     assessment_id: assessmentId,
     answers: answers
-  });
+  }, FUNCTION_TIMEOUTS.submitAnswer);
 }
 
 function finishAssessment(assessmentId) {
@@ -198,25 +218,29 @@ function finishAssessment(assessmentId) {
 // ========== 练习 API ==========
 
 function startPractice(knowledgePointId, knowledgePointName, numQuestions, weakPoints, assessmentId, studentProfile) {
-  // 科目映射：显示名→存储名
+  // 科目/年级映射：显示名→存储名
   const subjectMapDb = { '语文': 'chinese', '数学': 'math', '英语': 'english', '物理': 'physics', '化学': 'chemistry', '生物': 'biology', '历史': 'history', '地理': 'geography', '政治': 'politics' };
+  const gradeMapDb = { '一年级': '1', '二年级': '2', '三年级': '3', '四年级': '4', '五年级': '5', '六年级': '6', '七年级': '7', '八年级': '8', '九年级': '9' };
   const currentSubject = app.globalData.subject || '数学';
+  const currentGrade = app.globalData.grade || '8';
   const dbSubject = subjectMapDb[currentSubject] || currentSubject;
+  const dbGrade = gradeMapDb[currentGrade] || String(currentGrade || '8');
 
   const payload = {
     knowledge_point_id: knowledgePointId || null,
     kp_name: knowledgePointName || '',
     num_questions: numQuestions || 20,
-    grade: app.globalData.grade || '8',
+    grade: dbGrade,
     subject: dbSubject,
+    mode: 'practice',  // 区分练习模式 vs 测评模式
     weak_points: weakPoints || [],
     student_id: app.globalData.studentId || null,
     assessment_id: assessmentId || null,
     student_profile: studentProfile || null,  // 新增：学生画像（AI原生核心）
   };
 
-  console.log('[cloudApi] startPractice payload:', JSON.stringify(payload));
-  return callCloudFunction('practice_v2', payload);
+  console.log('[cloudApi] startAssessment payload:', JSON.stringify(payload));
+  return callCloudFunction('startAssessment', payload, FUNCTION_TIMEOUTS.startAssessment);
 }
 
 /**
@@ -229,7 +253,7 @@ function submitPracticeResult(data) {
     difficulty: data.difficulty,
     is_correct: data.is_correct,
     assessment_id: data.assessment_id || null,
-  });
+  }, FUNCTION_TIMEOUTS.submitPracticeResult);
 }
 
 /**
@@ -538,7 +562,7 @@ function checkQueueStatus(queueId) {
   if (!queueId) {
     return Promise.reject(new Error('缺少queue_id参数'));
   }
-  return callCloudFunction('checkQueueStatus', { queue_id: queueId });
+  return callCloudFunction('checkQueueStatus', { queue_id: queueId }, FUNCTION_TIMEOUTS.checkQueueStatus);
 }
 
 /**
