@@ -107,6 +107,20 @@ function generateDefaultQuestions(subject, difficulty, count, grade) {
           { content: '小明有 8 个苹果，又买了 7 个，一共有多少个？', options: ['13', '14', '15', '16'], correct_answer: 2, explanation: '8 + 7 = 15。', type: 'choice', difficulty: 'hard', subject: 'math', grade: '1', knowledge_point: '20以内加减法' },
           { content: '20 个气球飞走了 6 个，还剩多少个？', options: ['12', '13', '14', '15'], correct_answer: 2, explanation: '20 - 6 = 14。', type: 'choice', difficulty: 'hard', subject: 'math', grade: '1', knowledge_point: '20以内加减法' }
         ]
+      },
+      '2': {
+        easy: [
+          { content: '计算：35 + 20 = ?', options: ['45', '55', '65', '75'], correct_answer: 1, explanation: '35 加 20 等于 55。', type: 'choice', difficulty: 'easy', subject: 'math', grade: '2', knowledge_point: '100以内加减法' },
+          { content: '计算：80 - 30 = ?', options: ['40', '50', '60', '70'], correct_answer: 1, explanation: '80 减 30 等于 50。', type: 'choice', difficulty: 'easy', subject: 'math', grade: '2', knowledge_point: '100以内加减法' }
+        ],
+        medium: [
+          { content: '根据乘法口诀"四六二十四"，下面哪个算式的结果是正确的？', options: ['4×6=24', '4×6=20', '4×6=28', '4×6=30'], correct_answer: 0, explanation: '4 乘 6 等于 24。', type: 'choice', difficulty: 'medium', subject: 'math', grade: '2', knowledge_point: '乘法口诀' },
+          { content: '小明有35颗糖，小红比他多12颗，小红有多少颗糖？', options: ['47颗', '23颗', '42颗', '50颗'], correct_answer: 0, explanation: '35 + 12 = 47。', type: 'choice', difficulty: 'medium', subject: 'math', grade: '2', knowledge_point: '100以内加减法' }
+        ],
+        hard: [
+          { content: '商店里一支钢笔12元，一个笔记本8元，买这两样物品一共需要付多少元？', options: ['20元', '18元', '22元', '16元'], correct_answer: 0, explanation: '12 + 8 = 20。', type: 'choice', difficulty: 'hard', subject: 'math', grade: '2', knowledge_point: '100以内加减法应用' },
+          { content: '根据乘法口诀"六八四十八"，下列算式正确的是？', options: ['6×8=48', '7×8=48', '6×7=48', '6×8=42'], correct_answer: 0, explanation: '6 乘 8 等于 48。', type: 'choice', difficulty: 'hard', subject: 'math', grade: '2', knowledge_point: '乘法口诀' }
+        ]
       }
     }
   };
@@ -127,6 +141,10 @@ function generateDefaultQuestions(subject, difficulty, count, grade) {
     return result;
   }
 
+  // 回退到高年级默认题目（8年级），确保添加 grade 字段
+  const fallbackGrade = normalizedGrade || '8';
+  console.log(`[generateDefaultQuestions] No grade-aware questions for ${subject}/${normalizedGrade}/${difficulty}, using fallback with grade=${fallbackGrade}`);
+
   const defaultQuestions = {
     math: {
       easy: [
@@ -138,6 +156,7 @@ function generateDefaultQuestions(subject, difficulty, count, grade) {
           type: 'choice',
           difficulty: 'easy',
           subject: 'math',
+          grade: fallbackGrade,
           knowledge_point: '平方根'
         },
         {
@@ -148,6 +167,7 @@ function generateDefaultQuestions(subject, difficulty, count, grade) {
           type: 'choice',
           difficulty: 'easy',
           subject: 'math',
+          grade: fallbackGrade,
           knowledge_point: '绝对值'
         },
         {
@@ -158,6 +178,7 @@ function generateDefaultQuestions(subject, difficulty, count, grade) {
           type: 'choice',
           difficulty: 'easy',
           subject: 'math',
+          grade: fallbackGrade,
           knowledge_point: '实数分类'
         },
         {
@@ -168,6 +189,7 @@ function generateDefaultQuestions(subject, difficulty, count, grade) {
           type: 'choice',
           difficulty: 'easy',
           subject: 'math',
+          grade: fallbackGrade,
           knowledge_point: '有理数运算'
         },
         {
@@ -178,6 +200,7 @@ function generateDefaultQuestions(subject, difficulty, count, grade) {
           type: 'choice',
           difficulty: 'easy',
           subject: 'math',
+          grade: fallbackGrade,
           knowledge_point: '有理数运算'
         }
       ],
@@ -190,6 +213,7 @@ function generateDefaultQuestions(subject, difficulty, count, grade) {
           type: 'choice',
           difficulty: 'medium',
           subject: 'math',
+          grade: fallbackGrade,
           knowledge_point: '平方根化简'
         },
         {
@@ -200,6 +224,7 @@ function generateDefaultQuestions(subject, difficulty, count, grade) {
           type: 'choice',
           difficulty: 'medium',
           subject: 'math',
+          grade: fallbackGrade,
           knowledge_point: '等边三角形'
         },
         {
@@ -210,6 +235,7 @@ function generateDefaultQuestions(subject, difficulty, count, grade) {
           type: 'choice',
           difficulty: 'medium',
           subject: 'math',
+          grade: fallbackGrade,
           knowledge_point: '平方方程'
         }
       ],
@@ -222,6 +248,7 @@ function generateDefaultQuestions(subject, difficulty, count, grade) {
           type: 'choice',
           difficulty: 'hard',
           subject: 'math',
+          grade: fallbackGrade,
           knowledge_point: '实数性质'
         },
         {
@@ -232,6 +259,7 @@ function generateDefaultQuestions(subject, difficulty, count, grade) {
           type: 'choice',
           difficulty: 'hard',
           subject: 'math',
+          grade: fallbackGrade,
           knowledge_point: '平方根定义域'
         }
       ]
@@ -630,9 +658,10 @@ function generateDefaultQuestions(subject, difficulty, count, grade) {
   const result = [];
   for (let i = 0; i < count; i++) {
     const q = difficultyQuestions[i % difficultyQuestions.length];
-    // 添加唯一 ID 和时间戳
+    // 添加唯一 ID、时间戳和 grade 字段
     result.push({
       ...q,
+      grade: q.grade || fallbackGrade,  // 如果题目没有 grade，使用 fallbackGrade
       _id: `default_${Date.now()}_${i}`,
       created_at: new Date().toISOString(),
       is_default: true

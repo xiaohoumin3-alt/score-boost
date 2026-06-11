@@ -6,14 +6,21 @@
 const app = getApp();
 const api = require('../../utils/cloudApi.js');
 
+// 科目-年级兼容性矩阵
+const SUBJECT_GRADE_MATRIX = {
+  'math': { min: 1, max: 9, label: '数学' },
+  'chinese': { min: 1, max: 9, label: '语文' },
+  'english': { min: 1, max: 6, label: '英语' },
+};
+
 Page({
   data: {
     // 页面状态：start -> parent_quiz -> parent_result -> child_quiz -> child_result -> comparison
     status: 'start',
 
-    // 年级选择
-    grade: '',
-    gradeIndex: null, // picker索引 (0-8)，null表示未选择
+    // 年级选择 - 默认一年级（可更改）
+    grade: '1',
+    gradeIndex: 0,
     grades: [
       { value: '1', label: '一年级' },
       { value: '2', label: '二年级' },
@@ -25,21 +32,26 @@ Page({
       { value: '8', label: '初二' },
       { value: '9', label: '初三' }
     ],
+    // 动态可用年级
+    availableGrades: [],
 
     // 科目选择 - 默认选中数学
     subject: 'math',
-    subjectIndex: 0, // 默认数学（索引0）
+    subjectIndex: 0,
     subjects: [
       { value: 'math', label: '数学' },
       { value: 'chinese', label: '语文' },
       { value: 'english', label: '英语' }
     ],
+    // 动态可用科目
+    availableSubjects: [],
 
     // 题目相关
     questions: [],
     currentQuestionIndex: 0,
     currentQuestion: null,
     selectedAnswer: '',
+    selectedAnswerLetter: '',
     answers: [],
 
     // 计时
@@ -65,16 +77,39 @@ Page({
     canUsePublish: false  // official-account-publish 版本兼容
   },
 
+  onReady() {
+    console.log('[parentAssessment] onReady, current state:', {
+      grade: this.data.grade,
+      gradeIndex: this.data.gradeIndex,
+      grades: this.data.grades,
+      gradeLabel: this.data.grades?.[this.data.gradeIndex]?.label,
+      subject: this.data.subject,
+      subjectIndex: this.data.subjectIndex,
+      subjects: this.data.subjects,
+      subjectLabel: this.data.subjects?.[this.data.subjectIndex]?.label
+    });
+  },
+
   onLoad(options) {
     console.log('[parentAssessment] onLoad, options:', options);
+
+    // 初始化可用选项（全部可用）
+    this.setData({
+      availableGrades: this.data.grades,
+      availableSubjects: this.data.subjects
+    });
 
     // 如果有预设年级
     if (options.grade) {
       const gradeIndex = this.data.grades.findIndex(g => g.value === options.grade);
       if (gradeIndex !== -1) {
         this.setData({ grade: options.grade, gradeIndex });
+        this.updateAvailableSubjectsByGrade(options.grade);
         console.log('[parentAssessment] 预设年级:', options.grade, '索引:', gradeIndex);
       }
+    } else {
+      // 默认年级1，更新可用科目
+      this.updateAvailableSubjectsByGrade('1');
     }
 
     // Load invite code for share tracking
@@ -128,29 +163,98 @@ Page({
   onGradeChange(e) {
     console.log('[onGradeChange] raw e.detail.value:', e.detail.value, 'type:', typeof e.detail.value);
     const index = parseInt(e.detail.value);
-    const selectedGrade = this.data.grades[index];
+    const selectedGrade = this.data.availableGrades[index];
     console.log('[onGradeChange] index:', index, 'grade:', selectedGrade);
     this.setData({
       gradeIndex: index,
       grade: selectedGrade.value
     });
+    // 根据年级更新可用科目
+    this.updateAvailableSubjectsByGrade(selectedGrade.value);
     console.log('[onGradeChange] after setData, gradeIndex:', this.data.gradeIndex, 'grade:', this.data.grade);
   },
 
   onSubjectChange(e) {
     console.log('[onSubjectChange] raw e.detail.value:', e.detail.value, 'type:', typeof e.detail.value);
     const index = parseInt(e.detail.value);
-    const selectedSubject = this.data.subjects[index];
+    const selectedSubject = this.data.availableSubjects[index];
     console.log('[onSubjectChange] index:', index, 'subject:', selectedSubject);
     this.setData({
       subjectIndex: index,
       subject: selectedSubject.value
     });
+    // 根据科目更新可用年级
+    this.updateAvailableGradesBySubject(selectedSubject.value);
     console.log('[onSubjectChange] after setData, subjectIndex:', this.data.subjectIndex, 'subject:', this.data.subject);
   },
 
+  /**
+   * 根据年级更新可用科目
+   */
+  updateAvailableSubjectsByGrade(gradeValue) {
+    const gradeNum = parseInt(gradeValue, 10);
+    const available = this.data.subjects.filter(item => {
+      const range = SUBJECT_GRADE_MATRIX[item.value];
+      return range && gradeNum >= range.min && gradeNum <= range.max;
+    });
+
+    // 检查当前选中的科目是否仍然可用
+    const currentSubject = this.data.subject;
+    if (currentSubject) {
+      const range = SUBJECT_GRADE_MATRIX[currentSubject];
+      if (!range || gradeNum < range.min || gradeNum > range.max) {
+        // 当前科目不可用，切换到第一个可用科目
+        const newSubject = available[0]?.value || 'math';
+        const newSubjectIndex = this.data.subjects.findIndex(s => s.value === newSubject);
+        this.setData({ subject: newSubject, subjectIndex: newSubjectIndex });
+      } else {
+        // 更新科目索引以匹配当前科目在新列表中的位置
+        const newSubjectIndex = available.findIndex(s => s.value === currentSubject);
+        this.setData({ subjectIndex: newSubjectIndex >= 0 ? newSubjectIndex : 0 });
+      }
+    }
+
+    this.setData({ availableSubjects: available });
+    console.log('[updateAvailableSubjectsByGrade] grade:', gradeValue, 'available:', available.map(s => s.label));
+  },
+
+  /**
+   * 根据科目更新可用年级
+   */
+  updateAvailableGradesBySubject(subjectValue) {
+    const range = SUBJECT_GRADE_MATRIX[subjectValue];
+    if (!range) {
+      this.setData({ availableGrades: this.data.grades });
+      return;
+    }
+
+    const available = this.data.grades.filter(grade => {
+      const gradeNum = parseInt(grade.value, 10);
+      return gradeNum >= range.min && gradeNum <= range.max;
+    });
+
+    // 检查当前选中的年级是否仍然可用
+    const currentGrade = this.data.grade;
+    if (currentGrade) {
+      const gradeNum = parseInt(currentGrade, 10);
+      if (gradeNum < range.min || gradeNum > range.max) {
+        // 当前年级不可用，切换到第一个可用年级
+        const newGrade = available[0]?.value || '1';
+        const newGradeIndex = this.data.grades.findIndex(g => g.value === newGrade);
+        this.setData({ grade: newGrade, gradeIndex: newGradeIndex });
+      } else {
+        // 更新年级索引以匹配当前年级在新列表中的位置
+        const newGradeIndex = available.findIndex(g => g.value === currentGrade);
+        this.setData({ gradeIndex: newGradeIndex >= 0 ? newGradeIndex : 0 });
+      }
+    }
+
+    this.setData({ availableGrades: available });
+    console.log('[updateAvailableGradesBySubject] subject:', subjectValue, 'available:', available.map(g => g.label));
+  },
+
   // 开始测评
-  async startAssessment() {
+  startAssessment() {
     const { grade, subject } = this.data;
 
     if (!grade) {
@@ -167,70 +271,149 @@ Page({
 
     this.setData({ loading: true, error: '' });
 
-    try {
-      const res = await wx.cloud.callFunction({
-        name: 'parentAssessment',
-        data: {
-          action: 'start',
-          grade: grade,
-          subject: subject
-        }
-      });
-
-      console.log('[startAssessment] result:', res.result);
-
-      if (res.result.success) {
-        const { assessment_id, questions } = res.result.data;
-
-        this.setData({
-          status: 'parent_quiz',
-          assessmentId: assessment_id,
-          questions: questions,
-          currentQuestionIndex: 0,
-          currentQuestion: questions[0],
-          selectedAnswer: '',
-          answers: [],
-          startTime: Date.now(),
-          loading: false
+    (async () => {
+      try {
+        // 步骤1：创建队列任务
+        const startRes = await wx.cloud.callFunction({
+          name: 'parentAssessment',
+          data: {
+            action: 'start',
+            grade: grade,
+            subject: subject
+          }
         });
-      } else {
+
+        console.log('[startAssessment] 创建队列结果:', startRes.result);
+
+        if (!startRes.result.success) {
+          this.setData({
+            loading: false,
+            error: startRes.result.error || '启动测评失败'
+          });
+          return;
+        }
+
+        const { task_id, assessment_id } = startRes.result.data;
+
+        // 步骤2：轮询获取题目状态
+        await this.pollForQuestions(task_id, assessment_id);
+      } catch (e) {
+        console.error('[startAssessment] Error:', e);
         this.setData({
           loading: false,
-          error: res.result.error || '启动测评失败'
+          error: '网络错误，请稍后重试'
         });
       }
-    } catch (e) {
-      console.error('[startAssessment] Error:', e);
-      this.setData({
-        loading: false,
-        error: '网络错误，请稍后重试'
-      });
-    }
+    })();
+  },
+
+  // 轮询获取题目
+  pollForQuestions(taskId, assessmentId) {
+    const maxAttempts = 30; // 最多轮询30次（60秒）
+    const pollInterval = 2000; // 每2秒轮询一次
+    let attempts = 0;
+
+    return new Promise((resolve, reject) => {
+      const poll = async () => {
+        attempts++;
+
+        try {
+          const res = await wx.cloud.callFunction({
+            name: 'checkQueueStatus',
+            data: { queue_id: taskId }
+          });
+
+          console.log(`[pollForQuestions] 第${attempts}次轮询:`, res.result);
+
+          if (res.result.success && res.result.data) {
+            const { status, questions } = res.result.data;
+
+            if (status === 'completed' && questions && questions.length > 0) {
+              // 完成，获取到题目
+              console.log('[pollForQuestions] 题目生成成功，数量:', questions.length);
+              this.setData({
+                status: 'parent_quiz',
+                assessmentId: assessmentId,
+                questions: questions,
+                currentQuestionIndex: 0,
+                currentQuestion: questions[0],
+                selectedAnswer: '',
+                selectedAnswerLetter: '',
+                answers: [],
+                startTime: Date.now(),
+                loading: false
+              });
+              resolve();
+              return;
+            } else if (status === 'failed') {
+              // 失败
+              this.setData({
+                loading: false,
+                error: res.result.data.error || '题目生成失败，请重试'
+              });
+              reject(new Error('Queue task failed'));
+              return;
+            } else if (attempts >= maxAttempts) {
+              // 超时
+              this.setData({
+                loading: false,
+                error: '题目生成超时，请重试'
+              });
+              reject(new Error('Poll timeout'));
+              return;
+            } else {
+              // 继续轮询
+              setTimeout(poll, pollInterval);
+            }
+          } else {
+            this.setData({
+              loading: false,
+              error: '检查状态失败'
+            });
+            reject(new Error('Check status failed'));
+          }
+        } catch (e) {
+          console.error('[pollForQuestions] 轮询错误:', e);
+          this.setData({
+            loading: false,
+            error: '网络错误，请稍后重试'
+          });
+          reject(e);
+        }
+      };
+
+      // 开始轮询
+      poll();
+    });
   },
 
   // 选择答案
   onSelectAnswer(e) {
-    const answer = e.currentTarget.dataset.answer;
-    this.setData({ selectedAnswer: answer });
+    const index = e.currentTarget.dataset.answer;
+    // 将索引转换为字母（A=0, B=1, C=2, D=3）
+    const letter = ['A', 'B', 'C', 'D'][index];
+    this.setData({ selectedAnswer: index });  // 高亮用索引
+    this.setData({ selectedAnswerLetter: letter });  // 提交用字母
   },
 
   // 下一题
-  async nextQuestion() {
+  nextQuestion() {
     const {
       currentQuestionIndex,
       questions,
       selectedAnswer,
+      selectedAnswerLetter,
       answers,
       status
     } = this.data;
 
-    if (!selectedAnswer) {
+    if (!selectedAnswer && selectedAnswer !== 0) {
       wx.showToast({ title: '请选择答案', icon: 'none' });
       return;
     }
 
-    // 保存答案
-    const newAnswers = [...answers, selectedAnswer];
+    // 保存答案（使用字母）
+    const newAnswers = [...answers, selectedAnswerLetter];
     const nextIndex = currentQuestionIndex + 1;
 
     if (nextIndex < questions.length) {
@@ -239,7 +422,8 @@ Page({
         answers: newAnswers,
         currentQuestionIndex: nextIndex,
         currentQuestion: questions[nextIndex],
-        selectedAnswer: ''
+        selectedAnswer: '',
+        selectedAnswerLetter: ''
       });
     } else {
       // 完成测评
@@ -251,104 +435,122 @@ Page({
         loading: true
       });
 
-      if (status === 'parent_quiz') {
-        // 提交家长答案
-        await this.submitParentAnswers(newAnswers, duration);
-      } else if (status === 'child_quiz') {
-        // 提交孩子答案
-        await this.submitChildAnswers(newAnswers, duration);
-      }
+      (async () => {
+        if (status === 'parent_quiz') {
+          // 提交家长答案
+          await this.submitParentAnswers(newAnswers, duration);
+        } else if (status === 'child_quiz') {
+          // 提交孩子答案
+          await this.submitChildAnswers(newAnswers, duration);
+        }
+      })();
     }
   },
 
   // 提交家长答案
-  async submitParentAnswers(answers, duration) {
-    try {
-      const res = await wx.cloud.callFunction({
-        name: 'parentAssessment',
-        data: {
-          action: 'submitParent',
-          assessment_id: this.data.assessmentId,
-          answers: answers,
-          duration: duration
-        }
-      });
+  submitParentAnswers(answers, duration) {
+    console.log('[submitParentAnswers] 提交的答案:', answers);
+    console.log('[submitParentAnswers] 答案类型:', answers.map(a => typeof a));
 
-      console.log('[submitParentAnswers] result:', res.result);
-
-      if (res.result.success) {
-        const { parent_score, questions, role } = res.result.data;
-
-        this.setData({
-          status: 'parent_result',
-          parentResult: res.result.data,
-          loading: false
+    (async () => {
+      try {
+        const res = await wx.cloud.callFunction({
+          name: 'parentAssessment',
+          data: {
+            action: 'submitParent',
+            assessment_id: this.data.assessmentId,
+            answers: answers,
+            duration: duration
+          }
         });
-      } else {
+
+        console.log('[submitParentAnswers] 云函数返回:', res.result);
+
+        if (res.result.success) {
+          const { parent_score, questions, role } = res.result.data;
+
+          this.setData({
+            status: 'parent_result',
+            parentResult: res.result.data,
+            loading: false
+          });
+        } else {
+          this.setData({
+            loading: false,
+            error: res.result.error || '提交失败'
+          });
+        }
+      } catch (e) {
+        console.error('[submitParentAnswers] Error:', e);
         this.setData({
           loading: false,
-          error: res.result.error || '提交失败'
+          error: '网络错误，请稍后重试'
         });
       }
-    } catch (e) {
-      console.error('[submitParentAnswers] Error:', e);
-      this.setData({
-        loading: false,
-        error: '网络错误，请稍后重试'
-      });
-    }
+    })();
   },
 
   // 开始孩子测评
   startChildAssessment() {
     const { parentResult } = this.data;
 
+    // 先进入准备状态，不开始计时
     this.setData({
-      status: 'child_quiz',
+      status: 'child_prepare',
       questions: parentResult.questions,
-      currentQuestionIndex: 0,
-      currentQuestion: parentResult.questions[0],
-      selectedAnswer: '',
-      answers: [],
-      startTime: Date.now(),
       loading: false
     });
   },
 
+  // 孩子开始答题（从准备页面点击）
+  startChildQuiz() {
+    // 现在开始计时
+    this.setData({
+      status: 'child_quiz',
+      currentQuestionIndex: 0,
+      currentQuestion: this.data.questions[0],
+      selectedAnswer: '',
+      answers: [],
+      startTime: Date.now()
+    });
+  },
+
   // 提交孩子答案
-  async submitChildAnswers(answers, duration) {
-    try {
-      const res = await wx.cloud.callFunction({
-        name: 'parentAssessment',
-        data: {
-          action: 'submitChild',
-          assessment_id: this.data.assessmentId,
-          answers: answers,
-          duration: duration
-        }
-      });
-
-      console.log('[submitChildAnswers] result:', res.result);
-
-      if (res.result.success) {
-        this.setData({
-          status: 'comparison',
-          comparisonResult: res.result.data,
-          loading: false
+  submitChildAnswers(answers, duration) {
+    (async () => {
+      try {
+        const res = await wx.cloud.callFunction({
+          name: 'parentAssessment',
+          data: {
+            action: 'submitChild',
+            assessment_id: this.data.assessmentId,
+            answers: answers,
+            duration: duration
+          }
         });
-      } else {
+
+        console.log('[submitChildAnswers] result:', res.result);
+
+        if (res.result.success) {
+          this.setData({
+            status: 'comparison',
+            comparisonResult: res.result.data,
+            loading: false
+          });
+        } else {
+          this.setData({
+            loading: false,
+            error: res.result.error || '提交失败'
+          });
+        }
+      } catch (e) {
+        console.error('[submitChildAnswers] Error:', e);
         this.setData({
           loading: false,
-          error: res.result.error || '提交失败'
+          error: '网络错误，请稍后重试'
         });
       }
-    } catch (e) {
-      console.error('[submitChildAnswers] Error:', e);
-      this.setData({
-        loading: false,
-        error: '网络错误，请稍后重试'
-      });
-    }
+    })();
   },
 
   // 分享结果
@@ -379,7 +581,46 @@ Page({
 
   // 生成战报海报到Canvas，返回临时图片路径
   generateBattlePoster() {
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
+      // 先获取小程序码
+      let qrcodeTempPath = null;
+      try {
+        const { grade, assessmentId } = this.data;
+        const scene = `grade=${grade}&from=posterp&aid=${assessmentId}`;
+
+        console.log('[generateBattlePoster] 获取小程序码...');
+        const qrRes = await wx.cloud.callFunction({
+          name: 'getShareCode',
+          data: {
+            path: 'pages/parent-assessment/parent-assessment',
+            scene: scene,
+            width: 280
+          }
+        });
+
+        console.log('[generateBattlePoster] 云函数返回:', qrRes);
+
+        if (qrRes.result && qrRes.result.success) {
+          const base64 = qrRes.result.data.base64;
+          console.log('[generateBattlePoster] 收到Base64数据，长度:', base64 ? base64.length : 0);
+
+          // 将 Base64 转换为临时文件
+          const fs = wx.getFileSystemManager();
+          const tempFilePath = `${wx.env.USER_DATA_PATH}/qrcode_${Date.now()}.png`;
+
+          // Base64 数据需要去掉 data:image/png;base64, 前缀（如果有）
+          const base64Data = base64.includes(',') ? base64.split(',')[1] : base64;
+          const buffer = wx.base64ToArrayBuffer(base64Data);
+
+          fs.writeFileSync(tempFilePath, buffer, 'binary');
+          qrcodeTempPath = tempFilePath;
+          console.log('[generateBattlePoster] 小程序码已保存到:', qrcodeTempPath);
+        } else {
+          console.error('[generateBattlePoster] 云函数返回失败:', qrRes);
+        }
+      } catch (e) {
+        console.error('[generateBattlePoster] 获取小程序码失败:', e);
+      }
       const query = this.createSelectorQuery();
       query.select('#battleReportCanvas')
         .fields({ node: true, size: true })
@@ -500,38 +741,94 @@ Page({
           ctx.font = '24px sans-serif';
           ctx.fillText('你也来试试？扫码参加亲子擂台赛', width / 2, 630);
 
-          // 小程序码占位（用文字代替，因为无法在小程序内生成真实码）
-          ctx.strokeStyle = 'rgba(255,255,255,0.3)';
-          ctx.lineWidth = 2;
-          this.roundRect(ctx, width / 2 - 80, 660, 160, 160, 12);
-          ctx.stroke();
-          ctx.fillStyle = 'rgba(255,255,255,0.3)';
-          ctx.font = '22px sans-serif';
-          ctx.fillText('小程序码', width / 2, 750);
+          // 绘制小程序码（如果获取成功）或占位符
+          const qrSize = 160;
+          const qrX = width / 2 - qrSize / 2;
+          const qrY = 660;
 
-          // 底部品牌
-          ctx.fillStyle = 'rgba(255,255,255,0.3)';
-          ctx.font = '20px sans-serif';
-          ctx.fillText('日日守护 · 亲子擂台赛', width / 2, 920);
+          if (qrcodeTempPath) {
+            // 绘制真实小程序码
+            const qrImage = canvas.createImage();
+            qrImage.onload = () => {
+              console.log('[generateBattlePoster] 小程序码图片加载成功');
+              // 绘制小程序码
+              ctx.drawImage(qrImage, qrX, qrY, qrSize, qrSize);
 
-          // 底部装饰条
-          const gradient2 = ctx.createLinearGradient(0, 0, width, 0);
-          gradient2.addColorStop(0, '#667eea');
-          gradient2.addColorStop(1, '#764ba2');
-          ctx.fillStyle = gradient2;
-          ctx.fillRect(0, height - 8, width, 8);
+              // 绘制边框
+              ctx.strokeStyle = 'rgba(255,255,255,0.3)';
+              ctx.lineWidth = 2;
+              this.roundRect(ctx, qrX, qrY, qrSize, qrSize, 12);
+              ctx.stroke();
 
-          // 导出图片
-          wx.canvasToTempFilePath({
-            canvas: canvas,
-            success: (exportRes) => {
-              resolve(exportRes.tempFilePath);
-            },
-            fail: (err) => {
-              reject(err);
-            }
-          });
+              // 底部品牌
+              ctx.fillStyle = 'rgba(255,255,255,0.3)';
+              ctx.font = '20px sans-serif';
+              ctx.fillText('日日守护 · 亲子擂台赛', width / 2, 920);
+
+              // 底部装饰条
+              const gradient2 = ctx.createLinearGradient(0, 0, width, 0);
+              gradient2.addColorStop(0, '#667eea');
+              gradient2.addColorStop(1, '#764ba2');
+              ctx.fillStyle = gradient2;
+              ctx.fillRect(0, height - 8, width, 8);
+
+              // 导出图片
+              wx.canvasToTempFilePath({
+                canvas: canvas,
+                success: (exportRes) => {
+                  resolve(exportRes.tempFilePath);
+                },
+                fail: (err) => {
+                  reject(err);
+                }
+              });
+            };
+            qrImage.onerror = (err) => {
+              console.error('[generateBattlePoster] 小程序码加载失败:', err);
+              // 降级到占位符
+              this.drawQRCodePlaceholder(ctx, width, height, qrX, qrY, qrSize, canvas, resolve, reject);
+            };
+            qrImage.src = qrcodeTempPath;
+          } else {
+            // 没有小程序码，使用占位符
+            this.drawQRCodePlaceholder(ctx, width, height, qrX, qrY, qrSize, canvas, resolve, reject);
+          }
         });
+    });
+  },
+
+  // 绘制小程序码占位符并导出图片
+  drawQRCodePlaceholder(ctx, width, height, qrX, qrY, qrSize, canvas, resolve, reject) {
+    ctx.strokeStyle = 'rgba(255,255,255,0.3)';
+    ctx.lineWidth = 2;
+    this.roundRect(ctx, qrX, qrY, qrSize, qrSize, 12);
+    ctx.stroke();
+    ctx.fillStyle = 'rgba(255,255,255,0.3)';
+    ctx.font = '22px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('小程序码', width / 2, qrY + qrSize / 2 + 8);
+
+    // 底部品牌
+    ctx.fillStyle = 'rgba(255,255,255,0.3)';
+    ctx.font = '20px sans-serif';
+    ctx.fillText('日日守护 · 亲子擂台赛', width / 2, 920);
+
+    // 底部装饰条
+    const gradient2 = ctx.createLinearGradient(0, 0, width, 0);
+    gradient2.addColorStop(0, '#667eea');
+    gradient2.addColorStop(1, '#764ba2');
+    ctx.fillStyle = gradient2;
+    ctx.fillRect(0, height - 8, width, 8);
+
+    // 导出图片
+    wx.canvasToTempFilePath({
+      canvas: canvas,
+      success: (exportRes) => {
+        resolve(exportRes.tempFilePath);
+      },
+      fail: (err) => {
+        reject(err);
+      }
     });
   },
 
@@ -550,68 +847,87 @@ Page({
     ctx.closePath();
   },
 
-  // 一键发帖到公众号
-  async postToOfficialAccount() {
+  // 生成海报并预览（第一步）
+  generateAndPreviewPoster() {
     if (this.data.postingOA) return;
 
     this.setData({ postingOA: true });
 
-    try {
-      // Step 1: 生成战报海报
-      console.log('[postToOA] 开始生成战报海报');
-      const posterPath = await this.generateBattlePoster();
-      console.log('[postToOA] 海报生成成功:', posterPath);
-      this.setData({ posterImagePath: posterPath });
-
-      // Step 2: 调用 wx.shareToOfficialAccount
-      const { comparisonResult, grade, assessmentId } = this.data;
-      const winner = comparisonResult.comparison.winner;
-      let title = '亲子擂台赛战报';
-      if (winner === 'child') {
-        title = '孩子赢了！亲子擂台赛结果出炉';
-      } else if (winner === 'parent') {
-        title = '家长险胜！亲子擂台赛结果';
+    (async () => {
+      try {
+        console.log('[generateAndPreviewPoster] 开始生成战报海报');
+        const posterPath = await this.generateBattlePoster();
+        console.log('[generateAndPreviewPoster] 海报生成成功:', posterPath);
+        this.setData({
+          posterImagePath: posterPath,
+          showPosterPreview: true,
+          postingOA: false
+        });
+      } catch (e) {
+        console.error('[generateAndPreviewPoster] 生成失败:', e);
+        this.setData({ postingOA: false });
+        wx.showToast({ title: '生成战报失败', icon: 'none' });
       }
+    })();
+  },
 
-      const content = `家长${comparisonResult.parent.score}分 vs 孩子${comparisonResult.child.score}分\n` +
-        `家长答对${comparisonResult.parent.correct_count}/${comparisonResult.parent.total_questions}，` +
-        `孩子答对${comparisonResult.child.correct_count}/${comparisonResult.child.total_questions}`;
+  // 发到公众号（第二步，必须在用户点击事件中同步调用）
+  shareToOfficialAccount() {
+    const { posterImagePath, comparisonResult, grade, assessmentId, hasOAPosted } = this.data;
 
-      console.log('[postToOA] 调用 wx.shareToOfficialAccount, title:', title);
-
-      wx.shareToOfficialAccount({
-        title: title,
-        content: content,
-        tags: ['亲子擂台赛', '家长测评', '数学'],
-        images: [posterPath],
-        path: `/pages/parent-assessment/parent-assessment?grade=${grade}&from=oa_post&assessment_id=${assessmentId}`,
-        success: (res) => {
-          console.log('[postToOA] 发帖成功:', res);
-          this.setData({
-            postingOA: false,
-            hasOAPosted: true
-          });
-          wx.showToast({ title: '发帖成功！', icon: 'success' });
-        },
-        fail: (err) => {
-          console.error('[postToOA] 发帖失败:', err);
-          this.setData({ postingOA: false });
-
-          // 降级：如果shareToOfficialAccount不可用，展示海报让用户手动分享
-          if (err.errMsg && err.errMsg.indexOf('not support') > -1) {
-            console.log('[postToOA] 降级到海报预览模式');
-            this.setData({ showPosterPreview: true });
-            wx.showToast({ title: '当前版本不支持一键发帖，已生成海报可保存分享', icon: 'none', duration: 3000 });
-          } else {
-            wx.showToast({ title: '发帖失败: ' + (err.errMsg || '未知错误'), icon: 'none', duration: 3000 });
-          }
-        }
-      });
-    } catch (e) {
-      console.error('[postToOA] 整体失败:', e);
-      this.setData({ postingOA: false });
-      wx.showToast({ title: '生成战报失败', icon: 'none' });
+    if (hasOAPosted) {
+      wx.showToast({ title: '已发帖成功', icon: 'success' });
+      return;
     }
+
+    if (!posterImagePath) {
+      wx.showToast({ title: '海报未生成', icon: 'none' });
+      return;
+    }
+
+    const winner = comparisonResult.comparison.winner;
+    let title = '亲子擂台赛战报';
+    if (winner === 'child') {
+      title = '孩子赢了！亲子擂台赛结果出炉';
+    } else if (winner === 'parent') {
+      title = '家长险胜！亲子擂台赛结果';
+    }
+
+    const content = `家长${comparisonResult.parent.score}分 vs 孩子${comparisonResult.child.score}分\n` +
+      `家长答对${comparisonResult.parent.correct_count}/${comparisonResult.parent.total_questions}，` +
+      `孩子答对${comparisonResult.child.correct_count}/${comparisonResult.child.total_questions}`;
+
+    console.log('[shareToOfficialAccount] 调用 wx.shareToOfficialAccount, title:', title);
+
+    // 此函数必须在用户点击事件的同步调用栈中调用
+    wx.shareToOfficialAccount({
+      title: title,
+      content: content,
+      tags: ['亲子擂台赛', '家长测评', '数学'],
+      images: [posterImagePath],
+      path: `/pages/parent-assessment/parent-assessment?grade=${grade}&from=oa_post&assessment_id=${assessmentId}`,
+      success: (res) => {
+        console.log('[shareToOfficialAccount] 发帖成功:', res);
+        this.setData({ hasOAPosted: true });
+        wx.showToast({ title: '发帖成功！', icon: 'success' });
+      },
+      fail: (err) => {
+        console.error('[shareToOfficialAccount] 发帖失败:', err);
+
+        if (err.errMsg && err.errMsg.indexOf('not support') > -1) {
+          wx.showToast({ title: '当前版本不支持一键发帖，可保存海报分享', icon: 'none', duration: 3000 });
+        } else if (err.errMsg && err.errMsg.indexOf('TAP gesture') > -1) {
+          wx.showToast({ title: '请点击按钮触发发帖', icon: 'none', duration: 3000 });
+        } else {
+          wx.showToast({ title: '发帖失败: ' + (err.errMsg || '未知错误'), icon: 'none', duration: 3000 });
+        }
+      }
+    });
+  },
+
+  // 一键发帖到公众号（已废弃，使用两步式流程）
+  postToOfficialAccount() {
+    wx.showToast({ title: '请先生成海报，再点击"发到公众号"', icon: 'none', duration: 2000 });
   },
 
   // 保存海报到相册
@@ -676,7 +992,10 @@ Page({
   restart() {
     this.setData({
       status: 'start',
-      grade: '',
+      grade: '1',
+      gradeIndex: 0,
+      subject: 'math',
+      subjectIndex: 0,
       questions: [],
       currentQuestionIndex: 0,
       currentQuestion: null,

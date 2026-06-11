@@ -10,10 +10,14 @@ const { BaseStep } = require('../BaseStep');
  * 完成步骤
  */
 class CompleteStep extends BaseStep {
-  constructor() {
+  /**
+   * @param {Object} options - 步骤选项
+   * @param {Array<string>} options.dependencies - 依赖的步骤名称列表
+   */
+  constructor(options = {}) {
     super('Complete', {
       checkCancelled: false,  // 状态更新步骤不需要取消检测
-      dependencies: ['CreateAssessment']
+      dependencies: options.dependencies || ['CreateAssessment']
     });
   }
 
@@ -119,12 +123,24 @@ class CompleteStep extends BaseStep {
 
       // 使用 updateQueueStatus 函数
       const { updateQueueStatus } = require('../utils/updateQueueStatus');
-      const result = await updateQueueStatus(db, task._id, 'completed', {
-        generated_assessment_id: assessmentId,
+
+      // 根据任务类型设置不同的完成数据
+      const updateFields = {
         timeline: {
           completed_at: new Date().toISOString()
         }
-      });
+      };
+
+      if (task.type === 'parent_assessment') {
+        // 亲子测评：传递 question_ids 供调用方获取题目
+        updateFields.question_ids = questionIds;
+        console.log('[CompleteStep] Parent assessment mode, returning question_ids:', questionIds.length);
+      } else {
+        // 默认流程：传递 assessment_id
+        updateFields.generated_assessment_id = assessmentId;
+      }
+
+      const result = await updateQueueStatus(db, task._id, 'completed', updateFields);
 
       if (!result.success) {
         return {

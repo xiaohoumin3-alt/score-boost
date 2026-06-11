@@ -230,7 +230,13 @@ Page({
       });
     } catch (e) {
       wx.hideLoading();
-      wx.showToast({ title: '网络错误: ' + (e.message || '未知'), icon: 'none', duration: 3000 });
+      // 区分业务错误（云函数返回的明确消息）和网络错误
+      const errorMsg = e.message || '未知';
+      // 如果错误消息包含"网络"、"超时"、"连接"等关键词，显示为网络错误
+      // 否则显示云函数返回的业务错误消息
+      const isNetworkError = /网络|超时|连接|timeout|network/i.test(errorMsg);
+      const displayMsg = isNetworkError ? '网络错误: ' + errorMsg : errorMsg;
+      wx.showToast({ title: displayMsg, icon: 'none', duration: 3000 });
       setTimeout(function() { wx.navigateBack(); }, 3000);
     }
   },
@@ -282,7 +288,11 @@ Page({
       }
     } catch (e) {
       wx.hideLoading();
-      wx.showToast({ title: '网络错误: ' + (e.message || '未知'), icon: 'none', duration: 3000 });
+      // 区分业务错误（云函数返回的明确消息）和网络错误
+      const errorMsg = e.message || '未知';
+      const isNetworkError = /网络|超时|连接|timeout|network/i.test(errorMsg);
+      const displayMsg = isNetworkError ? '网络错误: ' + errorMsg : errorMsg;
+      wx.showToast({ title: displayMsg, icon: 'none', duration: 3000 });
       setTimeout(function() { wx.navigateBack(); }, 3000);
     }
   },

@@ -222,6 +222,99 @@
   border: none;
 }
 
+/* 全分数段难度引导卡片 */
+.guidance-card {
+  display: flex;
+  align-items: center;
+  gap: 24rpx;
+  padding: 36rpx;
+  background: linear-gradient(135deg, #1a2a3e 0%, #1a3a2e 100%);
+  border-radius: 24rpx;
+  margin-bottom: 40rpx;
+  border: 2rpx solid var(--accent, #00E5A0);
+  animation: guidanceSlide 0.5s ease-out;
+}
+
+@keyframes guidanceSlide {
+  from {
+    opacity: 0;
+    transform: translateY(20rpx);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.guidance-icon {
+  width: 80rpx;
+  height: 80rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 229, 160, 0.1);
+  border-radius: 50%;
+}
+
+.icon-emoji {
+  font-size: 48rpx;
+}
+
+.guidance-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.guidance-title {
+  font-size: 34rpx;
+  color: var(--text-primary, rgba(255, 255, 255, 0.92));
+  font-weight: bold;
+}
+
+.guidance-desc {
+  font-size: 26rpx;
+  color: var(--text-secondary, rgba(255, 255, 255, 0.5));
+}
+
+/* 全分数段引导按钮 */
+.btn-guidance {
+  width: 100%;
+  font-size: 36rpx;
+  font-weight: 600;
+  border-radius: 24rpx;
+  padding: 32rpx;
+  margin-bottom: 24rpx;
+  border: none;
+  color: #fff;
+  box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.btn-guidance:active {
+  transform: scale(0.98);
+  opacity: 0.9;
+}
+
+/* 提升挑战 - 金橙色，激发成就感 */
+.btn-guidance.btn-upgrade {
+  background: linear-gradient(135deg, #FFA94D 0%, #FFC107 100%);
+  box-shadow: 0 8rpx 24rpx rgba(255, 169, 77, 0.4);
+}
+
+/* 保持当前 - 绿松石色，肯定当前状态 */
+.btn-guidance.btn-maintain {
+  background: linear-gradient(135deg, #00D9A5 0%, #00E5A0 100%);
+  box-shadow: 0 8rpx 24rpx rgba(0, 217, 165, 0.3);
+}
+
+/* 降低难度 - 青蓝色，温和引导而非警告 */
+.btn-guidance.btn-downgrade {
+  background: linear-gradient(135deg, #4A90E2 0%, #5C9BE5 100%);
+  box-shadow: 0 8rpx 24rpx rgba(74, 144, 226, 0.3);
+}
+
 /* Knowledge Points Stats */
 .kp-stats {
   background: linear-gradient(135deg, var(--bg-surface, rgba(255, 255, 255, 0.04)) 0%, #1a2a35 100%);

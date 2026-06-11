@@ -7,8 +7,9 @@
 // 引入个性化Prompt模板
 const { buildPersonalizedPrompt } = require('./prompt-templates.js');
 const { normalizeQuestion } = require('./shared/question-normalizer');
-const { createLLMClient } = require('../shared/llm-core');
-const { loadConfig } = require('../shared/llm-core/config');
+const { createLLMClient } = require('./shared/llm-core');
+const { loadConfig } = require('./shared/llm-core/config');
+const { getDifficultyGuidance } = require('./shared/difficulty-guidance');
 
 let cloud = null;
 let db = null;
@@ -268,30 +269,7 @@ function buildGenericPrompt(params) {
     hard: '困难'
   }[difficulty] || '中等';
 
-  const difficultyGuidance = {
-    easy: `【难度标准 - 简单】
-- 直接套用公式或基本概念即可解答
-- 单步推理，不需要复杂变换
-- 数据简单，计算量小
-- 选项中只有一个明显正确答案，干扰项较弱
-- 示例题型：√16的值是？选项：["2", "4", "8", "16"]；直角三角形两直角边为3和4，斜边长为？选项：["5", "6", "7", "8"]`,
-
-    medium: `【难度标准 - 中等】
-- 需要对公式或概念进行适度变形或转换
-- 需要2-3步推理才能得出答案
-- 可能涉及多个知识点的综合应用
-- 选项设计有一定迷惑性，需要仔细辨别
-- 示例题型：√(a²)=|a|，当a<0时，√(a²)等于？选项：["a", "-a", "0", "±a"]；等边三角形边长为6，高为？选项：["3", "3√3", "6", "12"]`,
-
-    hard: `【难度标准 - 困难】
-- 需要多步推理，或涉及抽象概念理解
-- 可能需要逆向思维或特殊情况分析
-- 结果可能具有反直觉性，容易误判
-- 选项高度相似，每个选项都有一定的合理性
-- 可能涉及陷阱题型或边界条件
-- 示例题型：判断下列关于二次根式的说法是否正确（多知识点综合）；需要分类讨论的复杂情况`
-  };
-
+  const difficultyGuidance = getDifficultyGuidance(difficulty, null);
   const questionTypeText = {
     choice: '选择题',
     written: '简答题',

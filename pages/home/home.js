@@ -2,6 +2,9 @@ const app = getApp();
 const api = require('../../utils/cloudApi.js');
 const { resolveKpNames, resolveKpName } = require('../../utils/knowledgeMap.js');
 
+// 节流延迟（10秒内不重复请求）
+const THROTTLE_DELAY = 10000;
+
 Page({
   data: {
     loading: true,
@@ -22,7 +25,11 @@ Page({
     canSignin: true,
     showTopics: false,  // 是否显示知识点选择
     homeLoaded: false,  // 防止重复加载
-    navHeight: 128  // 导航区域高度(rpx)，onLoad中动态计算
+    navHeight: 128,  // 导航区域高度(rpx)，onLoad中动态计算
+    // 实时学习动态
+    onlineCount: 0,
+    liveLearners: [],
+    lastLiveFetchTime: 0  // 节流控制
   },
 
   onLoad() {
@@ -129,6 +136,9 @@ Page({
 
       // 加载签到信息
       await this.loadSigninInfo();
+
+      // 加载实时学习动态（带节流）
+      await this.loadLiveLearning();
 
       // 标记为已加载
       this.setData({ homeLoaded: true });
@@ -383,5 +393,47 @@ Page({
     } catch (e) {
       wx.showToast({ title: '签到失败', icon: 'none' });
     }
+  },
+
+  /**
+   * 加载实时学习动态（带节流）
+   */
+  async loadLiveLearning() {
+    const now = Date.now();
+    // 节流：10秒内不重复请求（无条件返回）
+    if (now - this.data.lastLiveFetchTime < THROTTLE_DELAY) {
+      console.log('[home] 节流: 跳过频繁请求');
+      return;
+    }
+
+    try {
+      const liveData = await api.callCloudFunction('getLiveLearningStatus', {});
+      // callCloudFunction返回res.result.data，直接是{onlineCount, liveLearners}
+      if (liveData && liveData.onlineCount) {
+        this.setData({
+          onlineCount: liveData.onlineCount || 0,
+          liveLearners: liveData.liveLearners || [],
+          lastLiveFetchTime: now
+        });
+        console.log('[home] 实时学习动态加载成功:', liveData);
+      }
+    } catch (e) {
+      console.error('[home] 获取实时动态失败', e);
+      // 降级: 使用默认数据（不更新节流时间，允许重试）
+      if (this.data.onlineCount === 0) {
+        this.setData({
+          onlineCount: 1000,  // 默认基数
+          liveLearners: []
+        });
+      }
+    }
+  },
+
+  /**
+   * 跳转到实时排行榜（可选）
+   */
+  goToLiveRanking() {
+    // 未来可扩展：跳转到学习排行榜页面
+    console.log('[home] 点击实时学习动态卡片');
   }
 });

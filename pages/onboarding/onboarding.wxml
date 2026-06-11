@@ -26,13 +26,14 @@
       <view class="chip-grid">
         <view
           class="chip {{selectedGrade === item ? 'active' : ''}}"
-          wx:for="{{grades}}"
+          wx:for="{{availableGrades}}"
           wx:key="*this"
           bindtap="selectGrade"
           data-grade="{{item}}">
           <text>{{item}}</text>
         </view>
       </view>
+      <text class="hint" wx:if="{{selectedSubject}}">已选科目「{{selectedSubject}}」仅支持以上年级</text>
     </view>
 
     <!-- 科目选择（网格标签） -->
@@ -41,7 +42,7 @@
       <view class="chip-grid">
         <view
           class="chip {{selectedSubject === item.name ? 'active' : ''}}"
-          wx:for="{{examMode === 'huikao' ? huikaoSubjects : subjectList}}"
+          wx:for="{{examMode === 'huikao' ? huikaoSubjects : availableSubjects}}"
           wx:key="name"
           bindtap="selectSubject"
           data-subject="{{item.name}}">
@@ -49,6 +50,7 @@
           <text>{{item.name}}</text>
         </view>
       </view>
+      <text class="hint" wx:if="{{examMode === 'grade' && selectedGrade}}">已选年级「{{selectedGrade}}」仅支持以上科目</text>
     </view>
   </view>
 

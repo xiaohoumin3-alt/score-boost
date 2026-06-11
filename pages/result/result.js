@@ -17,7 +17,11 @@ Page({
     perfectShown: false,
     nextReviewAt: null,
     nextReviewText: '',
-    showReviewTip: false
+    showReviewTip: false,
+    // 全分数段难度引导
+    difficultyGuidance: null,
+    guidanceButtonText: '',
+    guidanceSubText: ''
   },
 
   onLoad(query) {
@@ -59,6 +63,14 @@ Page({
         assessmentId
       });
 
+      // 计算难度引导策略（全分数段）
+      const guidance = this.getDifficultyGuidance(score);
+      this.setData({
+        difficultyGuidance: guidance,
+        guidanceButtonText: guidance.buttonText,
+        guidanceSubText: guidance.subText
+      });
+
       // 检查复测资格（有assessmentId即可，包括满分）
       if (assessmentId) {
         this.checkRetestEligibility();
@@ -70,6 +82,63 @@ Page({
       this.triggerConfetti();
     }
     api.track('result_view', { mode: this.data.mode, score: this.data.score, total: this.data.total, accuracy: this.data.accuracy });
+  },
+
+  /**
+   * 根据分数计算难度引导策略
+   * @param {number} score - 测评分数
+   * @returns {object} 引导策略对象
+   */
+  getDifficultyGuidance(score) {
+    const accuracy = this.data.accuracy || 0;
+
+    // 防御：处理异常值
+    if (isNaN(accuracy) || accuracy < 0) {
+      return {
+        action: 'reset',
+        targetDifficulty: 'easy',
+        buttonText: '重新开始测评',
+        subText: '数据异常，请重新测评',
+        reason: '数据异常'
+      };
+    }
+
+    // 全错：特别提示
+    if (accuracy === 0) {
+      return {
+        action: 'reset',
+        targetDifficulty: 'easy',
+        buttonText: '重新开始基础测评',
+        subText: '建议从基础开始，系统会帮你逐步提升',
+        reason: '需要重新建立基础'
+      };
+    }
+
+    if (accuracy >= 90) {
+      return {
+        action: 'upgrade',
+        targetDifficulty: 'hard',
+        buttonText: '挑战Hard难度测评',
+        subText: '为你提升挑战，突破极限',
+        reason: '当前难度对你已偏低'
+      };
+    }
+    if (accuracy >= 60) {
+      return {
+        action: 'maintain',
+        targetDifficulty: 'medium',
+        buttonText: '继续当前难度练习',
+        subText: '继续保持，巩固提升',
+        reason: '当前难度适合你'
+      };
+    }
+    return {
+      action: 'downgrade',
+      targetDifficulty: 'easy',
+      buttonText: '尝试Easy难度',
+      subText: '为你降低难度，打好基础',
+      reason: '当前难度对你偏高'
+    };
   },
 
   async loadNextReviewTime() {
@@ -165,7 +234,20 @@ Page({
       });
     } catch (e) {
       wx.hideLoading();
-      wx.showToast({ title: '检查失败', icon: 'none' });
+      console.error('[checkRetestEligibility] error:', e);
+
+      // 降级策略：使用前端计算的引导策略
+      const fallbackGuidance = this.getDifficultyGuidance(this.data.score);
+      this.setData({
+        retestEligible: true,  // 默认允许复测
+        targetDifficulty: fallbackGuidance.targetDifficulty,
+        showRetestCheck: true,
+        retestReason: fallbackGuidance.reason,
+        // 设置降级引导（如果还没有的话）
+        difficultyGuidance: this.data.difficultyGuidance || fallbackGuidance,
+        guidanceButtonText: this.data.guidanceButtonText || fallbackGuidance.buttonText,
+        guidanceSubText: this.data.guidanceSubText || fallbackGuidance.subText
+      });
     }
   },
 
@@ -174,6 +256,21 @@ Page({
   },
 
   goToRetest() {
+    // 优先使用全分数段引导策略中的目标难度
+    const guidance = this.data.difficultyGuidance;
+    const targetDifficulty = guidance?.targetDifficulty || this.data.targetDifficulty;
+
+    // 验证必要字段
+    if (!targetDifficulty) {
+      wx.showToast({ title: '引导策略缺失，请重试', icon: 'none' });
+      console.error('[goToRetest] 缺少targetDifficulty, guidance:', guidance);
+      return;
+    }
+
+    // 日志：记录数据流
+    console.log('[goToRetest] guidance:', guidance);
+    console.log('[goToRetest] targetDifficulty:', targetDifficulty);
+
     // 传递复测所需参数：原测评ID、分数、目标难度
     const params = [`retest=true`];
     if (this.data.assessmentId) {
@@ -182,9 +279,8 @@ Page({
     if (this.data.score > 0) {
       params.push(`previousScore=${this.data.score}`);
     }
-    if (this.data.targetDifficulty) {
-      params.push(`targetDifficulty=${this.data.targetDifficulty}`);
-    }
+    params.push(`targetDifficulty=${targetDifficulty}`);
+
     wx.navigateTo({ url: '/pages/assessment/assessment?' + params.join('&') });
   },
 

@@ -45,16 +45,23 @@ async function fetchQuestionsBatch(db, kpIds, difficulty, verified, excludeIds =
   }
 
   try {
-    // 一次查询获取所有知识点的题目
+    // 获取所有符合条件的题目
     const result = await db.collection('ai_question_pool')
       .where(where)
-      .orderBy('correct_rate', 'desc')
-      .limit(kpIds.length * 2) // 每个知识点最多2条
       .get();
 
-    // 按知识点分组
+    console.log('[fetchQuestionsBatch] 总题数:', result.data?.length || 0);
+
+    // Fisher-Yates 洗牌算法，真正随机
+    const allQuestions = (result.data || []);
+    for (let i = allQuestions.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [allQuestions[i], allQuestions[j]] = [allQuestions[j], allQuestions[i]];
+    }
+
+    // 按知识点分组（每个知识点最多1条）
     const grouped = {};
-    for (const q of (result.data || [])) {
+    for (const q of allQuestions) {
       if (!grouped[q.kp_id]) grouped[q.kp_id] = [];
       if (grouped[q.kp_id].length < 1) {
         grouped[q.kp_id].push(q);

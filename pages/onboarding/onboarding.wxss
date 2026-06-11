@@ -40,6 +40,14 @@
   margin-bottom: 20rpx;
 }
 
+.hint {
+  display: block;
+  font-size: 22rpx;
+  color: var(--text-tertiary, rgba(255, 255, 255, 0.25));
+  margin-top: 12rpx;
+  font-style: italic;
+}
+
 /* 考试模式选择器 */
 .mode-selector {
   display: flex;

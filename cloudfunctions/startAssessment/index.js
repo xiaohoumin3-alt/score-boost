@@ -5,11 +5,11 @@
 const cloud = require('wx-server-sdk');
 cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV });
 
-const { loadKnowledgeTree, loadHuikaoTree, generateQuestionPlan, generateHuikaoPlan } = require('./shared/knowledge_tree');
+const { loadKnowledgeTree, loadHuikaoTree, generateQuestionPlan, generateHuikaoPlan } = require('./knowledge_tree');
 const { fetchQuestionsFromPool, fetchQuestionsBatch } = require('./question_pool');
 const { LlmClient, parseLlmResponse, validateQuestion } = require('./llm_client');
 const { logKpRequest } = require('./kp-request-logger');
-const { formatQuestionForApi, normalizeQuestion } = require('./shared/question-normalizer');
+const { formatQuestionForApi, normalizeQuestion } = require('./question-normalizer');
 const { startAsyncGeneration } = require('./async-generator');
 
 function generateUUID() {
@@ -93,6 +93,40 @@ exports.main = async (event, context) => {
     const finalNumQuestions = mode === 'huikao' ? parseInt(params.num_questions || 50) : numQuestions;
 
     console.log('[startAssessment] 最终参数:', { rawSubject, subject, grade, semester, mode, finalNumQuestions });
+
+    // 科目-年级兼容性验证（防止二年级选择化学等无效组合）
+    const SUBJECT_GRADE_MATRIX = {
+      'math': { min: 1, max: 9 },
+      'chinese': { min: 1, max: 9 },
+      'english': { min: 1, max: 6 },
+      'biology': { min: 7, max: 8 },
+      'geography': { min: 7, max: 8 },
+      'history': { min: 7, max: 9 },
+      'politics': { min: 7, max: 9 },
+      'physics': { min: 8, max: 9 },
+      'chemistry': { min: 9, max: 9 }
+    };
+    const subjectTextMap = {
+      'math': '数学', 'chinese': '语文', 'english': '英语',
+      'biology': '生物', 'geography': '地理', 'history': '历史',
+      'politics': '政治', 'physics': '物理', 'chemistry': '化学'
+    };
+    const gradeNum = parseInt(grade, 10);
+    const validRange = SUBJECT_GRADE_MATRIX[subject];
+    if (!validRange || isNaN(gradeNum) || gradeNum < validRange.min || gradeNum > validRange.max) {
+      const subjectName = subjectTextMap[subject] || subject;
+      if (validRange) {
+        return {
+          success: false,
+          error: `${subjectName}仅适用于${validRange.min}-${validRange.max}年级，当前选择${gradeNum}年级`
+        };
+      } else {
+        return {
+          success: false,
+          error: `不支持的科目：${subjectName}`
+        };
+      }
+    }
 
     // 复测模式下，必须通过 openid 查询服务端最近测评成绩
     let previousScore = undefined;

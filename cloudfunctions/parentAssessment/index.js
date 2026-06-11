@@ -7,93 +7,6 @@ const cloud = require('wx-server-sdk');
 cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV });
 const db = cloud.database();
 
-const http = require('http');
-const https = require('https');
-
-// Fetch polyfill for Node.js environment (微信云函数可能没有全局fetch)
-let fetchPolyfill = null;
-try {
-  // 尝试使用内置的 fetch（Node 18+）
-  if (typeof fetch !== 'undefined') {
-    fetchPolyfill = fetch;
-    console.log('[Fetch] Using native fetch');
-  } else {
-    // 使用 node-fetch 或 undici
-    fetchPolyfill = require('node-fetch');
-    console.log('[Fetch] Using node-fetch polyfill');
-  }
-} catch (e) {
-  console.error('[Fetch] Failed to load fetch:', e.message);
-  console.error('[Fetch] Will use https module as fallback');
-}
-
-// 统一的fetch接口（带超时控制）
-function safeFetch(url, options) {
-  if (fetchPolyfill) {
-    // 为原生fetch添加AbortController超时控制
-    const controller = new AbortController();
-    const timeout = options.timeout || 60000;
-
-    // 设置超时
-    const timeoutId = setTimeout(() => {
-      controller.abort();
-      console.error('[safeFetch] Request timeout after', timeout, 'ms');
-    }, timeout);
-
-    return fetchPolyfill(url, {
-      ...options,
-      signal: controller.signal
-    }).finally(() => {
-      clearTimeout(timeoutId);
-    });
-  }
-  // Fallback to https module
-  return new Promise((resolve, reject) => {
-    const urlObj = new URL(url);
-    const protocol = urlObj.protocol === 'https:' ? https : http;
-
-    const headers = {};
-    if (options.headers) {
-      if (options.headers instanceof Headers) {
-        options.headers.forEach((value, key) => {
-          headers[key] = value;
-        });
-      } else {
-        Object.assign(headers, options.headers);
-      }
-    }
-
-    const reqOptions = {
-      hostname: urlObj.hostname,
-      port: urlObj.port || (protocol === https ? 443 : 80),
-      path: urlObj.pathname + urlObj.search,
-      method: options.method || 'GET',
-      headers: headers
-    };
-
-    const req = protocol.request(reqOptions, (res) => {
-      let data = '';
-      res.on('data', chunk => data += chunk);
-      res.on('end', () => {
-        resolve({
-          ok: res.statusCode >= 200 && res.statusCode < 300,
-          status: res.statusCode,
-          json: () => Promise.resolve(JSON.parse(data)),
-          text: () => Promise.resolve(data)
-        });
-      });
-    });
-
-    req.on('error', reject);
-
-    if (options.body) {
-      req.write(options.body);
-    }
-
-    req.end();
-  });
-}
-
 // 知识点数据（按年级组织）
 const knowledgePoints = {
   math: {
@@ -129,26 +42,40 @@ const knowledgePoints = {
 };
 
 /**
- * 从题库中获取题目
+ * Fisher-Yates 洗牌算法
+ * @param {Array} array - 要洗牌的数组
+ * @returns {Array} 洗牌后的数组
+ */
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
+/**
+ * 从题库中获取题目（应用层随机抽样）
  */
 async function fetchQuestionsFromPool(db, grade, subject, count) {
   try {
+    // 获取所有符合条件的题目
     const result = await db.collection('ai_question_pool')
       .where({
         grade: String(grade),
         subject: subject
       })
-      .limit(count * 2) // 多取一些，过滤掉可能的脏数据
       .get();
 
+    console.log('[fetchQuestionsFromPool] 总题数:', result.data?.length || 0);
+
     // 过滤并格式化题目
-    const questions = (result.data || [])
+    let allQuestions = (result.data || [])
       .filter(q => {
         const hasContent = !!(q.content || q.question);
         const hasOptions = q.options && Array.isArray(q.options) && q.options.length >= 2;
         return hasContent && hasOptions;
       })
-      .slice(0, count)
       .map(q => ({
         id: q._id,
         content: q.content || q.question,
@@ -158,6 +85,18 @@ async function fetchQuestionsFromPool(db, grade, subject, count) {
         difficulty: q.difficulty || 'medium'
       }));
 
+    console.log('[fetchQuestionsFromPool] 有效题数:', allQuestions.length);
+
+    // Fisher-Yates 洗牌算法，真正随机
+    for (let i = allQuestions.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [allQuestions[i], allQuestions[j]] = [allQuestions[j], allQuestions[i]];
+    }
+
+    // 取前count道题
+    const questions = allQuestions.slice(0, count);
+    console.log('[fetchQuestionsFromPool] 返回题数:', questions.length);
+
     return questions;
   } catch (e) {
     console.error('[fetchQuestionsFromPool] Error:', e);
@@ -166,98 +105,51 @@ async function fetchQuestionsFromPool(db, grade, subject, count) {
 }
 
 /**
- * 使用AI生成题目
+ * 使用AI生成题目 - 调用现有的 generateAiQuestion 云函数
+ * @deprecated 应该使用队列系统，保留作为降级方案
  */
 async function generateQuestionsWithAI(db, grade, subject, count) {
-  const apiKey = process.env.LLM_API_KEY;
-  const baseUrl = process.env.LLM_BASE_URL || 'https://api.deepseek.com';
-  const model = process.env.LLM_MODEL || 'deepseek-chat';
-
-  if (!apiKey) {
-    console.error('[generateQuestionsWithAI] LLM_API_KEY not set!');
-    return [];
-  }
-
-  const gradeText = `${grade}年级`;
-  const subjectText = { math: '数学', chinese: '语文', english: '英语', biology: '生物', geography: '地理' }[subject] || '数学';
-  const kpList = knowledgePoints[subject]?.[grade] || knowledgePoints.math['8'];
-
-  const prompt = `请为${gradeText}${subjectText}生成${count}道选择题。
-
-知识点覆盖（均匀分布）：${kpList.join('、')}
-
-要求：
-1. **必须是选择题**，每题恰好4个选项，仅1个正确答案
-2. 不要生成填空题、计算题、解答题等非选择题
-3. 选项长度均衡，正确选项不要比干扰项更长
-4. 提供简短解析
-5. 数学符号用Unicode（√ ² ³ ≤ ≥），不用LaTeX
-6. 题目之间不要重复或高度相似
-
-返回JSON数组格式（不要添加其他文字）：
-[
-  {"question":"题目文本","options":["A","B","C","D"],"correct_answer":0,"explanation":"解析","knowledge_point":"知识点"},
-  ...
-]`;
-
   try {
-    console.log(`[generateQuestionsWithAI] Calling DeepSeek API for ${count} questions...`);
+    console.log(`[generateQuestionsWithAI] Calling generateAiQuestion cloud function for ${count} questions...`);
 
-    const response = await safeFetch(`${baseUrl}/chat/completions`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`
-      },
-      body: JSON.stringify({
-        model: model,
-        messages: [
-          { role: 'system', content: `你是${subjectText}题目生成助手。严格按照要求的JSON数组格式返回，不要添加任何其他文字。` },
-          { role: 'user', content: prompt }
-        ],
-        max_tokens: 8000,
-        temperature: 0.8,
-        thinking: { type: 'disabled' }
-      }),
-      timeout: 45000
+    // 获取知识点列表
+    const kpList = knowledgePoints[subject]?.[grade] || knowledgePoints.math['1'];
+
+    // 构建批量生成任务
+    const shuffledKpList = shuffle([...kpList]);
+    const questions = shuffledKpList.slice(0, count).map((kpName, idx) => ({
+      kp_id: `${subject}_${grade}_${idx}`,
+      kp_name: kpName,
+      chapter: `${grade}年级`,
+      difficulty: 'easy',
+      question_type: 'choice'
+    }));
+
+    // 调用 generateAiQuestion 云函数
+    const result = await cloud.callFunction({
+      name: 'generateAiQuestion',
+      data: {
+        questions: questions,
+        skip_image: true,
+        batch_mode: true
+      }
     });
 
-    if (!response.ok) {
-      const errText = await response.text();
-      console.error(`[generateQuestionsWithAI] API error: ${response.status} ${errText.substring(0, 200)}`);
-      return [];
-    }
+    console.log('[generateQuestionsWithAI] generateAiQuestion result:', result);
 
-    const data = await response.json();
-    const content = data.choices?.[0]?.message?.content || '';
-
-    if (!content) {
-      console.error('[generateQuestionsWithAI] Empty response from API');
-      return [];
-    }
-
-    console.log(`[generateQuestionsWithAI] Response length: ${content.length} chars`);
-
-    // 解析 JSON 数组
-    const jsonMatch = content.match(/\[[\s\S]*\]/);
-    if (!jsonMatch) {
-      console.error('[generateQuestionsWithAI] No JSON array found in response');
-      return [];
-    }
-
-    const questions = JSON.parse(jsonMatch[0]);
-
-    // 格式化题目
-    return questions
-      .filter(q => q.options && Array.isArray(q.options) && q.options.length >= 2)
-      .map((q, i) => ({
-        id: `ai_${Date.now()}_${i}`,
-        content: q.question,
-        options: q.options,
+    if (result.result && result.result.success && result.result.data) {
+      return result.result.data.map(q => ({
+        id: q.id || `ai_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+        content: q.content || q.question,
+        options: q.options || [],
         correct_answer: q.correct_answer,
-        knowledge_point: q.knowledge_point || kpList[i % kpList.length],
-        difficulty: 'medium'
+        knowledge_point: q.knowledge_point || q.kp_name || '未知',
+        difficulty: q.difficulty || 'easy'
       }));
+    }
+
+    console.error('[generateQuestionsWithAI] generateAiQuestion failed:', result.result);
+    return [];
   } catch (e) {
     console.error('[generateQuestionsWithAI] Error:', e.message);
     return [];
@@ -265,7 +157,95 @@ async function generateQuestionsWithAI(db, grade, subject, count) {
 }
 
 /**
- * 生成家长测评
+ * 通过队列系统生成孩子题目
+ * 创建队列任务并等待完成（内部轮询）
+ */
+async function generateChildQuestionsViaQueue(db, grade, subject, count, timeoutMs = 15000) {
+  const taskId = `child_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+
+  console.log(`[generateChildQuestionsViaQueue] Creating queue task: ${taskId}`);
+
+  try {
+    // 创建队列任务
+    await db.collection('question_queue').add({
+      data: {
+        _id: taskId,
+        type: 'child_assessment',
+        grade: String(grade),
+        subject: subject,
+        num_questions: count,
+        difficulty_distribution: {
+          easy: Math.ceil(count * 0.6),
+          medium: Math.floor(count * 0.4)
+        },
+        status: 'pending',
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      }
+    });
+
+    console.log(`[generateChildQuestionsViaQueue] Queue task created, waiting for completion...`);
+
+    // 内部轮询等待队列完成
+    const startTime = Date.now();
+    const pollInterval = 1000; // 1秒轮询间隔
+
+    while (Date.now() - startTime < timeoutMs) {
+      await new Promise(resolve => setTimeout(resolve, pollInterval));
+
+      // 检查队列状态
+      const taskResult = await db.collection('question_queue').doc(taskId).get();
+
+      if (!taskResult.data) {
+        console.error(`[generateChildQuestionsViaQueue] Task ${taskId} not found`);
+        break;
+      }
+
+      const task = taskResult.data;
+
+      if (task.status === 'completed' && task.question_ids) {
+        console.log(`[generateChildQuestionsViaQueue] Task completed, fetching ${task.question_ids.length} questions...`);
+
+        // 获取题目详情
+        const questionsResult = await db.collection('ai_question_pool')
+          .where({
+            _id: db.command.in(task.question_ids)
+          })
+          .get();
+
+        const questions = (questionsResult.data || []).map(q => ({
+          id: q._id,
+          content: q.content || q.question,
+          options: q.options || [],
+          correct_answer: q.correct_answer,
+          knowledge_point: q.knowledge_point || q.kp_name || '未知',
+          difficulty: q.difficulty || 'medium'
+        }));
+
+        console.log(`[generateChildQuestionsViaQueue] Retrieved ${questions.length} questions`);
+        return questions;
+      }
+
+      if (task.status === 'failed') {
+        console.error(`[generateChildQuestionsViaQueue] Task failed:`, task.error);
+        break;
+      }
+
+      console.log(`[generateChildQuestionsViaQueue] Still ${task.status}... (${Math.round((Date.now() - startTime) / 1000)}s)`);
+    }
+
+    console.warn(`[generateChildQuestionsViaQueue] Timeout after ${timeoutMs}ms, falling back to pool`);
+    return null; // 超时，调用者回退到题库
+
+  } catch (e) {
+    console.error('[generateChildQuestionsViaQueue] Error:', e);
+    return null; // 出错，调用者回退到题库
+  }
+}
+
+/**
+ * 生成家长测评（使用队列系统）
+ * 创建队列任务，由 questionGenerator 处理
  */
 async function startParentAssessment(event) {
   const { grade, subject = 'math', openid } = event;
@@ -276,35 +256,45 @@ async function startParentAssessment(event) {
 
   console.log(`[startParentAssessment] grade=${grade}, subject=${subject}, openid=${openid}`);
 
-  // 1. 先从题库中获取题目
-  let questions = await fetchQuestionsFromPool(db, grade, subject, 5);
-  console.log(`[startParentAssessment] Pool has ${questions.length} questions`);
+  // 创建队列任务ID
+  const taskId = `parent_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 
-  // 2. 如果题库不足，使用AI生成
-  if (questions.length < 5) {
-    console.log(`[startParentAssessment] Pool has ${questions.length} questions, generating with AI`);
-    const aiQuestions = await generateQuestionsWithAI(db, grade, subject, 5 - questions.length);
-    console.log(`[startParentAssessment] AI generated ${aiQuestions.length} questions`);
-    questions = [...questions, ...aiQuestions];
-  }
-
-  if (questions.length === 0) {
-    console.error('[startParentAssessment] No questions available');
-    return { success: false, error: '无法生成题目，请稍后重试' };
-  }
-
-  // 3. 创建测评记录
+  // 先生成 assessment_id（需要同时保存到队列任务和测评记录）
   const assessmentId = `parent_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 
   try {
+    // 创建队列任务到 question_queue
+    await db.collection('question_queue').add({
+      data: {
+        _id: taskId,
+        type: 'parent_assessment',        // 新类型标识
+        grade: String(grade),
+        subject: subject,
+        openid: openid,
+        student_id: openid,              // 复用字段
+        assessment_id: assessmentId,      // 关联测评记录
+        num_questions: 5,                 // 5道题
+        difficulty_distribution: {        // 难度分布
+          easy: 3,
+          medium: 2
+        },
+        status: 'pending',
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      }
+    });
+
+    console.log(`[startParentAssessment] Queue task created: ${taskId}`);
+
+    // 创建测评记录（初始状态，等队列完成后更新题目）
     await db.collection('parent_assessments').add({
       data: {
         assessment_id: assessmentId,
         grade: String(grade),
         subject: subject,
         openid: openid,
-        status: 'parent_pending', // parent_pending -> child_pending -> completed
-        parent_questions: questions,
+        status: 'generating',              // 生成中状态
+        parent_questions: [],
         parent_answers: [],
         parent_score: null,
         parent_duration: 0,
@@ -312,6 +302,7 @@ async function startParentAssessment(event) {
         child_answers: [],
         child_score: null,
         child_duration: 0,
+        task_id: taskId,                   // 关联队列任务
         created_at: new Date().toISOString()
       }
     });
@@ -321,19 +312,21 @@ async function startParentAssessment(event) {
     return {
       success: true,
       data: {
+        task_id: taskId,                    // 返回任务ID用于轮询
         assessment_id: assessmentId,
-        questions: questions,
-        role: 'parent'
+        message: '题目生成中，请稍候...',
+        status: 'generating'
       }
     };
   } catch (e) {
-    console.error('[startParentAssessment] Error saving assessment:', e);
-    return { success: false, error: '创建测评失败，请稍后重试' };
+    console.error('[startParentAssessment] Error creating queue task:', e);
+    return { success: false, error: '创建测评任务失败，请稍后重试' };
   }
 }
 
 /**
  * 提交家长答案
+ * 使用队列系统生成孩子题目
  */
 async function submitParentAnswers(event) {
   const { assessment_id, answers, duration } = event;
@@ -354,37 +347,80 @@ async function submitParentAnswers(event) {
 
     const assessment = result.data[0];
 
+    // 验证家长题目是否存在
+    const parentQuestions = assessment.parent_questions;
+
+    console.log('[submitParentAnswers] Scoring - questions:', parentQuestions?.length || 0, 'answers:', answers);
+
+    // 边界检查：如果家长题目不存在或为空，说明题目生成未完成
+    if (!parentQuestions || !Array.isArray(parentQuestions) || parentQuestions.length === 0) {
+      console.error('[submitParentAnswers] Invalid parent_questions:', {
+        exists: !!parentQuestions,
+        isArray: Array.isArray(parentQuestions),
+        length: parentQuestions?.length || 0
+      });
+      return { success: false, error: '题目尚未生成完成，请稍后重试' };
+    }
+
+    // 边界检查：答案数量应该与题目数量匹配
+    if (!Array.isArray(answers) || answers.length !== parentQuestions.length) {
+      console.error('[submitParentAnswers] Answer count mismatch:', {
+        expected: parentQuestions.length,
+        actual: answers?.length || 0
+      });
+      return { success: false, error: '答案数量不正确，请重新提交' };
+    }
+
     // 计算分数
     let correctCount = 0;
-    const parentQuestions = assessment.parent_questions;
 
     for (let i = 0; i < parentQuestions.length; i++) {
       const question = parentQuestions[i];
       const userAnswer = answers[i];
+      const correctAnswer = question.correct_answer;
 
-      // 正确答案可能是数字索引或字母
-      let correctAnswer = question.correct_answer;
-      if (typeof correctAnswer === 'number') {
-        correctAnswer = String.fromCharCode(65 + correctAnswer); // 0->A, 1->B, ...
+      console.log(`[submitParentAnswers] Q${i+1} RAW - user="${userAnswer}" (${typeof userAnswer}), correct="${correctAnswer}" (${typeof correctAnswer}), options=`, question.options);
+
+      // 优先按索引比较（如果都是数字）
+      const userAnswerNum = parseInt(userAnswer);
+      const correctAnswerNum = typeof correctAnswer === 'number' ? correctAnswer : parseInt(correctAnswer);
+
+      let isCorrect = false;
+      if (!isNaN(userAnswerNum) && !isNaN(correctAnswerNum)) {
+        // 都是数字，直接比较索引
+        isCorrect = userAnswerNum === correctAnswerNum;
+      } else {
+        // 否则按字母或文本比较
+        isCorrect = String(userAnswer).toUpperCase() === String(correctAnswer).toUpperCase();
       }
 
-      if (String(userAnswer).toUpperCase() === String(correctAnswer).toUpperCase()) {
+      console.log(`[submitParentAnswers] Q${i+1}: user=${userAnswer}(${userAnswerNum}), correct=${correctAnswer}(${correctAnswerNum}), match=${isCorrect}`);
+
+      if (isCorrect) {
         correctCount++;
       }
     }
 
     const score = Math.round((correctCount / parentQuestions.length) * 100);
 
-    // 生成孩子的题目（同一年级，不同题目）
-    let childQuestions = await fetchQuestionsFromPool(db, assessment.grade, assessment.subject, 5);
-    console.log(`[submitParentAnswers] Child pool has ${childQuestions.length} questions`);
+    // 生成孩子的题目（使用队列系统）
+    console.log(`[submitParentAnswers] Generating child questions via queue system`);
+    let childQuestions = await generateChildQuestionsViaQueue(db, assessment.grade, assessment.subject, 5);
 
-    // 如果题库不足，使用AI生成
+    // 如果队列系统失败或超时，回退到题库获取
+    if (!childQuestions || childQuestions.length === 0) {
+      console.warn(`[submitParentAnswers] Queue system failed, falling back to question pool`);
+      childQuestions = await fetchQuestionsFromPool(db, assessment.grade, assessment.subject, 5);
+    }
+
+    // 如果题库也不够，尝试旧版AI生成（最后降级）
     if (childQuestions.length < 5) {
+      console.warn(`[submitParentAnswers] Pool insufficient, trying legacy AI generation`);
       const aiQuestions = await generateQuestionsWithAI(db, assessment.grade, assessment.subject, 5 - childQuestions.length);
-      console.log(`[submitParentAnswers] AI generated ${aiQuestions.length} questions for child`);
       childQuestions = [...childQuestions, ...aiQuestions];
     }
+
+    console.log(`[submitParentAnswers] Final child questions: ${childQuestions.length}`);
 
     // 更新测评记录
     await db.collection('parent_assessments').doc(assessment._id).update({
@@ -444,17 +480,29 @@ async function submitChildAnswers(event) {
     let correctCount = 0;
     const childQuestions = assessment.child_questions;
 
+    console.log('[submitChildAnswers] Scoring - questions:', childQuestions.length, 'answers:', answers);
+
     for (let i = 0; i < childQuestions.length; i++) {
       const question = childQuestions[i];
       const userAnswer = answers[i];
+      const correctAnswer = question.correct_answer;
 
-      // 正确答案可能是数字索引或字母
-      let correctAnswer = question.correct_answer;
-      if (typeof correctAnswer === 'number') {
-        correctAnswer = String.fromCharCode(65 + correctAnswer); // 0->A, 1->B, ...
+      // 优先按索引比较（如果都是数字）
+      const userAnswerNum = parseInt(userAnswer);
+      const correctAnswerNum = typeof correctAnswer === 'number' ? correctAnswer : parseInt(correctAnswer);
+
+      let isCorrect = false;
+      if (!isNaN(userAnswerNum) && !isNaN(correctAnswerNum)) {
+        // 都是数字，直接比较索引
+        isCorrect = userAnswerNum === correctAnswerNum;
+      } else {
+        // 否则按字母或文本比较
+        isCorrect = String(userAnswer).toUpperCase() === String(correctAnswer).toUpperCase();
       }
 
-      if (String(userAnswer).toUpperCase() === String(correctAnswer).toUpperCase()) {
+      console.log(`[submitChildAnswers] Q${i+1}: user=${userAnswer}(${userAnswerNum}), correct=${correctAnswer}(${correctAnswerNum}), match=${isCorrect}`);
+
+      if (isCorrect) {
         correctCount++;
       }
     }
@@ -620,6 +668,104 @@ async function getAssessmentResult(event) {
 }
 
 /**
+ * 获取队列生成的题目
+ * 当 questionGenerator 完成题目生成后调用此接口
+ */
+async function getGeneratedQuestions(event) {
+  const { task_id, assessment_id } = event;
+
+  if (!task_id) {
+    return { success: false, error: '缺少 task_id' };
+  }
+
+  try {
+    // 检查队列任务状态
+    const taskResult = await db.collection('question_queue').doc(task_id).get();
+
+    if (!taskResult.data) {
+      return { success: false, error: '队列任务不存在' };
+    }
+
+    const task = taskResult.data;
+
+    if (task.status === 'pending' || task.status === 'processing') {
+      return {
+        success: true,
+        data: {
+          status: task.status,
+          message: task.status === 'pending' ? '排队中...' : '生成中...'
+        }
+      };
+    }
+
+    if (task.status === 'failed') {
+      return {
+        success: false,
+        error: task.error || '题目生成失败',
+        retry_count: task.retry_count
+      };
+    }
+
+    if (task.status === 'completed' && task.question_ids) {
+      // 从题库获取生成的题目
+      const questionsResult = await db.collection('ai_question_pool')
+        .where({
+          _id: db.command.in(task.question_ids)
+        })
+        .get();
+
+      const questions = (questionsResult.data || []).map(q => ({
+        id: q._id,
+        content: q.content || q.question,
+        options: q.options || [],
+        correct_answer: q.correct_answer,
+        knowledge_point: q.knowledge_point || q.kp_name || '未知',
+        difficulty: q.difficulty || 'medium'
+      }));
+
+      // 更新测评记录
+      if (assessment_id) {
+        // 查找测评记录（通过 task_id 或 assessment_id）
+        const assessmentResult = await db.collection('parent_assessments')
+          .where({
+            $or: [
+              { task_id: task_id },
+              { assessment_id: assessment_id }
+            ]
+          })
+          .get();
+
+        if (assessmentResult.data && assessmentResult.data.length > 0) {
+          const assessment = assessmentResult.data[0];
+          await db.collection('parent_assessments').doc(assessment._id).update({
+            data: {
+              status: 'parent_pending',
+              parent_questions: questions,
+              updated_at: new Date().toISOString()
+            }
+          });
+        }
+      }
+
+      return {
+        success: true,
+        data: {
+          status: 'completed',
+          questions: questions,
+          role: 'parent',
+          assessment_id: assessment_id
+        }
+      };
+    }
+
+    return { success: false, error: '未知的队列状态' };
+  } catch (e) {
+    console.error('[getGeneratedQuestions] Error:', e);
+    return { success: false, error: '获取题目失败' };
+  }
+}
+
+/**
  * 云函数入口
  */
 exports.main = async (event, context) => {
@@ -639,6 +785,8 @@ exports.main = async (event, context) => {
         return await submitChildAnswers(event);
       case 'getResult':
         return await getAssessmentResult(event);
+      case 'getQuestions':
+        return await getGeneratedQuestions(event);
       default:
         return { success: false, error: `未知操作: ${action}` };
     }

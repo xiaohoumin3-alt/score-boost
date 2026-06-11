@@ -31,9 +31,9 @@
 
       <view class="grade-selector">
         <text class="grade-label">选择孩子年级：</text>
-        <picker mode="selector" range="{{grades}}" range-key="label" value="{{gradeIndex !== null ? gradeIndex : 0}}" bindchange="onGradeChange">
+        <picker mode="selector" range="{{availableGrades}}" range-key="label" value="{{gradeIndex}}" bindchange="onGradeChange">
           <view class="grade-picker" bindtap="onGradePickerTap">
-            <text class="grade-value">{{gradeIndex !== null ? grades[gradeIndex].label : '请选择年级'}}</text>
+            <text class="grade-value">{{availableGrades && availableGrades[gradeIndex] ? availableGrades[gradeIndex].label : '请选择'}}</text>
             <text class="grade-arrow">▼</text>
           </view>
         </picker>
@@ -41,9 +41,9 @@
 
       <view class="subject-selector">
         <text class="subject-label">选择科目：</text>
-        <picker mode="selector" range="{{subjects}}" range-key="label" value="{{subjectIndex !== null ? subjectIndex : 0}}" bindchange="onSubjectChange">
+        <picker mode="selector" range="{{availableSubjects}}" range-key="label" value="{{subjectIndex}}" bindchange="onSubjectChange">
           <view class="subject-picker" bindtap="onSubjectPickerTap">
-            <text class="subject-value">{{subjectIndex !== null ? subjects[subjectIndex].label : '请选择科目'}}</text>
+            <text class="subject-value">{{availableSubjects && availableSubjects[subjectIndex] ? availableSubjects[subjectIndex].label : '请选择'}}</text>
             <text class="subject-arrow">▼</text>
           </view>
         </picker>
@@ -73,10 +73,10 @@
 
       <view class="options-list">
         <view
-          class="option-item {{selectedAnswer === item ? 'selected' : ''}}"
+          class="option-item {{selectedAnswer === index ? 'selected' : ''}}"
           wx:for="{{currentQuestion.options}}"
           wx:key="index"
-          data-answer="{{item}}"
+          data-answer="{{index}}"
           bindtap="onSelectAnswer"
         >
           <text class="option-label">{{index === 0 ? 'A' : index === 1 ? 'B' : index === 2 ? 'C' : 'D'}}</text>
@@ -86,7 +86,7 @@
     </view>
 
     <view class="quiz-footer">
-      <button class="btn-next" bindtap="nextQuestion" disabled="{{!selectedAnswer}}">
+      <button class="btn-next" bindtap="nextQuestion" disabled="{{!selectedAnswerLetter}}">
         {{currentQuestionIndex < questions.length - 1 ? '下一题' : '提交'}}
       </button>
     </view>
@@ -126,6 +126,32 @@
     <view class="result-footer">
       <button class="btn-child" bindtap="startChildAssessment">
         开始孩子测评
+      </button>
+    </view>
+  </view>
+
+  <!-- 孩子准备页面 -->
+  <view class="prepare-page" wx:if="{{status === 'child_prepare'}}">
+    <view class="prepare-header">
+      <text class="prepare-title">准备好了吗？</text>
+    </view>
+
+    <view class="prepare-content">
+      <view class="prepare-message">
+        <text class="message-text">请把手机交给孩子</text>
+        <text class="message-text">孩子点击下方按钮开始答题</text>
+      </view>
+
+      <view class="prepare-tips">
+        <text class="tips-text">• 共5道题</text>
+        <text class="tips-text">• 答题时间会被记录</text>
+        <text class="tips-text">• 请认真作答</text>
+      </view>
+    </view>
+
+    <view class="prepare-footer">
+      <button class="btn-start-child" bindtap="startChildQuiz">
+        开始答题
       </button>
     </view>
   </view>
@@ -219,8 +245,8 @@
 
       <!-- ========== 一键发帖到公众号（wx.shareToOfficialAccount） ========== -->
       <view class="share-to-oa-section">
-        <button class="btn-post-oa" bindtap="postToOfficialAccount" disabled="{{postingOA}}">
-          {{postingOA ? '发帖中...' : '一键战报发公众号'}}
+        <button class="btn-post-oa" bindtap="generateAndPreviewPoster" disabled="{{postingOA}}">
+          {{postingOA ? '生成中...' : '生成战报海报'}}
         </button>
         <text class="post-oa-hint" wx:if="{{!hasOAPosted}}">生成战报海报，一键发到公众号</text>
         <text class="post-oa-success" wx:if="{{hasOAPosted}}">已发帖成功！</text>
@@ -235,6 +261,9 @@
         <view class="poster-content" catchtap="">
           <image class="poster-image" src="{{posterImagePath}}" mode="widthFix"></image>
           <view class="poster-actions">
+            <button class="btn-post-to-oa" bindtap="shareToOfficialAccount" disabled="{{hasOAPosted}}">
+              {{hasOAPosted ? '已发帖成功' : '发到公众号'}}
+            </button>
             <button class="btn-save-poster" bindtap="savePoster">保存图片</button>
             <button class="btn-close-poster" bindtap="closePosterPreview">关闭</button>
           </view>

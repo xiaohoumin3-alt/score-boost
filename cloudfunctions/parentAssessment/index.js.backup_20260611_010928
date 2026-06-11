@@ -1,0 +1,552 @@
+/**
+ * 家长测评云函数
+ * 功能：让家长先做题，再让孩子做题，最后对比结果
+ */
+
+const cloud = require('wx-server-sdk');
+cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV });
+const db = cloud.database();
+
+// 知识点数据（按年级组织）
+const knowledgePoints = {
+  math: {
+    '1': ['20以内加减法', '认识图形', '认识时间', '比较大小', '分类整理'],
+    '2': ['100以内加减法', '乘法口诀', '除法初步', '长度单位', '认识角'],
+    '3': ['万以内加减法', '多位数乘一位数', '除数是一位数的除法', '分数初步认识', '长方形正方形'],
+    '4': ['大数的认识', '三位数乘两位数', '除数是两位数的除法', '角的度量', '四则混合运算'],
+    '5': ['小数的意义和性质', '小数加减法', '小数乘除法', '简易方程', '多边形的面积'],
+    '6': ['分数乘法', '分数除法', '分数混合运算', '比和比例', '圆的周长和面积'],
+    '7': ['有理数', '整式的加减', '一元一次方程', '图形的初步认识', '数据的收集与整理'],
+    '8': ['实数', '整式的乘法', '因式分解', '分式', '二次根式', '勾股定理', '一次函数', '平行四边形', '全等三角形', '轴对称', '数据的分析'],
+    '9': ['一元二次方程', '二次函数', '旋转', '圆', '概率初步', '相似三角形', '锐角三角函数', '投影与视图']
+  },
+  chinese: {
+    '1': ['拼音', '识字', '笔画笔顺', '偏旁部首', '简单标点'],
+    '2': ['词语理解', '句子结构', '看图写话', '古诗背诵', '标点符号'],
+    '3': ['词语积累', '句式变换', '段落理解', '作文基础', '修辞手法'],
+    '4': ['修辞手法', '病句修改', '概括段意', '作文技巧', '文学常识'],
+    '5': ['词语辨析', '句子排序', '阅读理解', '记叙文写作', '说明方法'],
+    '6': ['文言文入门', '议论文阅读', '作文结构', '表达方式', '文体知识'],
+    '7': ['文言文阅读', '古诗词鉴赏', '现代文阅读', '写作技巧', '语法知识'],
+    '8': ['文言文实词', '文言文虚词', '古诗文默写', '阅读理解', '作文表达'],
+    '9': ['文言文翻译', '诗词赏析', '现代文阅读', '写作技法', '文学常识']
+  },
+  english: {
+    '1': ['字母认知', '简单单词', '日常问候', '数字颜色', '简单指令'],
+    '2': ['基础词汇', '简单对话', '颜色形状', '家庭成员', '日常用品'],
+    '3': ['字母组合', '基础句型', '现在进行时', '一般现在时', '情态动词can'],
+    '4': ['一般过去时', '比较级', '方位介词', 'there be句型', '情态动词'],
+    '5': ['现在完成时', '一般将来时', '条件状语从句', '被动语态', '动词短语'],
+    '6': ['过去进行时', '过去完成时', '定语从句', '间接引语', '被动语态']
+  }
+};
+
+/**
+ * 从题库中获取题目（应用层随机抽样）
+ */
+async function fetchQuestionsFromPool(db, grade, subject, count) {
+  try {
+    // 获取所有符合条件的题目
+    const result = await db.collection('ai_question_pool')
+      .where({
+        grade: String(grade),
+        subject: subject
+      })
+      .get();
+
+    console.log('[fetchQuestionsFromPool] 总题数:', result.data?.length || 0);
+
+    // 过滤并格式化题目
+    let allQuestions = (result.data || [])
+      .filter(q => {
+        const hasContent = !!(q.content || q.question);
+        const hasOptions = q.options && Array.isArray(q.options) && q.options.length >= 2;
+        return hasContent && hasOptions;
+      })
+      .map(q => ({
+        id: q._id,
+        content: q.content || q.question,
+        options: q.options,
+        correct_answer: q.correct_answer,
+        knowledge_point: q.knowledge_point || q.kp_name || '未知',
+        difficulty: q.difficulty || 'medium'
+      }));
+
+    console.log('[fetchQuestionsFromPool] 有效题数:', allQuestions.length);
+
+    // Fisher-Yates 洗牌算法，真正随机
+    for (let i = allQuestions.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [allQuestions[i], allQuestions[j]] = [allQuestions[j], allQuestions[i]];
+    }
+
+    // 取前count道题
+    const questions = allQuestions.slice(0, count);
+    console.log('[fetchQuestionsFromPool] 返回题数:', questions.length);
+
+    return questions;
+  } catch (e) {
+    console.error('[fetchQuestionsFromPool] Error:', e);
+    return [];
+  }
+}
+
+/**
+ * 使用AI生成题目 - 调用现有的 generateAiQuestion 云函数
+ */
+async function generateQuestionsWithAI(db, grade, subject, count) {
+  try {
+    console.log(`[generateQuestionsWithAI] Calling generateAiQuestion cloud function for ${count} questions...`);
+
+    // 获取知识点列表
+    const kpList = knowledgePoints[subject]?.[grade] || knowledgePoints.math['1'];
+
+    // 构建批量生成任务
+    const questions = kpList.slice(0, count).map((kpName, idx) => ({
+      kp_id: `${subject}_${grade}_${idx}`,
+      kp_name: kpName,
+      chapter: `${grade}年级`,
+      difficulty: 'easy',
+      question_type: 'choice'
+    }));
+
+    // 调用 generateAiQuestion 云函数
+    const result = await cloud.callFunction({
+      name: 'generateAiQuestion',
+      data: {
+        questions: questions,
+        skip_image: true,
+        batch_mode: true
+      }
+    });
+
+    console.log('[generateQuestionsWithAI] generateAiQuestion result:', result);
+
+    if (result.result && result.result.success && result.result.data) {
+      return result.result.data.map(q => ({
+        id: q.id || `ai_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+        content: q.content || q.question,
+        options: q.options || [],
+        correct_answer: q.correct_answer,
+        knowledge_point: q.knowledge_point || q.kp_name || '未知',
+        difficulty: q.difficulty || 'easy'
+      }));
+    }
+
+    console.error('[generateQuestionsWithAI] generateAiQuestion failed:', result.result);
+    return [];
+  } catch (e) {
+    console.error('[generateQuestionsWithAI] Error:', e.message);
+    return [];
+  }
+}
+
+/**
+ * 生成家长测评
+ */
+async function startParentAssessment(event) {
+  const { grade, subject = 'math', openid } = event;
+
+  if (!grade) {
+    return { success: false, error: '请提供年级参数' };
+  }
+
+  console.log(`[startParentAssessment] grade=${grade}, subject=${subject}, openid=${openid}`);
+
+  // 1. 先从题库中获取题目
+  let questions = await fetchQuestionsFromPool(db, grade, subject, 5);
+  console.log(`[startParentAssessment] Pool has ${questions.length} questions`);
+
+  // 2. 如果题库不足，使用AI生成
+  if (questions.length < 5) {
+    console.log(`[startParentAssessment] Pool has ${questions.length} questions, generating with AI`);
+    const aiQuestions = await generateQuestionsWithAI(db, grade, subject, 5 - questions.length);
+    console.log(`[startParentAssessment] AI generated ${aiQuestions.length} questions`);
+    questions = [...questions, ...aiQuestions];
+  }
+
+  if (questions.length === 0) {
+    console.error('[startParentAssessment] No questions available');
+    return { success: false, error: '无法生成题目，请稍后重试' };
+  }
+
+  // 3. 创建测评记录
+  const assessmentId = `parent_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+
+  try {
+    await db.collection('parent_assessments').add({
+      data: {
+        assessment_id: assessmentId,
+        grade: String(grade),
+        subject: subject,
+        openid: openid,
+        status: 'parent_pending', // parent_pending -> child_pending -> completed
+        parent_questions: questions,
+        parent_answers: [],
+        parent_score: null,
+        parent_duration: 0,
+        child_questions: [],
+        child_answers: [],
+        child_score: null,
+        child_duration: 0,
+        created_at: new Date().toISOString()
+      }
+    });
+
+    console.log(`[startParentAssessment] Assessment created: ${assessmentId}`);
+
+    return {
+      success: true,
+      data: {
+        assessment_id: assessmentId,
+        questions: questions,
+        role: 'parent'
+      }
+    };
+  } catch (e) {
+    console.error('[startParentAssessment] Error saving assessment:', e);
+    return { success: false, error: '创建测评失败，请稍后重试' };
+  }
+}
+
+/**
+ * 提交家长答案
+ */
+async function submitParentAnswers(event) {
+  const { assessment_id, answers, duration } = event;
+
+  if (!assessment_id || !answers) {
+    return { success: false, error: '缺少必要参数' };
+  }
+
+  try {
+    // 获取测评记录
+    const result = await db.collection('parent_assessments')
+      .where({ assessment_id })
+      .get();
+
+    if (result.data.length === 0) {
+      return { success: false, error: '测评记录不存在' };
+    }
+
+    const assessment = result.data[0];
+
+    // 计算分数
+    let correctCount = 0;
+    const parentQuestions = assessment.parent_questions;
+
+    console.log('[submitParentAnswers] Scoring - questions:', parentQuestions.length, 'answers:', answers);
+
+    for (let i = 0; i < parentQuestions.length; i++) {
+      const question = parentQuestions[i];
+      const userAnswer = answers[i];
+      const correctAnswer = question.correct_answer;
+
+      console.log(`[submitParentAnswers] Q${i+1} RAW - user="${userAnswer}" (${typeof userAnswer}), correct="${correctAnswer}" (${typeof correctAnswer}), options=`, question.options);
+
+      // 优先按索引比较（如果都是数字）
+      const userAnswerNum = parseInt(userAnswer);
+      const correctAnswerNum = typeof correctAnswer === 'number' ? correctAnswer : parseInt(correctAnswer);
+
+      let isCorrect = false;
+      if (!isNaN(userAnswerNum) && !isNaN(correctAnswerNum)) {
+        // 都是数字，直接比较索引
+        isCorrect = userAnswerNum === correctAnswerNum;
+      } else {
+        // 否则按字母或文本比较
+        isCorrect = String(userAnswer).toUpperCase() === String(correctAnswer).toUpperCase();
+      }
+
+      console.log(`[submitParentAnswers] Q${i+1}: user=${userAnswer}(${userAnswerNum}), correct=${correctAnswer}(${correctAnswerNum}), match=${isCorrect}`);
+
+      if (isCorrect) {
+        correctCount++;
+      }
+    }
+
+    const score = Math.round((correctCount / parentQuestions.length) * 100);
+
+    // 生成孩子的题目（同一年级，不同题目）
+    let childQuestions = await fetchQuestionsFromPool(db, assessment.grade, assessment.subject, 5);
+    console.log(`[submitParentAnswers] Child pool has ${childQuestions.length} questions`);
+
+    // 如果题库不足，使用AI生成
+    if (childQuestions.length < 5) {
+      const aiQuestions = await generateQuestionsWithAI(db, assessment.grade, assessment.subject, 5 - childQuestions.length);
+      console.log(`[submitParentAnswers] AI generated ${aiQuestions.length} questions for child`);
+      childQuestions = [...childQuestions, ...aiQuestions];
+    }
+
+    // 更新测评记录
+    await db.collection('parent_assessments').doc(assessment._id).update({
+      data: {
+        status: 'child_pending',
+        parent_answers: answers,
+        parent_score: score,
+        parent_duration: duration || 0,
+        parent_correct_count: correctCount,
+        parent_completed_at: new Date().toISOString(),
+        child_questions: childQuestions
+      }
+    });
+
+    console.log(`[submitParentAnswers] Parent score: ${score}, child questions: ${childQuestions.length}`);
+
+    return {
+      success: true,
+      data: {
+        assessment_id: assessment_id,
+        parent_score: score,
+        parent_correct_count: correctCount,
+        total_questions: parentQuestions.length,
+        questions: childQuestions,
+        role: 'child'
+      }
+    };
+  } catch (e) {
+    console.error('[submitParentAnswers] Error:', e);
+    return { success: false, error: '提交答案失败，请稍后重试' };
+  }
+}
+
+/**
+ * 提交孩子答案
+ */
+async function submitChildAnswers(event) {
+  const { assessment_id, answers, duration } = event;
+
+  if (!assessment_id || !answers) {
+    return { success: false, error: '缺少必要参数' };
+  }
+
+  try {
+    // 获取测评记录
+    const result = await db.collection('parent_assessments')
+      .where({ assessment_id })
+      .get();
+
+    if (result.data.length === 0) {
+      return { success: false, error: '测评记录不存在' };
+    }
+
+    const assessment = result.data[0];
+
+    // 计算分数
+    let correctCount = 0;
+    const childQuestions = assessment.child_questions;
+
+    console.log('[submitChildAnswers] Scoring - questions:', childQuestions.length, 'answers:', answers);
+
+    for (let i = 0; i < childQuestions.length; i++) {
+      const question = childQuestions[i];
+      const userAnswer = answers[i];
+      const correctAnswer = question.correct_answer;
+
+      // 优先按索引比较（如果都是数字）
+      const userAnswerNum = parseInt(userAnswer);
+      const correctAnswerNum = typeof correctAnswer === 'number' ? correctAnswer : parseInt(correctAnswer);
+
+      let isCorrect = false;
+      if (!isNaN(userAnswerNum) && !isNaN(correctAnswerNum)) {
+        // 都是数字，直接比较索引
+        isCorrect = userAnswerNum === correctAnswerNum;
+      } else {
+        // 否则按字母或文本比较
+        isCorrect = String(userAnswer).toUpperCase() === String(correctAnswer).toUpperCase();
+      }
+
+      console.log(`[submitChildAnswers] Q${i+1}: user=${userAnswer}(${userAnswerNum}), correct=${correctAnswer}(${correctAnswerNum}), match=${isCorrect}`);
+
+      if (isCorrect) {
+        correctCount++;
+      }
+    }
+
+    const score = Math.round((correctCount / childQuestions.length) * 100);
+
+    // 更新测评记录
+    await db.collection('parent_assessments').doc(assessment._id).update({
+      data: {
+        status: 'completed',
+        child_answers: answers,
+        child_score: score,
+        child_duration: duration || 0,
+        child_correct_count: correctCount,
+        child_completed_at: new Date().toISOString()
+      }
+    });
+
+    // 生成对比结果
+    const parentScore = assessment.parent_score;
+    const parentDuration = assessment.parent_duration;
+    const childDuration = duration || 0;
+
+    let comparison = {};
+    let message = '';
+
+    if (parentScore > score) {
+      comparison = { winner: 'parent', diff: parentScore - score };
+      message = `您比孩子高${parentScore - score}分，但孩子在某些题上可能更快`;
+    } else if (parentScore < score) {
+      comparison = { winner: 'child', diff: score - parentScore };
+      message = `您的孩子比您高${score - parentScore}分！`;
+    } else {
+      comparison = { winner: 'tie', diff: 0 };
+      message = `你们不相上下！但孩子用时更短`;
+    }
+
+    // 计算家长相当于几年级
+    let parentGradeLevel = '未知';
+    if (parentScore >= 90) {
+      parentGradeLevel = `${assessment.grade}年级`;
+    } else if (parentScore >= 80) {
+      parentGradeLevel = `${Math.max(1, assessment.grade - 1)}年级`;
+    } else if (parentScore >= 70) {
+      parentGradeLevel = `${Math.max(1, assessment.grade - 2)}年级`;
+    } else if (parentScore >= 60) {
+      parentGradeLevel = `${Math.max(1, assessment.grade - 3)}年级`;
+    } else {
+      parentGradeLevel = `小学`;
+    }
+
+    console.log(`[submitChildAnswers] Child score: ${score}, comparison: ${comparison.winner}`);
+
+    return {
+      success: true,
+      data: {
+        assessment_id: assessment_id,
+        parent: {
+          score: parentScore,
+          correct_count: assessment.parent_correct_count,
+          total_questions: assessment.parent_questions.length,
+          duration: parentDuration,
+          grade_level: parentGradeLevel
+        },
+        child: {
+          score: score,
+          correct_count: correctCount,
+          total_questions: childQuestions.length,
+          duration: childDuration
+        },
+        comparison: comparison,
+        message: message
+      }
+    };
+  } catch (e) {
+    console.error('[submitChildAnswers] Error:', e);
+    return { success: false, error: '提交答案失败，请稍后重试' };
+  }
+}
+
+/**
+ * 获取测评结果
+ */
+async function getAssessmentResult(event) {
+  const { assessment_id } = event;
+
+  if (!assessment_id) {
+    return { success: false, error: '缺少测评ID' };
+  }
+
+  try {
+    const result = await db.collection('parent_assessments')
+      .where({ assessment_id })
+      .get();
+
+    if (result.data.length === 0) {
+      return { success: false, error: '测评记录不存在' };
+    }
+
+    const assessment = result.data[0];
+
+    if (assessment.status !== 'completed') {
+      return { success: false, error: '测评尚未完成' };
+    }
+
+    // 生成对比结果
+    const parentScore = assessment.parent_score;
+    const childScore = assessment.child_score;
+
+    let comparison = {};
+    let message = '';
+
+    if (parentScore > childScore) {
+      comparison = { winner: 'parent', diff: parentScore - childScore };
+      message = `您比孩子高${parentScore - childScore}分，但孩子在某些题上可能更快`;
+    } else if (parentScore < childScore) {
+      comparison = { winner: 'child', diff: childScore - parentScore };
+      message = `您的孩子比您高${childScore - parentScore}分！`;
+    } else {
+      comparison = { winner: 'tie', diff: 0 };
+      message = `你们不相上下！但孩子用时更短`;
+    }
+
+    // 计算家长相当于几年级
+    let parentGradeLevel = '未知';
+    if (parentScore >= 90) {
+      parentGradeLevel = `${assessment.grade}年级`;
+    } else if (parentScore >= 80) {
+      parentGradeLevel = `${Math.max(1, assessment.grade - 1)}年级`;
+    } else if (parentScore >= 70) {
+      parentGradeLevel = `${Math.max(1, assessment.grade - 2)}年级`;
+    } else if (parentScore >= 60) {
+      parentGradeLevel = `${Math.max(1, assessment.grade - 3)}年级`;
+    } else {
+      parentGradeLevel = `小学`;
+    }
+
+    return {
+      success: true,
+      data: {
+        assessment_id: assessment_id,
+        parent: {
+          score: parentScore,
+          correct_count: assessment.parent_correct_count,
+          total_questions: assessment.parent_questions.length,
+          duration: assessment.parent_duration,
+          grade_level: parentGradeLevel
+        },
+        child: {
+          score: childScore,
+          correct_count: assessment.child_correct_count,
+          total_questions: assessment.child_questions.length,
+          duration: assessment.child_duration
+        },
+        comparison: comparison,
+        message: message
+      }
+    };
+  } catch (e) {
+    console.error('[getAssessmentResult] Error:', e);
+    return { success: false, error: '获取结果失败，请稍后重试' };
+  }
+}
+
+/**
+ * 云函数入口
+ */
+exports.main = async (event, context) => {
+  const wxContext = cloud.getWXContext();
+  const openid = wxContext.OPENID;
+  const action = event.action || 'start';
+
+  console.log(`[parentAssessment] action=${action}, openid=${openid}`);
+
+  try {
+    switch (action) {
+      case 'start':
+        return await startParentAssessment({ ...event, openid });
+      case 'submitParent':
+        return await submitParentAnswers(event);
+      case 'submitChild':
+        return await submitChildAnswers(event);
+      case 'getResult':
+        return await getAssessmentResult(event);
+      default:
+        return { success: false, error: `未知操作: ${action}` };
+    }
+  } catch (e) {
+    console.error('[parentAssessment] Error:', e);
+    return { success: false, error: e.message || '服务器错误' };
+  }
+};

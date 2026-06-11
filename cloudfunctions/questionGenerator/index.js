@@ -24,7 +24,7 @@ const { CompleteStep } = require('./workflow/steps/CompleteStep');
 // ========== 辅助函数导入 ==========
 const { updateQueueStatus } = require('./workflow/utils/updateQueueStatus');
 const { formatQuestionForApi, normalizeQuestion } = require('./shared/question-normalizer');
-const { getConfig, loadConfig } = require('../shared/llm-core/config');
+const { getConfig, loadConfig } = require('./shared/llm-core/config');
 
 /**
  * 统一选项格式
@@ -153,13 +153,27 @@ async function cleanupPartialQuestions(db, assessmentId) {
 }
 
 /**
- * 获取默认工作流步骤
+ * 获取工作流步骤
  * @param {Object} options - 选项
+ * @param {Object} task - 队列任务
  * @returns {Array<WorkflowStep>} 工作流步骤列表
  */
-function getDefaultSteps(options = {}) {
+function getSteps(options, task = {}) {
   const { generateAi } = options;
+  const { type } = task;
 
+  // 亲子测评类型：不需要创建 assessment 记录，题目直接返回
+  if (type === 'parent_assessment' || type === 'child_assessment') {
+    console.log(`[getSteps] Using ${type} workflow (no CreateAssessmentStep)`);
+    return [
+      new InitStateStep(),
+      new GenerateStep(generateAi),
+      new SaveQuestionsStep(),      // 保存到题库
+      new CompleteStep({ dependencies: [] })  // 不依赖 CreateAssessment
+    ];
+  }
+
+  // 默认工作流（练习、测评）
   return [
     new InitStateStep(),
     new GenerateStep(generateAi),
@@ -167,6 +181,16 @@ function getDefaultSteps(options = {}) {
     new CreateAssessmentStep(),
     new CompleteStep()
   ];
+}
+
+/**
+ * 获取默认工作流步骤（向后兼容）
+ * @param {Object} options - 选项
+ * @returns {Array<WorkflowStep>} 工作流步骤列表
+ * @deprecated 使用 getSteps 代替
+ */
+function getDefaultSteps(options = {}) {
+  return getSteps(options, {});
 }
 
 /**
@@ -182,11 +206,11 @@ async function processTask(db, task, options = {}) {
   const PROCESS_TIMEOUT = 70 * 1000;  // 70秒总超时（云函数90秒，预留20秒给清理）
 
   try {
-    console.log(`[processTask] START task:${task._id} student:${task.student_id} subject:${task.subject} num:${task.num_questions}`);
+    console.log(`[processTask] START task:${task._id} type:${task.type || 'default'} student:${task.student_id} subject:${task.subject} num:${task.num_questions}`);
 
     // 使用工作流引擎执行，带超时保护
-    // Phase 7: 传递 db.command 用于 RAG 上下文查询
-    const workflow = new TaskWorkflow(getDefaultSteps({ generateAi }));
+    // 根据任务类型选择不同的工作流步骤
+    const workflow = new TaskWorkflow(getSteps({ generateAi }, task));
     const result = await Promise.race([
       workflow.execute(task, db, db.command),
       new Promise((_, reject) =>
@@ -196,11 +220,23 @@ async function processTask(db, task, options = {}) {
 
     if (result.success) {
       const { STEP_OUTPUT_KEYS } = require('./workflow/constants');
-      const assessmentId = result.data.get(STEP_OUTPUT_KEYS.ASSESSMENT_ID);
       const questionIds = result.data.get(STEP_OUTPUT_KEYS.QUESTION_IDS) || [];
 
       const duration = Date.now() - startTime;
-      console.log(`[processTask] SUCCESS task:${task._id} assessment:${assessmentId} questions:${questionIds.length} duration:${duration}ms`);
+      console.log(`[processTask] SUCCESS task:${task._id} questions:${questionIds.length} duration:${duration}ms`);
+
+      // 对于亲子测评，不需要 assessment_id
+      if (task.type === 'parent_assessment') {
+        return {
+          success: true,
+          question_ids: questionIds,
+          questions_count: questionIds.length
+        };
+      }
+
+      // 默认流程：返回 assessment_id
+      const assessmentId = result.data.get(STEP_OUTPUT_KEYS.ASSESSMENT_ID);
+      console.log(`[processTask] assessment:${assessmentId}`);
 
       return {
         success: true,

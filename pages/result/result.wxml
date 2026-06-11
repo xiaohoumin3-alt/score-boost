@@ -45,6 +45,17 @@
       <text class="review-time">{{nextReviewText}}</text>
     </view>
   </view>
+  <!-- 全分数段难度引导卡片（测评模式专用） -->
+  <view class="guidance-card" wx:if="{{mode === 'assessment' && difficultyGuidance}}">
+    <view class="guidance-icon">
+      <text class="icon-emoji">{{difficultyGuidance.action === 'upgrade' ? '🚀' : difficultyGuidance.action === 'maintain' ? '🎯' : '🌱'}}</text>
+    </view>
+    <view class="guidance-content">
+      <text class="guidance-title">{{difficultyGuidance.action === 'upgrade' ? '挑战更高难度' : difficultyGuidance.action === 'maintain' ? '保持当前状态' : '打好基础'}}</text>
+      <text class="guidance-desc">{{difficultyGuidance.subText}}</text>
+    </view>
+  </view>
+
   <!-- Retest Status Card (when check completed and not perfect) -->
   <view class="action-card retest-card" wx:if="{{showRetestCheck && mode === 'assessment' && !isPerfect}}">
     <text class="action-icon">{{retestEligible ? '🔄' : '📋'}}</text>
@@ -86,8 +97,19 @@
     <button class="btn-primary" bindtap="goHome">返回首页</button>
   </view>
 
-  <!-- Assessment Mode: Go Home -->
-  <button class="btn-primary" bindtap="goHome" wx:if="{{mode === 'assessment'}}">返回首页</button>
+  <!-- Assessment Mode: 全分数段引导按钮 -->
+  <view wx:if="{{mode === 'assessment'}}">
+    <!-- 主要行动按钮（根据分数段引导） -->
+    <button
+      class="btn-guidance {{difficultyGuidance.action === 'upgrade' ? 'btn-upgrade' : difficultyGuidance.action === 'maintain' ? 'btn-maintain' : 'btn-downgrade'}}"
+      bindtap="goToRetest"
+      wx:if="{{difficultyGuidance}}">
+      {{guidanceButtonText}}
+    </button>
+
+    <!-- 降级到引导按钮的次要按钮 -->
+    <button class="btn-primary" bindtap="goHome" wx:if="{{!difficultyGuidance}}">返回首页</button>
+  </view>
 
   <!-- Secondary: Practice or Retest based on eligibility -->
   <button class="btn-secondary retest-btn" bindtap="goToRetest" wx:if="{{showRetestCheck && retestEligible && mode === 'assessment'}}">重新测评</button>
