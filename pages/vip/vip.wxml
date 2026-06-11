@@ -53,8 +53,8 @@
       <text class="rule-item">注册赠送 100 积分</text>
       <text class="rule-item">每日签到 +10 积分</text>
       <text class="rule-item">邀请好友 +50 积分</text>
-      <text class="rule-item">AI测评消耗 30 积分</text>
-      <text class="rule-item">AI练习消耗 20 积分</text>
+      <text class="rule-item">测评消耗 30 积分</text>
+      <text class="rule-item">练习消耗 20 积分</text>
       <text class="rule-item">家长测评消耗 50 积分</text>
     </view>
   </block>

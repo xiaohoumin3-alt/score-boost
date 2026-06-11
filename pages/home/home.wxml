@@ -9,14 +9,24 @@
   </view>
 
   <block wx:else>
-  <!-- 连续签到 -->
-  <view class="signin-bar" bindtap="quickSignin">
-    <view class="signin-left">
-      <text class="signin-icon">🔥</text>
-      <text class="signin-text">{{signinStreak}}天连续签到</text>
+  <!-- 实时学习动态（替代签到栏） -->
+  <view class="live-learning-card" wx:if="{{onlineCount > 0}}" bindtap="goToLiveRanking">
+    <view class="live-header">
+      <view class="live-left">
+        <text class="live-icon">📱</text>
+        <text class="live-count-text">正在学习</text>
+        <text class="live-count">{{onlineCount}}</text>
+        <text class="live-count-text">人</text>
+      </view>
+      <text class="live-cta">你的孩子开始了吗？</text>
     </view>
-    <view class="signin-btn {{canSignin ? '' : 'signed'}}">
-      <text class="signin-btn-text">{{canSignin ? '签到+10' : '已签到'}}</text>
+
+    <view class="live-learners">
+      <view class="live-learner" wx:for="{{liveLearners}}" wx:key="index">
+        <text>{{item.name}}</text>
+        <text class="learner-grade">({{item.grade}})</text>
+        <text class="learner-kp">{{item.kp}}</text>
+      </view>
     </view>
   </view>
 
@@ -37,11 +47,11 @@
       </view>
     </view>
 
-    <!-- AI今日任务卡片 (AI原生Phase 2) -->
+    <!-- 今日任务卡片 -->
     <view class="task-card" wx:if="{{todayTask}}" bindtap="startTodayTask">
       <view class="task-header">
         <text class="task-icon">🎯</text>
-        <text class="task-title">AI 今日任务</text>
+        <text class="task-title">今日任务</text>
       </view>
       <view class="task-content">
         <text class="task-name">{{todayTask.title}}</text>

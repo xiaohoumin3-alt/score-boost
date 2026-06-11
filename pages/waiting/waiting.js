@@ -12,7 +12,7 @@ Page({
     showProgress: true,
     progressPercent: 0,
     progressText: '预计需要 1-2 分钟',
-    tipText: 'AI正在根据您的学习情况智能生成题目，请耐心等待',
+    tipText: '正在根据您的学习情况生成题目，请耐心等待',
     allowCancel: true,
     showRetryButton: false,
     polling: false,
@@ -116,7 +116,7 @@ Page({
   updateStatusText(status) {
     const statusMap = {
       'pending': '题目正在排队中...',
-      'processing': 'AI正在生成题目中...',
+      'processing': '正在生成题目中...',
       'completed': '题目生成完成！',
       'failed': '题目生成失败'
     };

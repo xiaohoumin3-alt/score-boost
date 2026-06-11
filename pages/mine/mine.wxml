@@ -131,11 +131,11 @@
       <text class="section-title">积分消耗</text>
       <view class="cost-table">
         <view class="cost-row">
-          <text class="cost-name">AI测评</text>
+          <text class="cost-name">测评</text>
           <text class="cost-value">-30</text>
         </view>
         <view class="cost-row">
-          <text class="cost-name">AI练习</text>
+          <text class="cost-name">练习</text>
           <text class="cost-value">-20</text>
         </view>
         <view class="cost-row">

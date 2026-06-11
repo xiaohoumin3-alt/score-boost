@@ -2,7 +2,7 @@
   <view class="logo-section">
     <image class="logo" src="/docs/app-icon.svg" mode="aspectFit"/>
     <text class="app-name">日日守护</text>
-    <text class="app-desc">AI精准定位，只练不会的</text>
+    <text class="app-desc">精准定位，只练不会的</text>
   </view>
 
   <view class="login-section">

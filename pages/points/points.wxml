@@ -85,11 +85,11 @@
       </view>
       <view class="cost-list">
         <view class="cost-item">
-          <text class="cost-name">AI测评</text>
+          <text class="cost-name">测评</text>
           <text class="cost-value">-30积分</text>
         </view>
         <view class="cost-item">
-          <text class="cost-name">AI练习</text>
+          <text class="cost-name">练习</text>
           <text class="cost-value">-20积分</text>
         </view>
         <view class="cost-item">
