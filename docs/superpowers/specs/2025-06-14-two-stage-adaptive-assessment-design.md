@@ -3,7 +3,7 @@
 > **项目**: 提分神器小程序  
 > **设计日期**: 2025-06-14  
 > **状态**: 待用户审查  
-> **版本**: v1.0
+> **版本**: v1.1
 
 ---
 
@@ -11,7 +11,7 @@
 
 ### 1.1 核心问题
 
-当前测评系统使用5-6题进行能力评估，存在以下问题：
+当前测评系统使用5-20题进行能力评估（快速筛查模式5-6题，默认20题），存在以下问题：
 
 1. **统计可靠性不足**：Fisher信息量约5-6，标准误差（SE）约0.4，分数误差±8分
 2. **用户体验断层**：技术指标（区分度、置信区间）与用户感知脱节
@@ -48,12 +48,13 @@
 │                       云函数层                                    │
 ├────────────────────────────────────────────────────────────────────┤
 │                                                                  │
-│  startAssessment (保持不变)        extendedAssessment (新建)     │
-│  ├─ 5-6题快速测评                   ├─ 第一阶段：5题初始测评      │
-│  ├─ 现有验收测试通过                ├─ 第二阶段：动态扩展         │
-│  └─ 返回assessment_id              ├─ 置信区间实时计算           │
-│                                     ├─ Fisher信息量监控           │
-│                                     └─ 系统建议逻辑              │
+│  startAssessment (保持不变)        extendedAssessment.startExtendedAssessment (新建)     │
+│  ┌──────────────────────┐           ┌──────────────────────────────┐ │
+│  │ 现有快速测评 (5-6题)  │           │ 深度测评 (新增)                 │ │
+│  │ - 返回assessment_id   │           │ - 第一阶段复用5题逻辑            │ │
+│  │ - 状态独立管理        │           │ - 状态在extended_sessions管理   │ │
+│  └──────────────────────┘           │ - 第二阶段动态扩展               │ │
+│                                     └──────────────────────────────┘ │
 │                                                                  │
 │                 questionOptimizer (共享模块，新建)                │
 │                 ├─ 题目预生成策略                                 │
@@ -61,6 +62,11 @@
 │                 └─ LLM成本优化                                    │
 └────────────────────────────────────────────────────────────────────┘
 ```
+
+**架构关系说明**：
+- `startAssessment` = 现有快速测评（保持不变），使用 `assessments` 集合
+- `extendedAssessment.startExtendedAssessment` = 新增深度测评，使用 `extended_sessions` 集合
+- 深度测评第一阶段复用startAssessment的5题逻辑，但状态管理完全独立
 
 ### 2.2 方案对比
 
@@ -146,9 +152,10 @@ pages/assessment-depth/
 ├── index.wxml                  # 答题界面
 ├── index.wxss                  # 样式
 └── components/
-    ├── accuracy-meter.wxss      # 精度仪表盘
-    ├── question-transition.js   # 题目切换动画
-    └── confidence-interval.js   # 置信区间展示
+    ├── accuracy-meter.wxml           # 精度仪表盘结构
+    ├── accuracy-meter.wxss           # 精度仪表盘样式
+    ├── question-transition.js        # 题目切换动画
+    └── confidence-interval.js        # 置信区间展示
 ```
 
 ---
@@ -188,7 +195,34 @@ extendedAssessment.completeAssessment()
 返回：最终分数 + 置信区间 + 详细报告
 ```
 
-### 4.2 精度透明化展示
+### 4.3 结果同步
+
+深度测评完成后，需要同时更新两个集合以保持数据一致性：
+
+```
+extendedAssessment.completeAssessment()
+    ↓
+更新 extended_sessions 记录
+    ├─ status: 'completed'
+    ├─ final_score, final_theta, final_se
+    └─ completed_at: 当前时间
+    ↓
+同步写入 assessments 集合（用于历史记录统一查询）
+    ├─ user_openid
+    ├─ grade, subject
+    ├─ assessment_type: 'extended'
+    ├─ score: final_score
+    ├─ confidence_interval
+    ├─ session_id (关联 extended_sessions)
+    └─ created_at
+```
+
+**设计要点**：
+- `assessments` 集合作为统一的历史记录查询入口
+- 通过 `assessment_type` 区分快速测评('quick')和深度测评('extended')
+- `session_id` 字段关联到 `extended_sessions` 用于深度测评详情查询
+
+### 4.4 阶段过渡交互
 
 ```xml
 <!-- 精度仪表盘组件 -->
@@ -312,24 +346,78 @@ extendedAssessment.completeAssessment()
 
 ## 六、核心算法
 
-### 6.1 Fisher信息量计算
+### 6.1 IRT 3PL模型
+
+**三参数Logistic模型（3-Parameter Logistic）**：
+
+```javascript
+/**
+ * 3PL模型：计算答对概率
+ * P(θ) = c + (1-c) / (1 + exp(-Da(θ-b)))
+ *
+ * 参数说明：
+ * - θ：学生能力值（通常在[-3, 3]区间）
+ * - a：区分度（题目区分学生能力的能力，通常>0）
+ * - b：难度（题目难度值，通常在[-3, 3]区间）
+ * - c：猜测参数（随机答对概率，通常=0.25）
+ * - D：缩放因子（=1.702，使Logistic接近正态累积分布）
+ */
+function threePLModel(theta, difficulty, discrimination = 1.0, guessing = 0.25) {
+  const D = 1.702;
+  const a = discrimination;
+  const b = difficulty;
+  const c = guessing;
+
+  const z = D * a * (theta - b);
+  const P = c + (1 - c) / (1 + Math.exp(-z));
+
+  return P;
+}
+```
+
+**初始值设定**：
+- **θ初始值**：0（中等能力）
+- **θ估计方法**：最大似然估计（MLE）
+- **边界处理**：θ限制在[-4, 4]区间，防止数值溢出
+
+### 6.2 Fisher信息量计算
 
 ```javascript
 /**
  * 计算当前响应的Fisher信息量
- * I(θ) = Σ[a²(P-c)² / (P×Q)]
+ * I(θ) = Σ[a²D²(P-c)²(1-P)/P] / [D²a²(1-c)²]
+ *
+ * 简化形式（a=1, c=0.25）：
+ * I(θ) = Σ[(P-0.25)² / (P×Q)]
+ *
+ * 其中 Q = 1 - P
  */
 function calculateFisherInformation(responses, theta) {
   let totalInfo = 0;
-  
+
   responses.forEach(r => {
-    const P = threePLModel(theta, r.difficulty, 1, 0.25);
+    const P = threePLModel(theta, r.difficulty);
     const Q = 1 - P;
-    const I = Math.pow(1 * (P - 0.25), 2) / (P * Q);
+
+    // 边界保护：防止P=0或P=1时分母为0
+    const safeP = Math.max(0.001, Math.min(0.999, P));
+
+    const a = 1.0;
+    const c = 0.25;
+    const I = Math.pow(a * (safeP - c), 2) / (safeP * (1 - safeP));
     totalInfo += I;
   });
-  
+
   return totalInfo;
+}
+
+/**
+ * 计算标准误差
+ * SE = 1/√I(θ)
+ */
+function calculateStandardError(fisherInfo) {
+  if (fisherInfo <= 0) return 1.0; // 保守估计
+  return 1 / Math.sqrt(fisherInfo);
 }
 
 /**
@@ -337,7 +425,7 @@ function calculateFisherInformation(responses, theta) {
  * 目标：SE ≤ 0.3 (约±5分误差)
  */
 function shouldContinue(currentInfo, targetSE = 0.3) {
-  const currentSE = 1 / Math.sqrt(currentInfo);
+  const currentSE = calculateStandardError(currentInfo);
   return currentSE > targetSE;
 }
 ```
@@ -369,8 +457,81 @@ function selectNextQuestion(theta, availableQuestions) {
 function calculateItemInformation(theta, difficulty) {
   const P = threePLModel(theta, difficulty, 1, 0.25);
   const Q = 1 - P;
-  return Math.pow(1 * (P - 0.25), 2) / (P * Q);
+
+  // 边界保护
+  const safeP = Math.max(0.001, Math.min(0.999, P));
+  return Math.pow(1 * (safeP - 0.25), 2) / (safeP * (1 - safeP));
 }
+```
+
+### 6.3 能力到分数转换
+
+```javascript
+/**
+ * 将能力值θ转换为百分制分数
+ * 使用线性映射：θ在[-3, 3]映射到[0, 100]
+ */
+function thetaToScore(theta) {
+  // 限制θ在[-3, 3]区间
+  const clampedTheta = Math.max(-3, Math.min(3, theta));
+
+  // 线性映射：-3 → 0分，0 → 50分，3 → 100分
+  const score = 50 + (clampedTheta / 3) * 50;
+
+  return Math.round(score);
+}
+
+/**
+ * 百分制分数到能力值（逆转换）
+ */
+function scoreToTheta(score) {
+  // 限制分数在[0, 100]区间
+  const clampedScore = Math.max(0, Math.min(100, score));
+
+  // 线性映射：0分 → -3，50分 → 0，100分 → 3
+  const theta = ((clampedScore - 50) / 50) * 3;
+
+  return theta;
+}
+```
+
+### 6.4 精度指标转换
+
+```javascript
+/**
+ * 将标准误差转换为用户友好的精度百分比
+ * accuracy = 1 - SE / maxSE
+ *
+ * 其中 maxSE = 1.0（最大误差）
+ */
+function seToAccuracy(se) {
+  const maxSE = 1.0;
+  const accuracy = 1 - se / maxSE;
+  return Math.max(0, Math.min(1, accuracy)); // 限制在[0, 1]
+}
+
+/**
+ * 估算达到目标精度需要的题目数
+ * 基于经验公式：每增加1题约增加0.2 Fisher信息量
+ */
+function estimateQuestionsNeeded(currentSE, targetSE = 0.3) {
+  const currentInfo = 1 / (currentSE * currentSE);
+  const targetInfo = 1 / (targetSE * targetSE);
+  const infoGap = targetInfo - currentInfo;
+
+  // 每题平均提供0.2信息量（保守估计）
+  const questionsNeeded = Math.ceil(infoGap / 0.2);
+
+  return Math.max(1, questionsNeeded);
+}
+
+/**
+ * 前端显示逻辑
+ */
+// 在精度仪表盘中
+currentAccuracy = Math.round(seToAccuracy(currentSE) * 100) + "%";
+targetAccuracy = Math.round(seToAccuracy(targetSE) * 100) + "%";
+questionsNeeded = estimateQuestionsNeeded(currentSE, targetSE);
 ```
 
 ---
@@ -379,60 +540,153 @@ function calculateItemInformation(theta, difficulty) {
 
 ### 7.1 extendedAssessment 云函数接口
 
-```javascript
-// 1. 启动深度测评
-exports.startAssessment = async (event) => {
-  /*
-   * 输入: { grade, subject, mode }
-   * 输出: { 
-   *   session_id, 
-   *   questions: [...], 
-   *   phase: 'first',
-   *   target_se: 0.3 
-   * }
-   */
-}
+#### 1. 启动深度测评
 
-// 2. 提交答案 + 获取建议
-exports.submitAnswers = async (event) => {
-  /*
-   * 输入: { session_id, answers: [...] }
-   * 输出: { 
-   *   current_score, 
-   *   current_se,
-   *   recommendation: {
-   *     should_extend: true,
-   *     reason: "当前精度85%，建议继续",
-   *     estimated_questions: 5
-   *   }
-   * }
-   */
-}
-
-// 3. 获取下一题（扩展阶段）
-exports.getNextQuestion = async (event) => {
-  /*
-   * 输入: { session_id }
-   * 输出: { 
-   *   question: {...}, 
-   *   current_se: 0.28,
-   *   progress: { current: 8, target: 10 }
-   * }
-   */
-}
-
-// 4. 完成测评
-exports.completeAssessment = async (event) => {
-  /*
-   * 输入: { session_id }
-   * 输出: { 
-   *   final_score: 85,
-   *   confidence_interval: { lower: 80, upper: 90 },
-   *   detailed_report: {...}
-   * }
-   */
+**请求格式**：
+```json
+{
+  "grade": "初一",
+  "subject": "数学",
+  "mode": "depth"
 }
 ```
+
+**响应格式**：
+```json
+{
+  "success": true,
+  "session_id": "extended_xxx",
+  "questions": [
+    {
+      "question_id": "q_xxx",
+      "content": "题目内容",
+      "options": ["A", "B", "C", "D"],
+      "difficulty": -0.5
+    }
+  ],
+  "phase": "first",
+  "target_se": 0.3,
+  "estimated_time": 300
+}
+```
+
+#### 2. 提交答案 + 获取建议
+
+**请求格式**：
+```json
+{
+  "session_id": "extended_xxx",
+  "answers": [
+    {"question_id": "q_xxx", "user_answer": "A"},
+    {"question_id": "q_yyy", "user_answer": "C"}
+  ]
+}
+```
+
+**响应格式**：
+```json
+{
+  "success": true,
+  "current_score": 75,
+  "current_se": 0.35,
+  "current_accuracy": 0.85,
+  "recommendation": {
+    "should_extend": true,
+    "reason": "当前精度85%，建议继续答题提升至95%",
+    "estimated_questions": 5,
+    "estimated_time": 180
+  }
+}
+```
+
+#### 3. 获取下一题（扩展阶段）
+
+**请求格式**：
+```json
+{
+  "session_id": "extended_xxx"
+}
+```
+
+**响应格式**：
+```json
+{
+  "success": true,
+  "question": {
+    "question_id": "q_zzz",
+    "content": "题目内容",
+    "options": ["A", "B", "C", "D"],
+    "difficulty": 0.2
+  },
+  "current_se": 0.28,
+  "progress": {
+    "current_question": 8,
+    "estimated_total": 12
+  }
+}
+```
+
+#### 4. 完成测评
+
+**请求格式**：
+```json
+{
+  "session_id": "extended_xxx"
+}
+```
+
+**响应格式**：
+```json
+{
+  "success": true,
+  "final_score": 82,
+  "final_theta": 0.55,
+  "final_se": 0.25,
+  "confidence_interval": {
+    "lower": 77,
+    "upper": 87,
+    "confidence": 0.95
+  },
+  "detailed_report": {
+    "total_questions": 12,
+    "correct_count": 9,
+    "extended_questions": 7,
+    "fisher_information": 16.0
+  }
+}
+```
+
+### 7.2 错误处理
+
+**所有API统一错误响应格式**：
+```json
+{
+  "success": false,
+  "error": {
+    "code": "ERROR_CODE",
+    "message": "用户友好的错误描述",
+    "details": "技术细节（开发环境）"
+  }
+}
+```
+
+**错误码定义**：
+
+| 错误码 | HTTP状态 | 说明 | 降级策略 |
+|--------|---------|------|----------|
+| INSUFFICIENT_QUESTIONS | 200 | 题库题目不足 | 返回可用的题目并警告 |
+| LLM_GENERATION_FAILED | 200 | LLM生成失败 | 使用预生成题库 |
+| SESSION_NOT_FOUND | 404 | 会话不存在 | 提示重新开始 |
+| INVALID_ANSWER_FORMAT | 400 | 答案格式错误 | 拒绝并提示正确格式 |
+| THETA_ESTIMATION_FAILED | 500 | 能力估计失败 | 返回保守估计值 |
+| MAX_QUESTIONS_REACHED | 200 | 达到最大题数 | 强制完成测评 |
+| NETWORK_TIMEOUT | 200 | 网络超时 | 返回当前精度建议完成 |
+
+**降级策略**：
+
+1. **题目生成失败**：优先使用预生成题库 → 复用历史题目
+2. **Fisher计算异常**：使用题目数量作为精度估计（N题 → 精度=√N/10）
+3. **会话状态丢失**：基于答题记录重建会话 → 提示重新开始
 
 ---
 
@@ -440,10 +694,11 @@ exports.completeAssessment = async (event) => {
 
 ### 8.1 现有用户流程
 
-- `startAssessment` 保持不变
+- `startAssessment` 云函数保持不变（现有快速测评）
 - 现有验收测试无需修改
 - `assessments` 集合保持现有格式
 - 现有用户继续使用5题快速测评
+- 新增 `extendedAssessment.startExtendedAssessment` 云函数（深度测评）
 
 ### 8.2 渐进迁移策略
 
@@ -463,17 +718,90 @@ Phase 4: 保留快速测评作为"快速筛查"选项
 ```javascript
 // __tests__/extended-assessment.test.js
 describe('ExtendedAssessment', () => {
-  test('第一阶段应该返回5题', () => {});
-  test('应该正确计算Fisher信息量', () => {});
-  test('应该正确判断是否需要扩展', () => {});
-  test('应该选择最大信息量题目', () => {});
-  test('应该正确计算置信区间', () => {});
+  describe('Fisher信息量计算', () => {
+    test('应该正确计算Fisher信息量', () => {
+      const responses = [
+        { difficulty: -1, is_correct: true },
+        { difficulty: 0, is_correct: true },
+        { difficulty: 1, is_correct: false }
+      ];
+
+      const info = calculateFisherInformation(responses, 0);
+
+      expect(info).toBeGreaterThan(0);
+      expect(info).toBeLessThan(20);
+    });
+
+    test('应该处理边界情况（P接近0或1）', () => {
+      const responses = [
+        { difficulty: -3, is_correct: true },  // P≈1
+        { difficulty: 3, is_correct: false }   // P≈0
+      ];
+
+      const info = calculateFisherInformation(responses, 0);
+
+      expect(info).not.toBeNaN();
+      expect(info).toBeFinite();
+    });
+  });
+
+  describe('题目选择策略', () => {
+    test('应该选择最大信息量题目', () => {
+      const theta = 0.5;
+      const questions = [
+        { id: 'q1', difficulty: -2 },
+        { id: 'q2', difficulty: 0.5 },  // 应该选这个（最接近theta）
+        { id: 'q3', difficulty: 2 }
+      ];
+
+      const selected = selectNextQuestion(theta, questions);
+
+      expect(selected.id).toBe('q2');
+    });
+  });
+
+  describe('精度转换', () => {
+    test('应该正确转换SE到精度百分比', () => {
+      expect(seToAccuracy(0.3)).toBeCloseTo(0.7, 1);  // 70%
+      expect(seToAccuracy(0.5)).toBeCloseTo(0.5, 1);  // 50%
+      expect(seToAccuracy(0.1)).toBeCloseTo(0.9, 1);  // 90%
+    });
+
+    test('应该估算所需题目数', () => {
+      const questions = estimateQuestionsNeeded(0.5, 0.3);
+
+      expect(questions).toBeGreaterThan(0);
+      expect(questions).toBeLessThan(20);
+    });
+  });
+
+  describe('能力到分数转换', () => {
+    test('应该正确转换theta到分数', () => {
+      expect(thetaToScore(0)).toBe(50);    // 中等能力 → 50分
+      expect(thetaToScore(-3)).toBe(0);    // 低能力 → 0分
+      expect(thetaToScore(3)).toBe(100);   // 高能力 → 100分
+    });
+  });
 });
 
 // __tests__/question-optimizer.test.js
 describe('QuestionOptimizer', () => {
-  test('应该优先复用已有题目', () => {});
-  test('应该正确执行预生成策略', () => {});
+  test('应该优先复用已有题目', async () => {
+    const mockCriteria = { grade: '初一', subject: '数学', difficulty: 0 };
+    const result = await questionOptimizer.getQuestions(mockCriteria);
+
+    expect(result.questions).toBeDefined();
+    expect(result.source).toBeOneOf(['cached', 'pregenerate', 'generated']);
+  });
+
+  test('应该正确执行预生成策略', async () => {
+    const hotTopics = ['代数基础', '方程求解'];
+    await questionOptimizer.pregenerateStrategy(hotTopics);
+
+    // 验证预生成题目已缓存
+    const cached = await questionOptimizer.getPreGeneratedQuestions('代数基础');
+    expect(cached.length).toBeGreaterThan(0);
+  });
 });
 ```
 
@@ -482,10 +810,156 @@ describe('QuestionOptimizer', () => {
 ```javascript
 // __tests__/integration/extended-flow.test.js
 describe('深度测评完整流程', () => {
-  test('从开始到完成的完整流程', () => {});
-  test('用户选择不扩展应该直接完成', () => {});
-  test('达到最大题数应该强制完成', () => {});
-  test('精度仪表盘显示正确', () => {});
+  test('从开始到完成的完整流程', async () => {
+    // 1. 启动测评
+    const startResult = await startExtendedAssessment({
+      grade: '初一',
+      subject: '数学'
+    });
+
+    expect(startResult.success).toBe(true);
+    expect(startResult.questions).toHaveLength(5);
+    expect(startResult.session_id).toBeDefined();
+
+    // 2. 提交第一阶段答案
+    const submitResult = await submitAnswers({
+      session_id: startResult.session_id,
+      answers: startResult.questions.map((q, i) => ({
+        question_id: q.question_id,
+        user_answer: ['A', 'B', 'C', 'D'][i % 4]
+      }))
+    });
+
+    expect(submitResult.success).toBe(true);
+    expect(submitResult.current_se).toBeGreaterThan(0);
+    expect(submitResult.recommendation).toHaveProperty('should_extend');
+
+    // 3. 如果需要扩展，获取下一题
+    if (submitResult.recommendation.should_extend) {
+      const nextResult = await getNextQuestion({
+        session_id: startResult.session_id
+      });
+
+      expect(nextResult.success).toBe(true);
+      expect(nextResult.question).toBeDefined();
+    }
+
+    // 4. 完成测评
+    const completeResult = await completeAssessment({
+      session_id: startResult.session_id
+    });
+
+    expect(completeResult.success).toBe(true);
+    expect(completeResult.final_score).toBeGreaterThanOrEqual(0);
+    expect(completeResult.final_score).toBeLessThanOrEqual(100);
+    expect(completeResult.confidence_interval).toHaveProperty('lower');
+    expect(completeResult.confidence_interval).toHaveProperty('upper');
+  });
+
+  test('用户选择不扩展应该直接完成', async () => {
+    // 启动测评并提交答案
+    const startResult = await startExtendedAssessment({ grade: '初一', subject: '数学' });
+    const submitResult = await submitAnswers({
+      session_id: startResult.session_id,
+      answers: [{ question_id: 'q1', user_answer: 'A' }]
+    });
+
+    // 即使系统建议扩展，用户也可以直接完成
+    const completeResult = await completeAssessment({
+      session_id: startResult.session_id
+    });
+
+    expect(completeResult.success).toBe(true);
+    expect(completeResult.detailed_report.total_questions).toBe(5);
+  });
+
+  test('达到最大题数应该强制完成', async () => {
+    const session_id = 'max_questions_session';
+
+    // 模拟达到30题
+    for (let i = 0; i < 30; i++) {
+      await getNextQuestion({ session_id });
+    }
+
+    // 第31题应该被拒绝
+    const nextResult = await getNextQuestion({ session_id });
+
+    expect(nextResult.error.code).toBe('MAX_QUESTIONS_REACHED');
+  });
+
+  test('精度仪表盘显示正确', async () => {
+    const startResult = await startExtendedAssessment({ grade: '初一', subject: '数学' });
+    const submitResult = await submitAnswers({
+      session_id: startResult.session_id,
+      answers: [{ question_id: 'q1', user_answer: 'A' }]
+    });
+
+    // 验证精度计算
+    expect(submitResult.current_accuracy).toBeGreaterThan(0);
+    expect(submitResult.current_accuracy).toBeLessThanOrEqual(1);
+
+    // 验证精度与SE的转换
+    const expectedAccuracy = 1 - submitResult.current_se;
+    expect(submitResult.current_accuracy).toBeCloseTo(expectedAccuracy, 1);
+  });
+});
+```
+
+### 9.3 E2E测试
+
+```javascript
+// __tests__/e2e/extended-assessment.e2e.js
+describe('深度测评E2E测试', () => {
+  test('完整用户流程：从入口到结果', async ({ page }) => {
+    // 1. 导航到深度测评页面
+    await page.goto('/pages/assessment-depth/index');
+
+    // 2. 点击开始测评
+    await page.click('[data-testid="start-button"]');
+
+    // 3. 等待第一题加载
+    await page.waitForSelector('[data-testid="question-content"]');
+
+    // 4. 选择答案并提交
+    await page.click('[data-value="A"]');
+    await page.click('[data-testid="submit-button"]');
+
+    // 5. 重复5题后，查看精度仪表盘
+    await page.waitForSelector('[data-testid="accuracy-meter"]');
+    const accuracyText = await page.textContent('[data-testid="accuracy-value"]');
+    expect(accuracyText).toMatch(/\d+%/);
+
+    // 6. 查看系统建议
+    await page.waitForSelector('[data-testid="recommendation-card"]');
+    const recommendation = await page.textContent('[data-testid="recommendation-text"]');
+    expect(recommendation).toContain('精度');
+
+    // 7. 选择继续测评
+    await page.click('[data-testid="continue-button"]');
+
+    // 8. 完成扩展题目
+    await page.waitForSelector('[data-testid="final-score"]');
+    const finalScore = await page.textContent('[data-testid="final-score"]');
+    expect(finalScore).toMatch(/\d+/);
+  });
+
+  test('用户选择快速完成应该正常结束', async ({ page }) => {
+    await page.goto('/pages/assessment-depth/index');
+    await page.click('[data-testid="start-button"]');
+
+    // 完成5题
+    for (let i = 0; i < 5; i++) {
+      await page.click('[data-value="A"]');
+      await page.click('[data-testid="submit-button"]');
+    }
+
+    // 在建议卡片选择"查看结果"
+    await page.click('[data-testid="view-results-button"]');
+
+    // 验证显示最终结果
+    await page.waitForSelector('[data-testid="final-score"]');
+    expect(await page.textContent('[data-testid="final-score"]')).toMatch(/\d+/);
+  });
 });
 ```
 
@@ -495,6 +969,7 @@ describe('深度测评完整流程', () => {
 
 ### Sprint 1（2周）：基础架构
 - 创建 `extendedAssessment` 云函数骨架
+- 实现 `startExtendedAssessment` 入口函数
 - 创建 `extended_sessions` 数据库
 - 实现第一阶段（5题初始测评）
 
