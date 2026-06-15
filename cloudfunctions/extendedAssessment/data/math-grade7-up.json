@@ -1,0 +1,137 @@
+{
+  "subject": "数学",
+  "grade": "7",
+  "semester": "上",
+  "version": "人教版",
+  "source": "教材PDF提取",
+  "chapters": [
+    {
+      "id": "ch1",
+      "name": "有理数",
+      "knowledge_points": [
+        {
+          "id": "math_kp1_1",
+          "name": "正数和负数",
+          "sub_topics": ["正数和负数的概念", "正数和负数的表示", "相反意义的量", "有理数的概念"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
+        },
+        {
+          "id": "math_kp1_2",
+          "name": "有理数及其大小比较",
+          "sub_topics": ["有理数的分类", "数轴", "相反数", "绝对值", "有理数的大小比较"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "name": "有理数的运算",
+      "knowledge_points": [
+        {
+          "id": "math_kp2_1",
+          "name": "有理数的加法与减法",
+          "sub_topics": ["有理数的加法法则", "有理数的加法运算律", "有理数的减法法则", "有理数的加减混合运算"],
+          "typical_questions": ["选择题", "填空题", "计算题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        },
+        {
+          "id": "math_kp2_2",
+          "name": "有理数的乘法与除法",
+          "sub_topics": ["有理数的乘法法则", "有理数的乘法运算律", "有理数的除法法则", "有理数的乘除混合运算"],
+          "typical_questions": ["选择题", "填空题", "计算题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        },
+        {
+          "id": "math_kp2_3",
+          "name": "有理数的乘方",
+          "sub_topics": ["乘方的概念", "有理数的乘方法则", "科学记数法", "有理数的混合运算"],
+          "typical_questions": ["选择题", "填空题", "计算题"],
+          "difficulty_weight": {"easy": 0.3, "medium": 0.4, "hard": 0.3}
+        }
+      ]
+    },
+    {
+      "id": "ch3",
+      "name": "整式的加减",
+      "knowledge_points": [
+        {
+          "id": "math_kp3_1",
+          "name": "列代数式",
+          "sub_topics": ["代数式", "列代数式", "代数式的值"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        },
+        {
+          "id": "math_kp3_2",
+          "name": "整式",
+          "sub_topics": ["单项式", "多项式", "整式", "同类项"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        },
+        {
+          "id": "math_kp3_3",
+          "name": "整式的加减",
+          "sub_topics": ["合并同类项", "去括号与添括号", "整式的加减运算"],
+          "typical_questions": ["选择题", "填空题", "计算题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        }
+      ]
+    },
+    {
+      "id": "ch4",
+      "name": "一元一次方程",
+      "knowledge_points": [
+        {
+          "id": "math_kp4_1",
+          "name": "从算式到方程",
+          "sub_topics": ["方程的概念", "一元一次方程", "方程的解"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
+        },
+        {
+          "id": "math_kp4_2",
+          "name": "解一元一次方程",
+          "sub_topics": ["等式的性质", "解一元一次方程的步骤", "移项", "去括号", "去分母"],
+          "typical_questions": ["选择题", "填空题", "计算题"],
+          "difficulty_weight": {"easy": 0.3, "medium": 0.4, "hard": 0.3}
+        },
+        {
+          "id": "math_kp4_3",
+          "name": "实际问题与一元一次方程",
+          "sub_topics": ["列方程解应用题", "一元一次方程的应用", "行程问题", "工程问题", "利润问题"],
+          "typical_questions": ["选择题", "填空题", "解答题"],
+          "difficulty_weight": {"easy": 0.3, "medium": 0.4, "hard": 0.3}
+        }
+      ]
+    },
+    {
+      "id": "ch5",
+      "name": "几何图形初步",
+      "knowledge_points": [
+        {
+          "id": "math_kp5_1",
+          "name": "几何图形",
+          "sub_topics": ["立体图形", "平面图形", "从不同方向看立体图形", "展开图"],
+          "typical_questions": ["选择题", "填空题", "作图题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        },
+        {
+          "id": "math_kp5_2",
+          "name": "直线、射线、线段",
+          "sub_topics": ["直线", "射线", "线段", "线段的长短比较", "线段的中点"],
+          "typical_questions": ["选择题", "填空题", "作图题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        },
+        {
+          "id": "math_kp5_3",
+          "name": "角",
+          "sub_topics": ["角的概念", "角的度量", "角的比较与运算", "角的平分线", "余角和补角"],
+          "typical_questions": ["选择题", "填空题", "计算题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        }
+      ]
+    }
+  ]
+}

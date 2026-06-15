@@ -1,0 +1,217 @@
+{
+  "subject": "物理",
+  "grade": "9",
+  "semester": "全",
+  "version": "人教版",
+  "source": "教材PDF提取",
+  "chapters": [
+    {
+      "id": "ch13",
+      "name": "内能",
+      "knowledge_points": [
+        {
+          "id": "phy_kp13_1",
+          "name": "分子热运动",
+          "sub_topics": ["分子动理论", "扩散现象"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
+        },
+        {
+          "id": "phy_kp13_2",
+          "name": "内能",
+          "sub_topics": ["内能的概念", "物体内能的改变", "热量"],
+          "typical_questions": ["选择题", "填空题", "计算题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        }
+      ]
+    },
+    {
+      "id": "ch14",
+      "name": "内能的利用",
+      "knowledge_points": [
+        {
+          "id": "phy_kp14_1",
+          "name": "热机",
+          "sub_topics": ["热机", "热机的效率"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        },
+        {
+          "id": "phy_kp14_2",
+          "name": "能量的转化和守恒",
+          "sub_topics": ["能量的转化", "能量的守恒"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
+        }
+      ]
+    },
+    {
+      "id": "ch15",
+      "name": "电流和电路",
+      "knowledge_points": [
+        {
+          "id": "phy_kp15_1",
+          "name": "电荷",
+          "sub_topics": ["摩擦起电", "电荷间的相互作用", "验电器"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
+        },
+        {
+          "id": "phy_kp15_2",
+          "name": "电流和电路",
+          "sub_topics": ["电流", "电路的组成", "电路图"],
+          "typical_questions": ["选择题", "填空题", "作图题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        },
+        {
+          "id": "phy_kp15_3",
+          "name": "串联和并联",
+          "sub_topics": ["串联电路", "并联电路", "电路的连接"],
+          "typical_questions": ["选择题", "填空题", "作图题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        }
+      ]
+    },
+    {
+      "id": "ch16",
+      "name": "电压 电阻",
+      "knowledge_points": [
+        {
+          "id": "phy_kp16_1",
+          "name": "电压",
+          "sub_topics": ["电压", "电压的测量", "电压的单位"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        },
+        {
+          "id": "phy_kp16_2",
+          "name": "电阻",
+          "sub_topics": ["电阻", "决定电阻大小的因素", "滑动变阻器"],
+          "typical_questions": ["选择题", "填空题", "实验题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        }
+      ]
+    },
+    {
+      "id": "ch17",
+      "name": "欧姆定律",
+      "knowledge_points": [
+        {
+          "id": "phy_kp17_1",
+          "name": "欧姆定律",
+          "sub_topics": ["欧姆定律", "欧姆定律的应用"],
+          "typical_questions": ["选择题", "填空题", "计算题"],
+          "difficulty_weight": {"easy": 0.3, "medium": 0.4, "hard": 0.3}
+        },
+        {
+          "id": "phy_kp17_2",
+          "name": "电阻的测量",
+          "sub_topics": ["伏安法测电阻", "电阻的测量"],
+          "typical_questions": ["选择题", "填空题", "实验题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        }
+      ]
+    },
+    {
+      "id": "ch18",
+      "name": "电功率",
+      "knowledge_points": [
+        {
+          "id": "phy_kp18_1",
+          "name": "电能 电功",
+          "sub_topics": ["电能", "电功", "电能的测量"],
+          "typical_questions": ["选择题", "填空题", "计算题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        },
+        {
+          "id": "phy_kp18_2",
+          "name": "电功率",
+          "sub_topics": ["电功率", "额定功率", "实际功率"],
+          "typical_questions": ["选择题", "填空题", "计算题"],
+          "difficulty_weight": {"easy": 0.3, "medium": 0.4, "hard": 0.3}
+        },
+        {
+          "id": "phy_kp18_3",
+          "name": "焦耳定律",
+          "sub_topics": ["焦耳定律", "电热的计算", "电热的利用和防止"],
+          "typical_questions": ["选择题", "填空题", "计算题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        }
+      ]
+    },
+    {
+      "id": "ch19",
+      "name": "生活用电",
+      "knowledge_points": [
+        {
+          "id": "phy_kp19_1",
+          "name": "家庭电路",
+          "sub_topics": ["家庭电路的组成", "火线和零线", "三线插头和漏电保护"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
+        },
+        {
+          "id": "phy_kp19_2",
+          "name": "家庭电路中电流过大的原因",
+          "sub_topics": ["家庭电路中电流过大的原因", "保险丝的作用"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
+        }
+      ]
+    },
+    {
+      "id": "ch20",
+      "name": "电与磁",
+      "knowledge_points": [
+        {
+          "id": "phy_kp20_1",
+          "name": "磁现象 磁场",
+          "sub_topics": ["磁现象", "磁场", "磁感线"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
+        },
+        {
+          "id": "phy_kp20_2",
+          "name": "电生磁",
+          "sub_topics": ["电流的磁效应", "电磁铁", "电磁继电器"],
+          "typical_questions": ["选择题", "填空题", "作图题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        },
+        {
+          "id": "phy_kp20_3",
+          "name": "电动机",
+          "sub_topics": ["磁场对通电导线的作用", "电动机"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        },
+        {
+          "id": "phy_kp20_4",
+          "name": "磁生电",
+          "sub_topics": ["电磁感应", "发电机的原理"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        }
+      ]
+    },
+    {
+      "id": "ch21",
+      "name": "信息的传递",
+      "knowledge_points": [
+        {
+          "id": "phy_kp21_1",
+          "name": "电磁波",
+          "sub_topics": ["电磁波", "电磁波的传播", "电磁波的应用"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
+        },
+        {
+          "id": "phy_kp21_2",
+          "name": "广播、电视和移动通信",
+          "sub_topics": ["无线电广播", "电视", "移动通信"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
+        }
+      ]
+    }
+  ]
+}

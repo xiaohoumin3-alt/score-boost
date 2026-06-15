@@ -10,7 +10,7 @@ const api = require('../../utils/cloudApi.js');
 const SUBJECT_GRADE_MATRIX = {
   'math': { min: 1, max: 9, label: '数学' },
   'chinese': { min: 1, max: 9, label: '语文' },
-  'english': { min: 1, max: 6, label: '英语' },
+  'english': { min: 1, max: 9, label: '英语' },
 };
 
 Page({

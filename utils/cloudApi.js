@@ -30,6 +30,7 @@ const FUNCTION_TIMEOUTS = {
 
   // 查询操作
   checkRetestEligibility: 15000, // 检查重测资格
+  scoreCalibration: 15000,       // IRT分数预估
   analytics: 15000,              // 统计分析
 };
 

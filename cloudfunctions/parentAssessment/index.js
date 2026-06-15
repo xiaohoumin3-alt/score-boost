@@ -175,8 +175,9 @@ async function generateChildQuestionsViaQueue(db, grade, subject, count, timeout
         subject: subject,
         num_questions: count,
         difficulty_distribution: {
-          easy: Math.ceil(count * 0.6),
-          medium: Math.floor(count * 0.4)
+          easy: 0.6,
+          medium: 0.4,
+          hard: 0
         },
         status: 'pending',
         created_at: new Date().toISOString(),
@@ -274,9 +275,10 @@ async function startParentAssessment(event) {
         student_id: openid,              // 复用字段
         assessment_id: assessmentId,      // 关联测评记录
         num_questions: 5,                 // 5道题
-        difficulty_distribution: {        // 难度分布
-          easy: 3,
-          medium: 2
+        difficulty_distribution: {        // 难度分布（比例）
+          easy: 0.6,
+          medium: 0.4,
+          hard: 0
         },
         status: 'pending',
         created_at: new Date().toISOString(),

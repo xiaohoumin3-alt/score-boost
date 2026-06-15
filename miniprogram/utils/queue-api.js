@@ -77,6 +77,23 @@ class QueueApi {
   _delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
+
+  /**
+   * 取消队列任务
+   * @param {string} queueId - 队列ID
+   * @returns {Promise<Object>} 取消结果
+   */
+  async cancelQueueTask(queueId) {
+    try {
+      const result = await this.cloud.callFunction({
+        name: 'cancelQueueTask',
+        data: { queue_id: queueId }
+      });
+      return result.result;
+    } catch (e) {
+      return { success: false, error: e.message };
+    }
+  }
 }
 
 module.exports = QueueApi;

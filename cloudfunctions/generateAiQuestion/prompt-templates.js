@@ -39,14 +39,16 @@ const STUDENT_PROFILE_SCHEMA = {
  * @param {string} params.difficulty - 难度
  * @param {Object} params.student_profile - 学生画像
  * @param {string} params.question_type - 题型
+ * @param {string} params.subject - 科目
  * @returns {string} 完整Prompt
  */
 function buildPersonalizedPrompt(params) {
-  const { kp_name, difficulty, student_profile = {} } = params;
+  const { kp_name, difficulty, student_profile = {}, subject = '数学', grade } = params;
 
   // FIX MEDIUM: 清理用户输入防止 Prompt Injection
   const safeKpName = sanitizeInput(kp_name, 100);
   const safeDifficulty = sanitizeInput(difficulty, 20);
+  const safeSubject = sanitizeInput(subject, 20);
 
   // 学生画像部分
   const profileSection = buildStudentProfileSection(student_profile);
@@ -57,7 +59,7 @@ function buildPersonalizedPrompt(params) {
   // 干扰项设计部分
   const distractorSection = buildDistractorSection(student_profile.error_patterns || []);
 
-  const prompt = `你是一位专业的数学学习导师，正在为学生生成个性化练习题。
+  const prompt = `你是一位专业的${safeSubject}学习导师，正在为学生生成个性化练习题。
 
 ${profileSection}
 
@@ -73,7 +75,7 @@ ${distractorSection}
 
 ${getDifficultyGuidance(difficulty)}
 
-${getQuestionTypeRequirements(params.question_type || 'choice')}
+${getQuestionTypeRequirements(params.question_type || 'choice', subject)}
 
 **严格返回纯JSON格式，不要任何其他文字**
 
@@ -177,13 +179,21 @@ function getDifficultyGuidance(difficulty) {
 
 /**
  * 获取题型要求
+ * @param {string} questionType - 题型
+ * @param {string} subject - 科目
  */
-function getQuestionTypeRequirements(questionType) {
+function getQuestionTypeRequirements(questionType, subject = '数学') {
   if (questionType === 'choice') {
+    const symbolRequirements = {
+      '数学': '1. 必须提供恰好 4 个选项且仅 1 个正确答案\n2. **选项长度均衡**：所有选项长度应大致相同\n3. **数学符号格式**：使用Unicode数学符号（√ ≤ ≥ π ² ³ 等），不要使用LaTeX格式',
+      '物理': '1. 必须提供恰好 4 个选项且仅 1 个正确答案\n2. **选项长度均衡**：所有选项长度应大致相同\n3. **物理单位格式**：使用标准单位符号（m/s² N J W 等），正确使用上标',
+      '化学': '1. 必须提供恰好 4 个选项且仅 1 个正确答案\n2. **选项长度均衡**：所有选项长度应大致相同\n3. **化学符号格式**：使用标准化学式（H₂O CO₂ 等），正确使用下标'
+    };
+
+    const baseReq = symbolRequirements[subject] || '1. 必须提供恰好 4 个选项且仅 1 个正确答案\n2. **选项长度均衡**：所有选项长度应大致相同';
+
     return `## 选择题要求
-1. 必须提供恰好 4 个选项且仅 1 个正确答案
-2. **选项长度均衡**：所有选项长度应大致相同
-3. **数学符号格式**：使用Unicode数学符号（√ ≤ ≥ π ² ³ 等），不要使用LaTeX格式
+${baseReq}
 4. **禁止生成需要图片的题目**：所有几何信息必须用文字描述`;
   }
   return '';

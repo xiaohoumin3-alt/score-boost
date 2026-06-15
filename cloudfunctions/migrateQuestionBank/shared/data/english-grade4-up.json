@@ -1,0 +1,131 @@
+{
+  "subject": "英语",
+  "grade": "4",
+  "semester": "上册",
+  "version": "人教版",
+  "chapters": [
+    {
+      "chapter_name": "第一单元 语法入门",
+      "knowledge_points": [
+        {
+          "id": "english-grade4-up-1-1",
+          "name": "be动词用法",
+          "sub_topics": [
+            "am/is/are",
+            "肯定句",
+            "否定句疑问句"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.5,
+            "medium": 0.3,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "english-grade4-up-1-2",
+          "name": "人称代词",
+          "sub_topics": [
+            "主格宾格",
+            "形容词性物主代词",
+            "名词性物主代词"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.5,
+            "medium": 0.3,
+            "hard": 0.2
+          }
+        }
+      ]
+    },
+    {
+      "chapter_name": "第二单元 时态初步",
+      "knowledge_points": [
+        {
+          "id": "english-grade4-up-2-1",
+          "name": "一般现在时",
+          "sub_topics": [
+            "肯定句",
+            "否定句疑问句",
+            "第三人称单数"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "english-grade4-up-2-2",
+          "name": "现在进行时",
+          "sub_topics": [
+            "be doing结构",
+            "现在分词变化",
+            "使用场景"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.5,
+            "medium": 0.3,
+            "hard": 0.2
+          }
+        }
+      ]
+    },
+    {
+      "chapter_name": "第三单元 日常交流",
+      "knowledge_points": [
+        {
+          "id": "english-grade4-up-3-1",
+          "name": "电话用语",
+          "sub_topics": [
+            "接听电话",
+            "留言",
+            "挂断电话"
+          ],
+          "typical_questions": [
+            "选择题",
+            "情景题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.6,
+            "medium": 0.3,
+            "hard": 0.1
+          }
+        },
+        {
+          "id": "english-grade4-up-3-2",
+          "name": "邀请与应答",
+          "sub_topics": [
+            "发出邀请",
+            "接受拒绝",
+            "约定时间"
+          ],
+          "typical_questions": [
+            "选择题",
+            "情景交际"
+          ],
+          "difficulty_weight": {
+            "easy": 0.5,
+            "medium": 0.3,
+            "hard": 0.2
+          }
+        }
+      ]
+    }
+  ]
+}

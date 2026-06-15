@@ -1,0 +1,150 @@
+{
+  "subject": "英语",
+  "grade": "8",
+  "semester": "下册",
+  "version": "人教版",
+  "chapters": [
+    {
+      "chapter_name": "第一单元 定语从句",
+      "knowledge_points": [
+        {
+          "id": "english-grade8-down-1-1",
+          "name": "关系代词",
+          "sub_topics": [
+            "who/whom/whose",
+            "which/that",
+            "关系代词省略"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.3,
+            "medium": 0.4,
+            "hard": 0.3
+          }
+        },
+        {
+          "id": "english-grade8-down-1-2",
+          "name": "关系副词",
+          "sub_topics": [
+            "where/when/why",
+            "介词+关系代词",
+            "限制性vs非限制性"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.3,
+            "medium": 0.4,
+            "hard": 0.3
+          }
+        }
+      ]
+    },
+    {
+      "chapter_name": "第二单元 状语从句",
+      "knowledge_points": [
+        {
+          "id": "english-grade8-down-2-1",
+          "name": "时间状语从句",
+          "sub_topics": [
+            "when/while/as",
+            "before/after",
+            "until/till",
+            "as soon as"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.3,
+            "medium": 0.4,
+            "hard": 0.3
+          }
+        },
+        {
+          "id": "english-grade8-down-2-2",
+          "name": "条件状语从句",
+          "sub_topics": [
+            "if引导",
+            "unless引导",
+            "as long as引导"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.3,
+            "medium": 0.4,
+            "hard": 0.3
+          }
+        },
+        {
+          "id": "english-grade8-down-2-3",
+          "name": "原因/结果/让步状语",
+          "sub_topics": [
+            "because/since/as",
+            "so/so that",
+            "although/though"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.3,
+            "medium": 0.4,
+            "hard": 0.3
+          }
+        }
+      ]
+    },
+    {
+      "chapter_name": "第三单元 直接引语和间接引语",
+      "knowledge_points": [
+        {
+          "id": "english-grade8-down-3-1",
+          "name": "陈述句转换",
+          "sub_topics": [
+            "人称变化",
+            "时态变化",
+            "时间地点变化"
+          ],
+          "typical_questions": [
+            "选择题",
+            "句型转换"
+          ],
+          "difficulty_weight": {
+            "easy": 0.3,
+            "medium": 0.4,
+            "hard": 0.3
+          }
+        },
+        {
+          "id": "english-grade8-down-3-2",
+          "name": "疑问句转换",
+          "sub_topics": [
+            "一般疑问句",
+            "特殊疑问句",
+            "祈使句"
+          ],
+          "typical_questions": [
+            "选择题",
+            "句型转换"
+          ],
+          "difficulty_weight": {
+            "easy": 0.3,
+            "medium": 0.4,
+            "hard": 0.3
+          }
+        }
+      ]
+    }
+  ]
+}

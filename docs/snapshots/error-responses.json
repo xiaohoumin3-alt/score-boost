@@ -1,0 +1,261 @@
+{
+  "snapshot_type": "error_responses",
+  "description": "各类错误场景的响应格式快照，用于测试和文档",
+  "captured_at": "2025-06-11T20:38:00Z",
+  "version": "phase0-compatibility",
+
+  "validation_errors": {
+    "incompatible_subject_grade": {
+      "scenario": "二年级选择化学",
+      "error": "化学仅适用于9-9年级，当前选择2年级",
+      "validation_error": "incompatible_subject_grade",
+      "response": {
+        "success": false,
+        "error": "化学仅适用于9-9年级，当前选择2年级",
+        "validation_error": "incompatible_subject_grade"
+      }
+    },
+    "unsupported_subject": {
+      "scenario": "不支持的科目",
+      "error": "不支持的科目：invalid_subject",
+      "response": {
+        "success": false,
+        "error": "不支持的科目：invalid_subject",
+        "validation_error": "unsupported_subject"
+      }
+    },
+    "invalid_grade": {
+      "scenario": "无效年级",
+      "error": "无效的年级: 10",
+      "response": {
+        "success": false,
+        "error": "无效的年级: 10",
+        "validation_error": "invalid_grade"
+      }
+    },
+    "missing_required_field": {
+      "scenario": "缺少必需参数",
+      "error": "缺少必需参数：kp_name 或 kp_id",
+      "response": {
+        "success": false,
+        "error": "缺少必需参数：kp_name 或 kp_id"
+      }
+    }
+  },
+
+  "llm_errors": {
+    "timeout": {
+      "scenario": "LLM请求超时",
+      "error_type": "timeout",
+      "error": "LLM请求超时",
+      "details": {
+        "timeout_ms": 45000,
+        "retries": 2,
+        "last_error": "Request timeout after 45000ms"
+      },
+      "response": {
+        "success": false,
+        "error": "LLM请求超时",
+        "error_type": "timeout",
+        "details": {
+          "timeout_ms": 45000,
+          "retries": 2
+        }
+      }
+    },
+    "rate_limit": {
+      "scenario": "API限流429",
+      "error_type": "rate_limit",
+      "error": "API限流",
+      "details": {
+        "status": 429,
+        "message": "Rate limit exceeded",
+        "retry_after": 60
+      },
+      "response": {
+        "success": false,
+        "error": "API限流",
+        "error_type": "rate_limit",
+        "details": {
+          "status": 429,
+          "retry_after": 60
+        }
+      }
+    },
+    "parse_error": {
+      "scenario": "LLM响应解析失败",
+      "error_type": "parse_error",
+      "error": "LLM响应解析失败",
+      "details": {
+        "raw_response": "不是有效的JSON格式",
+        "parse_exception": "Unexpected token"
+      },
+      "response": {
+        "success": false,
+        "error": "LLM响应解析失败",
+        "error_type": "parse_error"
+      }
+    },
+    "incomplete_response": {
+      "scenario": "LLM返回不完整",
+      "error_type": "incomplete_response",
+      "error": "LLM返回缺少必需字段",
+      "details": {
+        "missing_fields": ["options", "correct_answer"]
+      },
+      "response": {
+        "success": false,
+        "error": "LLM返回缺少必需字段",
+        "error_type": "incomplete_response"
+      }
+    },
+    "api_error": {
+      "scenario": "LLM API错误",
+      "error_type": "api_error",
+      "error": "LLM API返回错误",
+      "details": {
+        "status": 500,
+        "message": "Internal server error"
+      },
+      "response": {
+        "success": false,
+        "error": "LLM API返回错误",
+        "error_type": "api_error"
+      }
+    }
+  },
+
+  "database_errors": {
+    "connection_error": {
+      "scenario": "数据库连接失败",
+      "error_type": "database_error",
+      "error": "数据库连接失败",
+      "response": {
+        "success": false,
+        "error": "数据库连接失败",
+        "error_type": "database_error"
+      }
+    },
+    "query_timeout": {
+      "scenario": "数据库查询超时",
+      "error_type": "database_timeout",
+      "error": "数据库查询超时",
+      "response": {
+        "success": false,
+        "error": "数据库查询超时",
+        "error_type": "database_timeout"
+      }
+    }
+  },
+
+  "cloud_function_errors": {
+    "missing_env": {
+      "scenario": "环境变量缺失",
+      "error": "LLM_API_KEY未配置",
+      "response": {
+        "success": false,
+        "error": "LLM_API_KEY未配置",
+        "error_type": "configuration_error"
+      }
+    },
+    "invalid_input": {
+      "scenario": "输入格式无效",
+      "error": "无法解析输入参数",
+      "response": {
+        "success": false,
+        "error": "无法解析输入参数",
+        "error_type": "invalid_input"
+      }
+    }
+  },
+
+  "fallback_responses": {
+    "ai_to_pool_success": {
+      "scenario": "AI失败但题池有题",
+      "ai_failed": true,
+      "fallback_used": true,
+      "fallback_source": "question_pool",
+      "questions": [
+        {
+          "id": "pool_001",
+          "content": "题库题目1",
+          "source": "pool"
+        },
+        {
+          "id": "pool_002",
+          "content": "题库题目2",
+          "source": "pool"
+        }
+      ],
+      "warning": "AI生成失败，已使用题库题目替代"
+    },
+    "ai_to_pool_empty": {
+      "scenario": "AI失败且题池为空",
+      "ai_failed": true,
+      "fallback_used": true,
+      "fallback_source": "question_pool",
+      "pool_empty": true,
+      "response": {
+        "success": false,
+        "error": "AI生成失败且题库为空",
+        "error_type": "no_fallback_available"
+      }
+    },
+    "partial_success": {
+      "scenario": "部分题目生成成功",
+      "total_requested": 5,
+      "ai_generated": 2,
+      "pool_supplied": 2,
+      "failed": 1,
+      "questions": [
+        { "id": "ai_001", "source": "ai" },
+        { "id": "ai_002", "source": "ai" },
+        { "id": "pool_001", "source": "pool" },
+        { "id": "pool_002", "source": "pool" }
+      ],
+      "warning": "仅生成4/5道题目，1道失败"
+    }
+  },
+
+  "error_codes": {
+    "VALIDATION_ERROR": "验证错误",
+    "TIMEOUT_ERROR": "超时错误",
+    "RATE_LIMIT_ERROR": "限流错误",
+    "PARSE_ERROR": "解析错误",
+    "DATABASE_ERROR": "数据库错误",
+    "CONFIG_ERROR": "配置错误",
+    "FALLBACK_SUCCESS": "回退成功",
+    "FALLBACK_FAILED": "回退失败"
+  },
+
+  "error_handling_strategy": {
+    "retry": {
+      "max_retries": 2,
+      "retry_delay_ms": 1000,
+      "exponential_backoff": true
+    },
+    "fallback": {
+      "enabled": true,
+      "fallback_source": "question_pool",
+      "fallback_priority": ["question_pool", "cached_questions"]
+    },
+    "logging": {
+      "log_all_errors": true,
+      "log_error_details": true,
+      "log_to_database": true
+    }
+  },
+
+  "field_definitions": {
+    "success": "是否成功",
+    "error": "错误信息",
+    "error_type": "错误类型",
+    "validation_error": "验证错误类型",
+    "details": "错误详情对象",
+    "scenario": "错误场景描述",
+    "response": "完整响应对象",
+    "ai_failed": "AI是否失败",
+    "fallback_used": "是否使用回退",
+    "fallback_source": "回退来源"
+  }
+}

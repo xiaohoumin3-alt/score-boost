@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/85</span>
+                <span class='fraction'>0/96</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/102</span>
+                <span class='fraction'>0/110</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/85</span>
+                <span class='fraction'>0/96</span>
             </div>
         
             
@@ -324,7 +324,28 @@
 <a name='L259'></a><a href='#L259'>259</a>
 <a name='L260'></a><a href='#L260'>260</a>
 <a name='L261'></a><a href='#L261'>261</a>
-<a name='L262'></a><a href='#L262'>262</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L262'></a><a href='#L262'>262</a>
+<a name='L263'></a><a href='#L263'>263</a>
+<a name='L264'></a><a href='#L264'>264</a>
+<a name='L265'></a><a href='#L265'>265</a>
+<a name='L266'></a><a href='#L266'>266</a>
+<a name='L267'></a><a href='#L267'>267</a>
+<a name='L268'></a><a href='#L268'>268</a>
+<a name='L269'></a><a href='#L269'>269</a>
+<a name='L270'></a><a href='#L270'>270</a>
+<a name='L271'></a><a href='#L271'>271</a>
+<a name='L272'></a><a href='#L272'>272</a>
+<a name='L273'></a><a href='#L273'>273</a>
+<a name='L274'></a><a href='#L274'>274</a>
+<a name='L275'></a><a href='#L275'>275</a>
+<a name='L276'></a><a href='#L276'>276</a>
+<a name='L277'></a><a href='#L277'>277</a>
+<a name='L278'></a><a href='#L278'>278</a>
+<a name='L279'></a><a href='#L279'>279</a>
+<a name='L280'></a><a href='#L280'>280</a>
+<a name='L281'></a><a href='#L281'>281</a>
+<a name='L282'></a><a href='#L282'>282</a>
+<a name='L283'></a><a href='#L283'>283</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -410,7 +431,8 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -428,6 +450,24 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -437,6 +477,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -669,10 +711,11 @@ function <span class="fstat-no" title="function not covered" >classifyError(</sp
 &nbsp;
 // ============ 主逻辑 ============
 <span class="cstat-no" title="statement not covered" >exports.main = <span class="fstat-no" title="function not covered" >as</span>ync (event, context) =&gt; {</span>
+  const wxContext = <span class="cstat-no" title="statement not covered" >cloud.getWXContext();</span>
+  const userId = <span class="cstat-no" title="statement not covered" >wxContext.OPENID;</span>
 <span class="cstat-no" title="statement not covered" >  try {</span>
     const params = <span class="cstat-no" title="statement not covered" >event.data || event || {};</span>
     const {
-      student_id,
       kp_id,
       kp_name = <span class="branch-0 cbranch-no" title="branch not covered" >'',</span>
       difficulty,
@@ -687,9 +730,27 @@ function <span class="fstat-no" title="function not covered" >classifyError(</sp
 <span class="cstat-no" title="statement not covered" >      return { success: false, error: '缺少必要参数' };</span>
     }
 &nbsp;
+    // 0. 查询 knowledge_points 获取 grade/subject
+    let kpGrade = <span class="cstat-no" title="statement not covered" >null;</span>
+    let kpSubject = <span class="cstat-no" title="statement not covered" >null;</span>
+<span class="cstat-no" title="statement not covered" >    try {</span>
+      const kpResult = <span class="cstat-no" title="statement not covered" >await db.collection('knowledge_points')</span>
+        .where({ kp_id: kp_id })
+        .limit(1)
+        .get();
+<span class="cstat-no" title="statement not covered" >      if (kpResult.data &amp;&amp; kpResult.data.length &gt; 0) {</span>
+        const kpInfo = <span class="cstat-no" title="statement not covered" >kpResult.data[0];</span>
+<span class="cstat-no" title="statement not covered" >        kpGrade = kpInfo.grade || null;</span>
+<span class="cstat-no" title="statement not covered" >        kpSubject = kpInfo.subject || null;</span>
+        // Record kpInfo data for progress
+      }
+    } catch (e) {
+<span class="cstat-no" title="statement not covered" >      console.warn('[submitPracticeResult] knowledge_points query failed:', e.message);</span>
+    }
+&nbsp;
     // 1. 查询当前进度
     const progressRes = <span class="cstat-no" title="statement not covered" >await db.collection('kp_progress')</span>
-      .where({ student_id, kp_id })
+      .where({ student_id: userId, kp_id })
       .get();
 &nbsp;
     const currentProgress = <span class="cstat-no" title="statement not covered" >progressRes.data &amp;&amp; progressRes.data.length &gt; 0</span>
@@ -698,10 +759,12 @@ function <span class="fstat-no" title="function not covered" >classifyError(</sp
 &nbsp;
     // 2. 构建新进度
     let newProgress = <span class="cstat-no" title="statement not covered" >currentProgress ? { ...currentProgress } : {</span>
-      student_id,
+      student_id: userId,
       kp_id,
       kp_name,
       assessment_id: assessment_id || '',
+      grade: kpGrade,
+      subject: kpSubject,
       easy: { consecutive_correct: 0, consecutive_wrong: 0, mastered: false },
       medium: { consecutive_correct: 0, consecutive_wrong: 0, mastered: false },
       hard: { consecutive_correct: 0, consecutive_wrong: 0, mastered: false },
@@ -800,7 +863,7 @@ function <span class="fstat-no" title="function not covered" >classifyError(</sp
     }
 &nbsp;
     // 8. 更新Memory（异步）
-<span class="cstat-no" title="statement not covered" >    updateStudentMemory(student_id, kp_id, difficulty, is_correct, errorClassification).catch(<span class="fstat-no" title="function not covered" >er</span>r =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    updateStudentMemory(userId, kp_id, difficulty, is_correct, errorClassification).catch(<span class="fstat-no" title="function not covered" >er</span>r =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >      console.log('[submitPracticeResult] Memory update failed:', err.message);</span>
     });
 &nbsp;
@@ -853,7 +916,7 @@ async function <span class="fstat-no" title="function not covered" >updateStuden
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-05-29T13:29:46.610Z
+                at 2026-06-14T01:18:41.064Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

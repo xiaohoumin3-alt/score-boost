@@ -21,7 +21,24 @@ Page({
     // 全分数段难度引导
     difficultyGuidance: null,
     guidanceButtonText: '',
-    guidanceSubText: ''
+    guidanceSubText: '',
+    // 分数预估
+    estimatedScore: null,
+    examScore: null,
+    scoreLevel: null,
+    scoreConfidence: null,
+    scoreMargin: null,
+    isPrimarySchool: null, // 学段标识
+    // 两阶段测评精度字段
+    currentSE: null,
+    currentSEText: '',
+    accuracyBarWidth: '0%',
+    theta: null,
+    needsExtendedAssessment: false,
+    accuracyLevel: null,
+    // 用户选择的年级和科目
+    userGrade: '',
+    userSubject: ''
   },
 
   onLoad(query) {
@@ -53,6 +70,8 @@ Page({
       const score = parseInt(query.score) || 0;
       const total = parseInt(query.total) || 5;
       const isPerfect = score === total;
+      const userGrade = query.grade ? decodeURIComponent(query.grade) : (app.globalData.grade || '八年级');
+      const userSubject = query.subject ? decodeURIComponent(query.subject) : (app.globalData.subject || '数学');
 
       this.setData({
         score,
@@ -60,7 +79,9 @@ Page({
         accuracy: parseInt(query.accuracy) || 0,
         mode: 'assessment',
         isPerfect,
-        assessmentId
+        assessmentId,
+        userGrade,
+        userSubject
       });
 
       // 计算难度引导策略（全分数段）
@@ -69,6 +90,26 @@ Page({
         difficultyGuidance: guidance,
         guidanceButtonText: guidance.buttonText,
         guidanceSubText: guidance.subText
+      });
+
+      // 分数预估（传递已解码的科目名）
+      this.estimateScore(score, total, userSubject, userGrade, assessmentId);
+
+      // 精度检查（两阶段测评）
+      const parsedSE = parseFloat(query.se);
+      const se = Number.isFinite(parsedSE) ? Math.max(0, parsedSE) : 0.5;
+      const theta = parseFloat(query.theta) || 0;
+      const TARGET_SE = 0.3;  // 目标标准误差
+      const needsExtendedAssessment = se > TARGET_SE && total <= 10;  // 5题测评且精度不足
+      const accuracyPercent = Math.max(0, Math.min(100, (1 - se) * 100));
+
+      this.setData({
+        currentSE: se,
+        currentSEText: se.toFixed(2),
+        accuracyBarWidth: `${accuracyPercent.toFixed(1)}%`,
+        theta: theta,
+        needsExtendedAssessment: needsExtendedAssessment,
+        accuracyLevel: this.getAccuracyLevel(se)
       });
 
       // 检查复测资格（有assessmentId即可，包括满分）
@@ -139,6 +180,75 @@ Page({
       subText: '为你降低难度，打好基础',
       reason: '当前难度对你偏高'
     };
+  },
+
+  /**
+   * 分数预估
+   * 优先使用 scoreCalibration 云函数（基于真实题目 IRT 参数）
+   * 降级使用本地 ScoreEstimator（基于正确率推算）
+   */
+  async estimateScore(correct, total, subject, grade, assessmentId) {
+    // 方案1: 有 assessmentId 时调用云端 scoreCalibration（精确）
+    if (assessmentId) {
+      try {
+        const res = await api.callCloudFunction('scoreCalibration', { assessment_id: assessmentId });
+        if (res && res.success && res.data) {
+          const d = res.data;
+          this.setData({
+            estimatedScore: d.estimatedScore,
+            examScore: d.examScore,
+            scoreLevel: { level: d.level, text: d.levelText, color: this._levelColor(d.level), emoji: this._levelEmoji(d.level) },
+            scoreConfidence: d.confidence,
+            scoreMargin: d.margin,
+            isPrimarySchool: d.isPrimarySchool,
+          });
+          console.log('[result] Cloud score estimation:', d);
+          return;
+        }
+      } catch (e) {
+        console.warn('[result] Cloud scoreCalibration failed, falling back to local:', e);
+      }
+    }
+
+    // 方案2: 降级到本地估算（基于正确率）
+    try {
+      const ScoreEstimator = require('../../cloudfunctions/shared/models/score-estimator.js');
+      const estimator = new ScoreEstimator(subject || 'math');
+
+      const responses = [];
+      for (let i = 0; i < total; i++) {
+        responses.push({
+          item_id: `q${i}`,
+          correct: i < correct ? 1 : 0,
+          question_type: 'choice',
+        });
+      }
+
+      const difficultyAvg = correct / total;
+      const result = estimator.estimateFromResponses(responses, grade || '8');
+
+      this.setData({
+        estimatedScore: result.estimatedScore,
+        examScore: result.examScore,
+        scoreLevel: { level: result.level, text: result.text, color: result.color, emoji: result.emoji },
+        scoreConfidence: result.confidence,
+        scoreMargin: result.margin,
+        isPrimarySchool: result.isPrimarySchool,
+      });
+      console.log('[result] Local score estimation:', result);
+    } catch (e) {
+      console.error('[result] Score estimation error:', e);
+    }
+  },
+
+  _levelColor(level) {
+    const map = { A: '#00D9A5', B: '#4CAF50', C: '#FFA94D', D: '#FF6B6B', E: '#FF4444' };
+    return map[level] || '#999';
+  },
+
+  _levelEmoji(level) {
+    const map = { A: '🏆', B: '👍', C: '✅', D: '📝', E: '💪' };
+    return map[level] || '';
   },
 
   async loadNextReviewTime() {
@@ -252,7 +362,18 @@ Page({
   },
 
   goToPractice() {
-    wx.navigateTo({ url: '/pages/practice/practice' });
+    // 埋点：练习点击
+    api.track('result_action', {
+      action: 'practice_click',
+      context: {
+        accuracy: this.data.accuracy,
+        score: this.data.score,
+        total: this.data.total,
+        mode: this.data.mode
+      }
+    });
+
+    wx.switchTab({ url: '/pages/practice/practice' });
   },
 
   goToRetest() {
@@ -290,5 +411,65 @@ Page({
 
   goHome() {
     wx.switchTab({ url: '/pages/home/home' });
+  },
+
+  /**
+   * 根据标准误差计算精度等级
+   */
+  getAccuracyLevel(se) {
+    if (se <= 0.2) return { level: '高精度', color: 'green', description: '精度已达到优秀水平' };
+    if (se <= 0.3) return { level: '良好', color: 'blue', description: '精度达到目标水平' };
+    if (se <= 0.5) return { level: '中等', color: 'orange', description: '建议继续答题提升精度' };
+    return { level: '低精度', color: 'red', description: '精度不足，强烈建议继续答题' };
+  },
+
+  /**
+   * 跳转到深度测评页面
+   */
+  goToExtendedAssessment() {
+    // 埋点：深度测评点击
+    api.track('result_action', {
+      action: 'extended_assessment_click',
+      context: {
+        se: this.data.currentSE,
+        theta: this.data.theta,
+        accuracy: this.data.accuracy,
+        score: this.data.score,
+        total: this.data.total
+      }
+    });
+
+    // 使用用户实际选择的年级和科目
+    const grade = this.data.userGrade || app.globalData.grade || '3';
+    const subject = this.data.userSubject || app.globalData.subject || '数学';
+
+    // 将年级转换为数字（支持数字字符串和中文两种格式）
+    const gradeMap = {
+      // 数字字符串格式
+      '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9,
+      // 中文格式
+      '一年级': 1, '二年级': 2, '三年级': 3, '四年级': 4, '五年级': 5, '六年级': 6,
+      '七年级': 7, '八年级': 8, '九年级': 9
+    };
+    const numericGrade = gradeMap[grade] || parseInt(grade) || 3;
+
+    // 将科目转换为英文（支持中文和英文两种格式）
+    const subjectMap = {
+      '语文': 'chinese', '数学': 'math', '英语': 'english',
+      '物理': 'physics', '化学': 'chemistry', '生物': 'biology',
+      '历史': 'history', '地理': 'geography', '政治': 'politics',
+      // 英文直接映射
+      'chinese': 'chinese', 'math': 'math', 'english': 'english',
+      'physics': 'physics', 'chemistry': 'chemistry', 'biology': 'biology',
+      'history': 'history', 'geography': 'geography', 'politics': 'politics'
+    };
+    const normalizedSubject = subjectMap[subject] || 'math';
+
+    console.log('[goToExtendedAssessment] 用户选择:', { grade, subject });
+    console.log('[goToExtendedAssessment] 映射后:', { numericGrade, normalizedSubject });
+
+    wx.navigateTo({
+      url: `/pages/assessment-depth/assessment-depth?grade=${numericGrade}&subject=${normalizedSubject}`
+    });
   }
 });

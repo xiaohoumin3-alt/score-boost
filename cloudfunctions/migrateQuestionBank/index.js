@@ -4,6 +4,8 @@
  * TDD: Red-Green-Refactor
  */
 
+const { normalizeQuestion } = require('../shared/question-normalizer');
+
 // 测试环境不使用 wx-server-sdk
 let cloud;
 try {
@@ -44,23 +46,10 @@ async function migrateStaticBank(db, subject = 'math') {
   for (const [kpId, questions] of Object.entries(questionBank)) {
     for (const q of questions) {
       try {
-        // 转换选项格式：从 "A. 选项1" 格式转换为 {key: "A", value: "选项1"}
-        const options = (q.options || []).map(opt => {
-          const match = opt.match(/^([A-D])\.\s*(.+)$/);
-          if (match) {
-            return { key: match[1], value: match[2] };
-          }
-          // 如果已经是对象格式，直接返回
-          if (typeof opt === 'object' && opt.key && opt.value) {
-            return opt;
-          }
-          // 否则返回原始格式
-          return { key: '', value: opt };
-        });
-
-        const record = {
+        // 使用归一化函数确保数据格式统一
+        const record = normalizeQuestion({
           question: q.content || q.question || '',
-          options: options,
+          options: q.options || [],
           correct_answer: (q.correct_answer || '').toUpperCase(),
           kp_id: kpId,
           kp_name: q.kp_name || '',
@@ -68,11 +57,13 @@ async function migrateStaticBank(db, subject = 'math') {
           difficulty: q.difficulty || 'medium',
           subject: subject,
           source: 'static',
-          verified: true,
-          correct_rate: 0.8,
-          usage_count: 0,
-          created_at: new Date().toISOString()
-        };
+          verified: true
+        });
+
+        // 添加迁移特有字段
+        record.correct_rate = 0.8;
+        record.usage_count = 0;
+        record.created_at = new Date().toISOString();
 
         await db.collection('ai_question_pool').add({ data: record });
         migrated++;

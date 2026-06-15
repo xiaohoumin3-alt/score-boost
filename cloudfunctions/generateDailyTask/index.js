@@ -102,7 +102,7 @@ exports.main = async (event, context) => {
   const SUBJECT_GRADE_MATRIX = {
     'math': { min: 1, max: 9 },
     'chinese': { min: 1, max: 9 },
-    'english': { min: 1, max: 6 },
+    'english': { min: 1, max: 9 },
     'biology': { min: 7, max: 8 },
     'geography': { min: 7, max: 8 },
     'history': { min: 7, max: 9 },

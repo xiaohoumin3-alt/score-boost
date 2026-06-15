@@ -1,0 +1,131 @@
+{
+  "subject": "英语",
+  "grade": "4",
+  "semester": "下册",
+  "version": "人教版",
+  "chapters": [
+    {
+      "chapter_name": "第一单元 过去的事情",
+      "knowledge_points": [
+        {
+          "id": "english-grade4-down-1-1",
+          "name": "一般过去时",
+          "sub_topics": [
+            "过去式构成",
+            "规则变化",
+            "不规则变化"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "english-grade4-down-1-2",
+          "name": "过去进行时",
+          "sub_topics": [
+            "was/were doing",
+            "使用场景",
+            "与一般过去时区别"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        }
+      ]
+    },
+    {
+      "chapter_name": "第二单元 将来计划",
+      "knowledge_points": [
+        {
+          "id": "english-grade4-down-2-1",
+          "name": "be going to",
+          "sub_topics": [
+            "表示计划",
+            "表示预测",
+            "基本句型"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.5,
+            "medium": 0.3,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "english-grade4-down-2-2",
+          "name": "will表示将来",
+          "sub_topics": [
+            "will基本用法",
+            "will与be going to",
+            "否定疑问形式"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        }
+      ]
+    },
+    {
+      "chapter_name": "第三单元 比较与对比",
+      "knowledge_points": [
+        {
+          "id": "english-grade4-down-3-1",
+          "name": "形容词比较级",
+          "sub_topics": [
+            "规则变化",
+            "不规则变化",
+            "比较句型"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "english-grade4-down-3-2",
+          "name": "形容词最高级",
+          "sub_topics": [
+            "规则变化",
+            "不规则变化",
+            "最高级句型"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        }
+      ]
+    }
+  ]
+}

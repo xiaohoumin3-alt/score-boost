@@ -1,0 +1,131 @@
+{
+  "subject": "英语",
+  "grade": "3",
+  "semester": "上册",
+  "version": "人教版",
+  "chapters": [
+    {
+      "chapter_name": "第一单元 学校生活",
+      "knowledge_points": [
+        {
+          "id": "english-grade3-up-1-1",
+          "name": "学校设施",
+          "sub_topics": [
+            "教室操场",
+            "图书馆",
+            "功能室"
+          ],
+          "typical_questions": [
+            "选择题",
+            "翻译题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.6,
+            "medium": 0.3,
+            "hard": 0.1
+          }
+        },
+        {
+          "id": "english-grade3-up-1-2",
+          "name": "学科词汇",
+          "sub_topics": [
+            "语文数学英语",
+            "音乐美术体育",
+            "科学道法"
+          ],
+          "typical_questions": [
+            "选择题",
+            "配对题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.6,
+            "medium": 0.3,
+            "hard": 0.1
+          }
+        }
+      ]
+    },
+    {
+      "chapter_name": "第二单元 家庭生活",
+      "knowledge_points": [
+        {
+          "id": "english-grade3-up-2-1",
+          "name": "家庭活动",
+          "sub_topics": [
+            "家务",
+            "休闲",
+            "节日"
+          ],
+          "typical_questions": [
+            "选择题",
+            "情景题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.6,
+            "medium": 0.3,
+            "hard": 0.1
+          }
+        },
+        {
+          "id": "english-grade3-up-2-2",
+          "name": "房间名称",
+          "sub_topics": [
+            "客厅卧室",
+            "厨房浴室",
+            "书房阳台"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.7,
+            "medium": 0.3,
+            "hard": 0
+          }
+        }
+      ]
+    },
+    {
+      "chapter_name": "第三单元 食物与健康",
+      "knowledge_points": [
+        {
+          "id": "english-grade3-up-3-1",
+          "name": "三餐食物",
+          "sub_topics": [
+            "早餐",
+            "午餐",
+            "晚餐"
+          ],
+          "typical_questions": [
+            "选择题",
+            "分类题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.6,
+            "medium": 0.3,
+            "hard": 0.1
+          }
+        },
+        {
+          "id": "english-grade3-up-3-2",
+          "name": "健康习惯",
+          "sub_topics": [
+            "饮食健康",
+            "运动锻炼",
+            "作息规律"
+          ],
+          "typical_questions": [
+            "选择题",
+            "判断题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.5,
+            "medium": 0.3,
+            "hard": 0.2
+          }
+        }
+      ]
+    }
+  ]
+}

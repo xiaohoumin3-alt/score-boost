@@ -1,0 +1,79 @@
+<!--pages/admin/irt-data-manager/irt-data-manager.wxml-->
+<view class="container">
+  <view class="header">
+    <text class="title">IRT 数据管理</text>
+    <text class="subtitle">踏平等待时间门槛</text>
+  </view>
+
+  <view class="card">
+    <view class="card-title">当前状态</view>
+    <view class="stats">
+      <view class="stat-item">
+        <text class="stat-label">模拟测评记录</text>
+        <text class="stat-value">{{status.mockAssessments || 0}}</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-label">有数据的题目</text>
+        <text class="stat-value">{{status.questionsWithData || 0}}</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-label">总题目数</text>
+        <text class="stat-value">{{status.totalQuestions || 0}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="card-title">数据积累操作</view>
+    <view class="actions">
+      <button
+        class="action-btn"
+        bindtap="onRefreshStatus"
+        loading="{{refreshing}}"
+      >
+        🔄 刷新状态
+      </button>
+
+      <button
+        class="action-btn primary"
+        bindtap="onUpdateQuestionStats"
+        loading="{{updatingStats}}"
+        disabled="{{updatingStats}}"
+      >
+        📊 更新题目统计
+      </button>
+
+      <button
+        class="action-btn primary"
+        bindtap="onImportAssessments"
+        loading="{{importing}}"
+        disabled="{{importing}}"
+      >
+        📥 导入测评记录
+      </button>
+
+      <button
+        class="action-btn success"
+        bindtap="onFullImport"
+        loading="{{fullImporting}}"
+        disabled="{{fullImporting}}"
+      >
+        ⚡ 完整导入（推荐）
+      </button>
+    </view>
+  </view>
+
+  <view class="card" wx:if="{{result}}">
+    <view class="card-title">执行结果</view>
+    <view class="result">
+      <text class="result-text">{{result}}</text>
+    </view>
+  </view>
+
+  <view class="tips">
+    <text class="tips-title">💡 提示</text>
+    <text class="tips-text">• 完整导入将生成315条测评记录</text>
+    <text class="tips-text">• 更新题目统计为1000+道题添加答题数据</text>
+    <text class="tips-text">• 数据积累后，IRT模型将达到"高精度"标准</text>
+  </view>
+</view>

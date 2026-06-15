@@ -1,0 +1,193 @@
+{
+  "snapshot_type": "generateAi_response",
+  "description": "generateAi函数的返回格式快照，记录不同难度级别的典型响应",
+  "captured_at": "2025-06-11T20:35:00Z",
+  "version": "phase0-compatibility",
+  "responses": {
+    "easy": {
+      "difficulty": "easy",
+      "generated": [
+        {
+          "id": "ai_q_001",
+          "content": "计算：3 + 5 = ?",
+          "options": [
+            "6",
+            "7",
+            "8",
+            "9"
+          ],
+          "correct_answer": "8",
+          "knowledge_point": "10以内加减法",
+          "difficulty": "easy",
+          "question_type": "choice",
+          "source": "ai",
+          "grade": "1",
+          "subject": "math"
+        },
+        {
+          "id": "ai_q_002",
+          "content": "小明有3个苹果，妈妈又给了他2个，小明现在有几个苹果？",
+          "options": [
+            "4个",
+            "5个",
+            "6个",
+            "7个"
+          ],
+          "correct_answer": "5个",
+          "knowledge_point": "10以内加减法",
+          "difficulty": "easy",
+          "question_type": "choice",
+          "source": "ai",
+          "grade": "1",
+          "subject": "math"
+        }
+      ],
+      "metadata": {
+        "total": 2,
+        "success": true,
+        "llm_calls": 1,
+        "duration_ms": 3200
+      }
+    },
+    "medium": {
+      "difficulty": "medium",
+      "generated": [
+        {
+          "id": "ai_q_011",
+          "content": "解方程：2x + 5 = 15，x = ?",
+          "options": [
+            "4",
+            "5",
+            "6",
+            "7"
+          ],
+          "correct_answer": "5",
+          "knowledge_point": "一元一次方程",
+          "difficulty": "medium",
+          "question_type": "choice",
+          "source": "ai",
+          "grade": "7",
+          "subject": "math"
+        },
+        {
+          "id": "ai_q_012",
+          "content": "已知直角三角形的两条直角边分别是3cm和4cm，求斜边的长度。",
+          "options": [
+            "5cm",
+            "6cm",
+            "7cm",
+            "8cm"
+          ],
+          "correct_answer": "5cm",
+          "knowledge_point": "勾股定理",
+          "difficulty": "medium",
+          "question_type": "choice",
+          "source": "ai",
+          "grade": "8",
+          "subject": "math"
+        }
+      ],
+      "metadata": {
+        "total": 2,
+        "success": true,
+        "llm_calls": 1,
+        "duration_ms": 4100
+      }
+    },
+    "hard": {
+      "difficulty": "hard",
+      "generated": [
+        {
+          "id": "ai_q_021",
+          "content": "求证：勾股定理的逆命题成立",
+          "options": [
+            "证明：设三角形三边为a,b,c，若a²+b²=c²，则∠C=90°",
+            "证明：设三角形三边为a,b,c，若a²+b²=c²，则∠A=90°",
+            "证明：设三角形三边为a,b,c，若a²+b²=c²，则∠B=90°",
+            "无法证明，需要更多条件"
+          ],
+          "correct_answer": "证明：设三角形三边为a,b,c，若a²+b²=c²，则∠C=90°",
+          "knowledge_point": "勾股定理",
+          "difficulty": "hard",
+          "question_type": "choice",
+          "source": "ai",
+          "grade": "8",
+          "subject": "math"
+        }
+      ],
+      "metadata": {
+        "total": 1,
+        "success": true,
+        "llm_calls": 1,
+        "duration_ms": 5800
+      }
+    }
+  },
+  "mixed_with_pool": {
+    "description": "题池+AI混合模式返回",
+    "total_questions": 5,
+    "pool_count": 3,
+    "ai_count": 2,
+    "questions": [
+      {
+        "id": "pool_001",
+        "content": "题库题目1",
+        "source": "pool"
+      },
+      {
+        "id": "pool_002",
+        "content": "题库题目2",
+        "source": "pool"
+      },
+      {
+        "id": "pool_003",
+        "content": "题库题目3",
+        "source": "pool"
+      },
+      {
+        "id": "ai_q_001",
+        "content": "AI生成题目1",
+        "source": "ai"
+      },
+      {
+        "id": "ai_q_002",
+        "content": "AI生成题目2",
+        "source": "ai"
+      }
+    ]
+  },
+  "fallback_to_pool": {
+    "description": "AI失败时回退到题池",
+    "ai_failed": true,
+    "fallback_used": true,
+    "questions": [
+      {
+        "id": "pool_001",
+        "content": "题库题目1",
+        "source": "pool"
+      },
+      {
+        "id": "pool_002",
+        "content": "题库题目2",
+        "source": "pool"
+      }
+    ],
+    "error_info": {
+      "type": "timeout",
+      "message": "LLM request timeout after 45000ms",
+      "retries": 2
+    }
+  },
+  "field_definitions": {
+    "id": "题目唯一标识",
+    "content": "题目内容",
+    "options": "选项数组（选择题）",
+    "correct_answer": "正确答案",
+    "knowledge_point": "知识点名称",
+    "difficulty": "难度级别（easy/medium/hard）",
+    "question_type": "题型（choice/fill/judge等）",
+    "source": "题目来源（ai/pool）",
+    "grade": "适用年级",
+    "subject": "科目代码"
+  }
+}

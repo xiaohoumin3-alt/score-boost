@@ -1,0 +1,186 @@
+{
+  "snapshot_type": "generateAiQuestion_response",
+  "description": "generateAiQuestion云函数的返回格式快照，记录成功和失败场景",
+  "captured_at": "2025-06-11T20:37:00Z",
+  "version": "phase0-compatibility",
+
+  "single_question_success": {
+    "success": true,
+    "data": {
+      "id": "cloud_ai_001",
+      "kp_id": "kp_8_math_005",
+      "kp_name": "勾股定理",
+      "chapter": "第八章",
+      "content": "在直角三角形中，两直角边长分别为6和8，求斜边长。",
+      "options": ["10", "11", "12", "14"],
+      "correct_answer": "10",
+      "analysis": "根据勾股定理：c² = a² + b² = 6² + 8² = 36 + 64 = 100，所以c = √100 = 10",
+      "difficulty": "medium",
+      "question_type": "choice",
+      "source": "ai",
+      "subject": "math",
+      "grade": "8",
+      "created_at": "2025-06-11T20:37:00Z"
+    }
+  },
+
+  "batch_mode_success": {
+    "success": true,
+    "data": [
+      {
+        "id": "cloud_ai_001",
+        "kp_name": "勾股定理",
+        "content": "题目1",
+        "options": ["A", "B", "C", "D"],
+        "correct_answer": "A"
+      },
+      {
+        "id": "cloud_ai_002",
+        "kp_name": "二次根式",
+        "content": "题目2",
+        "options": ["A", "B", "C", "D"],
+        "correct_answer": "B"
+      },
+      {
+        "id": "cloud_ai_003",
+        "kp_name": "一元二次方程",
+        "content": "题目3",
+        "options": ["A", "B", "C", "D"],
+        "correct_answer": "C"
+      }
+    ],
+    "count": 3
+  },
+
+  "validation_error": {
+    "success": false,
+    "error": "化学仅适用于9-9年级，当前选择2年级",
+    "validation_error": "incompatible_subject_grade"
+  },
+
+  "missing_parameters": {
+    "success": false,
+    "error": "缺少必需参数：kp_name 或 kp_id"
+  },
+
+  "llm_timeout": {
+    "success": false,
+    "error": "LLM请求超时",
+    "error_type": "timeout",
+    "details": {
+      "timeout_ms": 45000,
+      "retries": 2,
+      "last_error": "Request timeout after 45000ms"
+    }
+  },
+
+  "llm_rate_limit": {
+    "success": false,
+    "error": "API限流",
+    "error_type": "rate_limit",
+    "details": {
+      "status": 429,
+      "message": "Rate limit exceeded",
+      "retry_after": 60
+    }
+  },
+
+  "llm_parse_error": {
+    "success": false,
+    "error": "LLM响应解析失败",
+    "error_type": "parse_error",
+    "details": {
+      "raw_response": "不是有效的JSON格式",
+      "parse_exception": "Unexpected token"
+    }
+  },
+
+  "event_format_variations": {
+    "event_data_format": {
+      "input": {
+        "data": {
+          "kp_name": "勾股定理",
+          "difficulty": "medium"
+        }
+      },
+      "response": {
+        "success": true,
+        "data": { "id": "cloud_ai_001", "content": "题目" }
+      }
+    },
+    "direct_format": {
+      "input": {
+        "kp_name": "勾股定理",
+        "difficulty": "medium"
+      },
+      "response": {
+        "success": true,
+        "data": { "id": "cloud_ai_001", "content": "题目" }
+      }
+    },
+    "json_string_format": {
+      "input": "{\"kp_name\":\"勾股定理\",\"difficulty\":\"medium\"}",
+      "response": {
+        "success": true,
+        "data": { "id": "cloud_ai_001", "content": "题目" }
+      }
+    }
+  },
+
+  "batch_mode_variations": {
+    "with_skip_image": {
+      "questions": [
+        { "kp_name": "题目1", "difficulty": "easy" }
+      ],
+      "skip_image": true,
+      "response": {
+        "success": true,
+        "data": [
+          { "id": "cloud_ai_001", "content": "题目1", "image_url": null }
+        ],
+        "count": 1
+      }
+    },
+    "mixed_difficulties": {
+      "questions": [
+        { "kp_name": "题目1", "difficulty": "easy" },
+        { "kp_name": "题目2", "difficulty": "medium" },
+        { "kp_name": "题目3", "difficulty": "hard" }
+      ],
+      "response": {
+        "success": true,
+        "data": [
+          { "id": "cloud_ai_001", "difficulty": "easy" },
+          { "id": "cloud_ai_002", "difficulty": "medium" },
+          { "id": "cloud_ai_003", "difficulty": "hard" }
+        ],
+        "count": 3
+      }
+    }
+  },
+
+  "field_definitions": {
+    "success": "是否成功（boolean）",
+    "data": "题目对象或题目数组（成功时）",
+    "error": "错误信息字符串（失败时）",
+    "validation_error": "验证错误类型（可选）",
+    "error_type": "错误类型（timeout/parse_error/rate_limit等）",
+    "count": "题目数量（批量模式）",
+    "details": "错误详情（可选）",
+    "id": "题目ID",
+    "kp_id": "知识点ID",
+    "kp_name": "知识点名称",
+    "chapter": "章节",
+    "content": "题目内容",
+    "options": "选项数组",
+    "correct_answer": "正确答案",
+    "analysis": "解析（可选）",
+    "difficulty": "难度",
+    "question_type": "题型",
+    "source": "来源",
+    "subject": "科目",
+    "grade": "年级",
+    "image_url": "图片URL（可选）",
+    "created_at": "创建时间"
+  }
+}

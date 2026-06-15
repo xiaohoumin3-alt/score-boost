@@ -1,0 +1,8 @@
+{
+  "name": "scoreCalibration",
+  "version": "1.0.0",
+  "description": "IRT分数预估云函数",
+  "dependencies": {
+    "wx-server-sdk": "^2.6.3"
+  }
+}

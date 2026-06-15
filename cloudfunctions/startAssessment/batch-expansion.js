@@ -5,6 +5,7 @@
 
 const cloud = require('wx-server-sdk');
 const { logBatchApiSuccess, logBatchApiFailure } = require('./monitoring');
+const { normalizeQuestion } = require('../shared/question-normalizer');
 
 /**
  * 批量扩容 - 为每个知识点生成指定数量题目
@@ -128,20 +129,24 @@ async function saveToPool(db, questions, metadata = {}) {
 
   for (const question of questions) {
     try {
+      // 使用归一化函数确保数据格式统一
+      const normalized = normalizeQuestion({
+        ...question,
+        kp_id: question.kp_id || metadata.kp_id,
+        kp_name: question.kp_name || metadata.kp_name,
+        subject: question.subject || metadata.subject || 'math',
+        verified: false,
+        source: 'ai_expansion',
+        created_at: new Date().toISOString()
+      });
+
+      // 添加expansion_id字段
+      if (metadata.expansion_id) {
+        normalized.expansion_id = metadata.expansion_id;
+      }
+
       await db.collection('ai_question_pool').add({
-        data: {
-          question: question.question || question.content,
-          options: question.options || [],
-          correct_answer: question.correct_answer,
-          kp_id: question.kp_id || metadata.kp_id,
-          kp_name: question.kp_name || metadata.kp_name,
-          difficulty: question.difficulty || 'medium',
-          subject: question.subject || metadata.subject || 'math',
-          verified: false,
-          source: 'ai_expansion',
-          created_at: new Date().toISOString(),
-          expansion_id: metadata.expansion_id
-        }
+        data: normalized
       });
       savedCount.count++;
     } catch (e) {

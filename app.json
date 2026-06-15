@@ -1,5 +1,4 @@
 {
-  "lazyCodeLoading": "requiredComponents",
   "pages": [
     "pages/home/home",
     "pages/onboarding/onboarding",
@@ -7,6 +6,7 @@
     "pages/user-agreement/user-agreement",
     "pages/privacy-policy/privacy-policy",
     "pages/assessment/assessment",
+    "pages/assessment-depth/assessment-depth",
     "pages/practice/practice",
     "pages/result/result",
     "pages/path/path",
@@ -25,7 +25,8 @@
     "pages/parent-assessment/parent-assessment",
     "pages/points/points",
     "pages/mine/mine",
-    "pages/vip/vip"
+    "pages/vip/vip",
+    "pages/auto-data-import/auto-data-import"
   ],
   "window": {
     "navigationBarTitleText": "日日守护",

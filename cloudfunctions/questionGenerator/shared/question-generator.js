@@ -5,8 +5,9 @@
  * 内部处理：Prompt构建、LLM调用、格式校验、归一化
  */
 
-const { createLLMClient, parseLlmResponse, validateQuestion } = require('../../shared/llm-core');
+const { createLLMClient } = require('../../shared/llm-core');
 const { normalizeQuestion } = require('./question-normalizer');
+const { parseLlmResponse, validateQuestion } = require('../../shared/llm-client');
 
 const SYSTEM_PROMPTS = {
   math: '你是一个专业的数学题目生成助手。请严格按照用户要求的JSON格式返回题目。',
@@ -75,9 +76,16 @@ function buildPrompt(params) {
 /**
  * 生成单道题目
  * @param {Object} params
+ * @param {Object} [db] - 数据库实例（可选，用于数据库配置加载）
  * @returns {Promise<Object>} 归一化后的题目
  */
-async function generateSingleQuestion(params) {
+async function generateSingleQuestion(params, db) {
+  // 如果传入了 db，预加载配置（支持数据库配置）
+  if (db) {
+    const { loadConfig } = require('../../shared/llm-core/config');
+    await loadConfig(db);
+  }
+
   const llm = createLLMClient();
   const prompt = buildPrompt(params);
 

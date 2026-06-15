@@ -1,0 +1,135 @@
+{
+  "subject": "英语",
+  "grade": "8",
+  "semester": "上册",
+  "version": "人教版",
+  "chapters": [
+    {
+      "chapter_name": "第一单元 完成时态",
+      "knowledge_points": [
+        {
+          "id": "english-grade8-up-1-1",
+          "name": "现在完成时",
+          "sub_topics": [
+            "have/has done",
+            "already/yet/ever/never",
+            "for/since用法",
+            "have been to vs have gone to"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题",
+            "句型转换"
+          ],
+          "difficulty_weight": {
+            "easy": 0.3,
+            "medium": 0.4,
+            "hard": 0.3
+          }
+        },
+        {
+          "id": "english-grade8-up-1-2",
+          "name": "过去完成时",
+          "sub_topics": [
+            "had done",
+            "与过去时的区别",
+            "过去完成时典型场景"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.3,
+            "medium": 0.4,
+            "hard": 0.3
+          }
+        }
+      ]
+    },
+    {
+      "chapter_name": "第二单元 被动语态",
+      "knowledge_points": [
+        {
+          "id": "english-grade8-up-2-1",
+          "name": "被动语态构成",
+          "sub_topics": [
+            "be + done",
+            "各时态被动语态",
+            "get被动"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题",
+            "句型转换"
+          ],
+          "difficulty_weight": {
+            "easy": 0.3,
+            "medium": 0.4,
+            "hard": 0.3
+          }
+        },
+        {
+          "id": "english-grade8-up-2-2",
+          "name": "被动语态用法",
+          "sub_topics": [
+            "不带by的被动",
+            "短语动词被动",
+            "双宾语被动"
+          ],
+          "typical_questions": [
+            "选择题",
+            "句型转换"
+          ],
+          "difficulty_weight": {
+            "easy": 0.3,
+            "medium": 0.4,
+            "hard": 0.3
+          }
+        }
+      ]
+    },
+    {
+      "chapter_name": "第三单元 非谓语动词",
+      "knowledge_points": [
+        {
+          "id": "english-grade8-up-3-1",
+          "name": "不定式to do",
+          "sub_topics": [
+            "作宾语",
+            "作目的状语",
+            "作宾补",
+            "省略to的不定式"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.3,
+            "medium": 0.4,
+            "hard": 0.3
+          }
+        },
+        {
+          "id": "english-grade8-up-3-2",
+          "name": "动名词和分词",
+          "sub_topics": [
+            "动名词doing",
+            "现在分词doing",
+            "过去分词done"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.3,
+            "medium": 0.4,
+            "hard": 0.3
+          }
+        }
+      ]
+    }
+  ]
+}

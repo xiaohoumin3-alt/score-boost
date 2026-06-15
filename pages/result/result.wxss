@@ -135,7 +135,168 @@
   margin-top: 20rpx;
 }
 
-/* Action Card */
+/* ==================== 区域分隔 ==================== */
+
+/* 结果详情区（信息展示） */
+.info-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+  margin-bottom: 50rpx;
+}
+
+/* 下一步行动区（功能按钮） */
+.action-section {
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+}
+
+/* ==================== 信息卡片（阅读型） ==================== */
+
+.info-card {
+  background: linear-gradient(135deg, rgba(26, 42, 62, 0.6) 0%, rgba(26, 42, 62, 0.4) 100%);
+  border-radius: 16rpx;
+  padding: 24rpx;
+  border: 1rpx solid rgba(255, 255, 255, 0.06);
+}
+
+.info-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.info-title {
+  font-size: 26rpx;
+  color: var(--text-secondary, rgba(255, 255, 255, 0.6));
+  font-weight: 500;
+}
+
+.info-badge {
+  font-size: 24rpx;
+  font-weight: 600;
+}
+
+.info-emoji {
+  font-size: 32rpx;
+}
+
+.info-body {
+  margin-bottom: 12rpx;
+}
+
+.info-footer {
+  border-top: 1rpx solid rgba(255, 255, 255, 0.04);
+  padding-top: 12rpx;
+}
+
+.info-meta {
+  font-size: 22rpx;
+  color: var(--text-tertiary, rgba(255, 255, 255, 0.35));
+}
+
+/* 预估分数信息卡片 */
+.estimated-info .score-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8rpx;
+}
+
+.estimated-info .score-number {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: var(--accent, #00E5A0);
+}
+
+.estimated-info .score-number.secondary {
+  font-size: 36rpx;
+  color: var(--text-primary, rgba(255, 255, 255, 0.8));
+}
+
+.estimated-info .score-label {
+  font-size: 22rpx;
+  color: var(--text-tertiary, rgba(255, 255, 255, 0.35));
+}
+
+.estimated-info .score-divider {
+  width: 2rpx;
+  height: 60rpx;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* 精度检查信息卡片 */
+.accuracy-info .accuracy-bar-bg {
+  width: 100%;
+  height: 8rpx;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 4rpx;
+  overflow: hidden;
+  margin-bottom: 12rpx;
+}
+
+.accuracy-info .accuracy-bar-fill {
+  height: 100%;
+  border-radius: 4rpx;
+  transition: width 0.5s ease;
+}
+
+.accuracy-info .accuracy-desc {
+  font-size: 24rpx;
+  color: var(--text-secondary, rgba(255, 255, 255, 0.6));
+}
+
+/* 知识点统计信息卡片 */
+.kp-stats-info .kp-stats-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.kp-stats-info .kp-stat-item {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.kp-stats-info .kp-stat-name {
+  font-size: 26rpx;
+  color: var(--text-secondary, rgba(255, 255, 255, 0.6));
+  min-width: 160rpx;
+}
+
+.kp-stats-info .kp-stat-bar {
+  flex: 1;
+  height: 12rpx;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 6rpx;
+  overflow: hidden;
+}
+
+.kp-stats-info .kp-stat-fill {
+  height: 100%;
+  border-radius: 6rpx;
+  transition: width 0.3s ease;
+}
+
+.kp-stats-info .kp-stat-score {
+  font-size: 24rpx;
+  color: var(--text-secondary, rgba(255, 255, 255, 0.6));
+  min-width: 60rpx;
+  text-align: right;
+}
+
+/* 复习时间信息卡片 */
+.review-info .review-time-text {
+  font-size: 28rpx;
+  color: var(--purple, #8B5CF6);
+  font-weight: 600;
+}
+
+/* ==================== 功能按钮（行动型） ==================== */
+
 .action-card {
   display: flex;
   align-items: center;
@@ -145,8 +306,33 @@
   border-radius: 24rpx;
   margin-bottom: 50rpx;
   border: 2rpx solid var(--accent, #00E5A0);
+  transition: all 0.3s ease;
 }
 
+.action-card:active {
+  transform: scale(0.98);
+  opacity: 0.9;
+}
+
+/* 深度测评按钮 */
+.action-card.extended-assessment {
+  background: linear-gradient(135deg, #1a2a3e 0%, #2a1a3e 100%);
+  border: 2rpx solid var(--purple, #8B5CF6);
+}
+
+/* 练习按钮 - 主要样式（绿色） */
+.action-card.practice-primary {
+  background: linear-gradient(135deg, #1a3a2e 0%, #1a2a3e 100%);
+  border: 2rpx solid var(--accent, #00E5A0);
+}
+
+/* 练习按钮 - 次要样式（灰色） */
+.action-card.practice-secondary {
+  background: var(--bg-surface, rgba(255, 255, 255, 0.04));
+  border: 2rpx solid var(--border-subtle, rgba(255, 255, 255, 0.06));
+}
+
+/* 复测状态卡片 */
 .action-card.retest-card {
   background: linear-gradient(135deg, #1a2a3e 0%, #2a1a3e 100%);
   border: 2rpx solid var(--purple, #8B5CF6);
@@ -220,187 +406,4 @@
   background: linear-gradient(135deg, var(--purple, #8B5CF6) 0%, #7C3AED 100%);
   color: var(--text-primary, rgba(255, 255, 255, 0.92));
   border: none;
-}
-
-/* 全分数段难度引导卡片 */
-.guidance-card {
-  display: flex;
-  align-items: center;
-  gap: 24rpx;
-  padding: 36rpx;
-  background: linear-gradient(135deg, #1a2a3e 0%, #1a3a2e 100%);
-  border-radius: 24rpx;
-  margin-bottom: 40rpx;
-  border: 2rpx solid var(--accent, #00E5A0);
-  animation: guidanceSlide 0.5s ease-out;
-}
-
-@keyframes guidanceSlide {
-  from {
-    opacity: 0;
-    transform: translateY(20rpx);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.guidance-icon {
-  width: 80rpx;
-  height: 80rpx;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(0, 229, 160, 0.1);
-  border-radius: 50%;
-}
-
-.icon-emoji {
-  font-size: 48rpx;
-}
-
-.guidance-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 8rpx;
-}
-
-.guidance-title {
-  font-size: 34rpx;
-  color: var(--text-primary, rgba(255, 255, 255, 0.92));
-  font-weight: bold;
-}
-
-.guidance-desc {
-  font-size: 26rpx;
-  color: var(--text-secondary, rgba(255, 255, 255, 0.5));
-}
-
-/* 全分数段引导按钮 */
-.btn-guidance {
-  width: 100%;
-  font-size: 36rpx;
-  font-weight: 600;
-  border-radius: 24rpx;
-  padding: 32rpx;
-  margin-bottom: 24rpx;
-  border: none;
-  color: #fff;
-  box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.3);
-  transition: all 0.3s ease;
-}
-
-.btn-guidance:active {
-  transform: scale(0.98);
-  opacity: 0.9;
-}
-
-/* 提升挑战 - 金橙色，激发成就感 */
-.btn-guidance.btn-upgrade {
-  background: linear-gradient(135deg, #FFA94D 0%, #FFC107 100%);
-  box-shadow: 0 8rpx 24rpx rgba(255, 169, 77, 0.4);
-}
-
-/* 保持当前 - 绿松石色，肯定当前状态 */
-.btn-guidance.btn-maintain {
-  background: linear-gradient(135deg, #00D9A5 0%, #00E5A0 100%);
-  box-shadow: 0 8rpx 24rpx rgba(0, 217, 165, 0.3);
-}
-
-/* 降低难度 - 青蓝色，温和引导而非警告 */
-.btn-guidance.btn-downgrade {
-  background: linear-gradient(135deg, #4A90E2 0%, #5C9BE5 100%);
-  box-shadow: 0 8rpx 24rpx rgba(74, 144, 226, 0.3);
-}
-
-/* Knowledge Points Stats */
-.kp-stats {
-  background: linear-gradient(135deg, var(--bg-surface, rgba(255, 255, 255, 0.04)) 0%, #1a2a35 100%);
-  border-radius: 24rpx;
-  padding: 32rpx;
-  margin-bottom: 40rpx;
-  border: 2rpx solid var(--border-subtle, rgba(255, 255, 255, 0.06));
-}
-
-.kp-stats-title {
-  display: block;
-  font-size: 30rpx;
-  color: var(--text-secondary, rgba(255, 255, 255, 0.5));
-  margin-bottom: 24rpx;
-}
-
-.kp-stats-list {
-  display: flex;
-  flex-direction: column;
-  gap: 24rpx;
-}
-
-.kp-stat-item {
-  display: flex;
-  align-items: center;
-  gap: 16rpx;
-}
-
-.kp-stat-name {
-  font-size: 28rpx;
-  color: var(--text-secondary, rgba(255, 255, 255, 0.5));
-  min-width: 200rpx;
-}
-
-.kp-stat-bar {
-  flex: 1;
-  height: 16rpx;
-  background: #2a2a4a;
-  border-radius: 8rpx;
-  overflow: hidden;
-  position: relative;
-}
-
-.kp-stat-fill {
-  height: 100%;
-  border-radius: 8rpx;
-  transition: width 0.3s ease;
-}
-
-.kp-stat-score {
-  font-size: 26rpx;
-  color: var(--text-secondary, rgba(255, 255, 255, 0.5));
-  min-width: 80rpx;
-  text-align: right;
-}
-
-/* M6: 复习时间提示 */
-.review-tip {
-  display: flex;
-  align-items: center;
-  gap: 20rpx;
-  padding: 28rpx 32rpx;
-  background: linear-gradient(135deg, #1a2a3e 0%, #2a1a3e 100%);
-  border-radius: 20rpx;
-  margin-bottom: 40rpx;
-  border: 2rpx solid var(--purple, #8B5CF6);
-}
-
-.review-icon {
-  font-size: 40rpx;
-}
-
-.review-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 4rpx;
-}
-
-.review-label {
-  font-size: 24rpx;
-  color: var(--text-secondary, rgba(255, 255, 255, 0.5));
-}
-
-.review-time {
-  font-size: 30rpx;
-  color: var(--purple, #8B5CF6);
-  font-weight: bold;
 }

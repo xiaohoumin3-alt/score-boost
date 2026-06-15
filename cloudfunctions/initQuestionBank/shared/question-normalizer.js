@@ -63,6 +63,7 @@ function normalizeAnswer(answer) {
 
 /**
  * 归一化题目记录（写入 ai_question_pool 前调用）
+ * 自动为新题目预设 IRT 参数
  */
 function normalizeQuestion(raw) {
   if (!raw || typeof raw !== 'object') {
@@ -93,6 +94,31 @@ function normalizeQuestion(raw) {
   if (raw.verified !== undefined) result.verified = raw.verified;
   if (raw.created_at) result.created_at = raw.created_at;
   if (raw.pool_id) result.pool_id = raw.pool_id;
+
+  // 自动预设 IRT 参数（新题目入库时）
+  if (raw.irt_a === undefined && raw.irt_b === undefined) {
+    try {
+      const { generateIRTParams } = require('./irt-seed-generator');
+      const kp = {
+        kp_id,
+        kp_name,
+        subject: result.subject,
+        grade: parseInt(result.grade) || 8,
+        chapter: result.chapter,
+        difficulty_weight: raw.difficulty_weight || { easy: 0.4, medium: 0.4, hard: 0.2 },
+      };
+      const irtParams = generateIRTParams(kp, result.difficulty);
+      result.irt_a = irtParams.a;
+      result.irt_b = irtParams.b;
+      result.irt_source = 'auto_assigned';
+    } catch (e) {
+      // IRT 参数分配失败不影响主流程
+    }
+  } else {
+    if (raw.irt_a !== undefined) result.irt_a = raw.irt_a;
+    if (raw.irt_b !== undefined) result.irt_b = raw.irt_b;
+    if (raw.irt_source) result.irt_source = raw.irt_source;
+  }
 
   return result;
 }

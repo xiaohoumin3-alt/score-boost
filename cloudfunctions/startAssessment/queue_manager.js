@@ -30,6 +30,7 @@ async function checkQueueForStudent(db, studentId, filters = {}) {
     };
     if (filters.subject) where.subject = filters.subject;
     if (filters.grade) where.grade = filters.grade;
+    if (filters.mode) where.mode = filters.mode;
 
     let result;
     try {

@@ -1,0 +1,103 @@
+{
+  "subject": "数学",
+  "grade": "8",
+  "semester": "上",
+  "version": "人教版",
+  "source": "教材PDF提取",
+  "chapters": [
+    {
+      "id": "ch11",
+      "name": "全等三角形",
+      "knowledge_points": [
+        {
+          "id": "math_kp11_1",
+          "name": "全等三角形",
+          "sub_topics": ["全等形的概念", "全等三角形的定义", "全等三角形的性质"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
+        },
+        {
+          "id": "math_kp11_2",
+          "name": "三角形全等的判定",
+          "sub_topics": ["SSS", "SAS", "ASA", "AAS", "HL"],
+          "typical_questions": ["选择题", "填空题", "证明题"],
+          "difficulty_weight": {"easy": 0.3, "medium": 0.4, "hard": 0.3}
+        }
+      ]
+    },
+    {
+      "id": "ch12",
+      "name": "轴对称",
+      "knowledge_points": [
+        {
+          "id": "math_kp12_1",
+          "name": "轴对称",
+          "sub_topics": ["轴对称图形", "线段垂直平分线的性质"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        },
+        {
+          "id": "math_kp12_2",
+          "name": "画轴对称图形",
+          "sub_topics": ["轴对称的画法", "坐标与轴对称"],
+          "typical_questions": ["选择题", "填空题", "作图题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        },
+        {
+          "id": "math_kp12_3",
+          "name": "等腰三角形",
+          "sub_topics": ["等腰三角形的性质", "等腰三角形的判定", "等边三角形的性质"],
+          "typical_questions": ["选择题", "填空题", "证明题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        }
+      ]
+    },
+    {
+      "id": "ch13",
+      "name": "乘法公式",
+      "knowledge_points": [
+        {
+          "id": "math_kp13_1",
+          "name": "平方差公式",
+          "sub_topics": ["平方差公式", "平方差公式的应用"],
+          "typical_questions": ["选择题", "填空题", "计算题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        },
+        {
+          "id": "math_kp13_2",
+          "name": "完全平方公式",
+          "sub_topics": ["完全平方公式", "完全平方公式的应用", "添括号法则"],
+          "typical_questions": ["选择题", "填空题", "计算题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        }
+      ]
+    },
+    {
+      "id": "ch14",
+      "name": "分式",
+      "knowledge_points": [
+        {
+          "id": "math_kp14_1",
+          "name": "分式",
+          "sub_topics": ["分式的概念", "分式的基本性质"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        },
+        {
+          "id": "math_kp14_2",
+          "name": "分式的运算",
+          "sub_topics": ["分式的乘除", "分式的加减", "分式的混合运算"],
+          "typical_questions": ["选择题", "填空题", "计算题"],
+          "difficulty_weight": {"easy": 0.3, "medium": 0.4, "hard": 0.3}
+        },
+        {
+          "id": "math_kp14_3",
+          "name": "分式方程",
+          "sub_topics": ["分式方程的解法", "分式方程的应用"],
+          "typical_questions": ["选择题", "填空题", "解答题"],
+          "difficulty_weight": {"easy": 0.3, "medium": 0.4, "hard": 0.3}
+        }
+      ]
+    }
+  ]
+}

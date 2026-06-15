@@ -1,0 +1,76 @@
+{
+  "subject": "道德与法治",
+  "grade": "8",
+  "semester": "上",
+  "version": "人教版",
+  "source": "教材PDF提取",
+  "chapters": [
+    {
+      "id": "ch1",
+      "name": "丰富的社会生活",
+      "knowledge_points": [
+        {
+          "id": "pol_kp1_1",
+          "name": "我与社会",
+          "sub_topics": ["感受社会生活", "个人与社会的关系"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
+        },
+        {
+          "id": "pol_kp1_2",
+          "name": "在社会中成长",
+          "sub_topics": ["社会化", "亲社会行为"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "name": "网络生活新空间",
+      "knowledge_points": [
+        {
+          "id": "pol_kp2_1",
+          "name": "网络改变世界",
+          "sub_topics": ["网络的积极作用", "网络的消极影响"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
+        },
+        {
+          "id": "pol_kp2_2",
+          "name": "合理利用网络",
+          "sub_topics": ["理性参与网络生活", "传播网络正能量"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
+        }
+      ]
+    },
+    {
+      "id": "ch3",
+      "name": "社会生活讲道德",
+      "knowledge_points": [
+        {
+          "id": "pol_kp3_1",
+          "name": "尊重他人",
+          "sub_topics": ["尊重的重要性", "尊重他人的做法"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
+        },
+        {
+          "id": "pol_kp3_2",
+          "name": "以礼待人",
+          "sub_topics": ["礼的重要性", "文明有礼的要求"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
+        },
+        {
+          "id": "pol_kp3_3",
+          "name": "诚实守信",
+          "sub_topics": ["诚信的重要性", "践行诚信"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
+        }
+      ]
+    }
+  ]
+}

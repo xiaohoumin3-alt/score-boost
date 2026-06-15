@@ -1,0 +1,74 @@
+{
+  "subject": "历史",
+  "grade": "9",
+  "semester": "上",
+  "version": "人教版",
+  "source": "教材PDF提取",
+  "chapters": [
+    {
+      "id": "ch1",
+      "name": "古代埃及",
+      "knowledge_points": [
+        {
+          "id": "his_kp1_1",
+          "name": "古埃及文明",
+          "sub_topics": ["尼罗河", "金字塔", "法老"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "name": "古代两河流域",
+      "knowledge_points": [
+        {
+          "id": "his_kp2_1",
+          "name": "古巴比伦文明",
+          "sub_topics": ["两河流域", "汉谟拉比法典"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
+        }
+      ]
+    },
+    {
+      "id": "ch3",
+      "name": "古代印度",
+      "knowledge_points": [
+        {
+          "id": "his_kp3_1",
+          "name": "古印度文明",
+          "sub_topics": ["印度河流域", "种姓制度", "佛教"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
+        }
+      ]
+    },
+    {
+      "id": "ch4",
+      "name": "古代希腊",
+      "knowledge_points": [
+        {
+          "id": "his_kp4_1",
+          "name": "古希腊文明",
+          "sub_topics": ["雅典民主", "斯巴达", "希腊文化"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
+        }
+      ]
+    },
+    {
+      "id": "ch5",
+      "name": "古代罗马",
+      "knowledge_points": [
+        {
+          "id": "his_kp5_1",
+          "name": "古罗马文明",
+          "sub_topics": ["罗马共和国", "罗马帝国", "罗马法"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
+        }
+      ]
+    }
+  ]
+}

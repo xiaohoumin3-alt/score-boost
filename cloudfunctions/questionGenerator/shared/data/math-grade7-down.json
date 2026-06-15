@@ -1,0 +1,130 @@
+{
+  "subject": "数学",
+  "grade": "7",
+  "semester": "下",
+  "version": "人教版",
+  "source": "教材PDF提取",
+  "chapters": [
+    {
+      "id": "ch6",
+      "name": "相交线与平行线",
+      "knowledge_points": [
+        {
+          "id": "math_kp6_1",
+          "name": "相交线",
+          "sub_topics": ["对顶角", "邻补角", "垂线", "点到直线的距离"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        },
+        {
+          "id": "math_kp6_2",
+          "name": "平行线及其判定",
+          "sub_topics": ["平行线的概念", "平行公理", "平行线的判定"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        },
+        {
+          "id": "math_kp6_3",
+          "name": "平行线的性质",
+          "sub_topics": ["平行线的性质", "平行线判定与性质的区别"],
+          "typical_questions": ["选择题", "填空题", "证明题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        }
+      ]
+    },
+    {
+      "id": "ch7",
+      "name": "平面直角坐标系",
+      "knowledge_points": [
+        {
+          "id": "math_kp7_1",
+          "name": "平面直角坐标系",
+          "sub_topics": ["有序数对", "平面直角坐标系", "坐标平面内点的坐标"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
+        },
+        {
+          "id": "math_kp7_2",
+          "name": "坐标方法的简单应用",
+          "sub_topics": ["用坐标表示地理位置", "用坐标表示平移"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        }
+      ]
+    },
+    {
+      "id": "ch8",
+      "name": "二元一次方程组",
+      "knowledge_points": [
+        {
+          "id": "math_kp8_1",
+          "name": "二元一次方程组",
+          "sub_topics": ["二元一次方程", "二元一次方程组", "二元一次方程的解"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        },
+        {
+          "id": "math_kp8_2",
+          "name": "消元——解二元一次方程组",
+          "sub_topics": ["代入消元法", "加减消元法", "二元一次方程组的解法"],
+          "typical_questions": ["选择题", "填空题", "计算题"],
+          "difficulty_weight": {"easy": 0.3, "medium": 0.4, "hard": 0.3}
+        },
+        {
+          "id": "math_kp8_3",
+          "name": "实际问题与二元一次方程组",
+          "sub_topics": ["列方程组解应用题", "二元一次方程组的应用"],
+          "typical_questions": ["选择题", "填空题", "解答题"],
+          "difficulty_weight": {"easy": 0.3, "medium": 0.4, "hard": 0.3}
+        }
+      ]
+    },
+    {
+      "id": "ch9",
+      "name": "不等式与不等式组",
+      "knowledge_points": [
+        {
+          "id": "math_kp9_1",
+          "name": "不等式",
+          "sub_topics": ["不等式及其解集", "不等式的性质"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        },
+        {
+          "id": "math_kp9_2",
+          "name": "一元一次不等式",
+          "sub_topics": ["解一元一次不等式", "一元一次不等式的应用"],
+          "typical_questions": ["选择题", "填空题", "计算题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        },
+        {
+          "id": "math_kp9_3",
+          "name": "一元一次不等式组",
+          "sub_topics": ["一元一次不等式组", "不等式组的解集"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        }
+      ]
+    },
+    {
+      "id": "ch10",
+      "name": "数据的收集、整理与描述",
+      "knowledge_points": [
+        {
+          "id": "math_kp10_1",
+          "name": "统计调查",
+          "sub_topics": ["全面调查", "抽样调查", "数据的收集"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
+        },
+        {
+          "id": "math_kp10_2",
+          "name": "直方图",
+          "sub_topics": ["频数分布直方图", "数据的整理与描述"],
+          "typical_questions": ["选择题", "填空题", "解答题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        }
+      ]
+    }
+  ]
+}

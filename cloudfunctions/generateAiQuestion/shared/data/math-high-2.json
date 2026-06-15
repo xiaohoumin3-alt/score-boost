@@ -1,0 +1,333 @@
+{
+  "subject": "数学",
+  "grade": "高中",
+  "book": "必修2",
+  "version": "人教版",
+  "chapters": [
+    {
+      "chapter_name": "第1章 集合与函数",
+      "knowledge_points": [
+        {
+          "id": "math-high-2-1-1",
+          "name": "集合",
+          "sub_topics": [
+            "定义定理",
+            "解题方法",
+            "综合应用"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题",
+            "计算题",
+            "证明题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.2,
+            "medium": 0.5,
+            "hard": 0.3
+          }
+        },
+        {
+          "id": "math-high-2-1-2",
+          "name": "函数概念",
+          "sub_topics": [
+            "定义定理",
+            "解题方法",
+            "综合应用"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题",
+            "计算题",
+            "证明题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.2,
+            "medium": 0.5,
+            "hard": 0.3
+          }
+        },
+        {
+          "id": "math-high-2-1-3",
+          "name": "函数性质",
+          "sub_topics": [
+            "定义定理",
+            "解题方法",
+            "综合应用"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题",
+            "计算题",
+            "证明题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.2,
+            "medium": 0.5,
+            "hard": 0.3
+          }
+        }
+      ]
+    },
+    {
+      "chapter_name": "第2章 三角函数",
+      "knowledge_points": [
+        {
+          "id": "math-high-2-2-1",
+          "name": "三角函数",
+          "sub_topics": [
+            "定义定理",
+            "解题方法",
+            "综合应用"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题",
+            "计算题",
+            "证明题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.2,
+            "medium": 0.5,
+            "hard": 0.3
+          }
+        },
+        {
+          "id": "math-high-2-2-2",
+          "name": "三角恒等变换",
+          "sub_topics": [
+            "定义定理",
+            "解题方法",
+            "综合应用"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题",
+            "计算题",
+            "证明题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.2,
+            "medium": 0.5,
+            "hard": 0.3
+          }
+        },
+        {
+          "id": "math-high-2-2-3",
+          "name": "解三角形",
+          "sub_topics": [
+            "定义定理",
+            "解题方法",
+            "综合应用"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题",
+            "计算题",
+            "证明题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.2,
+            "medium": 0.5,
+            "hard": 0.3
+          }
+        }
+      ]
+    },
+    {
+      "chapter_name": "第3章 数列",
+      "knowledge_points": [
+        {
+          "id": "math-high-2-3-1",
+          "name": "数列",
+          "sub_topics": [
+            "定义定理",
+            "解题方法",
+            "综合应用"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题",
+            "计算题",
+            "证明题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.2,
+            "medium": 0.5,
+            "hard": 0.3
+          }
+        },
+        {
+          "id": "math-high-2-3-2",
+          "name": "等差数列",
+          "sub_topics": [
+            "定义定理",
+            "解题方法",
+            "综合应用"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题",
+            "计算题",
+            "证明题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.2,
+            "medium": 0.5,
+            "hard": 0.3
+          }
+        },
+        {
+          "id": "math-high-2-3-3",
+          "name": "等比数列",
+          "sub_topics": [
+            "定义定理",
+            "解题方法",
+            "综合应用"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题",
+            "计算题",
+            "证明题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.2,
+            "medium": 0.5,
+            "hard": 0.3
+          }
+        }
+      ]
+    },
+    {
+      "chapter_name": "第4章 导数",
+      "knowledge_points": [
+        {
+          "id": "math-high-2-4-1",
+          "name": "导数",
+          "sub_topics": [
+            "定义定理",
+            "解题方法",
+            "综合应用"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题",
+            "计算题",
+            "证明题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.2,
+            "medium": 0.5,
+            "hard": 0.3
+          }
+        },
+        {
+          "id": "math-high-2-4-2",
+          "name": "导数应用",
+          "sub_topics": [
+            "定义定理",
+            "解题方法",
+            "综合应用"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题",
+            "计算题",
+            "证明题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.2,
+            "medium": 0.5,
+            "hard": 0.3
+          }
+        },
+        {
+          "id": "math-high-2-4-3",
+          "name": "定积分",
+          "sub_topics": [
+            "定义定理",
+            "解题方法",
+            "综合应用"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题",
+            "计算题",
+            "证明题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.2,
+            "medium": 0.5,
+            "hard": 0.3
+          }
+        }
+      ]
+    },
+    {
+      "chapter_name": "第5章 立体几何",
+      "knowledge_points": [
+        {
+          "id": "math-high-2-5-1",
+          "name": "立体几何",
+          "sub_topics": [
+            "定义定理",
+            "解题方法",
+            "综合应用"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题",
+            "计算题",
+            "证明题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.2,
+            "medium": 0.5,
+            "hard": 0.3
+          }
+        },
+        {
+          "id": "math-high-2-5-2",
+          "name": "解析几何",
+          "sub_topics": [
+            "定义定理",
+            "解题方法",
+            "综合应用"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题",
+            "计算题",
+            "证明题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.2,
+            "medium": 0.5,
+            "hard": 0.3
+          }
+        },
+        {
+          "id": "math-high-2-5-3",
+          "name": "概率统计",
+          "sub_topics": [
+            "定义定理",
+            "解题方法",
+            "综合应用"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题",
+            "计算题",
+            "证明题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.2,
+            "medium": 0.5,
+            "hard": 0.3
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -90,12 +90,15 @@ class SaveQuestionsStep extends BaseStep {
           continue;
         }
 
-        const normalizedQ = normalizeQuestion({
-          ...questionData,
-          subject: task.subject || questionData.subject || 'math',
-          grade: task.grade || questionData.grade || '',
-          temp_task_id: task._id,
-        });
+        const normalizedQ = {
+          ...normalizeQuestion({
+            ...questionData,
+            subject: task.subject || questionData.subject || 'math',
+            grade: String(task.grade || questionData.grade || '')
+          }),
+          verified: false,
+          temp_task_id: task._id
+        };
 
         // Dedup check
         const isDup = await checkDuplicate(db, normalizedQ.question, normalizedQ.kp_id);

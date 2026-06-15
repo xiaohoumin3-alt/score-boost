@@ -185,6 +185,92 @@
       "envVariables": {
         "WX_APPSECRET": "0b608c971ba709504a1154d800a85a23"
       }
+    },
+    {
+      "name": "scoreCalibration",
+      "runtime": "Nodejs16.13",
+      "handler": "index.main",
+      "timeout": 30,
+      "memorySize": 256
+    },
+    {
+      "name": "irtParameterUpdate",
+      "runtime": "Nodejs16.13",
+      "handler": "index.main",
+      "timeout": 120,
+      "memorySize": 512,
+      "triggers": [
+        {
+          "name": "dailyUpdateTimer",
+          "type": "timer",
+          "config": "0 0 3 * * * *",
+          "description": "每天凌晨3点更新IRT参数"
+        }
+      ]
+    },
+    {
+      "name": "seedIRTData",
+      "runtime": "Nodejs16.13",
+      "handler": "index.main",
+      "timeout": 300,
+      "memorySize": 512
+    },
+    {
+      "name": "batchGenerateQuestions",
+      "runtime": "Nodejs16.13",
+      "handler": "index.main",
+      "timeout": 300,
+      "memorySize": 1024,
+      "envVariables": {
+        "LLM_API_KEY": "${LLM_API_KEY}",
+        "LLM_BASE_URL": "https://api.deepseek.com",
+        "LLM_MODEL": "deepseek-chat",
+        "LLM_TIMEOUT_MS": "45000",
+        "LLM_MAX_RETRIES": "2",
+        "LLM_RETRY_DELAY_MS": "1000"
+      }
+    },
+    {
+      "name": "multiSubjectMockAssessments",
+      "runtime": "Nodejs18.15",
+      "handler": "index.main",
+      "timeout": 120,
+      "memorySize": 512
+    },
+    {
+      "name": "bulkImportMockData",
+      "runtime": "Nodejs18.15",
+      "handler": "index.main",
+      "timeout": 300,
+      "memorySize": 512
+    },
+    {
+      "name": "validateIRTPrecision",
+      "runtime": "Nodejs18.15",
+      "handler": "index.main",
+      "timeout": 60,
+      "memorySize": 256
+    },
+    {
+      "name": "quickFixIRTParams",
+      "runtime": "Nodejs18.15",
+      "handler": "index.main",
+      "timeout": 300,
+      "memorySize": 512
+    },
+    {
+      "name": "submitAnswer",
+      "runtime": "Nodejs18.15",
+      "handler": "index.main",
+      "timeout": 60,
+      "memorySize": 256
+    },
+    {
+      "name": "extendedAssessment",
+      "runtime": "Nodejs16.13",
+      "handler": "index.main",
+      "timeout": 60,
+      "memorySize": 256
     }
   ],
   "envVariables": {

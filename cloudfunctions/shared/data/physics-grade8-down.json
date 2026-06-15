@@ -1,0 +1,157 @@
+{
+  "subject": "物理",
+  "grade": "8",
+  "semester": "下",
+  "version": "人教版",
+  "source": "教材PDF提取",
+  "chapters": [
+    {
+      "id": "ch7",
+      "name": "力",
+      "knowledge_points": [
+        {
+          "id": "phy_kp7_1",
+          "name": "力的认识",
+          "sub_topics": ["力的概念", "力的作用效果", "力的三要素"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
+        },
+        {
+          "id": "phy_kp7_2",
+          "name": "弹力",
+          "sub_topics": ["弹力", "弹簧测力计"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
+        },
+        {
+          "id": "phy_kp7_3",
+          "name": "重力",
+          "sub_topics": ["重力", "重力的计算", "重心"],
+          "typical_questions": ["选择题", "填空题", "计算题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        }
+      ]
+    },
+    {
+      "id": "ch8",
+      "name": "运动和力",
+      "knowledge_points": [
+        {
+          "id": "phy_kp8_1",
+          "name": "牛顿第一定律",
+          "sub_topics": ["牛顿第一定律", "惯性"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        },
+        {
+          "id": "phy_kp8_2",
+          "name": "二力平衡",
+          "sub_topics": ["二力平衡的条件", "平衡力与相互作用力"],
+          "typical_questions": ["选择题", "填空题", "计算题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        }
+      ]
+    },
+    {
+      "id": "ch9",
+      "name": "压强",
+      "knowledge_points": [
+        {
+          "id": "phy_kp9_1",
+          "name": "压强",
+          "sub_topics": ["压力", "压强", "压强的计算", "增大和减小压强的方法"],
+          "typical_questions": ["选择题", "填空题", "计算题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        },
+        {
+          "id": "phy_kp9_2",
+          "name": "液体的压强",
+          "sub_topics": ["液体压强的特点", "液体压强的计算", "连通器"],
+          "typical_questions": ["选择题", "填空题", "计算题"],
+          "difficulty_weight": {"easy": 0.3, "medium": 0.4, "hard": 0.3}
+        },
+        {
+          "id": "phy_kp9_3",
+          "name": "大气压强",
+          "sub_topics": ["大气压的存在", "大气压的测量", "大气压的应用"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        }
+      ]
+    },
+    {
+      "id": "ch10",
+      "name": "浮力",
+      "knowledge_points": [
+        {
+          "id": "phy_kp10_1",
+          "name": "浮力",
+          "sub_topics": ["浮力的概念", "浮力的方向", "称重法测浮力"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        },
+        {
+          "id": "phy_kp10_2",
+          "name": "阿基米德原理",
+          "sub_topics": ["阿基米德原理", "浮力的计算"],
+          "typical_questions": ["选择题", "填空题", "计算题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        },
+        {
+          "id": "phy_kp10_3",
+          "name": "浮沉条件",
+          "sub_topics": ["物体的浮沉条件", "浮力的应用"],
+          "typical_questions": ["选择题", "填空题", "计算题"],
+          "difficulty_weight": {"easy": 0.3, "medium": 0.4, "hard": 0.3}
+        }
+      ]
+    },
+    {
+      "id": "ch11",
+      "name": "功和机械能",
+      "knowledge_points": [
+        {
+          "id": "phy_kp11_1",
+          "name": "功",
+          "sub_topics": ["功的概念", "功的计算", "功的单位"],
+          "typical_questions": ["选择题", "填空题", "计算题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        },
+        {
+          "id": "phy_kp11_2",
+          "name": "功率",
+          "sub_topics": ["功率的概念", "功率的计算", "功率的单位"],
+          "typical_questions": ["选择题", "填空题", "计算题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        },
+        {
+          "id": "phy_kp11_3",
+          "name": "动能和势能",
+          "sub_topics": ["动能", "势能", "机械能"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        }
+      ]
+    },
+    {
+      "id": "ch12",
+      "name": "简单机械",
+      "knowledge_points": [
+        {
+          "id": "phy_kp12_1",
+          "name": "杠杆",
+          "sub_topics": ["杠杆", "杠杆的平衡条件", "杠杆的应用"],
+          "typical_questions": ["选择题", "填空题", "作图题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        },
+        {
+          "id": "phy_kp12_2",
+          "name": "滑轮",
+          "sub_topics": ["定滑轮", "动滑轮", "滑轮组"],
+          "typical_questions": ["选择题", "填空题", "计算题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        }
+      ]
+    }
+  ]
+}

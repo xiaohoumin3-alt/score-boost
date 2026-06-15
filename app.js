@@ -6,6 +6,7 @@ App({
     grade: null,
     subject: null,
     sessionId: null,
+    examMode: null,
   },
 
   onLaunch() {
@@ -25,6 +26,7 @@ App({
         this.globalData.grade = data.grade;
         this.globalData.subject = data.subject;
         this.globalData.studentId = data.studentId;
+        this.globalData.examMode = data.examMode;
       }
     } catch (e) {
       // ignore
@@ -36,11 +38,13 @@ App({
     if (data.grade) this.globalData.grade = data.grade;
     if (data.subject) this.globalData.subject = data.subject;
     if (data.studentId) this.globalData.studentId = data.studentId;
+    if (data.examMode) this.globalData.examMode = data.examMode;
     wx.setStorageSync('userSession', {
       openid: this.globalData.openid,
       grade: this.globalData.grade,
       subject: this.globalData.subject,
       studentId: this.globalData.studentId,
+      examMode: this.globalData.examMode,
     });
   },
 

@@ -1,0 +1,8 @@
+{
+  "name": "batchGenerateQuestions",
+  "version": "1.0.0",
+  "description": "批量生成真实题目云函数",
+  "dependencies": {
+    "wx-server-sdk": "^2.6.3"
+  }
+}

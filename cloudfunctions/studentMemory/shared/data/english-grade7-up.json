@@ -1,0 +1,211 @@
+{
+  "subject": "英语",
+  "grade": "7",
+  "semester": "上册",
+  "version": "人教版",
+  "chapters": [
+    {
+      "chapter_name": "第一单元 语法基础",
+      "knowledge_points": [
+        {
+          "id": "english-grade7-up-1-1",
+          "name": "名词",
+          "sub_topics": [
+            "可数不可数",
+            "单数复数",
+            "所有格"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题",
+            "词形转换"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "english-grade7-up-1-2",
+          "name": "冠词",
+          "sub_topics": [
+            "不定冠词a/an",
+            "定冠词the",
+            "零冠词"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "english-grade7-up-1-3",
+          "name": "数词",
+          "sub_topics": [
+            "基数词",
+            "序数词",
+            "分数百分数"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        }
+      ]
+    },
+    {
+      "chapter_name": "第二单元 代词系统",
+      "knowledge_points": [
+        {
+          "id": "english-grade7-up-2-1",
+          "name": "人称代词",
+          "sub_topics": [
+            "主格宾格",
+            "形容词性物主代词",
+            "名词性物主代词",
+            "反身代词"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "english-grade7-up-2-2",
+          "name": "指示代词和疑问代词",
+          "sub_topics": [
+            "this/that/these/those",
+            "who/what/which",
+            "whose/when/where/why"
+          ],
+          "typical_questions": [
+            "选择题",
+            "情景交际"
+          ],
+          "difficulty_weight": {
+            "easy": 0.5,
+            "medium": 0.3,
+            "hard": 0.2
+          }
+        }
+      ]
+    },
+    {
+      "chapter_name": "第三单元 时态复习与扩展",
+      "knowledge_points": [
+        {
+          "id": "english-grade7-up-3-1",
+          "name": "一般现在时",
+          "sub_topics": [
+            "肯定否定疑问",
+            "第三人称单数",
+            "频度副词"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "english-grade7-up-3-2",
+          "name": "一般过去时",
+          "sub_topics": [
+            "规则动词过去式",
+            "不规则动词",
+            "时间状语"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "english-grade7-up-3-3",
+          "name": "一般将来时",
+          "sub_topics": [
+            "will",
+            "be going to",
+            "present continuous for future"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        }
+      ]
+    },
+    {
+      "chapter_name": "第四单元 词汇扩展",
+      "knowledge_points": [
+        {
+          "id": "english-grade7-up-4-1",
+          "name": "形容词和副词",
+          "sub_topics": [
+            "形容词用法",
+            "副词构成",
+            "比较级最高级"
+          ],
+          "typical_questions": [
+            "选择题",
+            "词形转换"
+          ],
+          "difficulty_weight": {
+            "easy": 0.3,
+            "medium": 0.4,
+            "hard": 0.3
+          }
+        },
+        {
+          "id": "english-grade7-up-4-2",
+          "name": "介词短语",
+          "sub_topics": [
+            "时间介词",
+            "地点介词",
+            "方式介词",
+            "固定搭配"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.3,
+            "medium": 0.4,
+            "hard": 0.3
+          }
+        }
+      ]
+    }
+  ]
+}

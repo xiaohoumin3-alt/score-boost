@@ -1,0 +1,131 @@
+{
+  "subject": "英语",
+  "grade": "5",
+  "semester": "上册",
+  "version": "人教版",
+  "chapters": [
+    {
+      "chapter_name": "第一单元 情态动词",
+      "knowledge_points": [
+        {
+          "id": "english-grade5-up-1-1",
+          "name": "can/could",
+          "sub_topics": [
+            "表示能力",
+            "表示许可",
+            "表示可能性"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "english-grade5-up-1-2",
+          "name": "must/should",
+          "sub_topics": [
+            "表示必须",
+            "表示建议",
+            "否定形式"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        }
+      ]
+    },
+    {
+      "chapter_name": "第二单元 完成时态",
+      "knowledge_points": [
+        {
+          "id": "english-grade5-up-2-1",
+          "name": "现在完成时",
+          "sub_topics": [
+            "have/has done",
+            "already/yet/ever",
+            "for/since用法"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.3,
+            "medium": 0.4,
+            "hard": 0.3
+          }
+        },
+        {
+          "id": "english-grade5-up-2-2",
+          "name": "现在完成进行时",
+          "sub_topics": [
+            "have/has been doing",
+            "与现在完成时区别",
+            "使用场景"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.3,
+            "medium": 0.4,
+            "hard": 0.3
+          }
+        }
+      ]
+    },
+    {
+      "chapter_name": "第三单元 被动语态",
+      "knowledge_points": [
+        {
+          "id": "english-grade5-up-3-1",
+          "name": "被动语态构成",
+          "sub_topics": [
+            "be done结构",
+            "各时态被动",
+            "get被动"
+          ],
+          "typical_questions": [
+            "选择题",
+            "句型转换"
+          ],
+          "difficulty_weight": {
+            "easy": 0.3,
+            "medium": 0.4,
+            "hard": 0.3
+          }
+        },
+        {
+          "id": "english-grade5-up-3-2",
+          "name": "被动语态用法",
+          "sub_topics": [
+            "不知道动作执行者",
+            "强调动作承受者",
+            "正式表达"
+          ],
+          "typical_questions": [
+            "选择题",
+            "句型转换"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/65</span>
+                <span class='fraction'>0/61</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/18</span>
+                <span class='fraction'>0/16</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/64</span>
+                <span class='fraction'>0/61</span>
             </div>
         
             
@@ -221,17 +221,9 @@
 <a name='L156'></a><a href='#L156'>156</a>
 <a name='L157'></a><a href='#L157'>157</a>
 <a name='L158'></a><a href='#L158'>158</a>
-<a name='L159'></a><a href='#L159'>159</a>
-<a name='L160'></a><a href='#L160'>160</a>
-<a name='L161'></a><a href='#L161'>161</a>
-<a name='L162'></a><a href='#L162'>162</a>
-<a name='L163'></a><a href='#L163'>163</a>
-<a name='L164'></a><a href='#L164'>164</a>
-<a name='L165'></a><a href='#L165'>165</a>
-<a name='L166'></a><a href='#L166'>166</a>
-<a name='L167'></a><a href='#L167'>167</a>
-<a name='L168'></a><a href='#L168'>168</a>
-<a name='L169'></a><a href='#L169'>169</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L159'></a><a href='#L159'>159</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -275,6 +267,8 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -326,15 +320,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -354,16 +339,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -419,6 +399,8 @@ const {
   calculateDelay,
   sleep,
   getConfig,
+  loadConfig,
+  loadFromEnv,
   createTimeoutController
 } = <span class="cstat-no" title="statement not covered" >require('../index')</span>
 &nbsp;
@@ -445,6 +427,8 @@ const {
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  test('应该导出配置工具', <span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    expect(getConfig).toBeDefined()</span>
+<span class="cstat-no" title="statement not covered" >    expect(loadConfig).toBeDefined()</span>
+<span class="cstat-no" title="statement not covered" >    expect(loadFromEnv).toBeDefined()</span>
 <span class="cstat-no" title="statement not covered" >    expect(createTimeoutController).toBeDefined()</span>
   })
 &nbsp;
@@ -494,15 +478,6 @@ const {
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    expect(client).toBeInstanceOf(MiniMaxClient)</span>
 <span class="cstat-no" title="statement not covered" >    expect(client.apiKey).toBe('custom-key')</span>
-<span class="cstat-no" title="statement not covered" >    expect(client.baseUrl).toBe('https://token-plan-cn.xiaomimimo.com/v1')</span>
-<span class="cstat-no" title="statement not covered" >    expect(client.model).toBe('mimo-v2-flash')</span>
-  })
-&nbsp;
-<span class="cstat-no" title="statement not covered" >  test('应该拒绝不支持的 provider', <span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    process.env.LLM_API_KEY = 'test-key'</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >    expect(<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >createLLMClient({ provider: 'openai' }))</span></span>
-      .toThrow('不支持的 Provider: openai，目前仅支持 minimax')
   })
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  test('应该支持自定义 logger', <span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
@@ -512,7 +487,6 @@ const {
     }
 &nbsp;
     const client = <span class="cstat-no" title="statement not covered" >createLLMClient({</span>
-      provider: 'minimax',
       apiKey: 'test-key',
       baseUrl: 'https://test.com',
       model: 'test-model',
@@ -527,11 +501,7 @@ const {
   })
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  test('当提供完整参数时不应因环境变量未设置而失败', <span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
-    // 这个测试验证当所有必需参数都提供时，
-    // createLLMClient 不会因为环境变量未设置而失败
-    // 注意：需要包含 provider 以避免触发 getConfig
     const client = <span class="cstat-no" title="statement not covered" >createLLMClient({</span>
-      provider: 'minimax',
       apiKey: 'test-key',
       baseUrl: 'https://test.com',
       model: 'test-model',
@@ -574,7 +544,7 @@ const {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-05-29T13:29:46.610Z
+                at 2026-06-14T01:18:41.064Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

@@ -3,7 +3,7 @@
  * 基于 llm-core 统一 LLM 调用层
  */
 
-const { createLLMClient } = require('./llm-core');
+const { createLLMClient } = require('../shared/llm-core');
 
 /**
  * LlmClient 类 - llm-core 的薄包装

@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/39</span>
+                <span class='fraction'>0/36</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/30</span>
+                <span class='fraction'>0/23</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/39</span>
+                <span class='fraction'>0/36</span>
             </div>
         
             
@@ -177,20 +177,13 @@
 <a name='L112'></a><a href='#L112'>112</a>
 <a name='L113'></a><a href='#L113'>113</a>
 <a name='L114'></a><a href='#L114'>114</a>
-<a name='L115'></a><a href='#L115'>115</a>
-<a name='L116'></a><a href='#L116'>116</a>
-<a name='L117'></a><a href='#L117'>117</a>
-<a name='L118'></a><a href='#L118'>118</a>
-<a name='L119'></a><a href='#L119'>119</a>
-<a name='L120'></a><a href='#L120'>120</a>
-<a name='L121'></a><a href='#L121'>121</a>
-<a name='L122'></a><a href='#L122'>122</a>
-<a name='L123'></a><a href='#L123'>123</a>
-<a name='L124'></a><a href='#L124'>124</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L115'></a><a href='#L115'>115</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -234,33 +227,22 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -315,6 +297,8 @@
  * TDD: Red-Green-Refactor
  */
 &nbsp;
+const { normalizeQuestion } = <span class="cstat-no" title="statement not covered" >require('../shared/question-normalizer');</span>
+&nbsp;
 // 测试环境不使用 wx-server-sdk
 let cloud;
 <span class="cstat-no" title="statement not covered" >try {</span>
@@ -355,23 +339,10 @@ async function <span class="fstat-no" title="function not covered" >migrateStati
 <span class="cstat-no" title="statement not covered" >  for (const [kpId, questions] of Object.entries(questionBank)) {</span>
 <span class="cstat-no" title="statement not covered" >    for (const q of questions) {</span>
 <span class="cstat-no" title="statement not covered" >      try {</span>
-        // 转换选项格式：从 "A. 选项1" 格式转换为 {key: "A", value: "选项1"}
-        const options = <span class="cstat-no" title="statement not covered" >(q.options || []).map(<span class="fstat-no" title="function not covered" >op</span>t =&gt; {</span>
-          const match = <span class="cstat-no" title="statement not covered" >opt.match(/^([A-D])\.\s*(.+)$/);</span>
-<span class="cstat-no" title="statement not covered" >          if (match) {</span>
-<span class="cstat-no" title="statement not covered" >            return { key: match[1], value: match[2] };</span>
-          }
-          // 如果已经是对象格式，直接返回
-<span class="cstat-no" title="statement not covered" >          if (typeof opt === 'object' &amp;&amp; opt.key &amp;&amp; opt.value) {</span>
-<span class="cstat-no" title="statement not covered" >            return opt;</span>
-          }
-          // 否则返回原始格式
-<span class="cstat-no" title="statement not covered" >          return { key: '', value: opt };</span>
-        });
-&nbsp;
-        const record = <span class="cstat-no" title="statement not covered" >{</span>
+        // 使用归一化函数确保数据格式统一
+        const record = <span class="cstat-no" title="statement not covered" >normalizeQuestion({</span>
           question: q.content || q.question || '',
-          options: options,
+          options: q.options || [],
           correct_answer: (q.correct_answer || '').toUpperCase(),
           kp_id: kpId,
           kp_name: q.kp_name || '',
@@ -379,11 +350,13 @@ async function <span class="fstat-no" title="function not covered" >migrateStati
           difficulty: q.difficulty || 'medium',
           subject: subject,
           source: 'static',
-          verified: true,
-          correct_rate: 0.8,
-          usage_count: 0,
-          created_at: new Date().toISOString()
-        };
+          verified: true
+        });
+&nbsp;
+        // 添加迁移特有字段
+<span class="cstat-no" title="statement not covered" >        record.correct_rate = 0.8;</span>
+<span class="cstat-no" title="statement not covered" >        record.usage_count = 0;</span>
+<span class="cstat-no" title="statement not covered" >        record.created_at = new Date().toISOString();</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        await db.collection('ai_question_pool').add({ data: record });</span>
 <span class="cstat-no" title="statement not covered" >        migrated++;</span>
@@ -439,7 +412,7 @@ async function <span class="fstat-no" title="function not covered" >migrateStati
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-05-29T13:29:46.610Z
+                at 2026-06-14T01:18:41.064Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

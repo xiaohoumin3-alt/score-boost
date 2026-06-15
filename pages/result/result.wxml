@@ -23,97 +23,143 @@
     <text class="accuracy-text">{{accuracy}}% 正确率</text>
   </view>
 
-  <!-- Knowledge Points Stats (练习模式专用) -->
-  <view class="kp-stats" wx:if="{{mode === 'practice' && kpStats.length > 0}}">
-    <text class="kp-stats-title">知识点统计</text>
-    <view class="kp-stats-list">
-      <view class="kp-stat-item" wx:for="{{kpStats}}" wx:key="kp_id">
-        <text class="kp-stat-name">{{item.kp_name}}</text>
-        <view class="kp-stat-bar">
-          <view class="kp-stat-fill" style="width: {{item.total > 0 ? (item.correct / item.total * 100) : 0}}%; background-color: {{item.total > 0 && item.correct === item.total ? '#00D9A5' : item.correct === 0 ? '#FF6B6B' : '#FFA94D'}};"></view>
+  <!-- ==================== 结果详情区（信息展示） ==================== -->
+  <view class="info-section">
+
+    <!-- 测评模式信息 -->
+    <view wx:if="{{mode === 'assessment'}}">
+
+      <!-- 预估分数卡片（信息展示） -->
+      <view class="info-card estimated-info" wx:if="{{estimatedScore !== null}}">
+        <view class="info-header">
+          <text class="info-title">预估真实分数</text>
+          <text class="info-badge" style="color: {{scoreLevel.color}}">{{scoreLevel.emoji}} {{scoreLevel.text}}</text>
         </view>
-        <text class="kp-stat-score">{{item.correct}}/{{item.total}}</text>
+        <view class="info-body">
+          <view class="score-row">
+            <text class="score-number">{{estimatedScore}}</text>
+            <text class="score-label">平时考试预估</text>
+          </view>
+          <view class="score-divider"></view>
+          <view class="score-row">
+            <text class="score-number secondary">{{examScore}}</text>
+            <text class="score-label">{{isPrimarySchool ? '期末预估' : '中考预估'}}</text>
+          </view>
+        </view>
+        <view class="info-footer">
+          <text class="info-meta">置信度 {{scoreConfidence}}% | 误差 ±{{scoreMargin}}分</text>
+        </view>
       </view>
+
+      <!-- 精度检查卡片（信息展示） -->
+      <view class="info-card accuracy-info" wx:if="{{currentSE !== null}}">
+        <view class="info-header">
+          <text class="info-title">测评精度</text>
+          <text class="info-badge" style="color: {{accuracyLevel.color}}">{{accuracyLevel.level}}</text>
+        </view>
+        <view class="info-body">
+          <text class="accuracy-desc">{{accuracyLevel.description}} (SE: {{currentSEText}})</text>
+          <view class="accuracy-bar-bg">
+            <view class="accuracy-bar-fill" style="width: {{accuracyBarWidth}}; background-color: {{accuracyLevel.color}};"></view>
+          </view>
+        </view>
+      </view>
+
     </view>
+
+    <!-- 练习模式信息 -->
+    <view wx:if="{{mode === 'practice'}}">
+
+      <!-- 知识点统计（信息展示） -->
+      <view class="info-card kp-stats-info" wx:if="{{kpStats.length > 0}}">
+        <view class="info-header">
+          <text class="info-title">知识点统计</text>
+        </view>
+        <view class="info-body">
+          <view class="kp-stats-list">
+            <view class="kp-stat-item" wx:for="{{kpStats}}" wx:key="kp_id">
+              <text class="kp-stat-name">{{item.kp_name}}</text>
+              <view class="kp-stat-bar">
+                <view class="kp-stat-fill" style="width: {{item.total > 0 ? (item.correct / item.total * 100) : 0}}%; background-color: {{item.total > 0 && item.correct === item.total ? '#00D9A5' : item.correct === 0 ? '#FF6B6B' : '#FFA94D'}};"></view>
+              </view>
+              <text class="kp-stat-score">{{item.correct}}/{{item.total}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 复习时间提示（信息展示） -->
+      <view class="info-card review-info" wx:if="{{showReviewTip}}">
+        <view class="info-header">
+          <text class="info-title">下次复习</text>
+          <text class="info-emoji">📅</text>
+        </view>
+        <view class="info-body">
+          <text class="review-time-text">{{nextReviewText}}</text>
+        </view>
+      </view>
+
+    </view>
+
   </view>
 
-  <!-- M6: 复习时间提示 (练习模式专用) -->
-  <view class="review-tip" wx:if="{{mode === 'practice' && showReviewTip}}">
-    <text class="review-icon">📅</text>
-    <view class="review-content">
-      <text class="review-label">下次复习</text>
-      <text class="review-time">{{nextReviewText}}</text>
+  <!-- ==================== 下一步行动区（功能按钮） ==================== -->
+  <view class="action-section">
+
+    <!-- 测评模式行动按钮 -->
+    <view wx:if="{{mode === 'assessment'}}">
+
+      <!-- 深度测评按钮（功能行动）- 与复测互斥显示，避免"测评"概念重复 -->
+      <view class="action-card extended-assessment" wx:if="{{needsExtendedAssessment}}" bindtap="goToExtendedAssessment">
+        <text class="action-icon">📊</text>
+        <view class="action-content">
+          <text class="action-label">继续测评，提升精度</text>
+          <text class="action-desc">回答更多问题，获得更精准的学习路径</text>
+        </view>
+      </view>
+
+      <!-- 开始练习按钮（功能行动） -->
+      <view class="action-card {{needsExtendedAssessment ? 'practice-secondary' : 'practice-primary'}}" bindtap="goToPractice">
+        <text class="action-icon">{{isPerfect && !needsExtendedAssessment ? '🏆' : '📚'}}</text>
+        <view class="action-content">
+          <text class="action-label">{{isPerfect && !needsExtendedAssessment ? '测评完成！' : '开始练习'}}</text>
+          <text class="action-desc">{{isPerfect && !needsExtendedAssessment ? '继续保持，再接再厉' : needsExtendedAssessment ? '跳过深度测评，直接练习' : '针对薄弱知识点强化训练'}}</text>
+        </view>
+      </view>
+
     </view>
-  </view>
-  <!-- 全分数段难度引导卡片（测评模式专用） -->
-  <view class="guidance-card" wx:if="{{mode === 'assessment' && difficultyGuidance}}">
-    <view class="guidance-icon">
-      <text class="icon-emoji">{{difficultyGuidance.action === 'upgrade' ? '🚀' : difficultyGuidance.action === 'maintain' ? '🎯' : '🌱'}}</text>
+
+    <!-- 练习模式行动按钮 -->
+    <view wx:if="{{mode === 'practice'}}">
+
+      <!-- 继续练习按钮（功能行动） -->
+      <view class="action-card practice-primary" bindtap="continuePractice">
+        <text class="action-icon">🎯</text>
+        <view class="action-content">
+          <text class="action-label">继续练习</text>
+          <text class="action-desc">巩固已掌握的知识点</text>
+        </view>
+      </view>
+
+      <!-- 返回首页按钮（功能行动） -->
+      <view class="action-card practice-secondary" bindtap="goHome">
+        <text class="action-icon">🏠</text>
+        <view class="action-content">
+          <text class="action-label">返回首页</text>
+          <text class="action-desc">查看完整学习路径</text>
+        </view>
+      </view>
+
     </view>
-    <view class="guidance-content">
-      <text class="guidance-title">{{difficultyGuidance.action === 'upgrade' ? '挑战更高难度' : difficultyGuidance.action === 'maintain' ? '保持当前状态' : '打好基础'}}</text>
-      <text class="guidance-desc">{{difficultyGuidance.subText}}</text>
-    </view>
+
   </view>
 
-  <!-- Retest Status Card (when check completed and not perfect) -->
-  <view class="action-card retest-card" wx:if="{{showRetestCheck && mode === 'assessment' && !isPerfect}}">
+  <!-- Retest Status Card - 与深度测评互斥显示 -->
+  <view class="action-card retest-card" wx:if="{{mode === 'assessment' && showRetestCheck && !isPerfect && !needsExtendedAssessment}}">
     <text class="action-icon">{{retestEligible ? '🔄' : '📋'}}</text>
     <view class="action-content">
-      <text class="action-label">{{retestEligible ? '可以重新测评' : '需要完成练习'}}</text>
+      <text class="action-label">{{retestEligible ? '调整难度重新测评' : '需要完成练习'}}</text>
       <text class="action-desc">{{retestReason}}</text>
     </view>
   </view>
-
-  <!-- Assessment Action Card (非满分时提示练习，满分时提示完成) -->
-  <view class="action-card" wx:elif="{{mode === 'assessment' && !isPerfect}}">
-    <text class="action-icon">📚</text>
-    <view class="action-content">
-      <text class="action-label">开始专项练习</text>
-      <text class="action-desc">针对薄弱知识点强化训练</text>
-    </view>
-  </view>
-
-  <view class="action-card practice-done" wx:elif="{{mode === 'assessment' && isPerfect}}">
-    <text class="action-icon">🏆</text>
-    <view class="action-content">
-      <text class="action-label">测评完成!</text>
-      <text class="action-desc">继续保持，再接再厉</text>
-    </view>
-  </view>
-
-  <!-- Practice Action Card (练习模式专用) -->
-  <view class="action-card practice-done" wx:else>
-    <text class="action-icon">🎯</text>
-    <view class="action-content">
-      <text class="action-label">练习完成!</text>
-      <text class="action-desc">继续保持，再接再厉</text>
-    </view>
-  </view>
-
-  <!-- Practice Mode: Continue Practice + Go Home -->
-  <view wx:if="{{mode === 'practice'}}" class="btn-row">
-    <button class="btn-secondary" bindtap="continuePractice">继续练习</button>
-    <button class="btn-primary" bindtap="goHome">返回首页</button>
-  </view>
-
-  <!-- Assessment Mode: 全分数段引导按钮 -->
-  <view wx:if="{{mode === 'assessment'}}">
-    <!-- 主要行动按钮（根据分数段引导） -->
-    <button
-      class="btn-guidance {{difficultyGuidance.action === 'upgrade' ? 'btn-upgrade' : difficultyGuidance.action === 'maintain' ? 'btn-maintain' : 'btn-downgrade'}}"
-      bindtap="goToRetest"
-      wx:if="{{difficultyGuidance}}">
-      {{guidanceButtonText}}
-    </button>
-
-    <!-- 降级到引导按钮的次要按钮 -->
-    <button class="btn-primary" bindtap="goHome" wx:if="{{!difficultyGuidance}}">返回首页</button>
-  </view>
-
-  <!-- Secondary: Practice or Retest based on eligibility -->
-  <button class="btn-secondary retest-btn" bindtap="goToRetest" wx:if="{{showRetestCheck && retestEligible && mode === 'assessment'}}">重新测评</button>
-  <button class="btn-secondary retest-btn" bindtap="goToRetest" wx:elif="{{mode === 'assessment' && isPerfect}}">重新测评</button>
-  <button class="btn-secondary" bindtap="goToPractice" wx:elif="{{showRetestCheck && !retestEligible && mode === 'assessment'}}">开始{{targetDifficulty}}难度练习</button>
-  <button class="btn-secondary" bindtap="goToPractice" wx:elif="{{mode === 'assessment' && !isPerfect}}">开始练习</button>
 </view>

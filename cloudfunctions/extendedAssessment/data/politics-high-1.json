@@ -1,0 +1,268 @@
+{
+  "subject": "思想政治",
+  "grade": "高中",
+  "book": "必修1",
+  "version": "人教版",
+  "chapters": [
+    {
+      "chapter_name": "第1章 经济生活",
+      "knowledge_points": [
+        {
+          "id": "politics-high-1-1-1",
+          "name": "经济生活",
+          "sub_topics": [
+            "理论概念",
+            "实际应用",
+            "分析评价"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题",
+            "问答题",
+            "材料分析题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.2,
+            "medium": 0.5,
+            "hard": 0.3
+          }
+        },
+        {
+          "id": "politics-high-1-1-2",
+          "name": "商品货币",
+          "sub_topics": [
+            "理论概念",
+            "实际应用",
+            "分析评价"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题",
+            "问答题",
+            "材料分析题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.2,
+            "medium": 0.5,
+            "hard": 0.3
+          }
+        },
+        {
+          "id": "politics-high-1-1-3",
+          "name": "价值规律",
+          "sub_topics": [
+            "理论概念",
+            "实际应用",
+            "分析评价"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题",
+            "问答题",
+            "材料分析题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.2,
+            "medium": 0.5,
+            "hard": 0.3
+          }
+        }
+      ]
+    },
+    {
+      "chapter_name": "第2章 政治生活",
+      "knowledge_points": [
+        {
+          "id": "politics-high-1-2-1",
+          "name": "政治生活",
+          "sub_topics": [
+            "理论概念",
+            "实际应用",
+            "分析评价"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题",
+            "问答题",
+            "材料分析题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.2,
+            "medium": 0.5,
+            "hard": 0.3
+          }
+        },
+        {
+          "id": "politics-high-1-2-2",
+          "name": "公民权利",
+          "sub_topics": [
+            "理论概念",
+            "实际应用",
+            "分析评价"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题",
+            "问答题",
+            "材料分析题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.2,
+            "medium": 0.5,
+            "hard": 0.3
+          }
+        },
+        {
+          "id": "politics-high-1-2-3",
+          "name": "政府职能",
+          "sub_topics": [
+            "理论概念",
+            "实际应用",
+            "分析评价"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题",
+            "问答题",
+            "材料分析题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.2,
+            "medium": 0.5,
+            "hard": 0.3
+          }
+        }
+      ]
+    },
+    {
+      "chapter_name": "第3章 文化生活",
+      "knowledge_points": [
+        {
+          "id": "politics-high-1-3-1",
+          "name": "文化生活",
+          "sub_topics": [
+            "理论概念",
+            "实际应用",
+            "分析评价"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题",
+            "问答题",
+            "材料分析题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.2,
+            "medium": 0.5,
+            "hard": 0.3
+          }
+        },
+        {
+          "id": "politics-high-1-3-2",
+          "name": "文化传承",
+          "sub_topics": [
+            "理论概念",
+            "实际应用",
+            "分析评价"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题",
+            "问答题",
+            "材料分析题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.2,
+            "medium": 0.5,
+            "hard": 0.3
+          }
+        },
+        {
+          "id": "politics-high-1-3-3",
+          "name": "文化创新",
+          "sub_topics": [
+            "理论概念",
+            "实际应用",
+            "分析评价"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题",
+            "问答题",
+            "材料分析题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.2,
+            "medium": 0.5,
+            "hard": 0.3
+          }
+        }
+      ]
+    },
+    {
+      "chapter_name": "第4章 生活与哲学",
+      "knowledge_points": [
+        {
+          "id": "politics-high-1-4-1",
+          "name": "生活与哲学",
+          "sub_topics": [
+            "理论概念",
+            "实际应用",
+            "分析评价"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题",
+            "问答题",
+            "材料分析题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.2,
+            "medium": 0.5,
+            "hard": 0.3
+          }
+        },
+        {
+          "id": "politics-high-1-4-2",
+          "name": "唯物论",
+          "sub_topics": [
+            "理论概念",
+            "实际应用",
+            "分析评价"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题",
+            "问答题",
+            "材料分析题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.2,
+            "medium": 0.5,
+            "hard": 0.3
+          }
+        },
+        {
+          "id": "politics-high-1-4-3",
+          "name": "辩证法",
+          "sub_topics": [
+            "理论概念",
+            "实际应用",
+            "分析评价"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题",
+            "问答题",
+            "材料分析题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.2,
+            "medium": 0.5,
+            "hard": 0.3
+          }
+        }
+      ]
+    }
+  ]
+}

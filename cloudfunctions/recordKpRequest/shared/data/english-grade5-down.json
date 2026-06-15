@@ -1,0 +1,131 @@
+{
+  "subject": "英语",
+  "grade": "5",
+  "semester": "下册",
+  "version": "人教版",
+  "chapters": [
+    {
+      "chapter_name": "第一单元 复合句",
+      "knowledge_points": [
+        {
+          "id": "english-grade5-down-1-1",
+          "name": "宾语从句",
+          "sub_topics": [
+            "that引导",
+            "if/whether引导",
+            "wh-词引导"
+          ],
+          "typical_questions": [
+            "选择题",
+            "句型转换"
+          ],
+          "difficulty_weight": {
+            "easy": 0.3,
+            "medium": 0.4,
+            "hard": 0.3
+          }
+        },
+        {
+          "id": "english-grade5-down-1-2",
+          "name": "状语从句",
+          "sub_topics": [
+            "时间状语",
+            "条件状语",
+            "原因状语"
+          ],
+          "typical_questions": [
+            "选择题",
+            "连词填空"
+          ],
+          "difficulty_weight": {
+            "easy": 0.3,
+            "medium": 0.4,
+            "hard": 0.3
+          }
+        }
+      ]
+    },
+    {
+      "chapter_name": "第二单元 非谓语动词",
+      "knowledge_points": [
+        {
+          "id": "english-grade5-down-2-1",
+          "name": "不定式to do",
+          "sub_topics": [
+            "作宾语",
+            "作目的状语",
+            "固定搭配"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.3,
+            "medium": 0.4,
+            "hard": 0.3
+          }
+        },
+        {
+          "id": "english-grade5-down-2-2",
+          "name": "动名词doing",
+          "sub_topics": [
+            "作主语",
+            "作宾语",
+            "固定搭配"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.3,
+            "medium": 0.4,
+            "hard": 0.3
+          }
+        }
+      ]
+    },
+    {
+      "chapter_name": "第三单元 介词与连词",
+      "knowledge_points": [
+        {
+          "id": "english-grade5-down-3-1",
+          "name": "常用介词",
+          "sub_topics": [
+            "时间介词",
+            "地点介词",
+            "方式介词"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "english-grade5-down-3-2",
+          "name": "并列连词",
+          "sub_topics": [
+            "and/but/or",
+            "so/because",
+            "表示并列转折因果"
+          ],
+          "typical_questions": [
+            "选择题",
+            "连词填空"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        }
+      ]
+    }
+  ]
+}

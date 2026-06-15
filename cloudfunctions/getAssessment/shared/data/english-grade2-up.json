@@ -1,0 +1,131 @@
+{
+  "subject": "英语",
+  "grade": "2",
+  "semester": "上册",
+  "version": "人教版",
+  "chapters": [
+    {
+      "chapter_name": "第一单元 日常活动",
+      "knowledge_points": [
+        {
+          "id": "english-grade2-up-1-1",
+          "name": "日常动词",
+          "sub_topics": [
+            "动作动词",
+            "活动表达",
+            "现在进行时"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.6,
+            "medium": 0.3,
+            "hard": 0.1
+          }
+        },
+        {
+          "id": "english-grade2-up-1-2",
+          "name": "时间表达",
+          "sub_topics": [
+            "钟点时间",
+            "日常时间",
+            "时间顺序"
+          ],
+          "typical_questions": [
+            "选择题",
+            "问答题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.6,
+            "medium": 0.3,
+            "hard": 0.1
+          }
+        }
+      ]
+    },
+    {
+      "chapter_name": "第二单元 位置与方向",
+      "knowledge_points": [
+        {
+          "id": "english-grade2-up-2-1",
+          "name": "介词in/on/under",
+          "sub_topics": [
+            "位置介词",
+            "方位表达",
+            "空间描述"
+          ],
+          "typical_questions": [
+            "选择题",
+            "看图填空"
+          ],
+          "difficulty_weight": {
+            "easy": 0.6,
+            "medium": 0.3,
+            "hard": 0.1
+          }
+        },
+        {
+          "id": "english-grade2-up-2-2",
+          "name": "方向表达",
+          "sub_topics": [
+            "左右",
+            "前后",
+            "上下"
+          ],
+          "typical_questions": [
+            "选择题",
+            "指认题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.7,
+            "medium": 0.3,
+            "hard": 0
+          }
+        }
+      ]
+    },
+    {
+      "chapter_name": "第三单元 衣服与穿着",
+      "knowledge_points": [
+        {
+          "id": "english-grade2-up-3-1",
+          "name": "服装词汇",
+          "sub_topics": [
+            "上衣下装",
+            "鞋帽",
+            "配饰"
+          ],
+          "typical_questions": [
+            "选择题",
+            "配对题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.7,
+            "medium": 0.3,
+            "hard": 0
+          }
+        },
+        {
+          "id": "english-grade2-up-3-2",
+          "name": "穿着表达",
+          "sub_topics": [
+            "穿着描述",
+            "天气与穿衣",
+            "颜色搭配"
+          ],
+          "typical_questions": [
+            "选择题",
+            "情景题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.6,
+            "medium": 0.3,
+            "hard": 0.1
+          }
+        }
+      ]
+    }
+  ]
+}

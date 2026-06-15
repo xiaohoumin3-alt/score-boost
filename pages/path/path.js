@@ -65,14 +65,34 @@ Page({
       // If kp_stats are all empty (common bug), build a fallback from assessment metadata
       let steps;
       if (weakPoints.length === 0 && hasAssessment) {
-        // No per-KP breakdown — show a single actionable step based on score
-        steps = [{
-          id: 'overall',
-          name: currentSubject + '综合练习',
-          wrongCount: Math.round((100 - currentScore) / 5),
-          accuracy: currentScore,
-          status: 'current',
-        }];
+        // No per-KP breakdown — use generateDailyTask 逻辑获取具体知识点
+        const taskResult = await wx.cloud.callFunction({
+          name: 'generateDailyTask',
+          data: {
+            student_id: app.globalData.studentId || app.globalData.openid,
+            subject: currentSubject,
+            grade: app.globalData.grade || '八年级'
+          }
+        });
+        
+        const dailyTask = taskResult?.result?.data;
+        if (dailyTask && dailyTask.kp_name) {
+          steps = [{
+            id: dailyTask.kp_id || 'overall',
+            name: dailyTask.kp_name,
+            wrongCount: 0,
+            accuracy: currentScore,
+            status: 'current',
+          }];
+        } else {
+          steps = [{
+            id: 'overall',
+            name: currentSubject + '综合练习',
+            wrongCount: Math.round((100 - currentScore) / 5),
+            accuracy: currentScore,
+            status: 'current',
+          }];
+        }
       } else if (weakPoints.length > 0 && weakPoints.every(wp => !wp.kp_name && !wp.kp_id) || (weakPoints.length === 1 && (!weakPoints[0].kp_name || weakPoints[0].kp_name === weakPoints[0].kp_id))) {
         // All kp_stats collapsed into one empty entry — the submitAnswer fallback bug
         const total = weakPoints[0].total || 0;

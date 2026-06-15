@@ -25,7 +25,8 @@ function loadKnowledgeTree(subject, grade, semester = '下') {
   const dbSubject = subjectMap[subject] || subject || 'math';
 
   try {
-    const dataDir = path.dirname(__dirname);
+    // 修复：直接使用__dirname（shared目录）而不是其父目录
+    const dataDir = __dirname;
     // 尝试加载科目对应的数据文件
     const dataFile = path.join(dataDir, 'data', `${dbSubject}-grade${grade}-${semester}.json`);
 

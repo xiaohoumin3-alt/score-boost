@@ -1,0 +1,175 @@
+{
+  "subject": "英语",
+  "grade": "7",
+  "semester": "下册",
+  "version": "人教版",
+  "chapters": [
+    {
+      "chapter_name": "第一单元 动词时态",
+      "knowledge_points": [
+        {
+          "id": "english-grade7-down-1-1",
+          "name": "现在进行时",
+          "sub_topics": [
+            "构成用法",
+            "与一般现在时区别",
+            "表示将来计划"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "english-grade7-down-1-2",
+          "name": "过去进行时",
+          "sub_topics": [
+            "was/were doing",
+            "特定时间背景",
+            "与一般过去时配合"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.3,
+            "medium": 0.4,
+            "hard": 0.3
+          }
+        }
+      ]
+    },
+    {
+      "chapter_name": "第二单元 情态动词",
+      "knowledge_points": [
+        {
+          "id": "english-grade7-down-2-1",
+          "name": "基本情态动词",
+          "sub_topics": [
+            "can/could",
+            "may/might",
+            "must/have to"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.3,
+            "medium": 0.4,
+            "hard": 0.3
+          }
+        },
+        {
+          "id": "english-grade7-down-2-2",
+          "name": "情态动词表推测",
+          "sub_topics": [
+            "must be",
+            "may be",
+            "can't be"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.3,
+            "medium": 0.4,
+            "hard": 0.3
+          }
+        }
+      ]
+    },
+    {
+      "chapter_name": "第三单元 句型结构",
+      "knowledge_points": [
+        {
+          "id": "english-grade7-down-3-1",
+          "name": "There be句型",
+          "sub_topics": [
+            "there is/are",
+            "there have/has区别",
+            "there be句型变化"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题",
+            "句型转换"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "english-grade7-down-3-2",
+          "name": "祈使句",
+          "sub_topics": [
+            "肯定祈使",
+            "否定祈使",
+            "Let型祈使"
+          ],
+          "typical_questions": [
+            "选择题",
+            "句型转换"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "english-grade7-down-3-3",
+          "name": "感叹句",
+          "sub_topics": [
+            "What引导",
+            "How引导",
+            "感叹句转换"
+          ],
+          "typical_questions": [
+            "选择题",
+            "句型转换"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        }
+      ]
+    },
+    {
+      "chapter_name": "第四单元 从句入门",
+      "knowledge_points": [
+        {
+          "id": "english-grade7-down-4-1",
+          "name": "宾语从句",
+          "sub_topics": [
+            "that引导",
+            "wh-词引导",
+            "if/whether引导",
+            "语序问题"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题",
+            "句型转换"
+          ],
+          "difficulty_weight": {
+            "easy": 0.3,
+            "medium": 0.4,
+            "hard": 0.3
+          }
+        }
+      ]
+    }
+  ]
+}

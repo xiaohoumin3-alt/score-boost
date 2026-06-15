@@ -14,7 +14,7 @@
           <text class="mode-desc">按年级检测知识点</text>
         </view>
         <view class="mode-option {{examMode === 'huikao' ? 'active' : ''}}" bindtap="selectExamMode" data-mode="huikao">
-          <text class="mode-name">会考模拟</text>
+          <text class="mode-name">综合测评</text>
           <text class="mode-desc">跨年级综合测评</text>
         </view>
       </view>
@@ -52,7 +52,27 @@
       </view>
       <text class="hint" wx:if="{{examMode === 'grade' && selectedGrade}}">已选年级「{{selectedGrade}}」仅支持以上科目</text>
     </view>
+
+    <!-- 学段选择（仅综合测评模式） -->
+    <view class="form-item" wx:if="{{examMode === 'huikao' && selectedSubject}}">
+      <text class="label">选择学段</text>
+      <view class="chip-grid">
+        <view
+          class="chip {{selectedGradeBand === 'primary' ? 'active' : ''}}"
+          wx:if="{{showGradeBand}}"
+          bindtap="selectGradeBand"
+          data-band="primary">
+          <text>小学</text>
+        </view>
+        <view
+          class="chip {{selectedGradeBand === 'junior' ? 'active' : ''}}"
+          bindtap="selectGradeBand"
+          data-band="junior">
+          <text>初中</text>
+        </view>
+      </view>
+    </view>
   </view>
 
-  <button class="confirm-btn" bindtap="confirm">{{examMode === 'huikao' ? '开始会考模拟' : '开始使用'}}</button>
+  <button class="confirm-btn" bindtap="confirm">{{examMode === 'huikao' ? '开始综合测评' : '开始使用'}}</button>
 </view>

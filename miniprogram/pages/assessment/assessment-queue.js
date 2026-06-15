@@ -135,5 +135,42 @@ Page({
       showCancel: false,
       success: () => wx.navigateBack()
     });
+  },
+
+  /**
+   * 取消生成
+   */
+  onCancel() {
+    wx.showModal({
+      title: '确认取消',
+      content: '确定要取消题目生成吗？',
+      success: (res) => {
+        if (res.confirm) {
+          this.cancelQueue();
+        }
+      }
+    });
+  },
+
+  /**
+   * 取消队列任务
+   */
+  async cancelQueue() {
+    wx.showLoading({ title: '取消中...' });
+
+    try {
+      const api = new QueueApi(wx.cloud);
+      await api.cancelQueueTask(this.data.queueId);
+
+      wx.hideLoading();
+      wx.showToast({ title: '已取消', icon: 'none' });
+
+      setTimeout(() => {
+        wx.navigateBack();
+      }, 1500);
+    } catch (e) {
+      wx.hideLoading();
+      wx.showToast({ title: '取消失败', icon: 'none' });
+    }
   }
 });

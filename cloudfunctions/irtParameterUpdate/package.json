@@ -1,0 +1,8 @@
+{
+  "name": "irtParameterUpdate",
+  "version": "1.0.0",
+  "description": "IRT参数批量更新云函数",
+  "dependencies": {
+    "wx-server-sdk": "^2.6.3"
+  }
+}

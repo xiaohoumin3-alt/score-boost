@@ -579,10 +579,14 @@ async function testCollections(event) {
  */
 exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext();
-  const openid = wxContext.OPENID;
+  const openid = wxContext.OPENID || event.openid;
   const action = event.action || 'getPoints';
 
-  console.log(`[pointsManager] action=${action}, openid=${openid}`);
+  console.log(`[pointsManager] action=${action}, openid=${openid ? openid.substring(0, 10) + '...' : 'undefined'}`);
+
+  if (!openid) {
+    return { success: false, error: '用户未登录，请先登录' };
+  }
 
   try {
     switch (action) {

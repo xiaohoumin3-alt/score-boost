@@ -1,0 +1,133 @@
+{
+  "subject": "英语",
+  "grade": "9",
+  "semester": "下册",
+  "version": "人教版",
+  "chapters": [
+    {
+      "chapter_name": "第一单元 高级语法",
+      "knowledge_points": [
+        {
+          "id": "english-grade9-down-1-1",
+          "name": "虚拟语气",
+          "sub_topics": [
+            "条件句虚拟",
+            "wish虚拟",
+            "as if虚拟",
+            "suggest等词后虚拟"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.2,
+            "medium": 0.3,
+            "hard": 0.5
+          }
+        },
+        {
+          "id": "english-grade9-down-1-2",
+          "name": "独立主格",
+          "sub_topics": [
+            "with结构",
+            "独立主格构成",
+            "独立主格用法"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.2,
+            "medium": 0.3,
+            "hard": 0.5
+          }
+        }
+      ]
+    },
+    {
+      "chapter_name": "第二单元 构词法",
+      "knowledge_points": [
+        {
+          "id": "english-grade9-down-2-1",
+          "name": "派生法",
+          "sub_topics": [
+            "前缀",
+            "后缀",
+            "词性转换"
+          ],
+          "typical_questions": [
+            "词形转换",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.3,
+            "medium": 0.4,
+            "hard": 0.3
+          }
+        },
+        {
+          "id": "english-grade9-down-2-2",
+          "name": "合成法与转化法",
+          "sub_topics": [
+            "合成词",
+            "词类转化"
+          ],
+          "typical_questions": [
+            "词形转换",
+            "选择题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        }
+      ]
+    },
+    {
+      "chapter_name": "第三单元 阅读与写作技巧",
+      "knowledge_points": [
+        {
+          "id": "english-grade9-down-3-1",
+          "name": "阅读理解技巧",
+          "sub_topics": [
+            "主旨大意",
+            "细节理解",
+            "推理判断",
+            "词义猜测"
+          ],
+          "typical_questions": [
+            "阅读理解",
+            "判断题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.3,
+            "medium": 0.4,
+            "hard": 0.3
+          }
+        },
+        {
+          "id": "english-grade9-down-3-2",
+          "name": "写作技巧",
+          "sub_topics": [
+            "议论文",
+            "说明文",
+            "记叙文",
+            "应用文"
+          ],
+          "typical_questions": [
+            "写作题",
+            "句型转换"
+          ],
+          "difficulty_weight": {
+            "easy": 0.2,
+            "medium": 0.4,
+            "hard": 0.4
+          }
+        }
+      ]
+    }
+  ]
+}

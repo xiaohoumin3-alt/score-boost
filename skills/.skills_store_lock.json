@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "skills": {
+    "wxa-skills-eval": {
+      "name": "微信小程序AI开发模式评测Skills",
+      "zip_url": "https://api.skillhub.cn/api/v1/download?slug=wxa-skills-eval",
+      "source": "community",
+      "version": "0.1.18",
+      "installedAt": "2026-06-12T13:24:45Z"
+    }
+  }
+}

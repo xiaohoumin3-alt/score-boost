@@ -1,0 +1,69 @@
+{
+  "subject": "历史",
+  "grade": "8",
+  "semester": "上",
+  "version": "人教版",
+  "source": "教材PDF提取",
+  "chapters": [
+    {
+      "id": "ch1",
+      "name": "鸦片战争",
+      "knowledge_points": [
+        {
+          "id": "his_kp1_1",
+          "name": "鸦片走私与林则徐禁烟",
+          "sub_topics": ["鸦片的危害", "虎门销烟"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
+        },
+        {
+          "id": "his_kp1_2",
+          "name": "鸦片战争",
+          "sub_topics": ["战争的经过", "南京条约"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "name": "第二次鸦片战争",
+      "knowledge_points": [
+        {
+          "id": "his_kp2_1",
+          "name": "英法再次发动侵华战争",
+          "sub_topics": ["战争的原因", "战争的经过"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
+        },
+        {
+          "id": "his_kp2_2",
+          "name": "火烧圆明园与北京条约",
+          "sub_topics": ["火烧圆明园", "不平等条约"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
+        }
+      ]
+    },
+    {
+      "id": "ch3",
+      "name": "太平天国运动",
+      "knowledge_points": [
+        {
+          "id": "his_kp3_1",
+          "name": "太平天国运动的兴起",
+          "sub_topics": ["金田起义", "定都天京"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
+        },
+        {
+          "id": "his_kp3_2",
+          "name": "太平天国的盛衰",
+          "sub_topics": ["天朝田亩制度", "天京事变", "太平天国的失败"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        }
+      ]
+    }
+  ]
+}

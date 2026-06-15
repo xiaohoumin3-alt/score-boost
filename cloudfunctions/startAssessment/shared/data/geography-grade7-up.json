@@ -1,0 +1,124 @@
+{
+  "subject": "地理",
+  "grade": "7",
+  "semester": "上",
+  "version": "人教版",
+  "source": "教材PDF提取",
+  "chapters": [
+    {
+      "id": "ch1",
+      "name": "地球和地图",
+      "knowledge_points": [
+        {
+          "id": "geo_kp1_1",
+          "name": "地球和地球仪",
+          "sub_topics": ["地球的形状和大小", "地球仪", "经线和纬线", "经度和纬度", "半球划分"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        },
+        {
+          "id": "geo_kp1_2",
+          "name": "地球的运动",
+          "sub_topics": ["地球的自转", "地球的公转", "四季的变化", "五带的划分"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        },
+        {
+          "id": "geo_kp1_3",
+          "name": "地图的阅读",
+          "sub_topics": ["地图的基本要素", "地图的比例尺", "地图的方向", "地图图例"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
+        },
+        {
+          "id": "geo_kp1_4",
+          "name": "地形图的判读",
+          "sub_topics": ["海拔和相对高度", "等高线地形图", "分层设色地形图", "地形剖面图"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "name": "陆地和海洋",
+      "knowledge_points": [
+        {
+          "id": "geo_kp2_1",
+          "name": "大洲和大洋",
+          "sub_topics": ["海陆分布", "七大洲", "四大洋", "大洲分界线"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
+        },
+        {
+          "id": "geo_kp2_2",
+          "name": "海陆的变迁",
+          "sub_topics": ["地表形态变化", "大陆漂移假说", "板块构造学说", "世界主要山系及火山地震带的分布"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        }
+      ]
+    },
+    {
+      "id": "ch3",
+      "name": "天气与气候",
+      "knowledge_points": [
+        {
+          "id": "geo_kp3_1",
+          "name": "多变的天气",
+          "sub_topics": ["天气与气候的区别", "天气预报", "空气质量"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
+        },
+        {
+          "id": "geo_kp3_2",
+          "name": "气温的变化与分布",
+          "sub_topics": ["气温的变化", "气温的分布", "等温线"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        },
+        {
+          "id": "geo_kp3_3",
+          "name": "降水的变化与分布",
+          "sub_topics": ["降水的变化", "降水的分布", "等降水量线"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        },
+        {
+          "id": "geo_kp3_4",
+          "name": "世界的气候",
+          "sub_topics": ["气候的地区差异", "影响气候的主要因素", "气候与人类活动"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        }
+      ]
+    },
+    {
+      "id": "ch4",
+      "name": "居民与聚落",
+      "knowledge_points": [
+        {
+          "id": "geo_kp4_1",
+          "name": "人口与人种",
+          "sub_topics": ["世界人口的增长", "世界人口的分布", "人口问题", "不同的人种"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
+        },
+        {
+          "id": "geo_kp4_2",
+          "name": "世界的语言和宗教",
+          "sub_topics": ["世界的语言", "世界的宗教"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
+        },
+        {
+          "id": "geo_kp4_3",
+          "name": "聚落",
+          "sub_topics": ["聚落与环境", "聚落的发展与保护"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
+        }
+      ]
+    }
+  ]
+}

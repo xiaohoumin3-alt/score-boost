@@ -33,12 +33,13 @@ Page({
 
     // 复测模式：仅记录标志，不信任任何参数
     // 复测资格由云函数通过 openid 查询历史成绩验证
-    if (options.retest === 'true') {
+    const isRetest = options.retest === 'true';
+    if (isRetest) {
       this.setData({ isRetest: true });
     }
 
-    // 优先从 URL params 获取 assessmentId
-    if (options.assessmentId) {
+    // 优先从 URL params 获取 assessmentId（复测时不加载旧的）
+    if (options.assessmentId && !isRetest) {
       this.setData({ assessmentId: options.assessmentId });
       this.loadAssessment(options.assessmentId);
       return;
@@ -458,11 +459,24 @@ Page({
       var total_questions = result.total_questions || this.data.totalQuestions;
       var score_percent = result.score_percent || 0;
 
+      // 提取精度信息（SE - 标准误差）
+      var scoreEstimation = result.score_estimation || {};
+      var se = scoreEstimation.se || 0.5;  // 默认0.5表示中等精度
+      var theta = scoreEstimation.theta || 0;
+
+      // 获取当前年级和科目
+      var grade = app.globalData.grade || '八年级';
+      var subject = app.globalData.subject || '数学';
+
       wx.redirectTo({
         url: '/pages/result/result?assessmentId=' + this.data.assessmentId +
              '&score=' + total_correct +
              '&total=' + total_questions +
-             '&accuracy=' + score_percent
+             '&accuracy=' + score_percent +
+             '&se=' + se +
+             '&theta=' + theta +
+             '&grade=' + encodeURIComponent(grade) +
+             '&subject=' + encodeURIComponent(subject)
       });
     } catch (e) {
       wx.showToast({ title: '提交失败', icon: 'none' });

@@ -32,8 +32,11 @@ async function checkQueueStatus(db, queueId) {
       queue_id: task._id,
       type: task.type || 'default',
       status: task.status,
+      owner_openid: task.student_id || task.openid || task.user_openid,
       assessment_id: task.assessment_id || task.generated_assessment_id,  // 支持 parent_assessment 和默认流程
-      question_ids: task.question_ids,
+      question_ids: Array.isArray(task.question_ids) && task.question_ids.length > 0
+        ? task.question_ids
+        : (task.result?.question_ids || []),
       error: task.error,
       retry_count: task.retry_count,
       created_at: task.created_at,
@@ -135,6 +138,9 @@ async function formatStatusResponse(statusData, questions = [], assessmentId = u
           // 不影响返回，继续执行
         }
       }
+    } else if (statusData.type === 'extended_assessment') {
+      response.data.question_ids = statusData.question_ids || [];
+      response.data.message = '题目已生成完成';
     } else if (statusData.assessment_id) {
       // 默认流程：返回 assessment_id
       response.data.assessment_id = statusData.assessment_id;
@@ -173,6 +179,15 @@ exports.main = async (event, context) => {
     console.log('=== checkQueueStatus === queue_id:', queue_id);
 
     const statusData = await checkQueueStatus(db, queue_id);
+    const wxContext = cloud.getWXContext ? cloud.getWXContext() : {};
+    const userOpenid = wxContext.OPENID;
+
+    if (statusData.found && (!statusData.owner_openid || !userOpenid || statusData.owner_openid !== userOpenid)) {
+      return {
+        success: false,
+        error: 'Queue task not found or has expired'
+      };
+    }
 
     // 如果任务完成且有 question_ids，获取题目详情
     let questions = [];

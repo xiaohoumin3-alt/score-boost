@@ -9,6 +9,7 @@
 const { checkTaskCancelled } = require('./checkTaskCancelled');
 const { updateQueueStatus } = require('./updateQueueStatus');
 const { isExclusiveMode, getRagChunkIds, buildUserMaterialContext } = require('./context-builder');
+const { normalizeDifficultyDistribution, calculateDifficultyCounts } = require('./queueTaskContract');
 
 /**
  * 从题库获取备用题目（当 AI 生成失败时）
@@ -19,7 +20,8 @@ const { isExclusiveMode, getRagChunkIds, buildUserMaterialContext } = require('.
  * @param {string} grade - 年级
  * @returns {Promise<Array>} 题目列表
  */
-async function fetchFallbackQuestions(db, subject, difficulty, count, grade) {
+async function fetchFallbackQuestions(db, subject, difficulty, count, grade, options = {}) {
+  const { allowDefaultFallback = true } = options;
   console.log(`[fetchFallbackQuestions] === START ===`);
   console.log(`[fetchFallbackQuestions] INPUT: subject=${subject}, difficulty=${difficulty}, count=${count}, grade=${grade}`);
 
@@ -47,6 +49,10 @@ async function fetchFallbackQuestions(db, subject, difficulty, count, grade) {
 
     // 如果题库为空或查询失败，返回默认题目
     if (questions.length === 0) {
+      if (!allowDefaultFallback) {
+        console.warn(`[fetchFallbackQuestions] Pool empty or query failed, default fallback disabled`);
+        return [];
+      }
       console.warn(`[fetchFallbackQuestions] Pool empty or query failed, using DEFAULT questions`);
       questions = generateDefaultQuestions(subject, difficulty, count, grade);
       console.log(`[fetchFallbackQuestions] Generated ${questions.length} default questions`);
@@ -66,6 +72,10 @@ async function fetchFallbackQuestions(db, subject, difficulty, count, grade) {
   } catch (e) {
     console.error(`[fetchFallbackQuestions] Exception:`, e.message);
     // 最后的回退：返回默认题目
+    if (!allowDefaultFallback) {
+      console.warn(`[fetchFallbackQuestions] Exception occurred, default fallback disabled`);
+      return [];
+    }
     console.warn(`[fetchFallbackQuestions] Exception occurred, using DEFAULT questions`);
     return generateDefaultQuestions(subject, difficulty, count);
   }
@@ -714,6 +724,8 @@ async function generateQuestionsForTask(task, generateAi, db = null, _ = null) {
     ragContext: ragContext.hasContext ? ragContext : undefined
   };
 
+  const allowDefaultFallback = task.type !== 'extended_assessment';
+
   // 断点续跑：检查已有进度
   const existingProgress = (task.progress && task.progress.generated) || 0;
   const allQuestions = [];
@@ -722,14 +734,14 @@ async function generateQuestionsForTask(task, generateAi, db = null, _ = null) {
     console.log(`[generateQuestionsForTask] Resuming from progress: ${existingProgress}/${num_questions}`);
   }
 
-  // 计算每个难度的题目数量，处理缺失 difficulty_distribution
-  // 修复：使用 Math.floor 而不是 Math.round，避免 hard 题被四舍五入消耗掉
-  const dist = difficulty_distribution || { easy: 0.5, medium: 0.3, hard: 0.2 };
-  const easyCount = Math.floor(num_questions * (typeof dist.easy === 'number' ? dist.easy : 0.5));
-  const mediumCount = Math.floor(num_questions * (typeof dist.medium === 'number' ? dist.medium : 0.3));
-  const hardCount = num_questions - easyCount - mediumCount;
+  // 计算每个难度的题目数量，兼容旧任务把 difficulty_distribution 当题数写入的情况
+  const normalizedDifficulty = normalizeDifficultyDistribution(task);
+  const difficultyCounts = calculateDifficultyCounts(num_questions, normalizedDifficulty.distribution);
+  const easyCount = difficultyCounts.easy;
+  const mediumCount = difficultyCounts.medium;
+  const hardCount = difficultyCounts.hard;
 
-  console.log(`[generateQuestionsForTask] Distribution: easy=${easyCount}, medium=${mediumCount}, hard=${hardCount}`);
+  console.log(`[generateQuestionsForTask] Distribution: easy=${easyCount}, medium=${mediumCount}, hard=${hardCount}, source=${normalizedDifficulty.source}, compat=${normalizedDifficulty.compatMode}`);
 
   const difficulties = [
     { level: 'easy', count: easyCount },
@@ -788,14 +800,14 @@ async function generateQuestionsForTask(task, generateAi, db = null, _ = null) {
       if (!Array.isArray(questions) || questions.length === 0) {
         console.warn(`[generateQuestionsForTask] AI generation failed for ${level}, trying pool fallback`);
         // 题库回退
-        const fallbackQuestions = await fetchFallbackQuestions(db, subject, level, actualCount, grade);
+        const fallbackQuestions = await fetchFallbackQuestions(db, subject, level, actualCount, grade, { allowDefaultFallback });
         console.log(`[generateQuestionsForTask] Fallback returned ${fallbackQuestions.length} questions for ${level}`);
         allQuestions.push(...fallbackQuestions);
       } else if (questions.length < actualCount) {
         console.warn(`[generateQuestionsForTask] AI generated ${questions.length}/${actualCount} for ${level}, supplementing from pool`);
         // 部分回退：补充题库题目
         const needed = actualCount - questions.length;
-        const fallbackQuestions = await fetchFallbackQuestions(db, subject, level, needed, grade);
+        const fallbackQuestions = await fetchFallbackQuestions(db, subject, level, needed, grade, { allowDefaultFallback });
         console.log(`[generateQuestionsForTask] Fallback returned ${fallbackQuestions.length} questions for ${level}`);
         allQuestions.push(...questions, ...fallbackQuestions);
       } else {
@@ -830,7 +842,7 @@ async function generateQuestionsForTask(task, generateAi, db = null, _ = null) {
 
       // 即使出错，也尝试从题库获取
       console.warn(`[generateQuestionsForTask] Error occurred, trying pool fallback for ${level}`);
-      const fallbackQuestions = await fetchFallbackQuestions(db, subject, level, count, grade);
+      const fallbackQuestions = await fetchFallbackQuestions(db, subject, level, count, grade, { allowDefaultFallback });
       console.log(`[generateQuestionsForTask] Fallback returned ${fallbackQuestions.length} questions for ${level}`);
       allQuestions.push(...fallbackQuestions);
     }

@@ -41,6 +41,71 @@ class CompleteStep extends BaseStep {
       console.log('[CompleteStep] questionIds count:', questionIds.length);
       console.log('[CompleteStep] questionIds:', JSON.stringify(questionIds));
 
+      // 使用 updateQueueStatus 函数
+      const { updateQueueStatus } = require('../utils/updateQueueStatus');
+
+      // 深度测评：不更新 assessments，查询题池可用题数并去重
+      if (task.type === 'extended_assessment') {
+        console.log(`[CompleteStep] extended_assessment mode, querying pool for available questions`);
+
+        // 查询题池可用题数（新保存题 + 已有同边界可用题）
+        const poolQuery = {
+          grade: String(task.grade || ''),
+          subject: task.subject,
+        };
+        const verifiedResult = await db.collection('ai_question_pool')
+          .where({ ...poolQuery, verified: true })
+          .get();
+        const unverifiedResult = await db.collection('ai_question_pool')
+          .where({ ...poolQuery, verified: false })
+          .get();
+
+        const verifiedQuestionIds = (verifiedResult.data || []).map(q => q._id);
+        const unverifiedQuestionIds = (unverifiedResult.data || []).map(q => q._id);
+        const existingQuestionIds = [...verifiedQuestionIds, ...unverifiedQuestionIds];
+
+        // 去重：新保存题 + 已有可用题
+        const allQuestionIds = [...new Set([...questionIds, ...existingQuestionIds])];
+        const finalCount = allQuestionIds.length;
+
+        console.log(`[CompleteStep] extended_assessment final available questions: ${finalCount} (new: ${questionIds.length}, existing: ${existingQuestionIds.length})`);
+
+        // 去重题数 >= task.num_questions 才标记 completed
+        if (finalCount < (task.num_questions || 5)) {
+          console.warn(`[CompleteStep] extended_assessment insufficient questions: ${finalCount} < ${task.num_questions || 5}`);
+          return {
+            success: false,
+            error: new Error(`题池可用题数不足：${finalCount} < ${task.num_questions || 5}`),
+            shouldAbort: false
+          };
+        }
+
+        // 写回 question_ids 和 timeline.completed_at
+        const updateFields = {
+          question_ids: allQuestionIds,
+          timeline: {
+            completed_at: new Date().toISOString()
+          }
+        };
+        const result = await updateQueueStatus(db, task._id, 'completed', updateFields);
+
+        if (!result.success) {
+          return {
+            success: false,
+            error: new Error(result.error || 'Failed to update status'),
+            shouldAbort: false
+          };
+        }
+
+        console.log(`[CompleteStep] extended_assessment completed with ${allQuestionIds.length} questions`);
+        return {
+          success: true,
+          data: {
+            [STEP_OUTPUT_KEYS.QUESTION_IDS]: allQuestionIds
+          }
+        };
+      }
+
       // 从 ai_question_pool 获取完整题目数据
       const questions = [];
       if (questionIds.length > 0) {
@@ -102,28 +167,6 @@ class CompleteStep extends BaseStep {
 
       console.log('[CompleteStep] Questions prepared:', questions.length);
 
-      // 更新 assessment 记录，补充 questions 字段
-      if (questions.length > 0) {
-        console.log('[CompleteStep] Updating assessment:', assessmentId);
-        try {
-          const updateResult = await db.collection('assessments')
-            .where({ assessment_id: assessmentId })
-            .update({
-              questions: questions,
-              status: 'in_progress'
-            });
-          console.log('[CompleteStep] Assessment update result:', JSON.stringify(updateResult));
-        } catch (e) {
-          console.error('[CompleteStep] Assessment update failed:', e.message);
-          // 继续执行，不因为 assessment 更新失败而终止
-        }
-      } else {
-        console.log('[CompleteStep] NO QUESTIONS to update - questions.length is 0!');
-      }
-
-      // 使用 updateQueueStatus 函数
-      const { updateQueueStatus } = require('../utils/updateQueueStatus');
-
       // 根据任务类型设置不同的完成数据
       const updateFields = {
         timeline: {
@@ -131,12 +174,48 @@ class CompleteStep extends BaseStep {
         }
       };
 
-      if (task.type === 'parent_assessment') {
-        // 亲子测评：传递 question_ids 供调用方获取题目
+      // 亲子测评/孩子题：传递 question_ids 供调用方获取题目
+      if (task.type === 'parent_assessment' || task.type === 'child_assessment') {
+        // 更新 assessment 记录（如果有）
+        if (assessmentId && questions.length > 0) {
+          console.log('[CompleteStep] Updating assessment:', assessmentId);
+          try {
+            await db.collection('assessments')
+              .where({ assessment_id: assessmentId })
+              .update({
+                questions: questions,
+                status: 'in_progress'
+              });
+          } catch (e) {
+            console.error('[CompleteStep] Assessment update failed:', e.message);
+          }
+        }
+
         updateFields.question_ids = questionIds;
-        console.log('[CompleteStep] Parent assessment mode, returning question_ids:', questionIds.length);
+        if (task.assessment_id) {
+          updateFields.assessment_id = task.assessment_id;
+        }
+        console.log(`[CompleteStep] ${task.type} mode, returning question_ids:`, questionIds.length);
       } else {
-        // 默认流程：传递 assessment_id
+        // 默认流程：更新 assessment 并传递 assessment_id
+        if (questions.length > 0) {
+          console.log('[CompleteStep] Updating assessment:', assessmentId);
+          try {
+            const updateResult = await db.collection('assessments')
+              .where({ assessment_id: assessmentId })
+              .update({
+                questions: questions,
+                status: 'in_progress'
+              });
+            console.log('[CompleteStep] Assessment update result:', JSON.stringify(updateResult));
+          } catch (e) {
+            console.error('[CompleteStep] Assessment update failed:', e.message);
+            // 继续执行，不因为 assessment 更新失败而终止
+          }
+        } else {
+          console.log('[CompleteStep] NO QUESTIONS to update - questions.length is 0!');
+        }
+
         updateFields.generated_assessment_id = assessmentId;
       }
 

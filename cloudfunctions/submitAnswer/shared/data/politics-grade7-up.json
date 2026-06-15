@@ -1,0 +1,76 @@
+{
+  "subject": "道德与法治",
+  "grade": "7",
+  "semester": "上",
+  "version": "人教版",
+  "source": "教材PDF提取",
+  "chapters": [
+    {
+      "id": "ch1",
+      "name": "成长的节拍",
+      "knowledge_points": [
+        {
+          "id": "pol_kp1_1",
+          "name": "中学序曲",
+          "sub_topics": ["新的起点", "成长的礼物"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
+        },
+        {
+          "id": "pol_kp1_2",
+          "name": "学习新天地",
+          "sub_topics": ["学习伴成长", "享受学习"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
+        },
+        {
+          "id": "pol_kp1_3",
+          "name": "发现自己",
+          "sub_topics": ["认识自己", "做更好的自己"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "name": "友谊与成长同行",
+      "knowledge_points": [
+        {
+          "id": "pol_kp2_1",
+          "name": "友谊与成长同行",
+          "sub_topics": ["友谊的特质", "友谊的澄清"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
+        },
+        {
+          "id": "pol_kp2_2",
+          "name": "交友的智慧",
+          "sub_topics": ["建立友谊", "呵护友谊"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
+        }
+      ]
+    },
+    {
+      "id": "ch3",
+      "name": "师长情谊",
+      "knowledge_points": [
+        {
+          "id": "pol_kp3_1",
+          "name": "师生交往",
+          "sub_topics": ["走近老师", "师生交往新观念"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
+        },
+        {
+          "id": "pol_kp3_2",
+          "name": "亲情之爱",
+          "sub_topics": ["家的意味", "爱在家人间", "让家更美好"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
+        }
+      ]
+    }
+  ]
+}

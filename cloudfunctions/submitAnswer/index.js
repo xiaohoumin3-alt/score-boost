@@ -1,5 +1,6 @@
 /**
  * 提交答案云函数
+ * 集成 IRT 分数预估：提交后同步调用 scoreCalibration
  */
 
 const cloud = require('wx-server-sdk');
@@ -7,6 +8,11 @@ cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV });
 
 const { formatQuestionForApi, normalizeAnswer } = require('./shared/question-normalizer');
 const { success, error } = require('./shared/response-helper');
+
+// IRT 模型依赖
+const IRTModel = require('./shared/models/irt-model');
+const ScoreEstimator = require('./shared/models/score-estimator');
+const { toIRTItems } = require('./shared/item-bank-builder');
 
 exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext();
@@ -167,6 +173,19 @@ exports.main = async (event, context) => {
       }
     });
 
+    // IRT 分数预估（同步计算）
+    const scoreEstimation = await calculateScoreEstimation(db, assessmentId, allResults, questions, session.subject || 'math', session.grade || '8');
+
+    // 如果分数预估成功，更新 assessment
+    if (scoreEstimation) {
+      await db.collection('assessments').where({ assessment_id: assessmentId }).update({
+        data: { score_estimation: scoreEstimation }
+      });
+    }
+
+    // 更新题目统计（IRT 在线学习数据积累）
+    await updateQuestionStats(db, allResults);
+
     return {
       success: true,
       data: {
@@ -175,6 +194,7 @@ exports.main = async (event, context) => {
         total_correct: totalCorrect,
         total_questions: totalQuestions,
         score_percent: scorePercent,
+        score_estimation: scoreEstimation,
         kp_stats: Object.entries(kpStats).map(([kpId, stats]) => ({
           kp_id: kpId,
           kp_name: stats.name,
@@ -189,3 +209,103 @@ exports.main = async (event, context) => {
     return { success: false, error: e.message || String(e) };
   }
 };
+
+/**
+ * 更新 ai_question_pool 的答题统计（用于 IRT 参数积累）
+ */
+async function updateQuestionStats(db, results) {
+  const _ = db.command;
+  for (const r of results) {
+    if (!r.question_id) continue;
+    try {
+      const incData = { usage_count: 1 };
+      if (r.is_correct) incData.correct_count = 1;
+
+      await db.collection('ai_question_pool')
+        .doc(r.question_id)
+        .update({
+          data: {
+            ...incData,
+            correct_rate: _.inc(0),  // placeholder to trigger index
+            updated_at: new Date().toISOString(),
+          }
+        });
+    } catch (e) {
+      // 静默失败：单题更新失败不影响主流程
+      console.warn('[submitAnswer] Failed to update question stats:', r.question_id, e.message);
+    }
+  }
+}
+
+/**
+ * 计算 IRT 分数预估（内联实现，避免额外云函数调用）
+ */
+async function calculateScoreEstimation(db, assessmentId, results, questions, subject, grade) {
+  try {
+    // 收集题目 ID
+    const questionIds = results.map(r => r.question_id).filter(Boolean);
+    if (questionIds.length === 0) {
+      console.log('[submitAnswer] No question IDs for IRT estimation');
+      return null;
+    }
+
+    // 从题池加载 IRT 参数
+    const _ = db.command;
+    let poolQuestions = [];
+    for (let i = 0; i < questionIds.length; i += 20) {
+      const batch = questionIds.slice(i, i + 20);
+      const poolRes = await db.collection('ai_question_pool')
+        .where({ _id: _.in(batch) })
+        .get();
+      poolQuestions = poolQuestions.concat(poolRes.data || []);
+    }
+
+    // 构建 IRT 题目参数
+    const irtItems = toIRTItems(poolQuestions);
+    if (irtItems.length === 0) {
+      console.log('[submitAnswer] No IRT items available');
+      return null;
+    }
+
+    // 构建答题记录
+    const responses = results.map(r => ({
+      item_id: r.question_id,
+      correct: r.is_correct ? 1 : 0,
+      question_type: 'choice',
+    }));
+
+    // 初始化 IRT 模型
+    const irtModel = new IRTModel();
+    irtModel.loadItemBank(irtItems);
+
+    // 使用 ScoreEstimator 估算分数
+    const estimator = new ScoreEstimator(subject);
+    estimator.irtModel.loadItemBank(irtItems);
+
+    const estimation = estimator.estimateFromResponses(responses, grade);
+
+    // 计算平均难度
+    const difficultyAvg = irtItems.length > 0
+      ? irtItems.reduce((sum, item) => sum + (item.b + 3) / 6, 0) / irtItems.length
+      : 0.5;
+
+    return {
+      estimatedScore: estimation.estimatedScore,
+      examScore: estimation.examScore,
+      level: estimation.level,
+      levelText: estimation.text,
+      confidence: estimation.confidence,
+      margin: estimation.margin,
+      theta: estimation.theta,
+      se: estimation.se,
+      difficultyAvg: Math.round(difficultyAvg * 100) / 100,
+      questionCount: responses.length,
+      irtItemCoverage: irtItems.length,
+      isPrimarySchool: estimation.isPrimarySchool,
+      estimated_at: new Date().toISOString(),
+    };
+  } catch (e) {
+    console.error('[submitAnswer] IRT estimation failed:', e.message);
+    return null;
+  }
+}

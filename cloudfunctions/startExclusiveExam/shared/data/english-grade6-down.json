@@ -1,0 +1,131 @@
+{
+  "subject": "英语",
+  "grade": "6",
+  "semester": "下册",
+  "version": "人教版",
+  "chapters": [
+    {
+      "chapter_name": "第一单元 直接引语和间接引语",
+      "knowledge_points": [
+        {
+          "id": "english-grade6-down-1-1",
+          "name": "陈述句转换",
+          "sub_topics": [
+            "人称变化",
+            "时态变化",
+            "时间地点变化"
+          ],
+          "typical_questions": [
+            "选择题",
+            "句型转换"
+          ],
+          "difficulty_weight": {
+            "easy": 0.3,
+            "medium": 0.4,
+            "hard": 0.3
+          }
+        },
+        {
+          "id": "english-grade6-down-1-2",
+          "name": "疑问句转换",
+          "sub_topics": [
+            "一般疑问句",
+            "特殊疑问句",
+            "祈使句"
+          ],
+          "typical_questions": [
+            "选择题",
+            "句型转换"
+          ],
+          "difficulty_weight": {
+            "easy": 0.3,
+            "medium": 0.4,
+            "hard": 0.3
+          }
+        }
+      ]
+    },
+    {
+      "chapter_name": "第二单元 虚拟语气",
+      "knowledge_points": [
+        {
+          "id": "english-grade6-down-2-1",
+          "name": "条件句",
+          "sub_topics": [
+            "真实条件句",
+            "虚拟条件句",
+            "混合条件句"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.2,
+            "medium": 0.4,
+            "hard": 0.4
+          }
+        },
+        {
+          "id": "english-grade6-down-2-2",
+          "name": "wish/if only",
+          "sub_topics": [
+            "wish表达",
+            "if only表达",
+            "as if/as though"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.2,
+            "medium": 0.4,
+            "hard": 0.4
+          }
+        }
+      ]
+    },
+    {
+      "chapter_name": "第三单元 倒装与强调",
+      "knowledge_points": [
+        {
+          "id": "english-grade6-down-3-1",
+          "name": "倒装句",
+          "sub_topics": [
+            "完全倒装",
+            "部分倒装",
+            "倒装触发词"
+          ],
+          "typical_questions": [
+            "选择题",
+            "句型转换"
+          ],
+          "difficulty_weight": {
+            "easy": 0.2,
+            "medium": 0.4,
+            "hard": 0.4
+          }
+        },
+        {
+          "id": "english-grade6-down-3-2",
+          "name": "强调句",
+          "sub_topics": [
+            "It is...that",
+            "强调成分",
+            "强调句型变化"
+          ],
+          "typical_questions": [
+            "选择题",
+            "句型转换"
+          ],
+          "difficulty_weight": {
+            "easy": 0.3,
+            "medium": 0.4,
+            "hard": 0.3
+          }
+        }
+      ]
+    }
+  ]
+}

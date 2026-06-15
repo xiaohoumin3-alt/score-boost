@@ -7,9 +7,12 @@
 // 引入个性化Prompt模板
 const { buildPersonalizedPrompt } = require('./prompt-templates.js');
 const { normalizeQuestion } = require('./shared/question-normalizer');
-const { createLLMClient } = require('./shared/llm-core');
-const { loadConfig } = require('./shared/llm-core/config');
+const { createLLMClient } = require('../shared/llm-core');
+const { loadConfig } = require('../shared/llm-core/config');
 const { getDifficultyGuidance } = require('./shared/difficulty-guidance');
+
+// 共享验证器
+const { validateSubjectGrade } = require('../shared/subject-grade-validator');
 
 let cloud = null;
 let db = null;
@@ -183,7 +186,7 @@ class ImageClient {
       '数据的分析': '统计图表'
     };
 
-    let graphicType = '几何示意图';
+    let graphicType = '示意图';
     for (const [key, value] of Object.entries(graphicTypes)) {
       if (kpName && kpName.includes(key)) {
         graphicType = value;
@@ -191,7 +194,18 @@ class ImageClient {
       }
     }
 
-    return `Math geometry: ${graphicType}. Clean educational style, white background. Simple and clear.`;
+    // 根据科目生成不同的提示词
+    const subjectPrompts = {
+      '数学': `Math geometry: ${graphicType}`,
+      '物理': `Physics diagram: ${graphicType}`,
+      '化学': `Chemistry diagram: ${graphicType}`,
+      '生物': `Biology diagram: ${graphicType}`,
+      '地理': `Geography map: ${graphicType}`
+    };
+
+    const prefix = subjectPrompts[subject] || `${subject} diagram: ${graphicType}`;
+
+    return `${prefix}. Clean educational style, white background. Simple and clear.`;
   }
 
   _callApi(prompt) {
@@ -258,10 +272,41 @@ function buildLlmPrompt(params) {
 }
 
 /**
+ * 根据科目构建System Prompt
+ * @param {string} subject - 科目名称
+ * @returns {string} System Prompt
+ */
+function buildSystemPrompt(subject = '数学') {
+  const subjectPrompts = {
+    '数学': '你是一个专业的数学题目生成助手。',
+    '语文': '你是一个专业的语文题目生成助手。',
+    '英语': '你是一个专业的英语题目生成助手。',
+    '物理': '你是一个专业的物理题目生成助手。',
+    '化学': '你是一个专业的化学题目生成助手。',
+    '生物': '你是一个专业的生物题目生成助手。',
+    '地理': '你是一个专业的地理题目生成助手。',
+    '历史': '你是一个专业的历史题目生成助手。',
+    '政治': '你是一个专业的政治题目生成助手。'
+  };
+
+  const subjectPrefix = subjectPrompts[subject] || `你是一个专业的${subject}题目生成助手。`;
+
+  return `${subjectPrefix}
+
+**难度控制原则**：
+1. 严格按照用户要求的难度级别和年级范围生成题目
+2. 简单题：90%的学生应能独立完成
+3. 中等题：60%的学生经过思考能完成
+4. 困难题：30%的学生能完成，需要深度思考
+
+请严格按照用户要求的JSON格式返回题目，不要添加任何其他文字或说明。`;
+}
+
+/**
  * 构建通用Prompt（原有逻辑）
  */
 function buildGenericPrompt(params) {
-  const { kp_name, difficulty, chapter, question_type = 'choice', knowledge_context = '', exclude_questions = [] } = params;
+  const { kp_name, difficulty, chapter, question_type = 'choice', knowledge_context = '', exclude_questions = [], grade, subject } = params;
 
   const difficultyText = {
     easy: '简单',
@@ -269,7 +314,7 @@ function buildGenericPrompt(params) {
     hard: '困难'
   }[difficulty] || '中等';
 
-  const difficultyGuidance = getDifficultyGuidance(difficulty, null);
+  const difficultyGuidance = getDifficultyGuidance(difficulty, grade);
   const questionTypeText = {
     choice: '选择题',
     written: '简答题',
@@ -575,18 +620,11 @@ async function generateQuestion(kp, difficulty, options = {}) {
         question_type: options.question_type || 'choice',
         knowledge_context: options.knowledge_context || '',
         exclude_questions: options.exclude_questions || [],
-        student_profile: options.student_profile
+        student_profile: options.student_profile,
+        subject: options.subject || '数学'
       };
       const response = await llm.complete({
-        systemPrompt: `你是一个专业的数学题目生成助手。
-
-**难度控制原则**：
-1. 严格按照用户要求的难度级别生成题目
-2. 简单题：90%的学生应能独立完成
-3. 中等题：60%的学生经过思考能完成
-4. 困难题：30%的学生能完成，需要深度思考
-
-请严格按照用户要求的JSON格式返回题目，不要添加任何其他文字或说明。`,
+        systemPrompt: buildSystemPrompt(options.subject || '数学'),
         userPrompt: buildLlmPrompt(promptParams),
         temperature: 0.7,
         maxTokens: 1000
@@ -705,6 +743,19 @@ exports.main = async (event, context) => {
 
   const { kp_id, difficulty = 'medium', kp_name, chapter, subject, grade, skip_image, questions, batch_mode } = eventData;
 
+  // 科目-年级兼容性验证（防止无效组合）
+  if (subject && grade) {
+    const validation = validateSubjectGrade(subject, grade);
+    if (!validation.valid) {
+      console.warn(`[ENTRY] INCOMPATIBLE subject-grade: ${subject}/${grade} - ${validation.error}`);
+      return {
+        success: false,
+        error: validation.error,
+        validation_error: 'incompatible_subject_grade'
+      };
+    }
+  }
+
   // 批量模式：支持传入questions数组
   if (questions && Array.isArray(questions) && questions.length > 0) {
     console.log('[ENTRY] BATCH MODE detected, processing', questions.length, 'questions');
@@ -717,11 +768,17 @@ exports.main = async (event, context) => {
         chapter: q.chapter || ''
       },
       difficulty: q.difficulty || difficulty,
-      question_type: q.question_type || 'choice'
+      question_type: q.question_type || 'choice',
+      subject: q.subject || subject,
+      grade: q.grade || grade
     }));
 
     try {
-      const results = await generateQuestionBatch(tasks, { skip_image: batchSkipImage });
+      const results = await generateQuestionBatch(tasks, { 
+        skip_image: batchSkipImage,
+        subject,
+        grade
+      });
       console.log('[ENTRY] BATCH MODE completed, generated', results.length, 'questions');
 
       return {
@@ -784,7 +841,9 @@ exports.main = async (event, context) => {
       question_type: questionType,
       knowledge_context: kc.knowledge_context,
       exclude_questions: existingQuestions,
-      skip_image: skipImage
+      skip_image: skipImage,
+      subject,
+      grade
     });
     console.log('[ENTRY] Question generated:', !!question);
 
@@ -869,3 +928,4 @@ module.exports.validateQuestion = validateQuestion;
 
 module.exports.buildLlmPrompt = buildLlmPrompt;
 module.exports.buildGenericPrompt = buildGenericPrompt;
+module.exports.buildSystemPrompt = buildSystemPrompt;

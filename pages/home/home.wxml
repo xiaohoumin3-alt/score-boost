@@ -9,27 +9,26 @@
   </view>
 
   <block wx:else>
-  <!-- 实时学习动态（替代签到栏） -->
-  <view class="live-learning-card" wx:if="{{onlineCount > 0}}" bindtap="goToLiveRanking">
-    <view class="live-header">
-      <view class="live-left">
-        <text class="live-icon">📱</text>
-        <text class="live-count-text">正在学习</text>
-        <text class="live-count">{{onlineCount}}</text>
-        <text class="live-count-text">人</text>
+    <!-- 实时学习动态（替代签到栏） -->
+    <view class="live-learning-card" wx:if="{{onlineCount > 0}}" bindtap="goToLiveRanking">
+      <view class="live-header">
+        <view class="live-left">
+          <text class="live-icon">📱</text>
+          <text class="live-count-text">正在学习</text>
+          <text class="live-count">{{onlineCount}}</text>
+          <text class="live-count-text">人</text>
+        </view>
+        <text class="live-cta">你的孩子开始了吗？</text>
       </view>
-      <text class="live-cta">你的孩子开始了吗？</text>
-    </view>
 
-    <view class="live-learners">
-      <view class="live-learner" wx:for="{{liveLearners}}" wx:key="index">
-        <text>{{item.name}}</text>
-        <text class="learner-grade">({{item.grade}})</text>
-        <text class="learner-kp">{{item.kp}}</text>
+      <view class="live-learners">
+        <view class="live-learner" wx:for="{{liveLearners}}" wx:key="index">
+          <text>{{item.name}}</text>
+          <text class="learner-grade">({{item.grade}})</text>
+          <text class="learner-kp">{{item.kp}}</text>
+        </view>
       </view>
     </view>
-  </view>
-
 
     <!-- Score Bar -->
     <view class="score-bar">
@@ -84,7 +83,6 @@
         <text class="review-action">去复习 ›</text>
       </view>
     </block>
-
 
     <!-- Recent History -->
     <text class="sec-label sec-label--dim" wx:if="{{recentAssessments.length > 0}}">最近记录</text>

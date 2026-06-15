@@ -228,6 +228,52 @@ describe('result.onLoad参数解析', () => {
   });
 });
 
+describe('result精度展示数据', () => {
+  function buildAccuracyDisplay(rawSe) {
+    const parsedSE = parseFloat(rawSe);
+    const se = Number.isFinite(parsedSE) ? Math.max(0, parsedSE) : 0.5;
+    const accuracyPercent = Math.max(0, Math.min(100, (1 - se) * 100));
+
+    return {
+      currentSE: se,
+      currentSEText: se.toFixed(2),
+      accuracyBarWidth: `${accuracyPercent.toFixed(1)}%`
+    };
+  }
+
+  test('低精度SE应预计算为较短进度条宽度', () => {
+    const result = buildAccuracyDisplay('0.913');
+
+    expect(result.currentSE).toBe(0.913);
+    expect(result.currentSEText).toBe('0.91');
+    expect(result.accuracyBarWidth).toBe('8.7%');
+  });
+
+  test('SE为0时应显示满精度进度条', () => {
+    const result = buildAccuracyDisplay('0');
+
+    expect(result.currentSE).toBe(0);
+    expect(result.currentSEText).toBe('0.00');
+    expect(result.accuracyBarWidth).toBe('100.0%');
+  });
+
+  test('非法SE应使用默认中等精度展示', () => {
+    const result = buildAccuracyDisplay('abc');
+
+    expect(result.currentSE).toBe(0.5);
+    expect(result.currentSEText).toBe('0.50');
+    expect(result.accuracyBarWidth).toBe('50.0%');
+  });
+
+  test('负数SE应按0处理，避免显示负标准误差', () => {
+    const result = buildAccuracyDisplay('-0.2');
+
+    expect(result.currentSE).toBe(0);
+    expect(result.currentSEText).toBe('0.00');
+    expect(result.accuracyBarWidth).toBe('100.0%');
+  });
+});
+
 describe('result.loadNextReviewTime (M6)', () => {
   const MOCK_NOW = new Date('2026-05-25T12:00:00Z').getTime();
 

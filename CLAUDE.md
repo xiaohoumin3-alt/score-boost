@@ -14,21 +14,45 @@
 ```
 score-boost-mini/
 ├── app.js / app.json          # 小程序入口
-├── miniprogram/               # 小程序前端
-│   ├── pages/                 # 页面组件
-│   ├── utils/                 # 工具函数
+├── pages/                     # 小程序页面 (26个)
+│   ├── home/                  # 首页
+│   ├── assessment/            # 评估
+│   ├── practice/              # 练习
+│   ├── result/                # 结果
+│   ├── path/                  # 路径
+│   ├── mine/                  # 我的
+│   ├── login/                 # 登录
+│   ├── onboarding/            # 引导
+│   ├── vip/                   # VIP
+│   ├── points/                # 积分
+│   ├── feedback*/             # 反馈相关
+│   ├── admin/                 # 管理后台
+│   └── ...                    # 其他页面
+├── miniprogram/               # 小程序前端补充
+│   ├── pages/assessment/      # 评估页面
+│   ├── utils/queue-api.js     # 队列API
 │   └── __tests__/             # 前端测试
 ├── cloudfunctions/            # 云函数 (68个)
 │   ├── shared/                # 共享模块
 │   │   ├── llm-core/          # LLM客户端 (DeepSeek)
 │   │   ├── question_bank.js   # 题库管理
-│   │   └── queue-manager.js   # 队列管理
-│   ├── questionGenerator/    # 题目生成引擎
+│   │   ├── queue-manager.js   # 队列管理
+│   │   └── ...                # 其他共享模块
+│   ├── questionGenerator/     # 题目生成引擎
 │   ├── startAssessment/       # 评估启动
 │   │   └── data/              # 知识点数据 (1-9年级全科)
 │   ├── generateAiQuestion/    # AI题目生成
 │   ├── practice_v2/           # 练习提交
 │   └── studentMemory/         # 学生记忆系统
+├── components/                # 组件
+│   └── icons/                 # 图标
+├── utils/                     # 工具函数
+│   ├── api.js                 # HTTP API (待废弃)
+│   ├── cloudApi.js            # 云函数API (使用中)
+│   └── knowledgeMap.js        # 知识点映射
+├── admin/                     # 管理后台HTML
+├── scripts/                   # 脚本工具
+├── __tests__/                 # 测试文件
 ├── docs/                      # 文档
 ├── data/                      # 知识点数据副本
 └── e2e/                       # E2E测试
@@ -180,7 +204,33 @@ questionGenerator (定时触发，处理队列)
 - [ ] 部署后验证函数详情 (`tcb fn detail`)
 - [ ] 触发器已创建（如需定时任务）
 
+## 已知架构问题
+
+### P0 严重
+1. 题目数据模型不一致（question/content、options格式、correct_answer类型）→ 答题判分错误风险
+2. 两套 API 层并存（api.js HTTP + cloudApi.js 云函数）→ 同功能不同行为
+3. scheduledTaskGenerator 硬编码8年级知识点 + API密钥明文 → 安全+数据孤立
+
+### P1 高优
+4. 关键代码4-7份重复拷贝（llm-core, knowledge_tree, llm_client）
+5. 5条独立题目生成路径，Prompt/输出/校验各不相同
+6. Practice v1/v2并存，v1使用硬编码8年级题库
+7. Assessment题目双重存储（内嵌+引用）
+
+## 代码约定
+
+修改题目相关代码时务必注意：
+- **题目内容字段**: 不同云函数使用 `question` 或 `content`，写入题池前须归一化
+- **选项格式**: `string[]` 或 `{key, value}[]`，读取时须做格式兼容
+- **答案格式**: `number(0-3)` 或 `string(A-D)`，判分前须统一转换
+- **知识点ID**: `kp_id` 为主字段名，部分模块使用 `knowledge_point_id`
+- **API调用**: 前端统一使用 `cloudApi.js`（`api.js` 已标记待废弃）
+
 ## 相关文档
 - [AI原生架构实施](docs/AI_NATIVE_IMPLEMENTATION.md)
 - [数据库设置指南](docs/database-setup-guide.md)
 - [部署指南](docs/deploy-guide.md)
+- [架构总览](docs/architecture/README.md)
+- [业务架构](docs/architecture/business-architecture.md)
+- [数据架构](docs/architecture/data-architecture.md)
+- [集成验证](docs/architecture/integration-verification.md)

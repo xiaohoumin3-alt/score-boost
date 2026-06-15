@@ -131,11 +131,11 @@ Page({
       await this.loadAchievements();
       // 加载待复习知识点
       await this.loadPendingReviews();
-      // AI原生Phase 2: 加载今日任务
-      await this.loadTodayTask();
+      // AI原生Phase 2: 加载今日任务（非阻塞，超时忽略）
+      this.loadTodayTask().catch(e => console.log('[home] Today task load skipped:', e.message));
 
-      // 加载签到信息
-      await this.loadSigninInfo();
+      // 加载签到信息（非阻塞）
+      this.loadSigninInfo().catch(e => console.log('[home] Signin info load skipped:', e.message));
 
       // 加载实时学习动态（带节流）
       await this.loadLiveLearning();
@@ -280,6 +280,38 @@ Page({
   },
 
   startAssessment() {
+    console.log('[home] startAssessment called');
+    // 检查登录状态
+    if (!app.globalData.openid) {
+      wx.showModal({
+        title: '请先登录',
+        content: '测评前需要先登录微信账号',
+        confirmText: '去登录',
+        success: (res) => {
+          if (res.confirm) {
+            wx.navigateTo({ url: '/pages/login/login' });
+          }
+        }
+      });
+      return;
+    }
+
+    // 如果用户已选择年级科目，直接开始测评
+    const { subject, grade, examMode } = app.globalData;
+    if (subject && grade) {
+      console.log('[home] 已有选择，直接开始测评:', { subject, grade, examMode });
+      api.track('assessment_start', { source: 'home_retest', subject, grade, examMode });
+
+      if (examMode === 'huikao') {
+        wx.reLaunch({ url: '/pages/assessment/assessment?mode=huikao' });
+      } else {
+        wx.navigateTo({ url: '/pages/assessment/assessment' });
+      }
+      return;
+    }
+
+    // 否则跳转到引导页选择
+    console.log('[home] 未有选择，跳转引导页');
     wx.navigateTo({ url: '/pages/onboarding/onboarding' });
   },
 
@@ -329,14 +361,22 @@ Page({
       const currentSubject = app.globalData.subject || '数学';
       const currentGrade = app.globalData.grade || '八年级';
 
-      const result = await wx.cloud.callFunction({
-        name: 'generateDailyTask',
-        data: {
-          student_id: studentId,
-          subject: currentSubject,
-          grade: currentGrade
-        }
-      });
+      // 添加超时保护（3秒）
+      const timeoutPromise = new Promise((_, reject) =>
+        setTimeout(() => reject(new Error('timeout')), 3000)
+      );
+
+      const result = await Promise.race([
+        wx.cloud.callFunction({
+          name: 'generateDailyTask',
+          data: {
+            student_id: studentId,
+            subject: currentSubject,
+            grade: currentGrade
+          }
+        }),
+        timeoutPromise
+      ]);
 
       if (result.result && result.result.success && result.result.data) {
         this.setData({ todayTask: result.result.data });

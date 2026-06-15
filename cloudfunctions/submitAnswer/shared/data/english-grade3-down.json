@@ -1,0 +1,131 @@
+{
+  "subject": "英语",
+  "grade": "3",
+  "semester": "下册",
+  "version": "人教版",
+  "chapters": [
+    {
+      "chapter_name": "第一单元 动物世界",
+      "knowledge_points": [
+        {
+          "id": "english-grade3-down-1-1",
+          "name": "动物分类",
+          "sub_topics": [
+            "哺乳动物",
+            "鸟类",
+            "海洋生物"
+          ],
+          "typical_questions": [
+            "选择题",
+            "分类题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.6,
+            "medium": 0.3,
+            "hard": 0.1
+          }
+        },
+        {
+          "id": "english-grade3-down-1-2",
+          "name": "动物特征",
+          "sub_topics": [
+            "外形",
+            "习性",
+            "栖息地"
+          ],
+          "typical_questions": [
+            "选择题",
+            "描述题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.5,
+            "medium": 0.3,
+            "hard": 0.2
+          }
+        }
+      ]
+    },
+    {
+      "chapter_name": "第二单元 节日与文化",
+      "knowledge_points": [
+        {
+          "id": "english-grade3-down-2-1",
+          "name": "中西方节日",
+          "sub_topics": [
+            "春节中秋",
+            "圣诞感恩",
+            "节日习俗"
+          ],
+          "typical_questions": [
+            "选择题",
+            "配对题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.6,
+            "medium": 0.3,
+            "hard": 0.1
+          }
+        },
+        {
+          "id": "english-grade3-down-2-2",
+          "name": "文化差异",
+          "sub_topics": [
+            "饮食文化",
+            "礼仪文化",
+            "节日文化"
+          ],
+          "typical_questions": [
+            "选择题",
+            "判断题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.5,
+            "medium": 0.3,
+            "hard": 0.2
+          }
+        }
+      ]
+    },
+    {
+      "chapter_name": "第三单元 爱好与兴趣",
+      "knowledge_points": [
+        {
+          "id": "english-grade3-down-3-1",
+          "name": "兴趣爱好",
+          "sub_topics": [
+            "运动爱好",
+            "艺术爱好",
+            "其他爱好"
+          ],
+          "typical_questions": [
+            "选择题",
+            "情景题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.6,
+            "medium": 0.3,
+            "hard": 0.1
+          }
+        },
+        {
+          "id": "english-grade3-down-3-2",
+          "name": "like/love句型",
+          "sub_topics": [
+            "like doing",
+            "love doing",
+            "prefer doing"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.5,
+            "medium": 0.3,
+            "hard": 0.2
+          }
+        }
+      ]
+    }
+  ]
+}

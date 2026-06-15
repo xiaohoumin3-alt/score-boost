@@ -1,0 +1,76 @@
+{
+  "subject": "生物",
+  "grade": "8",
+  "semester": "上",
+  "version": "人教版",
+  "source": "教材PDF提取",
+  "chapters": [
+    {
+      "id": "ch1",
+      "name": "动物的主要类群",
+      "knowledge_points": [
+        {
+          "id": "bio_kp1_1",
+          "name": "腔肠动物",
+          "sub_topics": ["腔肠动物的主要特征", "腔肠动物与人类的关系"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
+        },
+        {
+          "id": "bio_kp1_2",
+          "name": "扁形动物",
+          "sub_topics": ["扁形动物的主要特征", "扁形动物与人类的关系"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
+        },
+        {
+          "id": "bio_kp1_3",
+          "name": "线形动物和环节动物",
+          "sub_topics": ["线形动物的主要特征", "环节动物的主要特征"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.5, "medium": 0.3, "hard": 0.2}
+        }
+      ]
+    },
+    {
+      "id": "ch2",
+      "name": "动物的运动和行为",
+      "knowledge_points": [
+        {
+          "id": "bio_kp2_1",
+          "name": "动物的运动",
+          "sub_topics": ["运动系统的组成", "骨、关节和肌肉的协调配合", "动物的运动依赖于一定的结构"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        },
+        {
+          "id": "bio_kp2_2",
+          "name": "动物的行为",
+          "sub_topics": ["先天性行为和学习行为", "社会行为"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        }
+      ]
+    },
+    {
+      "id": "ch3",
+      "name": "细菌和真菌",
+      "knowledge_points": [
+        {
+          "id": "bio_kp3_1",
+          "name": "细菌",
+          "sub_topics": ["细菌的发现", "细菌的形态和结构", "细菌的营养方式", "细菌的生殖"],
+          "typical_questions": ["选择题", "填空题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        },
+        {
+          "id": "bio_kp3_2",
+          "name": "真菌",
+          "sub_topics": ["真菌的形态结构", "真菌的营养方式", "真菌的生殖"],
+          "typical_questions": ["选择题", "填空题", "实验题"],
+          "difficulty_weight": {"easy": 0.4, "medium": 0.4, "hard": 0.2}
+        }
+      ]
+    }
+  ]
+}

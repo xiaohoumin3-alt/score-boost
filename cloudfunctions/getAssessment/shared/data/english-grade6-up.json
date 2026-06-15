@@ -1,0 +1,131 @@
+{
+  "subject": "英语",
+  "grade": "6",
+  "semester": "上册",
+  "version": "人教版",
+  "chapters": [
+    {
+      "chapter_name": "第一单元 时态综合",
+      "knowledge_points": [
+        {
+          "id": "english-grade6-up-1-1",
+          "name": "时态对比",
+          "sub_topics": [
+            "一般时vs进行时",
+            "完成时用法",
+            "时态呼应"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.3,
+            "medium": 0.4,
+            "hard": 0.3
+          }
+        },
+        {
+          "id": "english-grade6-up-1-2",
+          "name": "过去完成时",
+          "sub_topics": [
+            "had done",
+            "与过去时区别",
+            "使用场景"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.3,
+            "medium": 0.4,
+            "hard": 0.3
+          }
+        }
+      ]
+    },
+    {
+      "chapter_name": "第二单元 定语从句",
+      "knowledge_points": [
+        {
+          "id": "english-grade6-up-2-1",
+          "name": "关系代词",
+          "sub_topics": [
+            "who/whom",
+            "which/that",
+            "whose"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.3,
+            "medium": 0.4,
+            "hard": 0.3
+          }
+        },
+        {
+          "id": "english-grade6-up-2-2",
+          "name": "关系副词",
+          "sub_topics": [
+            "where/when/why",
+            "与关系代词选择",
+            "介词+关系词"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.3,
+            "medium": 0.4,
+            "hard": 0.3
+          }
+        }
+      ]
+    },
+    {
+      "chapter_name": "第三单元 主谓一致",
+      "knowledge_points": [
+        {
+          "id": "english-grade6-up-3-1",
+          "name": "基本规则",
+          "sub_topics": [
+            "单数主语",
+            "复数主语",
+            "不可数名词"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.4,
+            "medium": 0.4,
+            "hard": 0.2
+          }
+        },
+        {
+          "id": "english-grade6-up-3-2",
+          "name": "特殊情况",
+          "sub_topics": [
+            "集体名词",
+            "就近原则",
+            "数量词作主语"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.3,
+            "medium": 0.4,
+            "hard": 0.3
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "name": "testIRTSystem",
+  "version": "1.0.0",
+  "description": "端到端测试 IRT 系统",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

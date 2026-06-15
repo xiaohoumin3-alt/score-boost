@@ -88,7 +88,7 @@
         </view>
         <text class="menu-arrow">›</text>
       </view>
-      <view class="menu-card" bindtap="goToVip">
+      <view class="menu-card" bindtap="goToVip" wx:if="{{false}}">
         <view class="menu-icon-wrap">
           <text class="menu-icon">👑</text>
         </view>

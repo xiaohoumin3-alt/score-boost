@@ -18,13 +18,47 @@ const { TaskWorkflow } = require('./workflow/TaskWorkflow');
 const { InitStateStep } = require('./workflow/steps/InitStateStep');
 const { GenerateStep } = require('./workflow/steps/GenerateStep');
 const { SaveQuestionsStep } = require('./workflow/steps/SaveQuestionsStep');
+
+// ========== 共享验证器 ==========
+const { validateSubjectGrade } = require('./shared/subject-grade-validator');
+const { loadKnowledgeTree } = require('./shared/knowledge_tree');
 const { CreateAssessmentStep } = require('./workflow/steps/CreateAssessmentStep');
 const { CompleteStep } = require('./workflow/steps/CompleteStep');
 
 // ========== 辅助函数导入 ==========
 const { updateQueueStatus } = require('./workflow/utils/updateQueueStatus');
 const { formatQuestionForApi, normalizeQuestion } = require('./shared/question-normalizer');
-const { getConfig, loadConfig } = require('./shared/llm-core/config');
+const { getConfig, loadConfig } = require('../shared/llm-core/config');
+const { getDifficultyGuidance } = require('./shared/difficulty-guidance');
+
+/**
+ * 备用知识点数据（当JSON加载失败时使用）
+ * 按年级区分，避免超纲
+ */
+function getDefaultKpList(subject, grade) {
+  const numGrade = parseInt(grade, 10) || 8;
+  
+  const defaultKpMap = {
+    math: numGrade <= 2 
+      ? ['10以内加减法', '20以内加减法', '100以内加减法', '认识图形', '数的大小比较', '人民币认识']
+      : numGrade <= 6
+        ? ['四则运算', '分数小数', '几何图形', '统计图表', '应用题']
+        : ['代数基础', '几何证明', '函数图像', '统计概率', '方程不等式'],
+    chinese: numGrade <= 6
+      ? ['拼音', '字词', '句子', '阅读理解', '看图写话']
+      : ['阅读理解', '古诗文', '词语运用', '病句修改', '修辞手法', '写作技巧'],
+    english: numGrade <= 6
+      ? ['字母认读', '简单单词', '日常对话', '看图识词']
+      : ['词汇辨析', '时态语态', '情景交际', '完形填空', '阅读理解'],
+    biology: ['细胞结构', '光合作用', '呼吸作用', '遗传规律', '生态系统'],
+    geography: ['中国的地理位置', '中国的地形', '中国的气候', '中国的人口', '地球的运动'],
+    physics: ['力学基础', '电学基础', '光学', '热学', '运动和力', '压强'],
+    chemistry: ['空气和氧气', '水和溶液', '碳和碳的氧化物', '金属和金属材料', '酸碱盐'],
+    history: ['中国古代史', '中国近代史', '中国现代史', '世界古代史', '改革与革命'],
+    politics: ['道德与法治', '宪法与法律', '公民权利', '国家制度', '经济制度']
+  };
+  return defaultKpMap[subject] || [];
+}
 
 /**
  * 统一选项格式
@@ -162,6 +196,17 @@ function getSteps(options, task = {}) {
   const { generateAi } = options;
   const { type } = task;
 
+  // 深度测评类型：不需要创建 assessment 记录，题目直接返回
+  if (type === 'extended_assessment') {
+    console.log(`[getSteps] Using extended_assessment workflow (no CreateAssessmentStep)`);
+    return [
+      new InitStateStep(),
+      new GenerateStep(generateAi),
+      new SaveQuestionsStep(),      // 保存到题库
+      new CompleteStep({ dependencies: [] })  // 不依赖 CreateAssessment
+    ];
+  }
+
   // 亲子测评类型：不需要创建 assessment 记录，题目直接返回
   if (type === 'parent_assessment' || type === 'child_assessment') {
     console.log(`[getSteps] Using ${type} workflow (no CreateAssessmentStep)`);
@@ -208,6 +253,24 @@ async function processTask(db, task, options = {}) {
   try {
     console.log(`[processTask] START task:${task._id} type:${task.type || 'default'} student:${task.student_id} subject:${task.subject} num:${task.num_questions}`);
 
+    // 科目-年级兼容性验证（防止二年级化学等无效组合）
+    if (task.subject && task.grade) {
+      const validation = validateSubjectGrade(task.subject, task.grade);
+      if (!validation.valid) {
+        console.warn(`[processTask] INCOMPATIBLE subject-grade: ${task.subject}/${task.grade} - ${validation.error}`);
+        // 更新为failed状态
+        await updateQueueStatus(db, task._id, 'failed', {
+          error: validation.error,
+          failure_reason: 'incompatible_subject_grade'
+        });
+        return {
+          success: false,
+          cancelled: true,
+          reason: validation.error
+        };
+      }
+    }
+
     // 使用工作流引擎执行，带超时保护
     // 根据任务类型选择不同的工作流步骤
     const workflow = new TaskWorkflow(getSteps({ generateAi }, task));
@@ -224,6 +287,15 @@ async function processTask(db, task, options = {}) {
 
       const duration = Date.now() - startTime;
       console.log(`[processTask] SUCCESS task:${task._id} questions:${questionIds.length} duration:${duration}ms`);
+
+      // 深度测评：不需要 assessment_id，返回 question_ids
+      if (task.type === 'extended_assessment') {
+        return {
+          success: true,
+          question_ids: questionIds,
+          questions_count: questionIds.length
+        };
+      }
 
       // 对于亲子测评，不需要 assessment_id
       if (task.type === 'parent_assessment') {
@@ -257,6 +329,10 @@ async function processTask(db, task, options = {}) {
     // 失败情况
     const duration = Date.now() - startTime;
     console.error(`[processTask] FAILED task:${task._id} duration:${duration}ms error:`, result.error?.message);
+
+    if (task.type === 'extended_assessment') {
+      await cleanupPartialQuestionsByTask(db, task._id);
+    }
 
     // 更新为failed状态
     await updateQueueStatus(db, task._id, 'failed', {
@@ -333,6 +409,7 @@ async function generateAi(task, difficulty, count) {
     // 至少生成2道AI题目（如果count < 2则取count）
     const minAiCount = Math.min(2, count);
     const poolCount = count - minAiCount;  // 从题池取的数量
+    const normalizedGrade = normalizeGrade(task.grade);
 
     console.log(`[generateAi] MIXED STRATEGY: ${minAiCount} AI + ${poolCount} pool (total: ${count})`);
 
@@ -341,9 +418,8 @@ async function generateAi(task, difficulty, count) {
     try {
       // 修复：添加 grade 过滤，避免低年级出现高年级题目
       const poolQuery = { difficulty: difficulty, subject: task.subject };
-      if (task.grade) {
-        poolQuery.grade = String(task.grade);
-      }
+      // 必须使用数字格式的 grade（数据库存储格式）
+      poolQuery.grade = normalizedGrade;
 
       // 先获取题池中符合条件的题目总数，count 和 get 必须使用同一过滤条件
       const countResult = await db.collection('ai_question_pool')
@@ -409,56 +485,184 @@ async function generateAi(task, difficulty, count) {
 
     const difficultyText = { easy: '简单', medium: '中等', hard: '困难' }[difficulty] || '中等';
     // 年级文本：支持数字和中文两种格式
-    const normalizedGrade = normalizeGrade(task.grade);
     const gradeText = normalizedGrade + '年级';
     const subjectText = { math: '数学', biology: '生物', geography: '地理', chinese: '语文', english: '英语', physics: '物理', chemistry: '化学', history: '历史', politics: '政治' }[task.subject] || task.subject || '数学';
-    // 根据年级动态选择知识点（之前硬编码8年级知识点导致低年级出现高中题目）
-    const gradeKpMap = {
-      '1': { math: ['10以内加减法', '20以内加减法', '认识图形', '认识钟表', '分类与整理', '100以内数的认识', '认识人民币', '比较大小'] },
-      '2': { math: ['乘法口诀', '100以内加减法', '长度单位', '认识角', '表内乘法', '表内除法', '克和千克', '统计'] },
-      '3': { math: ['除法初步', '万以内的加减法', '有余数的除法', '多位数乘一位数', '分数初步', '面积', '认识小数'] },
-      '4': { math: ['四则运算', '运算定律', '小数的意义和性质', '三角形', '小数的加减法', '平均数与条形统计图', '位置与方向'] },
-      '5': { math: ['小数乘除法', '简易方程', '多边形的面积', '因数与倍数', '分数的意义和性质', '分数加减法'] },
-      '6': { math: ['分数乘除法', '比的认识', '圆', '百分数', '负数的认识', '比例', '圆柱与圆锥'] },
-      '7': { math: ['有理数', '整式的加减', '一元一次方程', '几何图形初步', '相交线与平行线', '实数', '平面直角坐标系', '二元一次方程组'] },
-      '8': { math: ['一次函数', '勾股定理', '平行四边形', '数据的分析', '全等三角形', '轴对称', '整式的乘法', '分式'] },
-      '9': { math: ['二次根式', '一元二次方程', '旋转', '圆', '概率', '反比例函数', '相似三角形', '锐角三角函数'] },
-    };
-    const defaultKpMap = {
-      biology: ['细胞结构', '光合作用', '呼吸作用', '遗传规律', '生态系统', '血液循环', '神经调节', '免疫与健康'],
-      geography: ['中国的地理位置', '中国的地形', '中国的气候', '中国的人口', '地球的运动', '大洲和大洋'],
-      chinese: ['阅读理解', '古诗文', '词语运用', '病句修改', '修辞手法', '写作技巧'],
-      english: ['词汇辨析', '时态语态', '情景交际', '完形填空', '阅读理解'],
-      physics: ['力学基础', '电学基础', '光学', '热学', '运动和力', '压强', '浮力', '简单机械'],
-      chemistry: ['空气和氧气', '水和溶液', '碳和碳的氧化物', '金属和金属材料', '酸碱盐', '化学方程式'],
-      history: ['中国古代史', '中国近代史', '中国现代史', '世界古代史', '改革与革命'],
-      politics: ['道德与法治', '宪法与法律', '公民权利', '国家制度', '经济制度']
-    };
-    const gradeKps = gradeKpMap[normalizedGrade] && gradeKpMap[normalizedGrade][task.subject];
-    const kpList = gradeKps || defaultKpMap[task.subject] || gradeKpMap['8'].math;
 
+    // 优先使用 task 中的目标知识点（综合测评/练习模式）
+    let targetKpNames = [];
+    let practiceContextText = '';
+    let huikaoContextText = '';
+
+    // 1. 优先使用 task.target_kps
+    if (task.target_kps && task.target_kps.length > 0) {
+      targetKpNames = task.target_kps.map(kp => kp.kp_name).filter(Boolean);
+      console.log(`[generateAi] Using task.target_kps: ${targetKpNames.length} items`);
+    }
+
+    // 2. 练习模式：使用 task.kp_name 或 task.knowledge_point_id
+    if (task.mode === 'practice' && targetKpNames.length === 0) {
+      if (task.kp_name) {
+        targetKpNames = [task.kp_name];
+      } else if (task.knowledge_point_id) {
+        targetKpNames = [task.knowledge_point_id];
+      }
+      
+      // 构建练习上下文
+      if (task.student_profile || task.weak_points) {
+        const profileParts = [];
+        if (task.kp_name) profileParts.push(`当前练习知识点：${task.kp_name}`);
+        if (task.weak_points && task.weak_points.length > 0) {
+          profileParts.push(`薄弱知识点：${task.weak_points.slice(0, 5).join('、')}`);
+        }
+        if (task.student_profile) {
+          const profile = task.student_profile;
+          if (profile.error_patterns && profile.error_patterns.length > 0) {
+            profileParts.push(`错误模式：${profile.error_patterns.slice(0, 5).join('、')}`);
+          }
+          if (profile.preferred_difficulty) {
+            profileParts.push(`建议难度：${profile.preferred_difficulty}`);
+          }
+        }
+        if (profileParts.length > 0) {
+          practiceContextText = `\n\n学生画像摘要：\n${profileParts.join('\n')}\n要求：围绕目标知识点生成，不要扩展到其他章节。`;
+        }
+      }
+      console.log(`[generateAi] Practice mode, target: ${targetKpNames.join(', ')}`);
+    }
+
+    // 3. 综合测评模式：使用 task.question_plan 或 fallback 到 loadHuikaoTree
+    if (task.mode === 'huikao' && targetKpNames.length === 0) {
+      // 从 question_plan 中提取当前难度的知识点
+      if (task.question_plan && task.question_plan.length > 0) {
+        const planForDifficulty = task.question_plan
+          .filter(p => p.difficulty === difficulty || !p.difficulty)
+          .map(p => p.kp_name)
+          .filter(Boolean);
+        if (planForDifficulty.length > 0) {
+          targetKpNames = planForDifficulty;
+        }
+      }
+      
+      // fallback 到 loadHuikaoTree
+      if (targetKpNames.length === 0) {
+        const { loadHuikaoTree } = require('./shared/knowledge_tree');
+        const huikaoTree = loadHuikaoTree(task.subject);
+        if (huikaoTree && huikaoTree.chapters) {
+          for (const chapter of huikaoTree.chapters) {
+            if (chapter.knowledge_points) {
+              for (const kp of chapter.knowledge_points) {
+                targetKpNames.push(kp.name || kp.kp_name);
+              }
+            }
+          }
+        }
+      }
+      
+      const gradeRange = task.grade_range || ['7', '8'];
+      huikaoContextText = `\n\n出题模式：综合测评\n年级范围：${gradeRange.join('、')}年级\n要求：覆盖综合测评范围内的知识点。`;
+      console.log(`[generateAi] Huikao mode, target: ${targetKpNames.length} kps`);
+    }
+
+    // 4. 普通 fallback：使用 task.question_plan 或 loadKnowledgeTree
+    if (targetKpNames.length === 0) {
+      // 从 question_plan 中提取
+      if (task.question_plan && task.question_plan.length > 0) {
+        targetKpNames = task.question_plan.map(p => p.kp_name).filter(Boolean);
+      }
+      
+      // fallback 到 loadKnowledgeTree
+      if (targetKpNames.length === 0) {
+        const semester = task.semester || '下';
+        const tree = loadKnowledgeTree(task.subject, normalizedGrade, semester);
+        if (tree && tree.chapters) {
+          for (const chapter of tree.chapters) {
+            if (chapter.knowledge_points) {
+              for (const kp of chapter.knowledge_points) {
+                targetKpNames.push(kp.name || kp.kp_name);
+              }
+            }
+          }
+        }
+      }
+      
+      // 最后 fallback 到默认知识点
+      if (targetKpNames.length === 0) {
+        targetKpNames = getDefaultKpList(task.subject, normalizedGrade);
+      }
+      console.log(`[generateAi] Fallback mode, target: ${targetKpNames.length} kps`);
+    }
 
     // 排除已有题目的知识点（避免重复）
     const existingKps = allQuestions.map(q => q.knowledge_point);
-    const availableKps = kpList.filter(kp => !existingKps.includes(kp));
-    const targetKps = availableKps.length >= actualAiNeeded ? availableKps.slice(0, actualAiNeeded) : kpList;
+    const availableKps = targetKpNames.filter(kp => !existingKps.includes(kp));
+    const finalTargetKps = availableKps.length >= actualAiNeeded ? availableKps.slice(0, actualAiNeeded) : targetKpNames;
 
-    const prompt = `请为${gradeText}${subjectText}生成${actualAiNeeded}道${difficultyText}难度的选择题。
+    // 获取难度指导（使用学段/学科感知版本）
+    const difficultyGuidance = getDifficultyGuidance({
+      difficulty,
+      grade: task.grade,
+      subject: task.subject,
+      mode: task.mode
+    });
 
-知识点覆盖（均匀分布）：${targetKps.join('、')}
+    // 构建出题模式文本
+    const modeText = task.mode === 'huikao' ? '综合测评' : task.mode === 'practice' ? '练习' : '测评';
+    const gradeScopeText = task.mode === 'huikao' 
+      ? `${(task.grade_range || ['7', '8']).join('、')}年级综合测评范围`
+      : gradeText;
+
+    // 构建知识点引导文本（从知识点数据中提取详细信息）
+    const kpGuidance = finalTargetKps.map((kp, i) => {
+      const kpNum = i + 1;
+      // 尝试从 task.question_plan 或 task.target_kps 中获取详细信息
+      let kpDetail = '';
+      const kpInfo = (task.question_plan || task.target_kps || []).find(p => 
+        (p.kp_name || p.name) === kp
+      );
+      if (kpInfo) {
+        const subTopics = kpInfo.sub_topics || [];
+        const typicalQuestions = kpInfo.typical_questions || [];
+        if (subTopics.length > 0 || typicalQuestions.length > 0) {
+          kpDetail = `（子主题：${subTopics.join('、')}；出题类型：${typicalQuestions.join('、')}）`;
+        }
+      }
+      return `  ${kpNum}. ${kp}${kpDetail} — 围绕此知识点出题，不要扩展到其他内容`;
+    }).join('\n');
+
+    const prompt = `请为${gradeScopeText}${subjectText}生成${actualAiNeeded}道${difficultyText}难度的选择题。
+
+【核心要求】严格按照以下知识点出题，每个知识点必须覆盖到：
+${kpGuidance}
+
+【出题范围】你只能从上述知识点中出题，不要扩展到其他知识点。
+${difficultyGuidance}
 
 要求：
 1. **必须是选择题**，每题恰好4个选项，仅1个正确答案
-2. 不要生成填空题、计算题、解答题等非选择题
-3. 选项长度均衡，正确选项不要比干扰项更长
-4. 提供简短解析
-5. 题目之间不要重复或高度相似
+2. **每道题必须明确标注它考查的知识点**
+3. 不要生成填空题、计算题、解答题等非选择题
+4. **选项长度均衡**：所有选项长度应大致相同
+5. 所有选项应具有合理的迷惑性
+6. 提供详细解析
+7. 题目之间不要重复
 
-返回JSON数组格式（不要添加其他文字）：
+返回JSON数组格式：
 [
-  {"question":"题目文本","options":["A","B","C","D"],"correct_answer":0,"explanation":"解析","knowledge_point":"知识点"},
+  {"question":"题目文本","options":["A","B","C","D"],"correct_answer":0,"explanation":"解析","knowledge_point":"考查的知识点名称"},
   ...
 ]`;
+
+    // ===== LLM 调用追踪 =====
+    console.log(`[LLM-TRACE] ===== 调用开始 =====`);
+    console.log(`[LLM-TRACE] task._id: ${task._id}`);
+    console.log(`[LLM-TRACE] 科目: ${task.subject}, 年级: ${task.grade}, 难度: ${difficulty}`);
+    console.log(`[LLM-TRACE] 目标知识点: ${finalTargetKps.join('、')}`);
+    console.log(`[LLM-TRACE] 目标题数: ${actualAiNeeded}`);
+    console.log(`[LLM-TRACE] Provider: DeepSeek`);
+    console.log(`[LLM-TRACE] Model: ${model}`);
+    console.log(`[LLM-TRACE] ===== PROMPT =====`);
+    console.log(prompt);
+    console.log(`[LLM-TRACE] ===== END PROMPT =====`);
 
     console.log(`[generateAi] Calling DeepSeek API for ${actualAiNeeded} questions...`);
     const fetchStart = Date.now();
@@ -501,10 +705,14 @@ async function generateAi(task, difficulty, count) {
 
     if (!content) {
       console.error('[generateAi] Empty response from API');
+      console.log(`[LLM-TRACE] ===== 调用失败: 空响应 =====`);
       return allQuestions;
     }
 
     console.log(`[generateAi] Response length: ${content.length} chars`);
+    console.log(`[LLM-TRACE] ===== LLM RESPONSE =====`);
+    console.log(content.substring(0, 2000)); // 截断避免日志过大
+    console.log(`[LLM-TRACE] ===== END RESPONSE =====`);
 
     // 解析 JSON 数组
     let questions;
@@ -534,7 +742,7 @@ async function generateAi(task, difficulty, count) {
       content: q.question,
       options: q.options || [],
       correct_answer: q.correct_answer,
-      knowledge_point: q.knowledge_point || targetKps[i % targetKps.length],
+      knowledge_point: q.knowledge_point || finalTargetKps[i % finalTargetKps.length],
       knowledge_point_id: 'unknown',
       difficulty: difficulty,
       explanation: q.explanation || '',
@@ -544,6 +752,15 @@ async function generateAi(task, difficulty, count) {
     }));
 
     allQuestions.push(...aiQuestions);
+
+    // ===== LLM 调用追踪：解析结果 =====
+    console.log(`[LLM-TRACE] ===== 解析结果 =====`);
+    console.log(`[LLM-TRACE] AI生成题目数: ${aiQuestions.length}`);
+    aiQuestions.forEach((q, i) => {
+      console.log(`[LLM-TRACE] 题目${i+1}: ${q.content?.substring(0, 50)}...`);
+      console.log(`[LLM-TRACE]   知识点: ${q.knowledge_point}, 难度: ${q.difficulty}`);
+    });
+    console.log(`[LLM-TRACE] ===== 调用结束 =====`);
 
     // 去重：根据题目内容去除重复题
     const seen = new Set();
@@ -849,5 +1066,6 @@ Object.assign(exports, {
   cleanupPartialQuestionsByTask,
   generateQuestionsForTask,  // 从独立模块导入
   processTask,
-  cleanupStuckTasks
+  cleanupStuckTasks,
+  getSteps  // 导出 getSteps 供测试
 });

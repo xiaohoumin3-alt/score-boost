@@ -1,0 +1,131 @@
+{
+  "subject": "英语",
+  "grade": "1",
+  "semester": "上册",
+  "version": "人教版",
+  "chapters": [
+    {
+      "chapter_name": "第一单元 问候与介绍",
+      "knowledge_points": [
+        {
+          "id": "english-grade1-up-1-1",
+          "name": "Hello与Goodbye",
+          "sub_topics": [
+            "问候用语",
+            "自我介绍",
+            "告别用语"
+          ],
+          "typical_questions": [
+            "选择题",
+            "情景交际"
+          ],
+          "difficulty_weight": {
+            "easy": 0.8,
+            "medium": 0.2,
+            "hard": 0
+          }
+        },
+        {
+          "id": "english-grade1-up-1-2",
+          "name": "认识26个字母",
+          "sub_topics": [
+            "字母认读",
+            "字母书写",
+            "字母发音"
+          ],
+          "typical_questions": [
+            "选择题",
+            "书写题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.7,
+            "medium": 0.3,
+            "hard": 0
+          }
+        }
+      ]
+    },
+    {
+      "chapter_name": "第二单元 颜色与数字",
+      "knowledge_points": [
+        {
+          "id": "english-grade1-up-2-1",
+          "name": "颜色单词",
+          "sub_topics": [
+            "基本颜色",
+            "颜色问答",
+            "颜色描述"
+          ],
+          "typical_questions": [
+            "选择题",
+            "连线题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.8,
+            "medium": 0.2,
+            "hard": 0
+          }
+        },
+        {
+          "id": "english-grade1-up-2-2",
+          "name": "数字1-10",
+          "sub_topics": [
+            "数字认读",
+            "数数",
+            "简单计算"
+          ],
+          "typical_questions": [
+            "选择题",
+            "填空题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.7,
+            "medium": 0.3,
+            "hard": 0
+          }
+        }
+      ]
+    },
+    {
+      "chapter_name": "第三单元 家庭与身体",
+      "knowledge_points": [
+        {
+          "id": "english-grade1-up-3-1",
+          "name": "家庭成员",
+          "sub_topics": [
+            "父亲母亲",
+            "兄弟姐妹",
+            "祖父母"
+          ],
+          "typical_questions": [
+            "选择题",
+            "情景题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.8,
+            "medium": 0.2,
+            "hard": 0
+          }
+        },
+        {
+          "id": "english-grade1-up-3-2",
+          "name": "身体部位",
+          "sub_topics": [
+            "头脸五官",
+            "四肢身体",
+            "身体动作"
+          ],
+          "typical_questions": [
+            "选择题",
+            "指认题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.7,
+            "medium": 0.3,
+            "hard": 0
+          }
+        }
+      ]
+    }
+  ]
+}

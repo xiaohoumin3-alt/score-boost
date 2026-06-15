@@ -1,0 +1,136 @@
+<!--assessment-depth.wxml - 深度测评页面-->
+<view class="page">
+  <!-- Loading -->
+  <view wx:if="{{status === 'loading'}}" class="loading">
+    <view class="loading-spinner"></view>
+    <text class="loading-text">正在准备测评...</text>
+  </view>
+
+  <!-- Error -->
+  <view wx:elif="{{status === 'error'}}" class="error">
+    <text class="error-text">{{errorMessage || '出错了'}}</text>
+    <button class="retry-btn" bindtap="onRetry">重试</button>
+  </view>
+
+  <!-- Queued -->
+  <view wx:elif="{{status === 'queued'}}" class="loading queued-state">
+    <view class="loading-spinner"></view>
+    <text class="queued-title">正在为你生成深度测评题目...</text>
+    <text class="loading-text queued-message">{{queueMessage || '题目生成中，请稍候...'}}</text>
+    <text class="queued-tip">预计需要 10-30 秒</text>
+  </view>
+
+  <!-- 答题阶段 -->
+  <block wx:elif="{{status === 'ready' || status === 'submitting'}}">
+    <!-- 精度仪表盘 -->
+    <view class="accuracy-meter" wx:if="{{accuracyMeter}}">
+      <view class="meter-header">
+        <text class="meter-label">当前精度</text>
+        <text class="meter-value">{{accuracyMeter.current}}%</text>
+      </view>
+      <view class="meter-bar">
+        <view class="meter-fill" style="width: {{accuracyMeter.progress}}%; background: {{accuracyMeter.color}}"></view>
+      </view>
+      <view class="meter-footer">
+        <text class="meter-target">目标: {{accuracyMeter.target}}%</text>
+        <text class="meter-status">{{accuracyMeter.status}}</text>
+      </view>
+    </view>
+
+    <!-- 进度信息 -->
+    <view class="progress-info" wx:if="{{progress}}">
+      <text class="progress-text">第 {{progress.current_question}} / ~{{progress.estimated_total}} 题</text>
+      <text class="progress-phase">{{phase === 'first' ? '快速测评' : '深度测评'}}</text>
+    </view>
+
+    <!-- 题目卡片 -->
+    <view class="question-card" wx:if="{{currentQuestion}}">
+      <view class="question-number">第 {{currentIndex + 1}} 题</view>
+      <view class="question-content">{{currentQuestion.content}}</view>
+      <view class="options">
+        <view
+          wx:for="{{currentOptions}}"
+          wx:key="label"
+          class="option {{item.selected ? 'selected' : ''}}"
+          data-option="{{item.label}}"
+          bindtap="onAnswerSelect"
+          data-question-index="{{currentIndex}}"
+        >
+          <text class="option-label">{{item.label}}</text>
+          <text class="option-text">{{item.text}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- Phase 1 完成建议卡片 -->
+    <view class="recommendation-card" wx:if="{{phase1Completed && extensionRecommendation}}">
+      <view class="rec-header">测评分析</view>
+      <view class="rec-body">
+        <text wx:if="{{extensionRecommendation.should_extend}}">
+          建议继续答题 {{extensionRecommendation.estimated_questions}} 道，可提升至目标精度
+        </text>
+        <text wx:else>
+          已达到目标精度，可以查看结果
+        </text>
+      </view>
+      <view class="rec-actions">
+        <button wx:if="{{extensionRecommendation.should_extend}}" class="btn-continue" bindtap="onContinueAssessment">
+          继续测评
+        </button>
+        <button class="btn-finish" bindtap="onCompleteAssessment">查看结果</button>
+      </view>
+    </view>
+
+    <!-- 提交按钮 -->
+    <view class="submit-area" wx:if="{{!phase1Completed}}">
+      <button
+        class="submit-btn"
+        bindtap="onSubmitPhase1"
+        disabled="{{status === 'submitting'}}"
+      >
+        {{status === 'submitting' ? '提交中...' : '提交答案'}}
+      </button>
+    </view>
+    <view class="submit-area" wx:if="{{phase === 'second'}}">
+      <button
+        class="submit-btn"
+        bindtap="onSubmitPhase2"
+        disabled="{{status === 'submitting'}}"
+      >
+        {{status === 'submitting' ? '提交中...' : '提交本题'}}
+      </button>
+    </view>
+  </block>
+
+  <!-- 最终结果 -->
+  <view class="result-page" wx:if="{{showResult && finalResult}}">
+    <view class="result-header">测评完成</view>
+
+    <view class="score-card">
+      <text class="score-label">最终得分</text>
+      <text class="score-value">{{finalResult.final_score}}</text>
+      <text class="score-se">标准误差: ±{{finalResult.final_se}}</text>
+    </view>
+
+    <view class="confidence-card" wx:if="{{finalResult.confidence_interval}}">
+      <text class="ci-label">95% 置信区间</text>
+      <text class="ci-range">
+        {{finalResult.confidence_interval.lower}} - {{finalResult.confidence_interval.upper}}
+      </text>
+    </view>
+
+    <view class="report-card" wx:if="{{finalResult.detailed_report}}">
+      <text class="report-title">详细报告</text>
+      <view class="report-item">
+        <text>总题数: {{finalResult.detailed_report.total_questions}}</text>
+        <text>正确: {{finalResult.detailed_report.correct_count}}</text>
+        <text>扩展题: {{finalResult.detailed_report.extended_questions}}</text>
+      </view>
+      <view class="report-item" wx:if="{{finalResult.detailed_report.improvement_suggestion}}">
+        <text class="suggestion">{{finalResult.detailed_report.improvement_suggestion}}</text>
+      </view>
+    </view>
+
+    <button class="btn-home" bindtap="onRetry">重新测评</button>
+  </view>
+</view>

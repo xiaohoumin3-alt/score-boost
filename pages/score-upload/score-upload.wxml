@@ -1,0 +1,100 @@
+<view class="page">
+  <view class="header">
+    <text class="title">上传真实成绩</text>
+    <text class="subtitle">帮助我们校准预估模型，让分数更准确</text>
+  </view>
+
+  <!-- 科目选择 -->
+  <view class="section">
+    <text class="label">选择科目</text>
+    <view class="chip-grid">
+      <view
+        class="chip {{selectedSubject === item.id ? 'active' : ''}}"
+        wx:for="{{subjects}}"
+        wx:key="id"
+        bindtap="selectSubject"
+        data-subject="{{item.id}}">
+        <text class="chip-icon">{{item.icon}}</text>
+        <text>{{item.name}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 年级选择 -->
+  <view class="section">
+    <text class="label">选择年级</text>
+    <view class="chip-grid">
+      <view
+        class="chip {{selectedGrade === '7' ? 'active' : ''}}"
+        bindtap="selectGrade"
+        data-grade="7">
+        <text>七年级</text>
+      </view>
+      <view
+        class="chip {{selectedGrade === '8' ? 'active' : ''}}"
+        bindtap="selectGrade"
+        data-grade="8">
+        <text>八年级</text>
+      </view>
+      <view
+        class="chip {{selectedGrade === '9' ? 'active' : ''}}"
+        bindtap="selectGrade"
+        data-grade="9">
+        <text>九年级</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 考试类型 -->
+  <view class="section">
+    <text class="label">考试类型</text>
+    <view class="chip-grid">
+      <view
+        class="chip {{examType === 'midterm' ? 'active' : ''}}"
+        bindtap="selectExamType"
+        data-type="midterm">
+        <text>期中考试</text>
+      </view>
+      <view
+        class="chip {{examType === 'final' ? 'active' : ''}}"
+        bindtap="selectExamType"
+        data-type="final">
+        <text>期末考试</text>
+      </view>
+      <view
+        class="chip {{examType === 'mock' ? 'active' : ''}}"
+        bindtap="selectExamType"
+        data-type="mock">
+        <text>模拟考试</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 分数输入 -->
+  <view class="section">
+    <text class="label">输入分数</text>
+    <input
+      class="score-input"
+      type="number"
+      placeholder="请输入你的分数"
+      value="{{examScore}}"
+      bindinput="onScoreInput"
+    />
+  </view>
+
+  <!-- 提交按钮 -->
+  <button
+    class="submit-btn"
+    bindtap="submit"
+    disabled="{{submitting}}"
+    loading="{{submitting}}">
+    {{submitting ? '提交中...' : '提交成绩'}}
+  </button>
+
+  <!-- 提示信息 -->
+  <view class="tips">
+    <text class="tip-title">为什么需要真实成绩？</text>
+    <text class="tip-content">通过对比预估分数和真实分数，我们可以不断校准模型，让预估更准确。</text>
+    <text class="tip-content">你的成绩数据仅用于模型校准，不会公开显示。</text>
+  </view>
+</view>

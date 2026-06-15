@@ -84,12 +84,12 @@ exports.main = async (event, context) => {
     const grade = gradeMap[rawGrade] || String(rawGrade);
     const semesterMap = { '上': 'up', '下': 'down', up: 'up', down: 'down' };
     const semester = semesterMap[params.semester] || params.semester || 'down';
-    const mode = params.mode || 'pre_test';
+    let mode = params.mode || 'pre_test';
     const numQuestions = parseInt(params.num_questions || params.numQuestions || 20);
     const forceSync = params.force_sync === true;
     const studentId = wxContext.OPENID;
 
-    // 会考模式默认50题
+    // 综合测评模式默认50题
     const finalNumQuestions = mode === 'huikao' ? parseInt(params.num_questions || 50) : numQuestions;
 
     console.log('[startAssessment] 最终参数:', { rawSubject, subject, grade, semester, mode, finalNumQuestions });
@@ -98,7 +98,7 @@ exports.main = async (event, context) => {
     const SUBJECT_GRADE_MATRIX = {
       'math': { min: 1, max: 9 },
       'chinese': { min: 1, max: 9 },
-      'english': { min: 1, max: 6 },
+      'english': { min: 1, max: 9 },
       'biology': { min: 7, max: 8 },
       'geography': { min: 7, max: 8 },
       'history': { min: 7, max: 9 },
@@ -133,6 +133,8 @@ exports.main = async (event, context) => {
     const db = cloud.database();  // 提前声明db供整个函数使用
 
     if (mode === 'retest') {
+      console.log('[startAssessment] retest查询条件:', { openid, status: 'completed', subject, grade });
+      
       const { data: previousAssessments } = await db.collection('assessments')
         .where({
           openid: openid,
@@ -144,16 +146,41 @@ exports.main = async (event, context) => {
         .limit(1)
         .get();
 
-      if (previousAssessments.length === 0) {
-        return {
-          success: false,
-          error: '无测评历史，无法进行复测'
-        };
+      console.log('[startAssessment] retest查询结果:', previousAssessments.length, '条');
+      if (previousAssessments.length > 0) {
+        console.log('[startAssessment] 找到assessment:', {
+          assessment_id: previousAssessments[0].assessment_id,
+          grade: previousAssessments[0].grade,
+          subject: previousAssessments[0].subject,
+          status: previousAssessments[0].status
+        });
       }
 
-      const lastAssessment = previousAssessments[0];
-      // 从测评结果中获取分数
-      previousScore = lastAssessment.score_percent || lastAssessment.total_correct || 0;
+      // 诊断：如果没找到，查询该用户所有 assessment
+      if (previousAssessments.length === 0) {
+        const allAssessments = await db.collection('assessments')
+          .where({ openid: openid })
+          .orderBy('created_at', 'desc')
+          .limit(5)
+          .get();
+        console.log('[startAssessment] 该用户所有assessment:', allAssessments.data.map(a => ({
+          assessment_id: a.assessment_id,
+          grade: a.grade,
+          gradeType: typeof a.grade,
+          subject: a.subject,
+          status: a.status
+        })));
+      }
+
+      if (previousAssessments.length === 0) {
+        // 复测但无历史：不报错，继续创建新测评（与普通测评一样）
+        console.log('[startAssessment] 无测评历史，按普通模式创建新测评');
+        mode = 'quick';  // 降级为普通模式
+      } else {
+        const lastAssessment = previousAssessments[0];
+        // 从测评结果中获取分数
+        previousScore = lastAssessment.score_percent || lastAssessment.total_correct || 0;
+      }
     }
 
     // 计算复测难度分布（基于服务端查询的真实成绩）
@@ -181,15 +208,17 @@ exports.main = async (event, context) => {
 
     const assessmentId = generateUUID();
 
-    // 加载知识树：会考模式使用跨年级合并
+    // 加载知识树：综合测评模式使用跨年级合并
     let tree;
     let plan;
     if (mode === 'huikao') {
-      tree = loadHuikaoTree(subject);
+      const gradeRange = params.grade_range || ['7', '8'];
+      tree = loadHuikaoTree(subject, gradeRange);
       console.log('[startAssessment] Loaded huikao tree:', {
         subject: tree.subject,
         mode: tree.mode,
         grade: tree.grade,
+        grade_range: tree.grade_range,
         chapterCount: tree.chapters?.length || 0
       });
       plan = generateHuikaoPlan(tree, finalNumQuestions);
@@ -423,14 +452,46 @@ exports.main = async (event, context) => {
     if (questions.length < finalNumQuestions && !forceSync) {
       console.log('[startAssessment] Questions insufficient, creating queue task');
 
+      // 构建计划快照，用于 worker 使用
+      const questionPlanSnapshot = (Array.isArray(plan) ? plan : [])
+        .filter(item => item && item.kp)
+        .map(item => ({
+          kp_id: item.kp.kp_id || item.kp.id,
+          kp_name: item.kp.kp_name || item.kp.name,
+          chapter_id: item.kp.chapter_id,
+          chapter_name: item.kp.chapter_name,
+          grade: item.kp.grade || grade,
+          semester: item.kp.semester || semester,
+          difficulty: item.difficulty || 'medium'
+        }))
+        .filter(item => item.kp_name);
+
+      // 练习模式透传画像和目标知识点
+      const practicePayload = mode === 'practice' ? {
+        knowledge_point_id: params.knowledge_point_id || params.kp_id,
+        kp_name: params.kp_name,
+        student_profile: params.student_profile,
+        weak_points: params.weak_points
+      } : {};
+
       const queueResult = await createQueueTask(db, {
         student_id: studentId,
         subject,
         grade,
-        semester,
+        semester: mode === 'huikao' ? 'all' : semester,
+        grade_range: mode === 'huikao' ? (tree.grade_range || ['7', '8']) : undefined,
         mode,
         num_questions: finalNumQuestions,
-        difficulty_distribution: difficultyDistribution
+        difficulty_distribution: difficultyDistribution,
+        question_plan: questionPlanSnapshot,
+        target_kps: questionPlanSnapshot.map(p => ({
+          kp_id: p.kp_id,
+          kp_name: p.kp_name,
+          chapter_name: p.chapter_name,
+          grade: p.grade,
+          semester: p.semester
+        })),
+        ...practicePayload
       });
 
       if (queueResult.success) {
@@ -456,14 +517,47 @@ exports.main = async (event, context) => {
     // force_sync 模式下题目不足时：创建队列任务（统一走 path A）
     if (questions.length < finalNumQuestions && forceSync) {
       console.log('[startAssessment] force_sync mode, creating queue task for remaining questions');
+      
+      // 构建计划快照
+      const questionPlanSnapshot2 = (Array.isArray(plan) ? plan : [])
+        .filter(item => item && item.kp)
+        .map(item => ({
+          kp_id: item.kp.kp_id || item.kp.id,
+          kp_name: item.kp.kp_name || item.kp.name,
+          chapter_id: item.kp.chapter_id,
+          chapter_name: item.kp.chapter_name,
+          grade: item.kp.grade || grade,
+          semester: item.kp.semester || semester,
+          difficulty: item.difficulty || 'medium'
+        }))
+        .filter(item => item.kp_name);
+
+      // 练习模式透传画像和目标知识点
+      const practicePayload2 = mode === 'practice' ? {
+        knowledge_point_id: params.knowledge_point_id || params.kp_id,
+        kp_name: params.kp_name,
+        student_profile: params.student_profile,
+        weak_points: params.weak_points
+      } : {};
+
       const queueResult = await createQueueTask(db, {
         student_id: studentId,
         subject,
         grade,
-        semester,
+        semester: mode === 'huikao' ? 'all' : semester,
+        grade_range: mode === 'huikao' ? (tree.grade_range || ['7', '8']) : undefined,
         mode,
         num_questions: finalNumQuestions,
-        difficulty_distribution: difficultyDistribution
+        difficulty_distribution: difficultyDistribution,
+        question_plan: questionPlanSnapshot2,
+        target_kps: questionPlanSnapshot2.map(p => ({
+          kp_id: p.kp_id,
+          kp_name: p.kp_name,
+          chapter_name: p.chapter_name,
+          grade: p.grade,
+          semester: p.semester
+        })),
+        ...practicePayload2
       });
 
       if (queueResult.success) {
@@ -504,8 +598,6 @@ exports.main = async (event, context) => {
         knowledge_point: q.knowledge_point,
         knowledge_point_id: q.knowledge_point_id,
         difficulty: q.difficulty,
-        correct_answer: q.correct_answer,
-        explanation: q.explanation,
       })),
       time_limit_minutes: mode === 'huikao' ? 60 : (mode === 'pre_test' ? 45 : 30),
     };

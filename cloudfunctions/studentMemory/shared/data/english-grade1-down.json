@@ -1,0 +1,131 @@
+{
+  "subject": "英语",
+  "grade": "1",
+  "semester": "下册",
+  "version": "人教版",
+  "chapters": [
+    {
+      "chapter_name": "第一单元 食物与饮料",
+      "knowledge_points": [
+        {
+          "id": "english-grade1-down-1-1",
+          "name": "常见食物",
+          "sub_topics": [
+            "水果",
+            "零食",
+            "饮料"
+          ],
+          "typical_questions": [
+            "选择题",
+            "配对题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.8,
+            "medium": 0.2,
+            "hard": 0
+          }
+        },
+        {
+          "id": "english-grade1-down-1-2",
+          "name": "饮食表达",
+          "sub_topics": [
+            "喜欢表达",
+            "询问喜好",
+            "礼貌用语"
+          ],
+          "typical_questions": [
+            "选择题",
+            "情景题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.7,
+            "medium": 0.3,
+            "hard": 0
+          }
+        }
+      ]
+    },
+    {
+      "chapter_name": "第二单元 动物与自然",
+      "knowledge_points": [
+        {
+          "id": "english-grade1-down-2-1",
+          "name": "常见动物",
+          "sub_topics": [
+            "家养动物",
+            "野生动物",
+            "昆虫"
+          ],
+          "typical_questions": [
+            "选择题",
+            "图片题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.8,
+            "medium": 0.2,
+            "hard": 0
+          }
+        },
+        {
+          "id": "english-grade1-down-2-2",
+          "name": "自然现象",
+          "sub_topics": [
+            "天气",
+            "季节",
+            "自然环境"
+          ],
+          "typical_questions": [
+            "选择题",
+            "描述题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.7,
+            "medium": 0.3,
+            "hard": 0
+          }
+        }
+      ]
+    },
+    {
+      "chapter_name": "第三单元 学校与学习",
+      "knowledge_points": [
+        {
+          "id": "english-grade1-down-3-1",
+          "name": "学习用品",
+          "sub_topics": [
+            "文具",
+            "书包",
+            "教室用品"
+          ],
+          "typical_questions": [
+            "选择题",
+            "分类题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.8,
+            "medium": 0.2,
+            "hard": 0
+          }
+        },
+        {
+          "id": "english-grade1-down-3-2",
+          "name": "教室表达",
+          "sub_topics": [
+            "教室指令",
+            "课堂用语",
+            "学校活动"
+          ],
+          "typical_questions": [
+            "选择题",
+            "听力题"
+          ],
+          "difficulty_weight": {
+            "easy": 0.7,
+            "medium": 0.3,
+            "hard": 0
+          }
+        }
+      ]
+    }
+  ]
+}
