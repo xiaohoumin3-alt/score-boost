@@ -59,9 +59,10 @@ describe('LLM共享模块去重验证', () => {
     expect(fs.existsSync(llmCorePath)).toBe(true);
   });
 
-  test('规范源 shared/llm-client.js 存在', () => {
-    const llmClientPath = path.join(SHARED_DIR, 'llm-client.js');
-    expect(fs.existsSync(llmClientPath)).toBe(true);
+  test('llm-core 导出 parseLlmResponse 和 validateQuestion', () => {
+    const llmCore = require(path.join(SHARED_DIR, 'llm-core'));
+    expect(llmCore.parseLlmResponse).toBeDefined();
+    expect(llmCore.validateQuestion).toBeDefined();
   });
 
   test('不存在云函数本地 shared/llm-core 副本', () => {
@@ -71,11 +72,9 @@ describe('LLM共享模块去重验证', () => {
     expect(normalizePaths(dirs)).toEqual([]);
   });
 
-  test('不存在云函数本地 shared/llm-client.js 副本', () => {
+  test('不存在云函数对 llm-client.js 的引用（已统一到 llm-core，除 uploadMaterial 定制版）', () => {
     const files = findFiles('llm-client.js', 'file')
-      .filter(p => path.relative(CF_DIR, p) !== 'shared/llm-client.js')
-      // 保留云函数根目录中的定制版本，例如 uploadMaterial/llm-client.js
-      .filter(p => path.basename(path.dirname(p)) === 'shared');
+      .filter(p => !p.includes('uploadMaterial/')); // 保留 uploadMaterial 定制版本
 
     expect(normalizePaths(files)).toEqual([]);
   });
@@ -88,11 +87,10 @@ describe('LLM共享模块去重验证', () => {
     expect(offenders).toEqual([]);
   });
 
-  test('保留的云函数 shared/*.js 不再引用本地 ./llm-core 或 ./llm-client', () => {
-    const offenders = linesMatching(/require\(['"]\.\/llm-/)
+  test('保留的云函数 shared/*.js 不再引用本地 ./llm-core', () => {
+    const offenders = linesMatching(/require\(['"]\.\/llm-core/)
       .filter(l => !l.startsWith('shared/'))
-      // 例外：uploadMaterial 使用根目录定制版本 llm-client.js
-      .filter(l => !l.startsWith('uploadMaterial/'));
+      .filter(l => !l.includes('__tests__/'));
 
     expect(offenders).toEqual([]);
   });

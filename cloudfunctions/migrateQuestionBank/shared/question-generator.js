@@ -7,7 +7,7 @@
 
 const { createLLMClient } = require('../../shared/llm-core');
 const { normalizeQuestion } = require('./question-normalizer');
-const { parseLlmResponse, validateQuestion } = require('../../shared/llm-client');
+const { parseLlmResponse, validateQuestion } = require('../../shared/llm-core');
 
 const SYSTEM_PROMPTS = {
   math: '你是一个专业的数学题目生成助手。请严格按照用户要求的JSON格式返回题目。',

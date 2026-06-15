@@ -143,8 +143,6 @@ class ScoreMapper {
    */
   getGradeLevel(score, fullScore) {
     const rate = score / fullScore;
-    // DEBUG: 打印等级计算
-    console.log(`[getGradeLevel] score=${score}, fullScore=${fullScore}, rate=${rate.toFixed(3)}`);
     if (rate >= 0.9) return { level: 'A', text: '优秀', color: '#00D9A5', emoji: '🏆' };
     if (rate >= 0.75) return { level: 'B', text: '良好', color: '#4CAF50', emoji: '👍' };
     if (rate >= 0.6) return { level: 'C', text: '及格', color: '#FFA94D', emoji: '✅' };

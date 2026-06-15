@@ -27,10 +27,8 @@ function loadKnowledgeTree(subject, grade, semester = '下') {
   const semesterKey = semesterMap[semester] || semester;
 
   try {
-    // 修复：直接使用__dirname（shared目录）而不是其父目录
-    const dataDir = __dirname;
-    // 尝试加载科目对应的数据文件
-    const dataFile = path.join(dataDir, 'data', `${dbSubject}-grade${grade}-${semesterKey}.json`);
+    // 数据文件位于 startAssessment/data/，需要从 shared/ 目录向上一级
+    const dataFile = path.join(__dirname, '..', 'data', `${dbSubject}-grade${grade}-${semesterKey}.json`);
 
     if (fs.existsSync(dataFile)) {
       const content = fs.readFileSync(dataFile, 'utf-8');
