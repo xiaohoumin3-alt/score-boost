@@ -93,8 +93,8 @@ function callCloudFunction(name, data, timeoutMs = 15000) {
         console.log(`[cloudApi] ${name} success - result:`, JSON.stringify(res.result));
         if (res.errMsg && res.errMsg.includes('ok')) {
           if (res.result && res.result.success === true) {
-            console.log(`[cloudApi] ${name} resolving with res.result.data:`, JSON.stringify(res.result.data));
-            resolve(res.result.data);
+            console.log(`[cloudApi] ${name} resolving with res.result:`, JSON.stringify(res.result));
+            resolve(res.result);
           } else if (res.result && res.result.error) {
             console.log(`[cloudApi] ${name} rejecting with error:`, res.result.error);
             reject(new Error(res.result.error));
