@@ -159,33 +159,36 @@ Page({
         null
       );
       console.log('[assessment] startAssessment 返回:', JSON.stringify(res));
-      console.log('[assessment] startAssessment res.status:', res?.status);
-      console.log('[assessment] startAssessment res.assessment_id:', res?.assessment_id);
-      console.log('[assessment] startAssessment res.questions length:', (res?.questions || []).length);
+      console.log('[assessment] startAssessment res.data.status:', res?.data?.status);
+      console.log('[assessment] startAssessment res.data.assessment_id:', res?.data?.assessment_id);
+      console.log('[assessment] startAssessment res.data.questions length:', (res?.data?.questions || []).length);
       console.log('[assessment] startAssessment res keys:', Object.keys(res || {}));
 
+      // 兼容新旧响应格式：数据可能在 res 或 res.data 中
+      const data = res.data || res;
+
       // 处理队列模式响应
-      if (res.status === 'queued') {
+      if (data.status === 'queued') {
         wx.hideLoading();
         // 保存queue_id并跳转到等待页面
-        wx.setStorageSync('currentQueueId', res.queue_id);
+        wx.setStorageSync('currentQueueId', data.queue_id);
         wx.redirectTo({
-          url: '/pages/waiting/waiting?queueId=' + res.queue_id
+          url: '/pages/waiting/waiting?queueId=' + data.queue_id
         });
         return;
       }
 
       // 处理ready响应（已有assessment_id）
-      if (res.status === 'ready' && res.assessment_id) {
-        await this.loadAssessment(res.assessment_id);
+      if (data.status === 'ready' && data.assessment_id) {
+        await this.loadAssessment(data.assessment_id);
         return;
       }
 
       // 兼容原有直接返回assessment_id的响应
       wx.hideLoading();
 
-      var assessmentId = res.assessment_id;
-      var questions = res.questions || [];
+      var assessmentId = data.assessment_id;
+      var questions = data.questions || [];
 
       console.log('[assessment] assessmentId:', assessmentId, '(type:', typeof assessmentId + ')');
       console.log('[assessment] questions:', questions, '(length:', questions.length + ')');

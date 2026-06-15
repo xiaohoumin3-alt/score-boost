@@ -238,14 +238,17 @@ Page({
       );
     }).then(function(res) {
       console.log('[Practice] startPractice response:', res);
-      console.log('[Practice] response status:', res?.status);
+      console.log('[Practice] response data.status:', res?.data?.status);
+
+      // 兼容新旧响应格式：数据可能在 res 或 res.data 中
+      const data = res.data || res;
 
       // 处理队列模式响应
-      if (res.status === 'queued') {
-        console.log('[Practice] Questions queued, queue_id:', res.queue_id);
+      if (data.status === 'queued') {
+        console.log('[Practice] Questions queued, queue_id:', data.queue_id);
         wx.hideLoading();
         // 跳转到等待页面
-        wx.setStorageSync('currentPracticeQueueId', res.queue_id);
+        wx.setStorageSync('currentPracticeQueueId', data.queue_id);
         wx.setStorageSync('pendingPracticeParams', {
           kpId: self.data.kpId,
           kpName: self.data.kpName,
@@ -253,20 +256,20 @@ Page({
           assessmentId: self.data.assessmentId
         });
         wx.redirectTo({
-          url: '/pages/waiting/waiting?queueId=' + res.queue_id + '&from=practice'
+          url: '/pages/waiting/waiting?queueId=' + data.queue_id + '&from=practice'
         });
         return;
       }
 
       // 处理ready响应（已有assessment_id）
-      if (res.status === 'ready' && res.assessment_id) {
+      if (data.status === 'ready' && data.assessment_id) {
         console.log('[Practice] Assessment ready, loading...');
-        self.loadGeneratedAssessment(res.assessment_id);
+        self.loadGeneratedAssessment(data.assessment_id);
         return;
       }
 
       // 兼容原有直接返回questions的响应
-      var questions = res.questions || [];
+      var questions = data.questions || [];
       console.log('[Practice] questions count:', questions.length);
       if (questions.length === 0) {
         wx.hideLoading();
