@@ -10,9 +10,12 @@ class IRTModel {
   constructor() {
     // 题目参数库：{item_id: {a, b, subject, grade, knowledge_point}}
     this.itemBank = {};
-    
+
     // 学生能力缓存
     this.abilityCache = {};
+
+    // 初始化标志
+    this.isInitialized = false;
   }
 
   /**
@@ -28,6 +31,7 @@ class IRTModel {
         knowledgePoint: item.knowledge_point,
       };
     }
+    this.isInitialized = true;
   }
 
   /**
@@ -56,6 +60,25 @@ class IRTModel {
   estimateAbility(responses) {
     if (responses.length === 0) {
       return { theta: 0, se: 1, confidence: 0 };
+    }
+
+    // 检查是否已初始化
+    if (!this.isInitialized) {
+      console.warn('[IRT] itemBank未初始化，回退到简单正确率计算。请调用 loadItemBank() 加载题目参数。');
+      const correctRate = responses.filter(r => r.correct).length / responses.length;
+      return {
+        theta: this.rateToTheta(correctRate),
+        se: 1,
+        confidence: 0.5,
+        questionCount: responses.length,
+        fallback: 'rate_based'
+      };
+    }
+
+    // 检查部分题目参数缺失
+    const missingItems = responses.filter(r => !this.itemBank[r.item_id]);
+    if (missingItems.length > 0) {
+      console.warn(`[IRT] 部分题目参数缺失: ${missingItems.length}/${responses.length} 使用默认值`);
     }
 
     // 动态初始值：基于正确率
